@@ -1,0 +1,7 @@
+    1: def get_hours(seconds):
+    1:     minutes = seconds // 60
+    1:     return minutes // 60
+       
+    1: clock = 10800
+    1: hours = get_hours(10800)
+    1: print(hours)
