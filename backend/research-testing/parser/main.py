@@ -19,18 +19,18 @@ def main():
 
     # print(f"2s: {twos}, 7s: {sevens}")
 
-def trace_function(frame, event, arg):
+def trace_execution(frame, event, arg):
     if event == 'line':
         lineno = frame.f_lineno
-        print(f'{lineno:2} : {linecache.getline(filename, lineno)[:-1]}')
+        line_contents = linecache.getline(filename, lineno)
+        print(f'{lineno:2} | {line_contents[:-1]}')
         lines.append(lineno)
-    return trace_function
+    return trace_execution
 
 def get_main_info():
     lines, starting_lineno = inspect.getsourcelines(main)
     print(starting_lineno)
+# get_main_info()
 
-get_main_info()
-
-# sys.settrace(trace_function)
-# main()
+sys.settrace(trace_execution)
+main()
