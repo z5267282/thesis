@@ -20,7 +20,7 @@ visitor.generic_visit(tree)
 
 for w in visitor.whiles:
     # print(ast.dump(w, indent=2))
-    lines, number = inspect.getsourcelines(w)
+    # lines, number = inspect.getsourcelines(w)
     print(type(w))
     # for l in linecache.getlines("normal.py")[number : number + len(lines)]:
     #     print(l[:-1])
