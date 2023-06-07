@@ -44,7 +44,5 @@ class ElseParseError(ElifParseError):
     """consider an else to be a type of elif for heirachy simplicity"""
     pass
 
-class 
-
 BodyBlockDescendant = Type[BodyBlock]
 OptionalBodyBlock = BodyBlock | Block
