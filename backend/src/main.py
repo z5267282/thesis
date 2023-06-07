@@ -49,11 +49,15 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
         
         top.add_same_level_block(nested_block)
         state.stack.push(nested_block) 
+
     # unindented block
     # an indented block has just ended
     elif leading_space < state.indent_level:
         top.end = line_no - 1
         state.stack.pop()
+        # if
+        # while
+        # normal
 
     # same level block
     else:
