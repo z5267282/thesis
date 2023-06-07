@@ -2,18 +2,16 @@ import inspect
 import linecache
 import sys
 from types import FrameType
+from typing import Any
 
 import helper
 from parser import init_state, State
 from program import program
 from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
-def main():
-    state : State = init_state()
-    sys.settrace(trace_execution, state)
-    program()
+state : State = init_state()
 
-def trace_execution(frame : FrameType, event : str, state : State):
+def trace_execution(frame : FrameType, event : str, arg : Any):
     # only consider normal lines for now
     if event != "line":
         return trace_execution
@@ -45,5 +43,5 @@ def trace_execution(frame : FrameType, event : str, state : State):
     print(f'{line_no:2} | {line_contents[:-1]}')
     return trace_execution
 
-if __name__ == '__main__':
-    main()
+sys.settrace(trace_execution)
+program()
