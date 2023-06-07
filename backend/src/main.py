@@ -3,12 +3,14 @@ import linecache
 import sys
 
 import helper
-from parse import State
+from parse import init_tree, Stack, State
 from program import program
+from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
-filename = inspect.getsourcefile(program)
-lines = []
-state = State()
+filename : str = inspect.getsourcefile(program)
+state : State = State()
+stack : Stack = Stack()
+root : BodyBlock = init_tree()
 
 def trace_execution(frame, event, arg):
     # only consider normal lines for now
@@ -18,27 +20,27 @@ def trace_execution(frame, event, arg):
     line_no = frame.f_lineno
     line_contents = linecache.getline(filename, line_no)
     leading_space = helper.num_leading_whitespace(line_contents)
+    line = helper.get_stripped_line(line_contents)
 
-    # first line
-
-    # lazy technique
-    # if all(attr is None for attr in [state.start, state.end]):
-    if state.start is None and state.end is None:
+    if state.is_first:
         state.start = line_no
         state.indent_level = leading_space
-    # end of a block
-    elif state.start is None:
-        
+        state.is_first = False
+    # elif 
 
+    # found indented block
+    if leading_space > state.indent_level:
+        if line.startswith("if"):
+            pass
+        
     # new block: how do you know the first time vs end of an existing block
     if state.indent_level is None:
         state.indent_level = leading_space
         state.start = line_no
 
     print(f'{line_no:2} | {line_contents[:-1]}')
-    lines.append(line_no)
-
     return trace_execution
 
+init_tree()
 sys.settrace(trace_execution)
 program()
