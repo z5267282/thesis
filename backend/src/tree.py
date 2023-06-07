@@ -16,12 +16,14 @@ class BodyBlock(Block):
 class WhileBlock(BodyBlock):
     pass
 
-class ElifBlock(BodyBlock):
-    pass
-
 class IfBlock(BodyBlock):
+    """the if block must lay out on the same nesting level:
+    any elifs, and an else"""
     def __init__(self, start: int):
         super().__init__(start)
-        self.elifs : List[IfBlock] = []
-        # must call it this because else is a reserved word
+        self.elifs : List[ElifBlock] = []
         self.else_ : None | BodyBlock = None
+
+class ElifBlock(BodyBlock):
+    """separate this so that the IfBlock tracks the entire branch structure"""
+    pass
