@@ -6,9 +6,11 @@ from program import program
 from tree import BodyBlock, BodyBlockDescendant, OptionalBodyBlock
 
 def parse():
+    state : State = init_state()
     lines, start = inspect.getsourcelines(program)
-    print(f"start: {start}")
-    print("".join(lines))
+
+    # print(f"start: {start}")
+    # print("".join(lines))
 
 class State:
     """a dataclass to store any necessary information during parsing

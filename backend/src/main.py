@@ -10,8 +10,6 @@ from parser import init_state, parse, State
 from program import program
 from tree import BodyBlock, BodyBlockDescendant, CodeBlock, ElifBlock, IfBlock, WhileBlock
 
-state : State = init_state()
-
 def trace_execution(frame : FrameType, event : str, arg : Any):
     # only consider normal lines for now
     if event != "line":
