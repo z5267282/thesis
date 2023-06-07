@@ -7,7 +7,7 @@ from typing import Any
 import helper
 from parser import init_state, State
 from program import program
-from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
+from tree import BodyBlock, BodyBlockDescendant, CodeBlock, ElifBlock, IfBlock, WhileBlock
 
 state : State = init_state()
 
@@ -20,7 +20,7 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
     line_contents = linecache.getline(state.filename, line_no)
     leading_space = helper.num_leading_whitespace(line_contents)
     line = helper.get_stripped_line(line_contents)
-    top : BodyBlock = state.stack.peek()
+    top : BodyBlockDescendant = state.stack.peek()
 
     if state.is_first:
         state.start = line_no
@@ -29,10 +29,15 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
     # elif 
 
     # found indented block
+    # the current BodyBlock should not have ended
     if leading_space > state.indent_level:
         # an indented if statement
         if line.startswith("if"):
-            if_block = IfBlock(line_no)
+            if_block : IfBlock = IfBlock(line_no)
+            top.add_same_level_block(if_block)
+            state.stack.push(if_block)
+
+            
             # top.add
         
     # new block: how do you know the first time vs end of an existing block
