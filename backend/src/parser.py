@@ -16,12 +16,21 @@ class Stack:
 
     def __init__(self):
         self.items = deque()
+    
+    def __len__(self):
+        return len(self.items)
 
     def push(self, item):
         self.items.append(item)
     
     def pop(self):
         return self.items.pop()
+    
+    def peek(self):
+        """method according to the documentation here:
+        https://docs.python.org/3/library/collections.html#collections.deque"""
+    
+        return self.items[-1]
 
 def init_tree():
     # for now assume program is only top level code

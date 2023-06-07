@@ -7,10 +7,13 @@ from parser import init_tree, Stack, State
 from program import program
 from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
+# initialising globals
 filename : str = inspect.getsourcefile(program)
-state : State = State()
-stack : Stack = Stack()
-root : BodyBlock = init_tree()
+state    : State = State()
+root     : BodyBlock = init_tree()
+stack    : Stack = Stack()
+
+stack.push(root)
 
 def trace_execution(frame, event, arg):
     # only consider normal lines for now
@@ -30,8 +33,9 @@ def trace_execution(frame, event, arg):
 
     # found indented block
     if leading_space > state.indent_level:
+        # an indented if statement
         if line.startswith("if"):
-            pass
+
         
     # new block: how do you know the first time vs end of an existing block
     if state.indent_level is None:
