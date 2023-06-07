@@ -3,7 +3,7 @@ import linecache
 import sys
 
 import helper
-from parse import init_tree, Stack, State
+from parser import init_tree, Stack, State
 from program import program
 from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
