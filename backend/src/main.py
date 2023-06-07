@@ -3,17 +3,11 @@ import linecache
 import sys
 
 import helper
+from parse import State
 from program import program
 
 filename = inspect.getsourcefile(program)
 lines = []
-
-class State:
-    def __init__(self):
-        self.indent_level = None
-        self.start = None
-        self.end = None
-
 state = State()
 
 def trace_execution(frame, event, arg):
@@ -47,5 +41,4 @@ def trace_execution(frame, event, arg):
     return trace_execution
 
 sys.settrace(trace_execution)
-
 program()

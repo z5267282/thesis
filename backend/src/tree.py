@@ -1,4 +1,4 @@
-import typing
+from typing import List
 
 class Block():
     def __init__(self, start : int):
@@ -11,7 +11,7 @@ class CodeBlock(Block):
 class BodyBlock(Block):
     def __init__(self, start: int):
         super().__init__(start)
-        self.body : typing.List[Block] = []
+        self.body : List[Block] = []
 
 class WhileBlock(BodyBlock):
     pass
@@ -19,6 +19,6 @@ class WhileBlock(BodyBlock):
 class IfBlock(BodyBlock):
     def __init__(self, start: int):
         super().__init__(start)
-        self.elifs : typing.List[IfBlock] = []
+        self.elifs : List[IfBlock] = []
         # must call it this because else is a reserved word
         self.else_ : None | BodyBlock = None
