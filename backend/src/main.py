@@ -2,26 +2,27 @@ import inspect
 import linecache
 import sys
 from types import FrameType
-from typing import Any
 
 import helper
-from parser import init_tree, Stack, State
+from parser import init_state, State
 from program import program
 from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
-def trace_execution(frame : FrameType, event : str, arg : Any):
-    for i in [frame, event, arg]:
-        print(type(i))
+def main():
+    state : State = init_state()
+    sys.settrace(trace_execution, state)
+    program()
 
+def trace_execution(frame : FrameType, event : str, state : State):
     # only consider normal lines for now
     if event != "line":
         return trace_execution
     
     line_no = frame.f_lineno
-    line_contents = linecache.getline(filename, line_no)
+    line_contents = linecache.getline(state.filename, line_no)
     leading_space = helper.num_leading_whitespace(line_contents)
     line = helper.get_stripped_line(line_contents)
-    top : BodyBlock = stack.peek()
+    top : BodyBlock = state.stack.peek()
 
     if state.is_first:
         state.start = line_no
@@ -44,6 +45,5 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
     print(f'{line_no:2} | {line_contents[:-1]}')
     return trace_execution
 
-init_tree()
-sys.settrace(trace_execution)
-program()
+if __name__ == '__main__':
+    main()
