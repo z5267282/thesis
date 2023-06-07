@@ -9,7 +9,6 @@ class State:
     """a dataclass to store any necessary information during parsing
     used as the function to sys.settrace can only take in one helper argument"""
     def __init__(self, root : BodyBlock):
-        self.is_first     : bool = True
         self.indent_level : int = None
         self.start        : int = None
         self.end          : int = None
