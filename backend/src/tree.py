@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Type, Union
 
 class Block():
     def __init__(self, start : int):
@@ -31,3 +31,7 @@ class IfBlock(BodyBlock):
 class ElifBlock(BodyBlock):
     """separate this so that the IfBlock tracks the entire branch structure"""
     pass
+
+
+BodyBlockDescendant = Type[BodyBlock]
+OptionalBodyBlock = BodyBlock | Block

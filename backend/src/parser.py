@@ -1,8 +1,9 @@
 from collections import deque
 import inspect
+from typing import Deque, Type
 
 from program import program
-from tree import BodyBlock
+from tree import BodyBlock, BodyBlockDescendant, OptionalBodyBlock
 
 class State:
     """a dataclass to store any necessary information during parsing"""
@@ -14,17 +15,18 @@ class State:
         self.filename     : str = inspect.getsourcefile(program)
         # the root must be a BodyBlock, because you don't know how to add nested blocks
         self.root         : BodyBlock = init_tree()
-        self.stack        : Stack = Stack()
+        self.stack        : Stack = Stack(self.root)
 
 class Stack:
     """a simple wrapper around deque"""
-    def __init__(self):
-        self.items = deque()
+    def __init__(self, root):
+        self.items : Deque[BodyBlockDescendant] = deque()
+        self.push(root)
     
     def __len__(self):
         return len(self.items)
 
-    def push(self, item):
+    def push(self, item : OptionalBodyBlock):
         self.items.append(item)
     
     def pop(self):
@@ -33,7 +35,6 @@ class Stack:
     def peek(self):
         """method according to the documentation here:
         https://docs.python.org/3/library/collections.html#collections.deque"""
-    
         return self.items[-1]
 
 def init_tree():

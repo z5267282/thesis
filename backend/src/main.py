@@ -9,15 +9,6 @@ from parser import init_tree, Stack, State
 from program import program
 from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 
-# initialising globals
-filename : str = inspect.getsourcefile(program)
-state    : State = State()
-# the root must be a BodyBlock, because you don't know how to add nested blocks
-root     : BodyBlock = init_tree()
-stack    : Stack = Stack()
-
-stack.push(root)
-
 def trace_execution(frame : FrameType, event : str, arg : Any):
     for i in [frame, event, arg]:
         print(type(i))
