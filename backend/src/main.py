@@ -1,6 +1,8 @@
 import inspect
 import linecache
 import sys
+from types import FrameType
+from typing import Any
 
 import helper
 from parser import init_tree, Stack, State
@@ -16,7 +18,10 @@ stack    : Stack = Stack()
 
 stack.push(root)
 
-def trace_execution(frame, event, arg):
+def trace_execution(frame : FrameType, event : str, arg : Any):
+    for i in [frame, event, arg]:
+        print(type(i))
+
     # only consider normal lines for now
     if event != "line":
         return trace_execution
@@ -25,7 +30,7 @@ def trace_execution(frame, event, arg):
     line_contents = linecache.getline(filename, line_no)
     leading_space = helper.num_leading_whitespace(line_contents)
     line = helper.get_stripped_line(line_contents)
-    top = stack.peek()
+    top : BodyBlock = stack.peek()
 
     if state.is_first:
         state.start = line_no
@@ -37,7 +42,8 @@ def trace_execution(frame, event, arg):
     if leading_space > state.indent_level:
         # an indented if statement
         if line.startswith("if"):
-            
+            if_block = IfBlock(line_no)
+            # top.add
         
     # new block: how do you know the first time vs end of an existing block
     if state.indent_level is None:

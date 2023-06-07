@@ -5,15 +5,19 @@ from program import program
 from tree import BodyBlock
 
 class State:
+    """a dataclass to store any necessary information during parsing"""
     def __init__(self):
         self.is_first     : bool = True
         self.indent_level : int = None
         self.start        : int = None
         self.end          : int = None
+        self.filename     : str = inspect.getsourcefile(program)
+        # the root must be a BodyBlock, because you don't know how to add nested blocks
+        self.root         : BodyBlock = init_tree()
+        self.stack        : Stack = Stack()
 
 class Stack:
     """a simple wrapper around deque"""
-
     def __init__(self):
         self.items = deque()
     
