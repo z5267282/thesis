@@ -6,7 +6,7 @@ from typing import Any
 
 from errors import UnsupportedIndentationError
 import helper
-from parser import init_state, State
+from parser import init_state, parse, State
 from program import program
 from tree import BodyBlock, BodyBlockDescendant, CodeBlock, ElifBlock, IfBlock, WhileBlock
 
@@ -71,5 +71,7 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
     print(f'{line_no:2} | {line_contents[:-1]}')
     return trace_execution
 
-sys.settrace(trace_execution)
-program()
+# sys.settrace(trace_execution)
+# program()
+
+parse()

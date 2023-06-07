@@ -5,6 +5,11 @@ from typing import Deque, Type
 from program import program
 from tree import BodyBlock, BodyBlockDescendant, OptionalBodyBlock
 
+def parse():
+    lines, start = inspect.getsourcelines(program)
+    print(f"start: {start}")
+    print("".join(lines))
+
 class State:
     """a dataclass to store any necessary information during parsing
     used as the function to sys.settrace can only take in one helper argument"""
