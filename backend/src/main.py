@@ -37,8 +37,7 @@ def trace_execution(frame : FrameType, event : str, arg : Any):
             top.add_same_level_block(if_block)
             state.stack.push(if_block)
 
-            
-            # top.add
+
         
     # new block: how do you know the first time vs end of an existing block
     if state.indent_level is None:

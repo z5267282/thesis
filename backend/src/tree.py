@@ -36,13 +36,5 @@ class ElifBlock(BodyBlock):
     """separate this so that the IfBlock tracks the entire branch structure"""
     pass
 
-class ElifParseError(Exception):
-    """when an elif block is parsed without a same level if first"""
-    pass
-
-class ElseParseError(ElifParseError):
-    """consider an else to be a type of elif for heirachy simplicity"""
-    pass
-
 BodyBlockDescendant = Type[BodyBlock]
 OptionalBodyBlock = BodyBlock | Block
