@@ -11,9 +11,12 @@ class CodeBlock(Block):
 class BodyBlock(Block):
     def __init__(self, start: int):
         super().__init__(start)
-        self.body : List[Block] = []
-
+        self.body : List[BodyBlock | Block] = []
+    
 class WhileBlock(BodyBlock):
+    pass
+
+class ElifBlock(BodyBlock):
     pass
 
 class IfBlock(BodyBlock):

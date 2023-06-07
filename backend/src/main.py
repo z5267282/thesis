@@ -10,6 +10,7 @@ from tree import BodyBlock, CodeBlock, WhileBlock, IfBlock
 # initialising globals
 filename : str = inspect.getsourcefile(program)
 state    : State = State()
+# the root must be a BodyBlock, because you don't know how to add nested blocks
 root     : BodyBlock = init_tree()
 stack    : Stack = Stack()
 
@@ -24,6 +25,7 @@ def trace_execution(frame, event, arg):
     line_contents = linecache.getline(filename, line_no)
     leading_space = helper.num_leading_whitespace(line_contents)
     line = helper.get_stripped_line(line_contents)
+    top = stack.peek()
 
     if state.is_first:
         state.start = line_no
@@ -35,7 +37,7 @@ def trace_execution(frame, event, arg):
     if leading_space > state.indent_level:
         # an indented if statement
         if line.startswith("if"):
-
+            
         
     # new block: how do you know the first time vs end of an existing block
     if state.indent_level is None:
