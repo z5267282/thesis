@@ -12,7 +12,6 @@ class CodeBlock(Block):
 ForwardReferenceOptionalBody = Union['BodyBlock', Block]
 
 class BodyBlock(Block):
-
     def __init__(self, start: int):
         super().__init__(start)
         self.body : List[ForwardReferenceOptionalBody] = []
@@ -30,10 +29,14 @@ class IfBlock(BodyBlock):
     def __init__(self, start: int):
         super().__init__(start)
         self.elifs : List[ElifBlock] = []
-        self.else_ : None | BodyBlock = None
+        self.else_ : None | ElseBlock = None
 
 class ElifBlock(BodyBlock):
     """separate this so that the IfBlock tracks the entire branch structure"""
+    pass
+
+class ElseBlock(BodyBlock):
+    """made a class to differentiate from BodyBlock"""
     pass
 
 BodyBlockDescendant = Type[BodyBlock]

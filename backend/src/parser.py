@@ -2,15 +2,19 @@ from collections import deque
 import inspect
 from typing import Deque, Type
 
+from errors import UnsupportedIndentationError
 import helper
 from program import program
-from tree import BodyBlock, BodyBlockDescendant, OptionalBodyBlock
+from tree import \
+    CodeBlock, BodyBlock, BodyBlockDescendant, OptionalBodyBlock, \
+    IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse():
-    root : BodyBlock = init_root()
-    state : State = State(root)
     lines, start = inspect.getsourcelines(program)
-
+    # assume the first line is the function definition
+    start += 1
+    root : BodyBlock = BodyBlock(start)
+    state : State = State(root)
     for line_no, line_contents in enumerate(lines, start=start):
         # print(f"{line_no}: {line}", end="")
 
@@ -24,7 +28,7 @@ def parse():
             continue
 
         leading_space : int = helper.num_leading_whitespace(line_contents)
-        top : BodyBlockDescendant = state.stack.peek()
+        top           : BodyBlockDescendant = state.stack.peek()
 
         # use indent_level to track whether the first line has been entered
         if state.indent_level is None:
@@ -50,9 +54,17 @@ def parse():
         elif leading_space < state.indent_level:
             top.end = line_no - 1
             state.stack.pop()
-            # if
-            # while
-            # normal
+
+            Conditional = IfBlock | ElifBlock | E
+            unnested_block : IfBlock | WhileBlock | CodeBlock | Elif= CodeBlock(line_no)
+            if line.startswith("if"):
+                unnested_block = IfBlock(line_no)
+            elif line.startswith("while"):
+                unnested_block = WhileBlock(line_no)
+
+            top : BodyBlockDescendant = state.stack.peek()
+            top.add_same_level_block(unnested_block)
+            state.stack.push(unnested_block) 
 
         # same level block
         else:

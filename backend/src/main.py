@@ -4,7 +4,6 @@ import sys
 from types import FrameType
 from typing import Any
 
-from errors import UnsupportedIndentationError
 import helper
 from parser import init_state, parse, State
 from program import program
