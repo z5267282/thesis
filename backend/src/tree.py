@@ -10,7 +10,6 @@ class CodeBlock(Block):
 
 # putting this here because it apparently can't be a class variable
 ForwardReferenceOptionalBody = Union['BodyBlock', Block]
-
 class BodyBlock(Block):
     def __init__(self, start: int):
         super().__init__(start)
@@ -39,5 +38,7 @@ class ElseBlock(BodyBlock):
     """made a class to differentiate from BodyBlock"""
     pass
 
+# type aliases
 BodyBlockDescendant = Type[BodyBlock]
-OptionalBodyBlock = BodyBlock | Block
+OptionalBodyBlock   = BodyBlock | Block
+ConditionalBlock    = IfBlock | ElifBlock | ElseBlock

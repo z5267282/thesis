@@ -7,7 +7,7 @@ import helper
 from program import program
 from tree import \
     CodeBlock, BodyBlock, BodyBlockDescendant, OptionalBodyBlock, \
-    IfBlock, ElseBlock, ElifBlock, WhileBlock
+    IfBlock, ElseBlock, ElifBlock, ConditionalBlock, WhileBlock
 
 def parse():
     lines, start = inspect.getsourcelines(program)
@@ -55,8 +55,7 @@ def parse():
             top.end = line_no - 1
             state.stack.pop()
 
-            Conditional = IfBlock | ElifBlock | E
-            unnested_block : IfBlock | WhileBlock | CodeBlock | Elif= CodeBlock(line_no)
+            unnested_block : ConditionalBlock | WhileBlock | CodeBlock = CodeBlock(line_no)
             if line.startswith("if"):
                 unnested_block = IfBlock(line_no)
             elif line.startswith("while"):
