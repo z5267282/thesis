@@ -16,13 +16,18 @@ def parse():
     root : BodyBlock = BodyBlock(start)
     state : State = State(root)
     for line_no, line_contents in enumerate(lines, start=start):
+        line : str = helper.get_stripped_line(line_contents)
+        # use indent_level to track whether the first line has been entered
+        if state.indent_level is None:
+            state.indent_level = leading_space
+            first_block = parse_line(line, line_no)
+
         # print(f"{line_no}: {line}", end="")
 
         # ignore blank lines
         if all(l.isspace() for l in line_contents):
             continue
 
-        line : str = helper.get_stripped_line(line_contents)
         # ignore comments
         if line.startswith("#"):
             continue
@@ -30,9 +35,6 @@ def parse():
         leading_space : int = helper.num_leading_whitespace(line_contents)
         top           : BodyBlockDescendant = state.stack.peek()
 
-        # use indent_level to track whether the first line has been entered
-        if state.indent_level is None:
-            state.indent_level = leading_space
 
         # found indented block
         # the current BodyBlock should not have ended
@@ -74,6 +76,14 @@ def parse():
             state.indent_level = leading_space
             state.start = line_no
 
+def parse_line(line : str, line_no : int):
+    if line.startswith("if"):
+        return IfBlock(line_no)
+    elif line.startswith("while"):
+        return WhileBlock(line_no)
+
+    return CodeBlock(line_no)
+
 class State:
     """a dataclass to store any necessary information during parsing
     used as the function to sys.settrace can only take in one helper argument"""
@@ -83,7 +93,6 @@ class State:
         self.end          : int = None
         self.filename     : str = inspect.getsourcefile(program)
         # the root must be a BodyBlock, because you don't know how to add nested blocks
-        self.root         : BodyBlock = root
         self.stack        : Stack = Stack(root)
 
 class Stack:
