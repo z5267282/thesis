@@ -1,86 +1,83 @@
 from collections import deque
 import inspect
-from typing import Deque, Type
+from typing import Callable, Deque, Type
 
-from errors import UnsupportedIndentationError
 import helper
-from program import program
 from tree import \
     CodeBlock, BodyBlock, BodyBlockDescendant, OptionalBodyBlock, \
     IfBlock, ElseBlock, ElifBlock, ConditionalBlock, WhileBlock
 
-def parse():
+def parse(program : Callable):
     lines, start = inspect.getsourcelines(program)
     # assume the first line is the function definition
     start += 1
-    root : BodyBlock = BodyBlock(start)
+    root  : BodyBlock = BodyBlock(start)
     state : State = State(root)
     for line_no, line_contents in enumerate(lines, start=start):
-        line : str = helper.get_stripped_line(line_contents)
+        line          : str = helper.get_stripped_line(line_contents)
+        leading_space : int = helper.num_leading_whitespace(line_contents)
+        top           : BodyBlockDescendant = state.stack.peek()
         # use indent_level to track whether the first line has been entered
         if state.indent_level is None:
             state.indent_level = leading_space
             first_block = parse_line(line, line_no)
-
-        # print(f"{line_no}: {line}", end="")
-
-        # ignore blank lines
-        if all(l.isspace() for l in line_contents):
-            continue
-
-        # ignore comments
-        if line.startswith("#"):
-            continue
-
-        leading_space : int = helper.num_leading_whitespace(line_contents)
-        top           : BodyBlockDescendant = state.stack.peek()
-
-
+            top.add_same_level_block(first_block)
+            if isinstance(first_block, CodeBlock):
+                # assign the end through the state
+                state.stack.code_block = first_block
+            else:
+                state.stack.push(first_block)
         # found indented block
         # the current BodyBlock should not have ended
         if leading_space > state.indent_level:
-            nested_block : IfBlock | WhileBlock | None = None
-            if line.startswith("if"):
-                nested_block = IfBlock(line_no)
-            elif line.startswith("while"):
-                nested_block = WhileBlock(line_no)
-        
-            if nested_block is None:
-                raise UnsupportedIndentationError
-        
-            top.add_same_level_block(nested_block)
-            state.stack.push(nested_block) 
-
+            nested_block = parse_line(line, line_no)
+            if isinstance(nested_block, CodeBlock):
+                state.code_block = nested_block 
+            else:
+                top.add_same_level_block(nested_block)
+                state.stack.push(nested_block) 
         # unindented block
         # an indented block has just ended
         elif leading_space < state.indent_level:
-            top.end = line_no - 1
+            prev : int = line_no - 1
+            if state.code_block is not None:
+                state.code_block.end = prev
+                top.add_same_level_block(state.code_block)
+                state.code_block = None
+            top.end = prev
             state.stack.pop()
-
-            unnested_block : ConditionalBlock | WhileBlock | CodeBlock = CodeBlock(line_no)
-            if line.startswith("if"):
-                unnested_block = IfBlock(line_no)
-            elif line.startswith("while"):
-                unnested_block = WhileBlock(line_no)
-
-            top : BodyBlockDescendant = state.stack.peek()
-            top.add_same_level_block(unnested_block)
-            state.stack.push(unnested_block) 
-
+            unnested_block = parse_line(line, line_no)
+            top = state.stack.peek()
+            if isinstance(nested_block, CodeBlock):
+                state.code_block = nested_block 
+            else:
+                top.add_same_level_block(unnested_block)
+                state.stack.push(unnested_block) 
         # same level block
         else:
-            pass
-        
-        # new block: how do you know the first time vs end of an existing block
-        if state.indent_level is None:
-            state.indent_level = leading_space
-            state.start = line_no
+            # code block
+            next_block = parse_line(line, line_no)
+            if not isinstance(next_block, CodeBlock):
+                prev : int = line_no - 1
+                if state.code_block is not None:
+                    state.code_block.end = prev
+                    top.add_same_level_block(state.code_block)
+                    state.code_block = None
+                else:
+                    # TODO
+                    pass
+
+            # or nested block
+        state.indent_level = leading_space
+    # TODO: last line
 
 def parse_line(line : str, line_no : int):
     if line.startswith("if"):
         return IfBlock(line_no)
-    elif line.startswith("while"):
+    if line.startswith("while"):
         return WhileBlock(line_no)
+    if line.startswith("elif"):
+        return ElifBlock(line_no)
 
     return CodeBlock(line_no)
 
@@ -89,10 +86,9 @@ class State:
     used as the function to sys.settrace can only take in one helper argument"""
     def __init__(self, root : BodyBlock):
         self.indent_level : int = None
-        self.start        : int = None
-        self.end          : int = None
-        self.filename     : str = inspect.getsourcefile(program)
-        # the root must be a BodyBlock, because you don't know how to add nested blocks
+        # the current code block if any
+        # these should never be on the stack
+        self.code_block   : CodeBlock = None
         self.stack        : Stack = Stack(root)
 
 class Stack:
@@ -115,11 +111,9 @@ class Stack:
         https://docs.python.org/3/library/collections.html#collections.deque"""
         return self.items[-1]
 
-def init_root():
+def init_root(program : Callable):
     # for now assume program is only top level code
     lines, start = inspect.getsourcelines(program)
     root = BodyBlock(start + 1)
     root.end = len(lines)
     return root
-
-parse()

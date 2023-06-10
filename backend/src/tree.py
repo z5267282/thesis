@@ -9,7 +9,7 @@ class CodeBlock(Block):
     pass
 
 # putting this here because it apparently can't be a class variable
-ForwardReferenceOptionalBody = Union['BodyBlock', Block]
+ForwardReferenceOptionalBody = Union['BodyBlock', CodeBlock]
 class BodyBlock(Block):
     def __init__(self, start: int):
         super().__init__(start)
