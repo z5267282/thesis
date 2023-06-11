@@ -2,8 +2,20 @@ from typing import List, Type, Union
 
 class Block():
     def __init__(self, start : int):
-        self.start : int = start
-        self.end   : int = None
+        self.start    : int = start
+        self.end      : int = None
+        self.printing : int = 4
+        self.level    : int = 0
+    
+    def __str__(self):
+        return """{}{}(start={}, end={}{}""".format(
+            self.level * self.printing * " ", self.__class__.__name__,
+            self.start, self.end,
+            self.display_rest()
+        )
+    
+    def display_rest(self):
+        return ")"
 
 class CodeBlock(Block):
     pass
@@ -18,6 +30,11 @@ class BodyBlock(Block):
     # pipe syntax does not work for forward references so use Union
     def add_same_level_block(self, block : ForwardReferenceOptionalBody):
         self.body.append(block)
+    
+    def display_rest(self):
+        result : str = ""
+
+
     
 class WhileBlock(BodyBlock):
     pass
