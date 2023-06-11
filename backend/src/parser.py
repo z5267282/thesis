@@ -104,9 +104,9 @@ def parse(program : Callable):
         top.code_block.end = last
         top.code_block = None
     while not stack.empty():
+        top = stack.peek() 
         top.end = last
         stack.pop()
-        top = stack.peek() 
     return root
 
 def parse_line(line : str, line_no : int, indent_level : int):
