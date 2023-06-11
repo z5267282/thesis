@@ -2,7 +2,7 @@ from collections import deque
 import inspect
 from typing import Callable, Deque, Type
 
-from errors import ElseParseError, ElifParseError
+from errors import ElseParseError, ElifParseError, NoEnclosingIfError
 import helper
 from tree import \
     Block, CodeBlock, BodyBlock, OptionalBodyBlock, \
@@ -38,7 +38,7 @@ def parse(program : Callable):
             root.add_same_level_block(first_block)
             continue
 
-        top  : Type[BodyBlock] = stack.peek()
+        top : Type[BodyBlock] = stack.peek()
         if indent_level == prev_indent:
             level_block : Type[Block] = parse_line(line, line_no, indent_level)
             if isinstance(level_block, CodeBlock):
@@ -84,13 +84,30 @@ def parse(program : Callable):
             unnested_block = parse_line(line, line_no, indent_level)
             if isinstance(unnested_block, CodeBlock):
                 top.code_block = unnested_block 
-            if isinstance(unnested_block, ElifBlock):
-                # if 
-                pass
+            else:
+                if isinstance(unnested_block, ElifBlock):
+                    if not isinstance(top, IfBlock):
+                        raise NoEnclosingIfError(True)
+                    top.elifs.append(unnested_block)
+                if isinstance(unnested_block, ElseBlock):
+                    if not isinstance(top, IfBlock):
+                        raise NoEnclosingIfError(False)
+                    top.else_ = unnested_block
+                stack.push(unnested_block)
             top.add_same_level_block(unnested_block)
-
         prev_indent = indent_level
-    # TODO: last line
+    
+    # last line
+    last : int = start + len(lines) - 1
+    top  : Type[BodyBlock] = stack.peek()
+    if top.code_block is not None:
+        top.code_block.end = last
+        top.code_block = None
+    while not stack.empty():
+        top.end = last
+        stack.pop()
+        top = stack.peek() 
+    return root
 
 def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("if"):
@@ -111,14 +128,17 @@ class Stack:
     
     def __len__(self):
         return len(self.items)
-
-    def push(self, item : OptionalBodyBlock):
-        self.items.append(item)
     
-    def pop(self):
-        return self.items.pop()
+    def empty(self):
+        return len(self) == 0
     
     def peek(self):
         """method according to the documentation here:
         https://docs.python.org/3/library/collections.html#collections.deque"""
         return self.items[-1]
+
+    def pop(self):
+        return self.items.pop()
+    
+    def push(self, item : OptionalBodyBlock):
+        self.items.append(item)
