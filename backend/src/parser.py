@@ -13,7 +13,6 @@ def parse(program : Callable):
     OFFSET = 1
 
     lines, start = inspect.getsourcelines(program)
-    print(''.join(lines))
     start += OFFSET
     root        : BodyBlock = None
     stack       : Stack = None
@@ -80,6 +79,7 @@ def parse(program : Callable):
                 top.code_block.end = prev
                 top.code_block = None
             # pop off stack until same level block is found
+            root.pretty_print()
             while top.indent_level != indent_level:
                 top.end = prev
                 stack.pop()
