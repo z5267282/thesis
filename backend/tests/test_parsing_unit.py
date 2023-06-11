@@ -1,10 +1,10 @@
-from src.tree import BodyBlock, CodeBlock
+from src.tree import BodyBlock, CodeBlock, IfBlock
 
 def test_code_block():
     c = CodeBlock(1)
     c.end = 10
     assert c.to_dict() == {
-        "CodeBlock" : {"start" : 1,"end" : 10}
+        "CodeBlock" : {"start" : 1, "end" : 10}
     }
 
 def test_body_block():
@@ -21,11 +21,17 @@ def test_body_block():
 
     assert b.to_dict() == {
         "BodyBlock": {"start": 1, "end"  : 10, "body" : [
-                {"CodeBlock": {"start": 1, "end": 4}},
-                {"CodeBlock": {"start": 5, "end": 10}}
+                {"CodeBlock": {"start" : 1, "end" : 4}},
+                {"CodeBlock": {"start" : 5, "end" : 10}}
             ]
         }
     }
 
-def test_if_block():
-    
+def test_if_block_lone():
+    i = IfBlock(1)
+    i.end = 20
+    assert i.to_dict() == {
+        "IfBlock": {"start" : 1, "end" : 20, "body" : [],
+                    "elifs": [], "else": None
+        }
+    }

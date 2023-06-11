@@ -43,6 +43,13 @@ class IfBlock(BodyBlock):
         self.elifs : List[ElifBlock] = []
         self.else_ : None | ElseBlock = None
 
+    def to_dict(self):
+        parent = super().to_dict()
+        parent[self.__class__.__name__]["elifs"] = [el.to_dict() for el in self.elifs]
+        parent[self.__class__.__name__]["else"] = \
+            None if self.else_ is None else self.else_.to_dict()
+        return parent
+
 class ElifBlock(BodyBlock):
     """separate this so that the IfBlock tracks the entire branch structure"""
     pass
