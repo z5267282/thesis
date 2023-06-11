@@ -24,7 +24,9 @@ class BodyBlock(Block):
     def __init__(self, start: int, indent_level : int):
         super().__init__(start)
         self.body         : List[ForwardReferenceOptionalBody] = []
-        self.indent_level : int = indent_level
+        # for storing the most recent code block
+        self.code_block   : CodeBlock | None                   = None
+        self.indent_level : int                                = indent_level
     
     def add_same_level_block(self, block : ForwardReferenceOptionalBody):
         self.body.append(block)

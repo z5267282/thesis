@@ -2,7 +2,7 @@ from collections import deque
 import inspect
 from typing import Callable, Deque, Type
 
-from errors import ElifParseError, ElseParseError
+from errors import ElseParseError, ElifParseError
 import helper
 from tree import \
     CodeBlock, BodyBlock, BodyBlockDescendant, OptionalBodyBlock, \
@@ -23,6 +23,10 @@ def parse(program : Callable):
             state.indent_level = leading_space
             first_block = parse_line(line, line_no)
             top.add_same_level_block(first_block)
+            if isinstance(first_block, ElifBlock):
+                raise ElifParseError
+            if isinstance(first_block, ElseBlock):
+                raise ElseParseError
             if isinstance(first_block, CodeBlock):
                 # assign the end through the state
                 state.stack.code_block = first_block
@@ -72,15 +76,15 @@ def parse(program : Callable):
         state.indent_level = leading_space
     # TODO: last line
 
-def parse_first_line(line : str, line_no : int, indent_level : int):
-    if line.startswith("elif"):
-        raise ElifParseError
-    if line.startswith("else"):
-        raise ElseParseError
+def parse_line(line : str, line_no : int):
     if line.startswith("if"):
-        return IfBlock(line_no, indent_level)
+        return IfBlock(line_no)
     if line.startswith("while"):
-        return WhileBlock(line_no, indent_level)
+        return WhileBlock(line_no)
+    if line.startswith("elif"):
+        return ElifBlock(line_no)
+    if line.startswith("else"):
+        return ElseBlock(line_no)
     return CodeBlock(line_no)
 
 class State:
@@ -90,7 +94,6 @@ class State:
         self.indent_level : int = None
         # the current code block if any
         # these should never be on the stack
-        self.code_block   : CodeBlock = None
         self.stack        : Stack = Stack(root)
 
 class Stack:
