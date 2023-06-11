@@ -13,7 +13,7 @@ class Block():
                 "end"   : self.end
             }
         }
-    
+
     def pretty_print(self):
         """a pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
