@@ -16,10 +16,11 @@ def test_body_block():
     c2.end = 10
     b.add_same_level_block(c2)
 
-    exp = """BodyBlock(start=1, end=10, body=[
+    exp = \
+"""BodyBlock(start=1, end=10, body=[
         CodeBlock(start=1, end=4),
         CodeBlock(start=5, end=10)
     ]
-)
-"""
+)"""
+    print(b)
     assert(str(b) == exp)

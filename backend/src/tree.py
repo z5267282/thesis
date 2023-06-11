@@ -9,10 +9,13 @@ class Block():
     
     def __str__(self):
         return """{}{}(start={}, end={}{}""".format(
-            self.level * self.printing * " ", self.__class__.__name__,
+            self.display_leading_spaces(self.level), self.__class__.__name__,
             self.start, self.end,
             self.display_rest()
         )
+    
+    def display_leading_spaces(self, level):
+        return level * self.printing * " "
     
     def display_rest(self):
         return ")"
@@ -34,11 +37,12 @@ class BodyBlock(Block):
     def display_rest(self):
         bodies : List[str] = []
         for b in self.body:
-            b.level += 1
+            b.level += 2
             bodies.append(str(b))
         return """, body=[
 {}
-]""".join("\n".join(bodies))
+{}]
+)""".format(",\n".join(bodies), self.display_leading_spaces(self.level + 1))
 
 class WhileBlock(BodyBlock):
     pass
