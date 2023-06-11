@@ -18,11 +18,13 @@ class CodeBlock(Block):
 
 # putting this here because it apparently can't be a class variable
 # pipe syntax does not work for forward references so use Union
-ForwardReferenceOptionalBody = Union['BodyBlock', CodeBlock]
+ForwardReferenceOptionalBody = Union[Type['BodyBlock'], CodeBlock]
 class BodyBlock(Block):
-    def __init__(self, start: int):
+    """for storing a succession of blocks on the same indetation level"""
+    def __init__(self, start: int, indent_level : int):
         super().__init__(start)
-        self.body : List[ForwardReferenceOptionalBody] = []
+        self.body         : List[ForwardReferenceOptionalBody] = []
+        self.indent_level : int = indent_level
     
     def add_same_level_block(self, block : ForwardReferenceOptionalBody):
         self.body.append(block)
@@ -38,8 +40,8 @@ class WhileBlock(BodyBlock):
 class IfBlock(BodyBlock):
     """the if block must lay out on the same nesting level:
     any elifs, and an else"""
-    def __init__(self, start: int):
-        super().__init__(start)
+    def __init__(self, start: int, indent_level : int):
+        super().__init__(start, indent_level)
         self.elifs : List[ElifBlock] = []
         self.else_ : None | ElseBlock = None
 
