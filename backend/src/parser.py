@@ -78,7 +78,8 @@ def parse_line(line : str, line_no : int):
         return WhileBlock(line_no)
     if line.startswith("elif"):
         return ElifBlock(line_no)
-
+    if line.startswith("else"):
+        return ElseBlock(line_no)
     return CodeBlock(line_no)
 
 class State:
