@@ -1,3 +1,4 @@
+import json
 from typing import List, Type, Union
 
 class Block():
@@ -12,6 +13,10 @@ class Block():
                 "end"   : self.end
             }
         }
+    
+    def pretty_print(self):
+        """a pretty printer for debugging"""
+        print(json.dumps(self.to_dict(), indent=2))
 
 class CodeBlock(Block):
     pass
