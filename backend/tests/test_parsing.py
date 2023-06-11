@@ -22,5 +22,6 @@ def test_body_block():
         CodeBlock(start=5, end=10)
     ]
 )"""
+    print(exp)
     print(b)
     assert(str(b) == exp)

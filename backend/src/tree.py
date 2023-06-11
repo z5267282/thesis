@@ -6,7 +6,7 @@ class Block():
         self.end      : int = None
         self.printing : int = 4
         self.level    : int = 0
-    
+
     def __str__(self):
         return """{}{}(start={}, end={}{}""".format(
             self.display_leading_spaces(self.level), self.__class__.__name__,
