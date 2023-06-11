@@ -1,4 +1,4 @@
-from src.tree import BodyBlock, CodeBlock, IfBlock
+from tree import BodyBlock, CodeBlock, IfBlock
 
 def test_code_block():
     c = CodeBlock(1)

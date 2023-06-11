@@ -1,5 +1,5 @@
-import src.helper
+import helper
 
 def test_get_stripped_line_all_whitespace():
     whitespace = "     "
-    assert src.helper.get_stripped_line(whitespace) == ""
+    assert helper.get_stripped_line(whitespace) == ""
