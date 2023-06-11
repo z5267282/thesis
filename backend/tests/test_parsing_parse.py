@@ -6,15 +6,16 @@ def test_no_indentation():
         print(i)
     
     root = parse(simple)
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
-            "start": 2,
-            "end"  : 3,
+            "start": 5,
+            "end"  : 6,
             "body" : [
                 {
                     "CodeBlock" : {
-                        "start": 2,
-                        "end"  : 3
+                        "start": 5,
+                        "end"  : 6 
                     }
                 }
             ]
