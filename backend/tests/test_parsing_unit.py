@@ -47,13 +47,19 @@ def test_if_block_nested():
     root = BodyBlock(1)
     root.end = 3
     root.add_same_level_block(level_1)
+
+    import json
+    print(json.dumps(root.to_dict(), indent=2))
+
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 1, "end" : 3, "body" : [
                 {
                     "IfBlock" : {
                         "start" : 1, "end" : 3, "elifs" : [], "else" : None, "body" : [
-                            "IfBlock" : {"start" : 2, "end" : 3, "elifs" : [], "else" : None}
+                            {
+                                "IfBlock" : {"start" : 2, "end" : 3, "body" : [], "elifs" : [], "else" : None}
+                            } 
                         ]
                     }
                 }
