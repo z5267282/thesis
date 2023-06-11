@@ -2,6 +2,7 @@ from collections import deque
 import inspect
 from typing import Callable, Deque, Type
 
+from errors import ElifParseError, ElseParseError
 import helper
 from tree import \
     CodeBlock, BodyBlock, BodyBlockDescendant, OptionalBodyBlock, \
@@ -71,15 +72,15 @@ def parse(program : Callable):
         state.indent_level = leading_space
     # TODO: last line
 
-def parse_line(line : str, line_no : int):
-    if line.startswith("if"):
-        return IfBlock(line_no)
-    if line.startswith("while"):
-        return WhileBlock(line_no)
+def parse_first_line(line : str, line_no : int, indent_level : int):
     if line.startswith("elif"):
-        return ElifBlock(line_no)
+        raise ElifParseError
     if line.startswith("else"):
-        return ElseBlock(line_no)
+        raise ElseParseError
+    if line.startswith("if"):
+        return IfBlock(line_no, indent_level)
+    if line.startswith("while"):
+        return WhileBlock(line_no, indent_level)
     return CodeBlock(line_no)
 
 class State:
