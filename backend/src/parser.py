@@ -9,14 +9,17 @@ from tree import \
     IfBlock, ElseBlock, ElifBlock, ConditionalBlock, WhileBlock
 
 def parse(program : Callable):
-    lines, start = inspect.getsourcelines(program)
     # assume the first line is the function definition
-    start += 1
+    OFFSET = 1
+
+    lines, start = inspect.getsourcelines(program)
+    print(''.join(lines))
+    start += OFFSET
     root        : BodyBlock = None
     stack       : Stack = None
     prev_indent : int = None
     line_no     : int = 0
-    for line_no, line_contents in enumerate(lines, start=start):
+    for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
         line        : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
@@ -96,9 +99,9 @@ def parse(program : Callable):
                 stack.push(unnested_block)
             top.add_same_level_block(unnested_block)
         prev_indent = indent_level
-    
+
     # last line
-    last : int = start + len(lines) - 1
+    last : int = start + len(lines) - 1 - OFFSET
     top  : Type[BodyBlock] = stack.peek()
     if top.code_block is not None:
         top.code_block.end = last
