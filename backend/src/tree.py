@@ -32,10 +32,14 @@ class BodyBlock(Block):
         self.body.append(block)
     
     def display_rest(self):
-        result : str = ""
+        bodies : List[str] = []
+        for b in self.body:
+            b.level += 1
+            bodies.append(str(b))
+        return """, body=[
+{}
+]""".join("\n".join(bodies))
 
-
-    
 class WhileBlock(BodyBlock):
     pass
 
