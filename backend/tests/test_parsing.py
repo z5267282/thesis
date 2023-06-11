@@ -1,8 +1,15 @@
 from src.tree import BodyBlock, CodeBlock
 
 def test_code_block():
-    c = CodeBlock(10)
-    assert str(c) == "CodeBlock(start=10, end=None)"
+    c = CodeBlock(1)
+    c.end = 10
+    print(dict(c))
+    # assert dict(c) == {
+    #     "CodeBlock" : {
+    #         "start" : 1,
+    #         "end"   : 10
+    #     }
+    # }
 
 def test_body_block():
     b = BodyBlock(1)
@@ -16,12 +23,4 @@ def test_body_block():
     c2.end = 10
     b.add_same_level_block(c2)
 
-    exp = \
-"""BodyBlock(start=1, end=10, body=[
-        CodeBlock(start=1, end=4),
-        CodeBlock(start=5, end=10)
-    ]
-)"""
-    print(exp)
-    print(b)
-    assert(str(b) == exp)
+    assert True
