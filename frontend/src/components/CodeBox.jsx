@@ -1,10 +1,15 @@
 function CodeBox() {
+  const update = (event) => {console.log("hello!")};
   const style = {
-    marginTop : "100px"
+    marginTop : "75"
   };
   return (
-    <textarea rows="40" cols="80" id="code-upload" name="fish" style={style}>
-    </textarea>
+    <form id="code-upload">
+      <textarea
+        rows="40" cols="80" name="code-upload" style={style} defaultValue="" onChange={update}
+      >
+      </textarea>
+    </form>
   );
 }
 
