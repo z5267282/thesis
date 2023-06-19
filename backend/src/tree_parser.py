@@ -4,10 +4,9 @@ from typing import Callable, Deque, Type
 
 from errors import ElseParseError, ElifParseError, NoEnclosingIfError
 import helper
-from tree import \
-    Block, CodeBlock, BodyBlock, OptionalBodyBlock, \
-    IfBlock, ElseBlock, ElifBlock, ConditionalBlock, WhileBlock
 from stack import Stack
+from tree import \
+    Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
     # assume the first line is the function definition

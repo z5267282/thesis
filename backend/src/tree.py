@@ -74,6 +74,4 @@ class ElseBlock(BodyBlock):
     pass
 
 # type aliases
-BodyBlockDescendant = Type[BodyBlock]
 OptionalBodyBlock   = BodyBlock | Block
-ConditionalBlock    = IfBlock | ElifBlock | ElseBlock
