@@ -8,7 +8,7 @@ def test_nested_if():
                 print("multiple of 6")
 
     root = parse(nested)
-    print(root.pretty_print())
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
