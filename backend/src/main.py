@@ -2,7 +2,7 @@ import sys
 from types import FrameType
 from typing import Any, List
 
-from parser import parse
+from tree_parser import parse
 from program import program
 
 class Line:

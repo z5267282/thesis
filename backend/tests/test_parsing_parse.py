@@ -1,4 +1,4 @@
-from parser import parse
+from tree_parser import parse
 
 def test_no_indentation():
     def simple():
