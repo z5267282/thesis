@@ -79,6 +79,8 @@ def parse(program : Callable):
                 top.code_block.end = prev
                 top.code_block = None
             # pop off stack until same level block is found
+            if line_no == 14:
+                print(top.indent_level, indent_level)
             while top.indent_level != indent_level:
                 top.end = prev
                 stack.pop()
@@ -98,6 +100,11 @@ def parse(program : Callable):
                 stack.push(unnested_block)
             top.add_same_level_block(unnested_block)
         prev_indent = indent_level
+
+        if line_no == 14:
+            print(f"contents: {line}", end="")
+            print(stack)
+            print("---")
 
     # last line
     last : int = start + len(lines) - 1 - OFFSET
