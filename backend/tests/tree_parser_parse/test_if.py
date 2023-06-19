@@ -10,24 +10,24 @@ def test_simple_if():
     print(root.pretty_print())
     assert root.to_dict() == {
         "BodyBlock" : {
-            "start" : 93,
-            "end"   : 95,
+            "start" : 5,
+            "end"   : 7,
             "body"  : [
                 {
                     "CodeBlock" : {
-                        "start" : 93,
-                        "end"   : 93
+                        "start" : 5,
+                        "end"   : 5 
                     }
                 },
                 {
                     "IfBlock" : {
-                        "start" : 94,
-                        "end"   : 95,
+                        "start" : 6,
+                        "end"   : 7,
                         "body" : [
                             {
                                 "CodeBlock" : {
-                                    "start" : 95,
-                                    "end" : 95
+                                    "start" : 7,
+                                    "end" : 7 
                                 }
                             }
                         ],
