@@ -129,6 +129,10 @@ class Stack:
         self.items : Deque[Type[BodyBlock]] = deque()
         self.push(root)
     
+    def __str__(self):
+        """print items from top to bottom"""
+        return "\n".join(str(i) for i in self.items)
+    
     def __len__(self):
         return len(self.items)
     

@@ -5,6 +5,12 @@ class Block():
     def __init__(self, start : int):
         self.start    : int = start
         self.end      : int = None
+    
+    def __str__(self):
+        """simply print the block without recursive unpacking"""
+        return "{}(start={}, end={})".format(
+            self.__class__.__name__, self.start, self.end
+        )
 
     def to_dict(self):
         return {
