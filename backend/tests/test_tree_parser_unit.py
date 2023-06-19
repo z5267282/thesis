@@ -8,7 +8,7 @@ def test_code_block():
     }
 
 def test_body_block():
-    b = BodyBlock(1)
+    b = BodyBlock(1, 0)
     b.end = 10
 
     c1 = CodeBlock(1)
@@ -28,7 +28,7 @@ def test_body_block():
     }
 
 def test_if_block_lone():
-    i = IfBlock(1)
+    i = IfBlock(1, 0)
     i.end = 20
     assert i.to_dict() == {
         "IfBlock": {"start" : 1, "end" : 20, "body" : [],
@@ -37,19 +37,18 @@ def test_if_block_lone():
     }
 
 def test_if_block_nested():
-    level_2 = IfBlock(2)
+    spaces = 4
+
+    level_2 = IfBlock(2, spaces * 2)
     level_2.end = 3
 
-    level_1 = IfBlock(1)
+    level_1 = IfBlock(1, spaces * 1)
     level_1.end = 3
     level_1.add_same_level_block(level_2)
 
-    root = BodyBlock(1)
+    root = BodyBlock(1, 0)
     root.end = 3
     root.add_same_level_block(level_1)
-
-    import json
-    print(json.dumps(root.to_dict(), indent=2))
 
     assert root.to_dict() == {
         "BodyBlock" : {
