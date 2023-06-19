@@ -61,7 +61,6 @@ def parse(program : Callable):
 
         # indented block
         elif indent_level > prev_indent:
-            print(f"bigger line found: {line_no}")
             nested_block : Type[Block] = parse_line(line, line_no, indent_level)
             if isinstance(first_block, ElifBlock):
                 raise ElifParseError
@@ -100,10 +99,6 @@ def parse(program : Callable):
                 stack.push(unnested_block)
             top.add_same_level_block(unnested_block)
         prev_indent = indent_level
-
-        # print(f"line: {line_no}")
-        # print(stack)
-        # print("---")
 
     # last line
     last : int = start + len(lines) - 1 - OFFSET

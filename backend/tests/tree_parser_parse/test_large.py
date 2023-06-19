@@ -18,37 +18,37 @@ def test_large():
     root = parse(large)
     assert root.to_dict() == {
         "BodyBlock" : {
-            "start" : 26,
-            "end"   : 37,
+            "start" : 5,
+            "end"   : 16,
             "body" : [
                 {
                     "CodeBlock" : {
-                        "start" : 26,
-                        "end"   : 27
+                        "start" : 5,
+                        "end"   : 6
                     }
                 },
                 {
                     "WhileBlock" : {
-                        "start" : 28,
-                        "end"   : 35,
+                        "start" : 7,
+                        "end"   : 14,
                         "body" : [
                             {
                                 "IfBlocK" : {
-                                    "start" : 29,
-                                    "end"   : 34,
+                                    "start" : 8,
+                                    "end"   : 13,
                                     "body" : [
                                         {
                                             "CodeBlock" : {
-                                                "start" : 30,
-                                                "end"   : 31
+                                                "start" : 9,
+                                                "end"   : 10
                                             }
                                         }
                                     ],
                                     "elifs" : [
                                         {
                                             "ElifBlock" : {
-                                                "start" : 32,
-                                                "end"   : 34
+                                                "start" : 11,
+                                                "end"   : 13
                                             }
                                         }
                                     ]
@@ -56,8 +56,8 @@ def test_large():
                             },
                             {
                                 "CodeBlock" : {
-                                    "start" : 35,
-                                    "end"   : 35
+                                    "start" : 14,
+                                    "end"   : 14
                                 }
                             }
                         ]
