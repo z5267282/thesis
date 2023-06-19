@@ -83,8 +83,6 @@ def parse(program : Callable):
                 top.code_block.end = prev
                 top.code_block = None
             # pop off stack until same level block is found
-            print(f"line: {line_no}")
-            root.pretty_print()
             while top.indent_level != indent_level:
                 top.end = prev
                 stack.pop()

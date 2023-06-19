@@ -16,6 +16,7 @@ def test_large():
         print(f"2s: {twos}, 7s: {sevens}")
     
     root = parse(large)
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
