@@ -22,6 +22,10 @@ def parse(program : Callable):
         line        : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
+        # ignore comments and whitespace
+        if line.startswith("#") or line == "":
+            continue
+
         # first line
         if prev_indent is None:
             prev_indent = indent_level
@@ -79,6 +83,7 @@ def parse(program : Callable):
                 top.code_block.end = prev
                 top.code_block = None
             # pop off stack until same level block is found
+            print(f"line: {line_no}")
             root.pretty_print()
             while top.indent_level != indent_level:
                 top.end = prev
