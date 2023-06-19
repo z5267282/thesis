@@ -136,7 +136,9 @@ class Stack:
         return len(self) == 0
     
     def peek(self):
-        """method according to the documentation here:
+        """retrive the top item without removing it
+
+        method according to the documentation here:
         https://docs.python.org/3/library/collections.html#collections.deque"""
         return self.items[-1]
 
