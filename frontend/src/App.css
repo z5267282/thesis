@@ -1,9 +1,11 @@
 .App {
-  /* display: flex;
-  justify-content: space-around; */
+  display: flex;
+  justify-content: center;
+  width: 100vw;
 }
 
 .outputs {
   display: flex;
   flex-direction: column;
+  width: 25%;
 }

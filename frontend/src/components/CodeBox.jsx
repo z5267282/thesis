@@ -5,10 +5,7 @@ export default function CodeBox() {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  };
-
-  const headerStyle = {
-    fontSize: "16pt"
+    width: "65%"
   };
 
   const update = (event) => {console.log(event.target.value)};
@@ -16,7 +13,7 @@ export default function CodeBox() {
   const buttonBoxStyle = {
     display: "flex",
     justifyContent: "space-evenly",
-    width: "20%",
+    width: "50%",
     marginTop: "2%"
   }
 
@@ -25,7 +22,7 @@ export default function CodeBox() {
       id="code-upload"
       style={formStyle}
     >
-      <p style={headerStyle}>Code Input</p>
+      <p className="large-text">Code Input</p>
       <textarea
         rows={30}
         cols={60}

@@ -2,16 +2,23 @@ import './style.css';
 
 export default function VariableBox() {
   const style = {
-    width: "20%",
-    height: "5%"
+    width: "100%",
+    height: "30%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   };
 
   return (
-    <textarea
-      value="fish"
-      spellCheck={false}
-      readOnly={true}
+    <div
       style={style}
-    />
+    >
+      <p className="large-text">Variables</p>
+      <textarea
+        value="fish"
+        spellCheck={false}
+        readOnly={true}
+      />
+    </div>
   );
 };

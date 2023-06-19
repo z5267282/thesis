@@ -13,3 +13,7 @@ textarea {
     border-width: 1.5pt;
     border-radius: 1%;
 }
+
+.large-text {
+    font-size: 16pt;
+}
