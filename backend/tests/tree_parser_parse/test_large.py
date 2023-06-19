@@ -12,15 +12,14 @@ def test_large():
                 print("seven")
                 sevens += 1
             i += 1
-
         print(f"2s: {twos}, 7s: {sevens}")
-    
+
     root = parse(large)
     root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
-            "end"   : 16,
+            "end"   : 15,
             "body" : [
                 {
                     "CodeBlock" : {
@@ -62,6 +61,12 @@ def test_large():
                                 }
                             }
                         ]
+                    }
+                },
+                {
+                    "CodeBlock" : {
+                        "start" : 15,
+                        "end" : 15
                     }
                 }
             ]

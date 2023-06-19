@@ -22,10 +22,6 @@ def parse(program : Callable):
         line        : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
-        # ignore comments and whitespace
-        if line.startswith("#") or line == "":
-            continue
-
         # first line
         if prev_indent is None:
             prev_indent = indent_level
