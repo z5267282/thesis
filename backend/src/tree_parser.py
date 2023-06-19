@@ -79,7 +79,7 @@ def parse(program : Callable):
                 top.code_block.end = prev
                 top.code_block = None
             # pop off stack until same level block, or end of conditional chain
-            while top.indent_level != indent_level and not is_conditional(top):
+            while top.indent_level != indent_level or is_conditional(top):
                 top.end = prev
                 stack.pop()
                 top = stack.peek()
