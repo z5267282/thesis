@@ -1,9 +1,9 @@
-curved-box {
-  resize: none;
-  padding: 1%;
-  font-size: 12pt;
-  border: solid;
-  border-width: 1.5pt;
-  border-radius: 1%;
-  background-color: red;
+.App {
+  /* display: flex;
+  justify-content: space-around; */
+}
+
+.outputs {
+  display: flex;
+  flex-direction: column;
 }

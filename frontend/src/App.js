@@ -7,7 +7,9 @@ export default function App() {
   return (
     <div className="App">
       <CodeBox />
+      {/* <div classNam="outputs"> */}
       <VariableBox />
+      {/* </div> */}
     </div>
   );
 }
