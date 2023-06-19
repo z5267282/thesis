@@ -78,10 +78,8 @@ def parse(program : Callable):
             if top.code_block is not None:
                 top.code_block.end = prev
                 top.code_block = None
-            # pop off stack until same level block is found
-            if line_no == 14:
-                print(top.indent_level, indent_level)
-            while top.indent_level != indent_level:
+            # pop off stack until same level block, or end of conditional chain
+            while top.indent_level != indent_level and not is_conditional(top):
                 top.end = prev
                 stack.pop()
                 top = stack.peek()
@@ -128,3 +126,6 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     return CodeBlock(line_no)
+
+def is_conditional(block : BodyBlock):
+    return isinstance(block, (IfBlock, ElifBlock, ElseBlock))
