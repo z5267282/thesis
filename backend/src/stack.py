@@ -11,8 +11,12 @@ class Stack:
     
     def __str__(self):
         """print items from top to bottom"""
-        return "\n".join(str(i) for i in self.items)
-    
+        # note a deque stores items in insertion order
+        return "\n".join(
+            f"{i} : {block}" 
+                for i, block in enumerate(reversed(self.items), start=1)
+        )
+
     def __len__(self):
         return len(self.items)
     
