@@ -17,3 +17,7 @@ textarea {
 .large-text {
     font-size: 16pt;
 }
+
+.side-box {
+    height: 100%
+}

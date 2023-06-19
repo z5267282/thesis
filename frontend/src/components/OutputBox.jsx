@@ -13,10 +13,10 @@ export default function VariableBox() {
     <div
       style={style}
     >
-      <p className="large-text">Variables</p>
+      <p className="large-text">Output</p>
       <textarea
+        value="out"
         className="side-box"
-        value="vars"
         spellCheck={false}
         readOnly={true}
       />
