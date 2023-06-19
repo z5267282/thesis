@@ -1,0 +1,15 @@
+button {
+    font-size: 14pt;
+    border: solid;
+    border-width: 1.5pt;
+    border-radius: 5pt;
+}
+
+textarea {
+    resize: none;
+    padding: 1%;
+    font-size: 12pt;
+    border: solid;
+    border-width: 1.5pt;
+    border-radius: 1%;
+}

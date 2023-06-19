@@ -1,3 +1,5 @@
+import './style.css';
+
 export default function CodeBox() {
   const formStyle = {
     display: "flex",
@@ -9,14 +11,6 @@ export default function CodeBox() {
     fontSize: "16pt"
   };
 
-  const textStyle = {
-    resize: "none",
-    padding: "1%",
-    fontSize: "12pt",
-    border: "solid",
-    borderWidth: "1.5pt",
-    borderRadius: "1%"
-  };
   const update = (event) => {console.log(event.target.value)};
 
   const buttonBoxStyle = {
@@ -24,13 +18,6 @@ export default function CodeBox() {
     justifyContent: "space-evenly",
     width: "20%",
     marginTop: "2%"
-  }
-
-  const buttonStyle = {
-    fontSize: "14pt",
-    border: "solid",
-    borderWidth: "1.5pt",
-    borderRadius: "5pt",
   }
 
   return (
@@ -43,15 +30,14 @@ export default function CodeBox() {
         rows={30}
         cols={60}
         name="code-upload"
-        style={textStyle}
         defaultValue=""
         onChange={update}
         spellCheck={false}
         autoFocus={false}
       />
       <div style={buttonBoxStyle}>
-        <button style={buttonStyle}>prev</button>
-        <button style={buttonStyle}>next</button>
+        <button>prev</button>
+        <button>next</button>
       </div>
     </form>
   );
