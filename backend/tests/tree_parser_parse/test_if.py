@@ -7,7 +7,6 @@ def test_simple_if():
             print("even")
 
     root = parse(if_block)
-    print(root.pretty_print())
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
