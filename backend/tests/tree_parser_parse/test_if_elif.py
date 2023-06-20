@@ -9,6 +9,7 @@ def test_if_elif():
             print("two")
     
     root = parse(if_elif)
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
@@ -38,9 +39,11 @@ def test_if_elif():
                                     "start" : 8,
                                     "end" : 9,
                                     "body" : [
-                                        "CodeBlock" : {
-                                            "start" ; 9,
-                                            "end" : 9
+                                        {
+                                            "CodeBlock" : {
+                                                "start" : 9,
+                                                "end" : 9
+                                            }
                                         }
                                     ]
                                 }

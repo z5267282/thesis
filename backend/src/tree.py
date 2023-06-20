@@ -1,6 +1,8 @@
 import json
 from typing import List, Type, Union
 
+from errors import ExistingElseError
+
 class Block():
     def __init__(self, start : int):
         self.start    : int = start
@@ -50,6 +52,17 @@ class BodyBlock(Block):
 class WhileBlock(BodyBlock):
     pass
 
+# put these here for type hints in the if block
+
+class ElifBlock(BodyBlock):
+    """separate this so that the IfBlock tracks the entire branch structure"""
+    pass
+
+class ElseBlock(BodyBlock):
+    """made a class to differentiate from BodyBlock"""
+    pass
+
+
 class IfBlock(BodyBlock):
     """the if block must lay out on the same nesting level:
     any elifs, and an else"""
@@ -64,14 +77,15 @@ class IfBlock(BodyBlock):
         parent[self.__class__.__name__]["else"] = \
             None if self.else_ is None else self.else_.to_dict()
         return parent
+    
+    def add_elif(self, elif_block : ElifBlock):
+        self.elifs.append(elif_block)
+    
+    def add_else(self, else_block : ElseBlock):
+        if self.else_ is not None:
+            raise ExistingElseError
 
-class ElifBlock(BodyBlock):
-    """separate this so that the IfBlock tracks the entire branch structure"""
-    pass
-
-class ElseBlock(BodyBlock):
-    """made a class to differentiate from BodyBlock"""
-    pass
+        self.else_ = else_block
 
 # type aliases
 OptionalBodyBlock   = BodyBlock | Block

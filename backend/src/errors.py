@@ -13,3 +13,7 @@ class NoEnclosingIfError(Exception):
                 "elif" if is_elif else "else"
             )
         )
+
+class ExistingElseError(Exception):
+    def __init__(self):
+        super().__init__("there is already an else block for an if block")
