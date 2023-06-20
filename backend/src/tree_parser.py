@@ -97,12 +97,13 @@ def parse(program : Callable):
                     if not isinstance(top, IfBlock):
                         raise NoEnclosingIfError(True)
                     top.elifs.append(unnested_block)
-                if isinstance(unnested_block, ElseBlock):
+                elif isinstance(unnested_block, ElseBlock):
                     if not isinstance(top, IfBlock):
                         raise NoEnclosingIfError(False)
                     top.else_ = unnested_block
+                else:
+                    top.add_same_level_block(unnested_block)
                 stack.push(unnested_block)
-            top.add_same_level_block(unnested_block)
         prev_indent = indent_level
 
     # last line
