@@ -87,11 +87,9 @@ def parse(program : Callable):
                         stack.pop()
                         top = stack.peek()
                         if not isinstance(top, IfBlock):
+                            root.pretty_print()
                             raise ExpectedIfBlock
                         top.end = prev
-
-            if isinstance(unnested_block, CodeBlock):
-                top.code_block = unnested_block 
             else:
                 if isinstance(unnested_block, ElifBlock):
                     top.add_elif(unnested_block)
@@ -99,7 +97,12 @@ def parse(program : Callable):
                     top.add_else(unnested_block)
                 else:
                     top.add_same_level_block(unnested_block)
+            
+            if isinstance(unnested_block, CodeBlock):
+                top.code_block = unnested_block 
+            else:
                 stack.push(unnested_block)
+
         prev_indent = indent_level
 
     # last line
