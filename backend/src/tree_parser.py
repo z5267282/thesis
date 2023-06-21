@@ -1,8 +1,7 @@
-from collections import deque
 import inspect
 from typing import Callable, Type
 
-from errors import ElseParseError, ElifParseError, ExpectedIfBlock, NoEnclosingIfError
+from errors import ExpectedIfBlock
 import helper
 from stack import Stack
 from tree import \
@@ -26,10 +25,6 @@ def parse(program : Callable):
         if prev_indent is None:
             prev_indent = indent_level
             first_block : Type[Block] = parse_line(line, line_no, indent_level)
-            if isinstance(first_block, ElifBlock):
-                raise ElifParseError
-            if isinstance(first_block, ElseBlock):
-                raise ElseParseError
 
             root = BodyBlock(line_no, line_contents)
             stack = Stack(root)
@@ -46,10 +41,6 @@ def parse(program : Callable):
             if isinstance(level_block, CodeBlock):
                 # no need to set the indentation level if its the same
                 continue
-            if isinstance(level_block, ElifBlock):
-                raise ElifParseError
-            if isinstance(level_block, ElseBlock):
-                raise ElseParseError
 
             if isinstance(level_block, (IfBlock, WhileBlock)):
                 if top.code_block is not None:
@@ -62,10 +53,6 @@ def parse(program : Callable):
         # indented block
         elif indent_level > prev_indent:
             nested_block : Type[Block] = parse_line(line, line_no, indent_level)
-            if isinstance(first_block, ElifBlock):
-                raise ElifParseError
-            if isinstance(first_block, ElseBlock):
-                raise ElseParseError
 
             if isinstance(nested_block, CodeBlock):
                 top.code_block = nested_block 
@@ -80,7 +67,6 @@ def parse(program : Callable):
                 top.code_block = None
             # pop off stack until same level block, or end of conditional chain
             while top.indent_level != indent_level:
-            # while top.indent_level != indent_level or is_conditional(top):
                 top.end = prev
                 stack.pop()
                 top = stack.peek()
@@ -108,13 +94,9 @@ def parse(program : Callable):
                 top.code_block = unnested_block 
             else:
                 if isinstance(unnested_block, ElifBlock):
-                    if not isinstance(top, IfBlock):
-                        raise NoEnclosingIfError(True)
-                    top.elifs.append(unnested_block)
+                    top.add_elif(unnested_block)
                 elif isinstance(unnested_block, ElseBlock):
-                    if not isinstance(top, IfBlock):
-                        raise NoEnclosingIfError(False)
-                    top.else_ = unnested_block
+                    top.add_else(unnested_block)
                 else:
                     top.add_same_level_block(unnested_block)
                 stack.push(unnested_block)
@@ -142,6 +124,3 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     return CodeBlock(line_no)
-
-def is_conditional(block : BodyBlock):
-    return isinstance(block, (IfBlock, ElifBlock, ElseBlock))

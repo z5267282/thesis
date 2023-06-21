@@ -53,7 +53,7 @@ class BodyBlock(Block):
         """end of the code block if set"""
         if self.code_block is not None:
             self.code_block.end = end
-    
+
 class WhileBlock(BodyBlock):
     pass
 
@@ -66,7 +66,6 @@ class ElifBlock(BodyBlock):
 class ElseBlock(BodyBlock):
     """made a class to differentiate from BodyBlock"""
     pass
-
 
 class IfBlock(BodyBlock):
     """the if block must lay out on the same nesting level:
@@ -93,4 +92,4 @@ class IfBlock(BodyBlock):
         self.else_ = else_block
 
 # type aliases
-OptionalBodyBlock   = BodyBlock | Block
+OptionalBodyBlock = BodyBlock | Block
