@@ -2,7 +2,7 @@ from collections import deque
 import inspect
 from typing import Callable, Type
 
-from errors import ElseParseError, ElifParseError, NoEnclosingIfError
+from errors import ElseParseError, ElifParseError, ExpectedIfBlock, NoEnclosingIfError
 import helper
 from stack import Stack
 from tree import \
@@ -95,8 +95,18 @@ def parse(program : Callable):
                 # we have ended the if branch at the current level
                 if not isinstance(unnested_block, (ElifBlock, ElseBlock)):
                     if isinstance(top, IfBlock):
-
-            
+                        top.end_code_block(prev)
+                        top.end = prev
+                    # pop twice : stack = [if, elif] <- top
+                    elif isinstance(top, (ElifBlock, ElseBlock)):
+                        # end of elif
+                        top.end_code_block(prev)
+                        top.end = prev
+                        # top of stack should be the if now
+                        top = stack.pop()
+                        if not isinstance(top, IfBlock):
+                            raise ExpectedIfBlock
+                        top.end = prev
 
             if isinstance(unnested_block, CodeBlock):
                 top.code_block = unnested_block 
