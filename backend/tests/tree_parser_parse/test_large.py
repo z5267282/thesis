@@ -33,7 +33,7 @@ def test_large():
                         "end"   : 14,
                         "body" : [
                             {
-                                "IfBlocK" : {
+                                "IfBlock" : {
                                     "start" : 8,
                                     "end"   : 13,
                                     "body" : [
@@ -48,10 +48,19 @@ def test_large():
                                         {
                                             "ElifBlock" : {
                                                 "start" : 11,
-                                                "end"   : 13
+                                                "end"   : 13,
+                                                "body"  : [
+                                                    {
+                                                        "CodeBlock" : {
+                                                            "start" : 12,
+                                                            "end"   : 13
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         }
-                                    ]
+                                    ],
+                                    "else" : None
                                 }
                             },
                             {

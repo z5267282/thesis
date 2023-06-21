@@ -90,6 +90,14 @@ def parse(program : Callable):
                 stack.pop()
                 top = stack.peek()
             unnested_block = parse_line(line, line_no, indent_level)
+            
+            if isinstance(top, (IfBlock, ElifBlock, ElseBlock)):
+                # we have ended the if branch at the current level
+                if not isinstance(unnested_block, (ElifBlock, ElseBlock)):
+                    if isinstance(top, IfBlock):
+
+            
+
             if isinstance(unnested_block, CodeBlock):
                 top.code_block = unnested_block 
             else:

@@ -49,6 +49,11 @@ class BodyBlock(Block):
         parent[self.__class__.__name__]["body"] = [b.to_dict() for b in self.body]
         return parent
     
+    def end_code_block(self, end : int):
+        """end of the code block if set"""
+        if self.code_block is not None:
+            self.code_block.end = end
+    
 class WhileBlock(BodyBlock):
     pass
 
