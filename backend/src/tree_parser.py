@@ -74,11 +74,6 @@ def parse(program : Callable):
             top.add_same_level_block(nested_block)
         # unindented block
         elif indent_level < prev_indent:
-            if line_no == 14:
-                print(f"contents: {line}", end="")
-                print(stack)
-                print("---")
-
             prev : int = line_no - 1
             if top.code_block is not None:
                 top.code_block.end = prev
@@ -103,7 +98,8 @@ def parse(program : Callable):
                         top.end_code_block(prev)
                         top.end = prev
                         # top of stack should be the if now
-                        top = stack.pop()
+                        stack.pop()
+                        top = stack.peek()
                         if not isinstance(top, IfBlock):
                             raise ExpectedIfBlock
                         top.end = prev
