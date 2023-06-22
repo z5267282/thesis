@@ -59,11 +59,15 @@ def parse(program : Callable):
             top.add_same_level_block(nested_block)
         # unindented block
         elif indent_level < prev_indent:
+            if line_no == 15:
+                print("here")
             prev : int = line_no - 1
             if top.code_block is not None:
                 top.code_block.end = prev
                 top.code_block = None
-            # pop off stack until same level block, or end of conditional chain
+            # pop off stack until same level block
+            # assumes consistent indentation levels have been followed
+            # basically ends all indents inside the current level
             while top.indent_level != indent_level:
                 top.end = prev
                 stack.pop()
@@ -99,7 +103,12 @@ def parse(program : Callable):
                         top.end = prev
                         stack.pop()
                         top = stack.peek()
-                
+                elif isinstance(top, WhileBlock):
+                    # a while by this point should have had its code block ended
+                    top.end = prev
+                    stack.pop()
+                    top = stack.peek()
+
                 # now handle the stack
                 if isinstance(unnested_block, CodeBlock):
                     top.code_block = unnested_block 
