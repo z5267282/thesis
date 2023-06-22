@@ -71,10 +71,19 @@ def parse(program : Callable):
 
             unnested_block = parse_line(line, line_no, indent_level)
 
-            if isinstance(unnested_block, ElifBlock):
-                top.add_elif(unnested_block)
-            elif isinstance(unnested_block, ElseBlock):
-                top.add_else(unnested_block)
+            is_elif : bool = isinstance(unnested_block, ElifBlock)
+            if is_elif or isinstance(unnested_block, ElseBlock):
+                # the top will either be the if, or an elif
+                # if not, the top elif has ended
+                if isinstance(top, ElifBlock):
+                    top.end_code_block(prev)
+                    top.end = prev
+                    stack.pop()
+                    top = stack.peek()
+                add_branch : Callable = \
+                    top.add_elif if is_elif else top.add_else
+                add_branch(unnested_block)
+                stack.push(unnested_block)
             else:
                 # must end the current if branch if any
                 is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
@@ -96,6 +105,10 @@ def parse(program : Callable):
                     top.add_same_level_block(unnested_block)
                     stack.push(unnested_block)
         prev_indent = indent_level
+
+        print(f"line: {line_no}")
+        print(stack)
+        print("---\n")
 
     # last line
     last : int = start + len(lines) - 1 - OFFSET
