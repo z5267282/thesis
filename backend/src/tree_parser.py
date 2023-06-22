@@ -1,6 +1,7 @@
 import inspect
 from typing import Callable, Type
 
+from cfg import OFFSET
 from errors import ExpectedIfBlock
 import helper
 from stack import Stack
@@ -8,9 +9,6 @@ from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
-    # assume the first line is the function definition
-    OFFSET = 1
-
     lines, start = inspect.getsourcelines(program)
     start += OFFSET
     root        : BodyBlock = None
