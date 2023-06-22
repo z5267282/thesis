@@ -31,7 +31,8 @@ class Stack:
         return self.items[-1]
 
     def pop(self):
-        self.items.pop()
+        """remove the top item and return it"""
+        return self.items.pop()
     
     def push(self, item : Type[BodyBlock]):
         self.items.append(item)
