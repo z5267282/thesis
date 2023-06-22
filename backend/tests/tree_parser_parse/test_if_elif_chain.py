@@ -12,6 +12,7 @@ def test_if_elif_chain():
         print(i)
     
     root = parse(if_elif_chain)
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
