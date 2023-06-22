@@ -90,6 +90,3 @@ class IfBlock(BodyBlock):
             raise ExistingElseError
 
         self.else_ = else_block
-
-# type aliases
-OptionalBodyBlock = BodyBlock | Block

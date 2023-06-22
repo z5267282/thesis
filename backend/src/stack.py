@@ -1,7 +1,7 @@
 from collections import deque
 from typing import Deque, Type
 
-from tree import BodyBlock, OptionalBodyBlock
+from tree import BodyBlock
 
 class Stack:
     """a simple wrapper around deque"""
@@ -33,5 +33,5 @@ class Stack:
     def pop(self):
         self.items.pop()
     
-    def push(self, item : OptionalBodyBlock):
+    def push(self, item : Type[BodyBlock]):
         self.items.append(item)
