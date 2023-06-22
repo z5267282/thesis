@@ -90,25 +90,23 @@ def parse(program : Callable):
                 if isinstance(top, IfBlock) or is_el_block:
                     top.end_code_block(prev)
                     top.end = prev
+                    stack.pop()
+                    top = stack.peek()
                     # end the entire if block now
                     if is_el_block:
-                        stack.pop()
-                        top = stack.peek()
                         if not isinstance(top, IfBlock):
                             raise ExpectedIfBlock
                         top.end = prev
+                        stack.pop()
+                        top = stack.peek()
                 
                 # now handle the stack
                 if isinstance(unnested_block, CodeBlock):
                     top.code_block = unnested_block 
                 else:
-                    top.add_same_level_block(unnested_block)
                     stack.push(unnested_block)
+                top.add_same_level_block(unnested_block)
         prev_indent = indent_level
-
-        print(f"line: {line_no}")
-        print(stack)
-        print("---\n")
 
     # last line
     last : int = start + len(lines) - 1 - OFFSET
