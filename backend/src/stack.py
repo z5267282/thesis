@@ -31,7 +31,7 @@ class Stack:
         return self.items[-1]
 
     def pop(self):
-        return self.items.pop()
+        self.items.pop()
     
     def push(self, item : OptionalBodyBlock):
         self.items.append(item)
