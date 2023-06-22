@@ -68,39 +68,33 @@ def parse(program : Callable):
                 top.end = prev
                 stack.pop()
                 top = stack.peek()
+
             unnested_block = parse_line(line, line_no, indent_level)
-            
-            if isinstance(top, (IfBlock, ElifBlock, ElseBlock)):
-                # we have ended the if branch at the current level
-                if not isinstance(unnested_block, (ElifBlock, ElseBlock)):
-                    if isinstance(top, IfBlock):
-                        top.end_code_block(prev)
-                        top.end = prev
-                    # pop twice : stack = [if, elif] <- top
-                    elif isinstance(top, (ElifBlock, ElseBlock)):
-                        # end of elif
-                        top.end_code_block(prev)
-                        top.end = prev
-                        # top of stack should be the if now
+
+            if isinstance(unnested_block, ElifBlock):
+                top.add_elif(unnested_block)
+            elif isinstance(unnested_block, ElseBlock):
+                top.add_else(unnested_block)
+            else:
+                # must end the current if branch if any
+                is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
+                if isinstance(top, IfBlock) or is_el_block:
+                    top.end_code_block(prev)
+                    top.end = prev
+                    # end the entire if block now
+                    if is_el_block:
                         stack.pop()
                         top = stack.peek()
                         if not isinstance(top, IfBlock):
-                            root.pretty_print()
                             raise ExpectedIfBlock
                         top.end = prev
-            else:
-                if isinstance(unnested_block, ElifBlock):
-                    top.add_elif(unnested_block)
-                elif isinstance(unnested_block, ElseBlock):
-                    top.add_else(unnested_block)
+                
+                # now handle the stack
+                if isinstance(unnested_block, CodeBlock):
+                    top.code_block = unnested_block 
                 else:
                     top.add_same_level_block(unnested_block)
-            
-            if isinstance(unnested_block, CodeBlock):
-                top.code_block = unnested_block 
-            else:
-                stack.push(unnested_block)
-
+                    stack.push(unnested_block)
         prev_indent = indent_level
 
     # last line
