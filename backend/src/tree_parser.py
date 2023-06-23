@@ -9,7 +9,7 @@ from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
-    lines, start = get_code_info()
+    lines, start = get_code_info(program)
     root, stack, prev_indent, line_no = init_state()
 
     for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
