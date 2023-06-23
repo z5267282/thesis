@@ -41,10 +41,7 @@ def parse(program : Callable):
                 continue
 
             if isinstance(level_block, (IfBlock, WhileBlock)):
-                if top.code_block is not None:
-                    prev : int = line_no - 1
-                    top.code_block.end = prev
-                    top.code_block = None
+                top.end_code_block(line_no - 1)
                 top.add_same_level_block(level_block)
                 stack.push(level_block)
 
@@ -60,9 +57,7 @@ def parse(program : Callable):
         # unindented block
         elif indent_level < prev_indent:
             prev : int = line_no - 1
-            if top.code_block is not None:
-                top.code_block.end = prev
-                top.code_block = None
+            top.end_code_block(prev)
             # pop off stack until same level block
             # assumes consistent indentation levels have been followed
             # basically ends all indents inside the current level

@@ -50,9 +50,12 @@ class BodyBlock(Block):
         return parent
     
     def end_code_block(self, end : int):
-        """end of the code block if set"""
-        if self.code_block is not None:
-            self.code_block.end = end
+        """end the code block if set"""
+        if self.code_block is None:
+            return
+
+        self.code_block.end = end
+        self.code_block = None
 
 class WhileBlock(BodyBlock):
     pass
