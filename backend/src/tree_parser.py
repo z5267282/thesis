@@ -9,12 +9,9 @@ from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
-    lines, start = inspect.getsourcelines(program)
-    start += OFFSET
-    root        : BodyBlock = None
-    stack       : Stack = None
-    prev_indent : int = None
-    line_no     : int = 0
+    lines, start = get_code_info()
+    root, stack, prev_indent, line_no = init_state()
+
     for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
         line        : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
@@ -114,6 +111,18 @@ def parse(program : Callable):
         top = stack.pop()
         top.end = last
     return root
+
+def get_code_info(program : Callable):
+    lines, start = inspect.getsourcelines(program)
+    start += OFFSET
+    return lines, start
+
+def init_state():
+    root        : BodyBlock = None
+    stack       : Stack = None
+    prev_indent : int = None
+    line_no     : int = 0
+    return root, stack, prev_indent, line_no
 
 def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("if"):
