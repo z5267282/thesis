@@ -78,8 +78,7 @@ def parse(program : Callable):
                 if isinstance(top, ElifBlock):
                     top.end_code_block(prev)
                     top.end = prev
-                    stack.pop()
-                    top = stack.peek()
+                    top = stack.pop_peek()
                 add_branch : Callable = \
                     top.add_elif if is_elif else top.add_else
                 add_branch(unnested_block)

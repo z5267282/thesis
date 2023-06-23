@@ -34,5 +34,10 @@ class Stack:
         """remove the top item and return it"""
         return self.items.pop()
     
+    def pop_peek(self):
+        """remove the top item and return the new top"""
+        self.pop()
+        return self.peek()
+    
     def push(self, item : Type[BodyBlock]):
         self.items.append(item)
