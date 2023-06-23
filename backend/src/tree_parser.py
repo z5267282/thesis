@@ -71,7 +71,6 @@ def parse(program : Callable):
                 top = stack.pop()
 
             unnested_block = parse_line(line, line_no, indent_level)
-
             is_elif : bool = isinstance(unnested_block, ElifBlock)
             if is_elif or isinstance(unnested_block, ElseBlock):
                 # the top will either be the if, or an elif
@@ -121,9 +120,8 @@ def parse(program : Callable):
         top.code_block.end = last
         top.code_block = None
     while not stack.empty():
-        top = stack.peek() 
+        top = stack.pop()
         top.end = last
-        stack.pop()
     return root
 
 def parse_line(line : str, line_no : int, indent_level : int):
