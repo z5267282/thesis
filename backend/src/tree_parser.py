@@ -89,20 +89,17 @@ def parse(program : Callable):
                 if isinstance(top, IfBlock) or is_el_block:
                     top.end_code_block(prev)
                     top.end = prev
-                    stack.pop()
-                    top = stack.peek()
+                    top = stack.pop_peek()
                     # end the entire if block now
                     if is_el_block:
                         if not isinstance(top, IfBlock):
                             raise ExpectedIfBlock
                         top.end = prev
-                        stack.pop()
-                        top = stack.peek()
+                        top = stack.pop_peek()
                 elif isinstance(top, WhileBlock):
                     # a while by this point should have had its code block ended
                     top.end = prev
-                    stack.pop()
-                    top = stack.peek()
+                    top = stack.pop_peek()
 
                 # now handle the stack
                 if isinstance(unnested_block, CodeBlock):
