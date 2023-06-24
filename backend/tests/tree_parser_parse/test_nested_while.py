@@ -1,7 +1,7 @@
 from tree_parser import parse
 
-def test_simple_while():
-    def simple_while():
+def test_nested_while():
+    def nested_while():
         SIZE = 3
         i = 0
         while i < SIZE:
@@ -10,7 +10,7 @@ def test_simple_while():
                 print("square")
             i += 1
 
-    root = parse(simple_while)
+    root = parse(nested_while)
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
