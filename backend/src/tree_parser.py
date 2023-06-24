@@ -29,7 +29,7 @@ def parse(program : Callable):
         if indent_level == prev_indent:
             parse_same_level_block(block, line_no, top, stack)
         elif indent_level > prev_indent:
-            parse_indented_block(block, line_no, top, stack)
+            parse_indented_block(block, top, stack)
         else:
             parse_unindented_block(block, line_no, indent_level, top, stack)
         prev_indent = indent_level
@@ -88,11 +88,19 @@ def parse_same_level_block(
         stack.push(block)
 
 def parse_indented_block(
-    block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
+    block : Type[Block], top : Type[BodyBlock], stack : Stack
 ):
+    handle_stack_indentation_change(block, top, stack)
+
+def handle_stack_indentation_change(
+    block : Type[Block], top : Type[BodyBlock], stack : Stack
+):
+    """Manage a new Block on the stack when indentation changes
+    Assume that if the Block introduces indentation it cannot be a branch
+    (ie. not an Elif or an Else)."""
     if isinstance(block, CodeBlock):
         top.code_block = block 
-    elif isinstance(block, (IfBlock, WhileBlock)):
+    else:
         stack.push(block) 
     top.add_same_level_block(block)
 
@@ -107,21 +115,13 @@ def parse_unindented_block(
     if is_branch(block):
         add_branch(block, prev, top, stack)
     else:
-        # must end the current if branch if any
         top_is_branch : bool = is_branch(top)
         if isinstance(top, IfBlock) or top_is_branch:
             top = end_conditional(top, top_is_branch, prev, stack)
         elif isinstance(top, WhileBlock):
-            # a while by this point should have had its code block ended
             top.end = prev
             top = stack.pop_peek()
-
-        # now handle the stack
-        if isinstance(block, CodeBlock):
-            top.code_block = block 
-        else:
-            stack.push(block)
-        top.add_same_level_block(block)
+        handle_stack_indentation_change(block, top, stack)
 
 def unwind_indentations(
     top : Type[BodyBlock], stack : Stack,
@@ -171,6 +171,7 @@ def end_conditional(
     if top_is_branch:
         top.end = prev
         top = stack.pop_peek()
+    # there were reference issues when the top wasn't being returned
     return top
 
 def calculate_last_line(start : int, lines : List[str]):
