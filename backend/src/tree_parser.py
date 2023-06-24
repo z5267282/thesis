@@ -104,7 +104,7 @@ def parse_unindented_block(
     top.end_code_block(prev)
     unwind_indentations(top, stack, indent_level, prev)
 
-    if isinstance(block, (ElifBlock, ElseBlock)):
+    if is_branch(block):
         add_branch(block, prev, top, stack)
     else:
         # must end the current if branch if any
@@ -154,6 +154,10 @@ def add_branch(
         top.add_elif if isinstance(block, ElifBlock) else top.add_else
     add_branch(block)
     stack.push(block)
+
+def is_branch(block : Type[BodyBlock]):
+    """check whether a BodyBlock is a branch of a parent if"""
+    return isinstance(block, (ElifBlock, ElseBlock))
 
 def calculate_last_line(start : int, lines : List[str]):
     return start + len(lines) - 1 - OFFSET
