@@ -108,15 +108,9 @@ def parse_unindented_block(
         add_branch(block, prev, top, stack)
     else:
         # must end the current if branch if any
-        is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
-        if isinstance(top, IfBlock) or is_el_block:
-            top.end_code_block(prev)
-            top.end = prev
-            top = stack.pop_peek()
-            # end the entire if block now
-            if is_el_block:
-                top.end = prev
-                top = stack.pop_peek()
+        top_is_branch : bool = is_branch(top)
+        if isinstance(top, IfBlock) or top_is_branch:
+            top = end_conditional(top, top_is_branch, prev, stack)
         elif isinstance(top, WhileBlock):
             # a while by this point should have had its code block ended
             top.end = prev
@@ -130,8 +124,8 @@ def parse_unindented_block(
         top.add_same_level_block(block)
 
 def unwind_indentations(
-        top : Type[BodyBlock], stack : Stack,
-        indent_level : int, prev : int
+    top : Type[BodyBlock], stack : Stack,
+    indent_level : int, prev : int
 ):
     """pop off stack until a block with the same indentation level is found
     assumes consistent indentation levels have been followed
@@ -139,6 +133,10 @@ def unwind_indentations(
     while top.indent_level != indent_level:
         top.end = prev
         top = stack.pop()
+
+def is_branch(block : Type[BodyBlock]):
+    """check whether a BodyBlock is a branch of a parent if"""
+    return isinstance(block, (ElifBlock, ElseBlock))
 
 def add_branch(
     block : ElifBlock | ElseBlock, prev : int,
@@ -155,9 +153,25 @@ def add_branch(
     add_branch(block)
     stack.push(block)
 
-def is_branch(block : Type[BodyBlock]):
-    """check whether a BodyBlock is a branch of a parent if"""
-    return isinstance(block, (ElifBlock, ElseBlock))
+def end_conditional(
+    top : IfBlock | ElifBlock | ElseBlock, top_is_branch : bool,
+    prev : int, stack : Stack
+):
+    """end an entire parent if block stored near the top of the stack
+    return the new root
+    """
+    # the top of the stack represents the last branch
+    # if: there was only 1 branch
+    # elif | else: there were at least 2 branches
+    # in either case we need to end the last branch first
+    top.end_code_block(prev)
+    top.end = prev
+    top = stack.pop_peek()
+    # if the top was an elif or else, then the entire conditional must be ended
+    if top_is_branch:
+        top.end = prev
+        top = stack.pop_peek()
+    return top
 
 def calculate_last_line(start : int, lines : List[str]):
     return start + len(lines) - 1 - OFFSET
