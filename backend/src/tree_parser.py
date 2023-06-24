@@ -25,65 +25,11 @@ def parse(program : Callable):
         top   : Type[BodyBlock] = stack.peek()
         block : Type[Block] = parse_line(line, line_no, indent_level)
         if indent_level == prev_indent:
-            parse_same_level_line(block, line_no, top, stack)
-
-        # indented block
+            parse_same_level_block(block, line_no, top, stack)
         elif indent_level > prev_indent:
-            nested_block : Type[Block] = parse_line(line, line_no, indent_level)
-
-            if isinstance(nested_block, CodeBlock):
-                top.code_block = nested_block 
-            elif isinstance(nested_block, (IfBlock, WhileBlock)):
-                stack.push(nested_block) 
-            top.add_same_level_block(nested_block)
-        # unindented block
-        elif indent_level < prev_indent:
-            prev : int = line_no - 1
-            top.end_code_block(prev)
-            # pop off stack until same level block
-            # assumes consistent indentation levels have been followed
-            # basically ends all indents inside the current level
-            while top.indent_level != indent_level:
-                top.end = prev
-                top = stack.pop()
-
-            unnested_block = parse_line(line, line_no, indent_level)
-            is_elif : bool = isinstance(unnested_block, ElifBlock)
-            if is_elif or isinstance(unnested_block, ElseBlock):
-                # the top will either be the if, or an elif
-                # if not, the top elif has ended
-                if isinstance(top, ElifBlock):
-                    top.end_code_block(prev)
-                    top.end = prev
-                    top = stack.pop_peek()
-                add_branch : Callable = \
-                    top.add_elif if is_elif else top.add_else
-                add_branch(unnested_block)
-                stack.push(unnested_block)
-            else:
-                # must end the current if branch if any
-                is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
-                if isinstance(top, IfBlock) or is_el_block:
-                    top.end_code_block(prev)
-                    top.end = prev
-                    top = stack.pop_peek()
-                    # end the entire if block now
-                    if is_el_block:
-                        if not isinstance(top, IfBlock):
-                            raise ExpectedIfBlock
-                        top.end = prev
-                        top = stack.pop_peek()
-                elif isinstance(top, WhileBlock):
-                    # a while by this point should have had its code block ended
-                    top.end = prev
-                    top = stack.pop_peek()
-
-                # now handle the stack
-                if isinstance(unnested_block, CodeBlock):
-                    top.code_block = unnested_block 
-                else:
-                    stack.push(unnested_block)
-                top.add_same_level_block(unnested_block)
+            parse_indented_block(block, line_no, top, stack)
+        else:
+            parse_unindented_block(block, line_no, indent_level, top, stack)
         prev_indent = indent_level
 
     # last line
@@ -134,8 +80,8 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
 
     return root, stack
 
-def parse_same_level_line(
-        block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
+def parse_same_level_block(
+    block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
 ):
     if isinstance(block, CodeBlock):
         return
@@ -144,3 +90,62 @@ def parse_same_level_line(
         top.end_code_block(line_no - 1)
         top.add_same_level_block(block)
         stack.push(block)
+
+def parse_indented_block(
+    block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
+):
+    if isinstance(block, CodeBlock):
+        top.code_block = block 
+    elif isinstance(block, (IfBlock, WhileBlock)):
+        stack.push(block) 
+    top.add_same_level_block(block)
+
+def parse_unindented_block(
+    block : Type[Block], line_no : int, indent_level : int,
+    top : Type[BodyBlock], stack : Stack,
+):
+    prev : int = line_no - 1
+    top.end_code_block(prev)
+    # pop off stack until same level block
+    # assumes consistent indentation levels have been followed
+    # basically ends all indents inside the current level
+    while top.indent_level != indent_level:
+        top.end = prev
+        top = stack.pop()
+
+    is_elif : bool = isinstance(block, ElifBlock)
+    if is_elif or isinstance(block, ElseBlock):
+        # the top will either be the if, or an elif
+        # if not, the top elif has ended
+        if isinstance(top, ElifBlock):
+            top.end_code_block(prev)
+            top.end = prev
+            top = stack.pop_peek()
+        add_branch : Callable = \
+            top.add_elif if is_elif else top.add_else
+        add_branch(block)
+        stack.push(block)
+    else:
+        # must end the current if branch if any
+        is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
+        if isinstance(top, IfBlock) or is_el_block:
+            top.end_code_block(prev)
+            top.end = prev
+            top = stack.pop_peek()
+            # end the entire if block now
+            if is_el_block:
+                if not isinstance(top, IfBlock):
+                    raise ExpectedIfBlock
+                top.end = prev
+                top = stack.pop_peek()
+        elif isinstance(top, WhileBlock):
+            # a while by this point should have had its code block ended
+            top.end = prev
+            top = stack.pop_peek()
+
+        # now handle the stack
+        if isinstance(block, CodeBlock):
+            top.code_block = block 
+        else:
+            stack.push(block)
+        top.add_same_level_block(block)
