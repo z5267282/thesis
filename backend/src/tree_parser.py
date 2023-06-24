@@ -19,15 +19,7 @@ def parse(program : Callable):
         # first line
         if prev_indent is None:
             prev_indent = indent_level
-            first_block : Type[Block] = parse_line(line, line_no, indent_level)
-
-            root = BodyBlock(line_no, indent_level)
-            stack = Stack(root)
-            if isinstance(first_block, (IfBlock, WhileBlock)):
-                stack.push(first_block)
-            elif isinstance(first_block, CodeBlock):
-                root.code_block = first_block
-            root.add_same_level_block(first_block)
+            root, stack = parse_first_line(line, line_no, indent_level)
             continue
 
         top : Type[BodyBlock] = stack.peek()
@@ -134,3 +126,17 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     return CodeBlock(line_no)
+
+def parse_first_line(line : str, line_no : int, indent_level : int):
+    """parse the first line in the program
+    return the root of the tree and a stack with it"""
+    first_block : Type[Block] = parse_line(line, line_no, indent_level)
+    root = BodyBlock(line_no, indent_level)
+    stack = Stack(root)
+    if isinstance(first_block, (IfBlock, WhileBlock)):
+        stack.push(first_block)
+    elif isinstance(first_block, CodeBlock):
+        root.code_block = first_block
+    root.add_same_level_block(first_block)
+
+    return root, stack
