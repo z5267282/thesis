@@ -21,7 +21,7 @@ def parse(program : Callable):
             prev_indent = indent_level
             first_block : Type[Block] = parse_line(line, line_no, indent_level)
 
-            root = BodyBlock(line_no, line_contents)
+            root = BodyBlock(line_no, indent_level)
             stack = Stack(root)
             if isinstance(first_block, (IfBlock, WhileBlock)):
                 stack.push(first_block)
