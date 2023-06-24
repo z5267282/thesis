@@ -36,7 +36,6 @@ def parse(program : Callable):
     
     last : int = calculate_last_line(start, lines)
     parse_last_line(last, stack)
-
     return root
 
 def get_code_info(program : Callable):
@@ -63,8 +62,8 @@ def parse_line(line : str, line_no : int, indent_level : int):
     return CodeBlock(line_no)
 
 def parse_first_line(line : str, line_no : int, indent_level : int):
-    """parse the first line in the program
-    return the root of the tree and a stack with it"""
+    """Parse the first line in the program.
+    Return the root of the tree and a stack with it."""
     first_block : Type[Block] = parse_line(line, line_no, indent_level)
     root = BodyBlock(line_no, indent_level)
     stack = Stack(root)
@@ -95,7 +94,7 @@ def parse_indented_block(
 def handle_stack_indentation_change(
     block : Type[Block], top : Type[BodyBlock], stack : Stack
 ):
-    """Manage a new Block on the stack when indentation changes
+    """Manage a new Block on the stack when indentation changes.
     Assume that if the Block introduces indentation it cannot be a branch
     (ie. not an Elif or an Else)."""
     if isinstance(block, CodeBlock):
@@ -127,23 +126,23 @@ def unwind_indentations(
     top : Type[BodyBlock], stack : Stack,
     indent_level : int, prev : int
 ):
-    """pop off stack until a block with the same indentation level is found
-    assumes consistent indentation levels have been followed
-    essentially ends all indents inside the current level"""
+    """Pop off stack until a block with the same indentation level is found.
+    Assume consistent indentation levels have been followed.
+    In summary, ends all indents inside the current level."""
     while top.indent_level != indent_level:
         top.end = prev
         top = stack.pop()
 
 def is_branch(block : Type[BodyBlock]):
-    """check whether a BodyBlock is a branch of a parent if"""
+    """Check whether a BodyBlock is a branch of a parent if."""
     return isinstance(block, (ElifBlock, ElseBlock))
 
 def add_branch(
     block : ElifBlock | ElseBlock, prev : int,
     top : Type[BodyBlock], stack : Stack
 ):
-    """add an elif or else to a parent if branch
-    the parent if will either be the first or second thing on the stack"""
+    """Add an elif or else to a parent if branch.
+    The parent if will either be the first or second thing on the stack."""
     if isinstance(top, ElifBlock):
         top.end_code_block(prev)
         top.end = prev
@@ -157,8 +156,8 @@ def end_conditional(
     top : IfBlock | ElifBlock | ElseBlock, top_is_branch : bool,
     prev : int, stack : Stack
 ):
-    """end an entire parent if block stored near the top of the stack
-    return the new root
+    """End an entire parent if block stored near the top of the stack.
+    Return the new root.
     """
     # the top of the stack represents the last branch
     # if: there was only 1 branch
