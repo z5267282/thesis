@@ -1,5 +1,5 @@
 import inspect
-from typing import Callable, Type
+from typing import Callable, List, Type
 
 from cfg import OFFSET
 from errors import ExpectedIfBlock
@@ -10,6 +10,9 @@ from tree import \
 
 def parse(program : Callable):
     lines, start = get_code_info(program)
+    # the root and stack can only be initialised when the first line is parsed
+    # however, their scope must cover the entire function
+    # hence they are declared here
     root, stack, prev_indent, line_no = init_state()
 
     for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
@@ -31,16 +34,10 @@ def parse(program : Callable):
         else:
             parse_unindented_block(block, line_no, indent_level, top, stack)
         prev_indent = indent_level
+    
+    last : int = calculate_last_line(start, lines)
+    parse_last_line(last, stack)
 
-    # last line
-    last : int = start + len(lines) - 1 - OFFSET
-    top  : Type[BodyBlock] = stack.peek()
-    if top.code_block is not None:
-        top.code_block.end = last
-        top.code_block = None
-    while not stack.empty():
-        top = stack.pop()
-        top.end = last
     return root
 
 def get_code_info(program : Callable):
@@ -149,3 +146,15 @@ def parse_unindented_block(
         else:
             stack.push(block)
         top.add_same_level_block(block)
+
+def calculate_last_line(start : int, lines : List[str]):
+    return start + len(lines) - 1 - OFFSET
+
+def parse_last_line(last : int, stack : Stack):
+    top  : Type[BodyBlock] = stack.peek()
+    if top.code_block is not None:
+        top.code_block.end = last
+        top.code_block = None
+    while not stack.empty():
+        top = stack.pop()
+        top.end = last
