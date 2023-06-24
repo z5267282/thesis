@@ -13,7 +13,7 @@ def parse(program : Callable):
     root, stack, prev_indent, line_no = init_state()
 
     for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
-        line        : str = helper.get_stripped_line(line_contents)
+        line         : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
         # first line
@@ -22,17 +22,10 @@ def parse(program : Callable):
             root, stack = parse_first_line(line, line_no, indent_level)
             continue
 
-        top : Type[BodyBlock] = stack.peek()
+        top   : Type[BodyBlock] = stack.peek()
+        block : Type[Block] = parse_line(line, line_no, indent_level)
         if indent_level == prev_indent:
-            level_block : Type[Block] = parse_line(line, line_no, indent_level)
-            if isinstance(level_block, CodeBlock):
-                # no need to set the indentation level if its the same
-                continue
-
-            if isinstance(level_block, (IfBlock, WhileBlock)):
-                top.end_code_block(line_no - 1)
-                top.add_same_level_block(level_block)
-                stack.push(level_block)
+            parse_same_level_line(block, line_no, top, stack)
 
         # indented block
         elif indent_level > prev_indent:
@@ -140,3 +133,14 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
     root.add_same_level_block(first_block)
 
     return root, stack
+
+def parse_same_level_line(
+        block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
+):
+    if isinstance(block, CodeBlock):
+        return
+
+    if isinstance(block, (IfBlock, WhileBlock)):
+        top.end_code_block(line_no - 1)
+        top.add_same_level_block(block)
+        stack.push(block)
