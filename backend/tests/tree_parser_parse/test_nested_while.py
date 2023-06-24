@@ -31,7 +31,6 @@ def test_nested_while():
                                 "CodeBlock" : {
                                     "start" : 8,
                                     "end" : 8,
-                                    "body" : []
                                 }
                             },
                             {
