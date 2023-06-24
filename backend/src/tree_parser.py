@@ -2,7 +2,6 @@ import inspect
 from typing import Callable, List, Type
 
 from cfg import OFFSET
-from errors import ExpectedIfBlock
 import helper
 from stack import Stack
 from tree import \
@@ -103,25 +102,10 @@ def parse_unindented_block(
 ):
     prev : int = line_no - 1
     top.end_code_block(prev)
-    # pop off stack until same level block
-    # assumes consistent indentation levels have been followed
-    # basically ends all indents inside the current level
-    while top.indent_level != indent_level:
-        top.end = prev
-        top = stack.pop()
+    unwind_indentations(top, stack, indent_level, prev)
 
-    is_elif : bool = isinstance(block, ElifBlock)
-    if is_elif or isinstance(block, ElseBlock):
-        # the top will either be the if, or an elif
-        # if not, the top elif has ended
-        if isinstance(top, ElifBlock):
-            top.end_code_block(prev)
-            top.end = prev
-            top = stack.pop_peek()
-        add_branch : Callable = \
-            top.add_elif if is_elif else top.add_else
-        add_branch(block)
-        stack.push(block)
+    if isinstance(block, (ElifBlock, ElseBlock)):
+        add_branch(block, prev, top, stack)
     else:
         # must end the current if branch if any
         is_el_block : bool = isinstance(top, (ElifBlock, ElseBlock))
@@ -131,8 +115,6 @@ def parse_unindented_block(
             top = stack.pop_peek()
             # end the entire if block now
             if is_el_block:
-                if not isinstance(top, IfBlock):
-                    raise ExpectedIfBlock
                 top.end = prev
                 top = stack.pop_peek()
         elif isinstance(top, WhileBlock):
@@ -147,14 +129,38 @@ def parse_unindented_block(
             stack.push(block)
         top.add_same_level_block(block)
 
+def unwind_indentations(
+        top : Type[BodyBlock], stack : Stack,
+        indent_level : int, prev : int
+):
+    """pop off stack until a block with the same indentation level is found
+    assumes consistent indentation levels have been followed
+    essentially ends all indents inside the current level"""
+    while top.indent_level != indent_level:
+        top.end = prev
+        top = stack.pop()
+
+def add_branch(
+    block : ElifBlock | ElseBlock, prev : int,
+    top : Type[BodyBlock], stack : Stack
+):
+    """add an elif or else to a parent if branch
+    the parent if will either be the first or second thing on the stack"""
+    if isinstance(top, ElifBlock):
+        top.end_code_block(prev)
+        top.end = prev
+        top = stack.pop_peek()
+    add_branch : Callable = \
+        top.add_elif if isinstance(block, ElifBlock) else top.add_else
+    add_branch(block)
+    stack.push(block)
+
 def calculate_last_line(start : int, lines : List[str]):
     return start + len(lines) - 1 - OFFSET
 
 def parse_last_line(last : int, stack : Stack):
-    top  : Type[BodyBlock] = stack.peek()
-    if top.code_block is not None:
-        top.code_block.end = last
-        top.code_block = None
+    top : Type[BodyBlock] = stack.peek()
+    top.end_code_block(last)
     while not stack.empty():
         top = stack.pop()
         top.end = last

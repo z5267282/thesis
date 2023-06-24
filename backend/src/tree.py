@@ -1,8 +1,6 @@
 import json
 from typing import List, Type, Union
 
-from errors import ExistingElseError
-
 class Block():
     def __init__(self, start : int):
         self.start    : int = start
@@ -46,7 +44,9 @@ class BodyBlock(Block):
     
     def to_dict(self):
         parent = super().to_dict()
-        parent[self.__class__.__name__]["body"] = [b.to_dict() for b in self.body]
+        parent[self.__class__.__name__]["body"] = [
+            b.to_dict() for b in self.body
+        ]
         return parent
     
     def end_code_block(self, end : int):
@@ -80,7 +80,9 @@ class IfBlock(BodyBlock):
 
     def to_dict(self):
         parent = super().to_dict()
-        parent[self.__class__.__name__]["elifs"] = [el.to_dict() for el in self.elifs]
+        parent[self.__class__.__name__]["elifs"] = [
+            el.to_dict() for el in self.elifs
+        ]
         parent[self.__class__.__name__]["else"] = \
             None if self.else_ is None else self.else_.to_dict()
         return parent
@@ -89,7 +91,4 @@ class IfBlock(BodyBlock):
         self.elifs.append(elif_block)
     
     def add_else(self, else_block : ElseBlock):
-        if self.else_ is not None:
-            raise ExistingElseError
-
         self.else_ = else_block
