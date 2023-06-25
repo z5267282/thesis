@@ -62,7 +62,6 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
     elif isinstance(first_block, CodeBlock):
         root.code_block = first_block
     root.add_same_level_block(first_block)
-
     return root, stack
 
 def parse_line(line : str, line_no : int, indent_level : int):
