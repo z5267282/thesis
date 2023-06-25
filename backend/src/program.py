@@ -3,10 +3,10 @@ def program():
     twos, sevens = 0, 0
     while i < 5:
         if i % 2 == 0:
-            # print("two")
+            print("two")
             twos += 1
         elif i % 7 == 0:
-            # print("seven")
+            print("seven")
             sevens += 1
         i += 1
     

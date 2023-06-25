@@ -13,6 +13,7 @@ def main():
     print(vars)
 
 def handler(frame : FrameType, event : str, arg : Any, lines, vars):
+    print(frame.f_lineno)
     lines.append(frame.f_lineno)
     vars.append(frame.f_locals)
 
