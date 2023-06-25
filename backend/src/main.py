@@ -10,13 +10,18 @@ class Line:
     def __init__(self, line_no : int, locals : dict):
         self.line_no : int  = line_no
         self.locals  : dict = locals
-
+    
+    # def __str__(self):
+    #     return str(self.line_no)
+    
 def main():
     lines = []
     trace_hook_arg(handler, lines)
     program()
+    # for i in range(len(lines)):
+    #     print(lines[i])
     for l in lines:
-        print(l.line_no)
+        print(l)
 
 def handler(frame : FrameType, event : str, arg : Any, lines):
     lines.append(Line(frame.f_lineno, frame.f_locals))
@@ -30,22 +35,3 @@ def trace_hook_arg(handler, lines):
 
 if __name__ == '__main__':
     main()
-
-# def main():
-#     lines = []
-#     settrace_closure(trace_execution, lines)
-#     program()
-#     print(lines)
-    
-# def trace_execution(frame, event, arg, lines):
-#     lines.append(frame.f_lineno)
-
-# def settrace_closure(trace_execution, lines):
-#     def wrapper(frame, event, arg):
-#         trace_execution(frame, event, arg, lines)
-#         return wrapper
-    
-#     sys.settrace(wrapper)
-
-# if __name__ == '__main__':
-#     main()
