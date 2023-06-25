@@ -109,7 +109,7 @@ def parse_unindented_block(
 ):
     prev : int = line_no - 1
     top.end_code_block(prev)
-    unwind_indentations(top, stack, indent_level, prev)
+    top = unwind_indentations(top, stack, indent_level, prev)
 
     if is_branch(block):
         add_branch(block, prev, top, stack)
@@ -131,10 +131,12 @@ def unwind_indentations(
 ):
     """Pop off stack until a block with the same indentation level is found.
     Assume consistent indentation levels have been followed.
-    In summary, ends all indents inside the current level."""
+    In summary, ends all indents inside the current level.
+    Return the new top."""
     while top.indent_level != indent_level:
         top.end = prev
-        top = stack.pop()
+        top = stack.pop_peek()
+    return top
 
 def is_branch(block : Type[BodyBlock]):
     """Check whether a BodyBlock is a branch of a parent if."""
