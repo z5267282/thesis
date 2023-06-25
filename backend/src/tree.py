@@ -29,7 +29,7 @@ class CodeBlock(Block):
 
 # putting this here because it apparently can't be a class variable
 # pipe syntax does not work for forward references so use Union
-ForwardReferenceOptionalBody = Union[Type['BodyBlock'], CodeBlock]
+ForwardReferenceOptionalBody = Union[Type["BodyBlock"], CodeBlock]
 class BodyBlock(Block):
     """for storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int):

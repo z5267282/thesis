@@ -1,7 +1,7 @@
 import re
 
 def find_first_nospace(string : str):
-    '''a crude way of finding the first non-space character'''
+    """a crude way of finding the first non-space character"""
     for i, s in enumerate(string):
         if not s.isspace():
             return i
