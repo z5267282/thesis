@@ -17,9 +17,10 @@ class Line:
 
 def main():
     lines : List[Line] = []
-    trace_hook_arg(handler, lines)
-    # root = parse(program)
+    sys.settrace(trace_hook_arg(handler, lines))
     program()
+    for l in lines:
+        print(l)
 
 def handler(frame : FrameType, event : str, arg : Any, lines : List[Line]):
     lines.append(Line(frame.f_lineno, frame.f_locals))
@@ -27,9 +28,8 @@ def handler(frame : FrameType, event : str, arg : Any, lines : List[Line]):
 def trace_hook_arg(f, extra):
     def wrapper(frame : FrameType, event : str, arg : Any):
         f(frame, event, arg, extra)
-        return wrapper
-
-    sys.settrace(wrapper)
+    
+    return wrapper
 
 if __name__ == '__main__':
     main()
