@@ -5,31 +5,22 @@ from typing import Any, List
 from tree_parser import parse
 from program import program
 
-class Line:
-    """dataclass to store line information"""
-    def __init__(self, line_no : int, locals : dict):
-        self.line_no : int  = line_no
-        self.locals  : dict = locals
-    
-    def __str__(self):
-        """present just the line number for string representation"""
-        return str(self.line_no)
-
 def main():
-    lines : List[Line] = []
-    sys.settrace(trace_hook_arg(handler, lines))
+    lines, vars = [], []
+    trace_hook_arg(handler, lines, vars)
     program()
-    for l in lines:
-        print(l)
+    print(lines)
+    print(vars)
 
-def handler(frame : FrameType, event : str, arg : Any, lines : List[Line]):
-    lines.append(Line(frame.f_lineno, frame.f_locals))
+def handler(frame : FrameType, event : str, arg : Any, lines, vars):
+    lines.append(frame.f_lineno)
+    vars.append(frame.f_locals)
 
-def trace_hook_arg(f, extra):
+def trace_hook_arg(handler, lines, vars):
     def wrapper(frame : FrameType, event : str, arg : Any):
-        f(frame, event, arg, extra)
+        return handler(frame, event, arg, lines, vars)
     
-    return wrapper
+    sys.settrace(wrapper)
 
 if __name__ == '__main__':
     main()
