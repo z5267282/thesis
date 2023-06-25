@@ -10,14 +10,24 @@ class Line:
     def __init__(self, line_no : int, locals : dict):
         self.line_no : int  = line_no
         self.locals  : dict = locals
+    
+    def __str__(self):
+        """present just the line number for string representation"""
+        return str(self.line_no)
 
-lines = List[Line]
+def main():
+    lines : List[Line] = []
+    trace_hook_arg(handler, lines)
+    # root = parse(program)
+    program()
 
-def trace_execution(frame : FrameType, event : str, arg : Any):
+def handler(frame : FrameType, event : str, arg : Any, lines : List[Line]):
     lines.append(Line(frame.f_lineno, frame.f_locals))
-    return trace_execution
 
-sys.settrace(trace_execution)
+def trace_hook_arg(f, extra):
+    def wrapper(frame : FrameType, event : str, arg : Any):
+        return f(frame, event, arg, extra)
+    sys.settrace(wrapper)
 
-root = parse(program)
-program()
+if __name__ == '__main__':
+    main()
