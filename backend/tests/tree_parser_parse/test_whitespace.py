@@ -20,7 +20,7 @@ def test_whitespace():
             "body" : [
                 {
                     "CodeBlock" : {
-                        "start" : 6,
+                        "start" : 5,
                         "end" : 6
                     }
                 },
@@ -29,12 +29,6 @@ def test_whitespace():
                         "start" : 7,
                         "end" : 12,
                         "body" : [
-                            {
-                                "CodeBlock" : {
-                                    "start" : 8,
-                                    "end" : 8
-                                }
-                            },
                             {
                                 "IfBlock" : {
                                     "start" : 9,
