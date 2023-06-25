@@ -23,6 +23,7 @@ def parse(program : Callable):
             prev_indent = indent_level
             root, stack = parse_first_line(line, line_no, indent_level)
             continue
+            
 
         top   : Type[BodyBlock] = stack.peek()
         block : Type[Block] = parse_line(line, line_no, indent_level)
@@ -50,17 +51,6 @@ def init_state():
     line_no     : int = 0
     return root, stack, prev_indent, line_no
 
-def parse_line(line : str, line_no : int, indent_level : int):
-    if line.startswith("if"):
-        return IfBlock(line_no, indent_level)
-    if line.startswith("while"):
-        return WhileBlock(line_no, indent_level)
-    if line.startswith("elif"):
-        return ElifBlock(line_no, indent_level)
-    if line.startswith("else"):
-        return ElseBlock(line_no, indent_level)
-    return CodeBlock(line_no)
-
 def parse_first_line(line : str, line_no : int, indent_level : int):
     """Parse the first line in the program.
     Return the root of the tree and a stack with it."""
@@ -74,6 +64,17 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
     root.add_same_level_block(first_block)
 
     return root, stack
+
+def parse_line(line : str, line_no : int, indent_level : int):
+    if line.startswith("if"):
+        return IfBlock(line_no, indent_level)
+    if line.startswith("while"):
+        return WhileBlock(line_no, indent_level)
+    if line.startswith("elif"):
+        return ElifBlock(line_no, indent_level)
+    if line.startswith("else"):
+        return ElseBlock(line_no, indent_level)
+    return CodeBlock(line_no)
 
 def parse_same_level_block(
     block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
