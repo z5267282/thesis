@@ -15,8 +15,3 @@ def num_leading_whitespace(string : str):
 
 def get_stripped_line(string : str):
     return string[find_first_nospace(string):]
-
-# string = '    hello'
-# string = ''
-# space = get_leading_whitespace(string)
-# print("|{}|".format(space))
