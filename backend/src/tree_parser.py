@@ -23,7 +23,10 @@ def parse(program : Callable):
             prev_indent = indent_level
             root, stack = parse_first_line(line, line_no, indent_level)
             continue
-            
+        
+        # comment or blank line
+        if is_skipable(line):
+            continue
 
         top   : Type[BodyBlock] = stack.peek()
         block : Type[Block] = parse_line(line, line_no, indent_level)
@@ -74,6 +77,10 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     return CodeBlock(line_no)
+
+def is_skipable(line : str):
+    """check whether a line stripped of leading spaces is a comment or blank."""
+    return line == "" or line.startswith("#")
 
 def parse_same_level_block(
     block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
