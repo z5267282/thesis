@@ -119,6 +119,9 @@ def parse_unindented_block(
             top = end_conditional(top, top_is_branch, prev, stack)
         elif isinstance(top, WhileBlock):
             top.end = prev
+            print(top)
+            print(line_no)
+            print(stack)
             top = stack.pop_peek()
         handle_stack_indentation_change(block, top, stack)
 
