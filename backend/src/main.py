@@ -26,7 +26,9 @@ def handler(frame : FrameType, event : str, arg : Any, lines : List[Line]):
 
 def trace_hook_arg(f, extra):
     def wrapper(frame : FrameType, event : str, arg : Any):
-        return f(frame, event, arg, extra)
+        f(frame, event, arg, extra)
+        return wrapper
+
     sys.settrace(wrapper)
 
 if __name__ == '__main__':
