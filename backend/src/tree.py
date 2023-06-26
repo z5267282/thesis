@@ -101,7 +101,7 @@ class IfBlock(BodyBlock):
         super().map_lines(line_mapping)
         for e in self.elifs:
             e.map_lines(line_mapping)
-        if self.else_ is None:
+        if self.else_ is not None:
             self.else_.map_lines(line_mapping)
     
     def add_elif(self, elif_block : ElifBlock):

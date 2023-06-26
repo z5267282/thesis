@@ -16,17 +16,20 @@ def test_if_chain():
     i.end = 11
     i_body = CodeBlock(7)
     i_body.end = 7
+    i.add_same_level_block(i_body)
 
     el = ElifBlock(8, 1)
     el.end = 9
     el_body = CodeBlock(9)
     el_body.end = 9
+    el.add_same_level_block(el_body)
     i.add_elif(el)
 
     els = ElseBlock(10, 1)
     els.end = 11
     els_body = CodeBlock(11)
     els_body.end = 11
+    els.add_same_level_block(els_body)
     i.add_else(els)
 
     root = BodyBlock(5, 1)
