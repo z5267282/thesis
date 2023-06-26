@@ -31,14 +31,11 @@ class Block():
 class CodeBlock(Block):
     pass
 
-# putting this here because it apparently can't be a class variable
-# pipe syntax does not work for forward references so use Union
-ForwardReferenceOptionalBody = Union[Type["BodyBlock"], CodeBlock]
 class BodyBlock(Block):
     """for storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int):
         super().__init__(start)
-        self.body         : list[ForwardReferenceOptionalBody] = []
+        self.body         : list[Type["BodyBlock"] | CodeBlock] = []
         # for storing the most recent code block
         self.code_block   : CodeBlock | None                   = None
         self.indent_level : int                                = indent_level
@@ -59,7 +56,7 @@ class BodyBlock(Block):
         for b in self.body:
             b.map_lines(line_mappings)
     
-    def add_same_level_block(self, block : ForwardReferenceOptionalBody):
+    def add_same_level_block(self, block : Type["BodyBlock"] | CodeBlock):
         self.body.append(block)
     
     def end_code_block(self, end : int):
