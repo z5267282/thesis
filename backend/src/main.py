@@ -16,14 +16,15 @@ class Line:
 
 def main():
     lines = []
-    trace_hook_arg(handler, lines)
-    for l in lines:
-        print(l)
+    trace_program(trace_line, lines)
 
-def handler(frame : FrameType, event : str, arg : Any, lines):
+def trace_line(frame : FrameType, event : str, arg : Any, lines):
+    if event != "line":
+        return
+
     lines.append(Line(frame.f_lineno, frame.f_locals))
 
-def trace_hook_arg(handler, lines):
+def trace_program(handler, lines):
     def wrapper(frame : FrameType, event : str, arg : Any):
         handler(frame, event, arg, lines)
         return wrapper
