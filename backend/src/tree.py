@@ -1,5 +1,5 @@
 import json
-from typing import List, Type, Union
+from typing import Type, Union
 
 class Block():
     def __init__(self, start : int):
@@ -38,7 +38,7 @@ class BodyBlock(Block):
     """for storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int):
         super().__init__(start)
-        self.body         : List[ForwardReferenceOptionalBody] = []
+        self.body         : list[ForwardReferenceOptionalBody] = []
         # for storing the most recent code block
         self.code_block   : CodeBlock | None                   = None
         self.indent_level : int                                = indent_level
@@ -88,7 +88,7 @@ class IfBlock(BodyBlock):
     any elifs, and an else"""
     def __init__(self, start: int, indent_level : int):
         super().__init__(start, indent_level)
-        self.elifs : List[ElifBlock] = []
+        self.elifs : list[ElifBlock] = []
         self.else_ : None | ElseBlock = None
 
     def to_dict(self):

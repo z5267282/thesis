@@ -1,6 +1,6 @@
 import sys
 from types import FrameType
-from typing import Any, Callable, List
+from typing import Any, Callable
 
 from program import program
 from tree import Block, BodyBlock
@@ -8,7 +8,7 @@ from tree_parser import parse
 
 def main():
     root  : BodyBlock = parse(program)
-    lines : List[Line] = []
+    lines : list[Line] = []
     trace_program(trace_line, lines)
 
 class Line:
@@ -20,7 +20,7 @@ class Line:
     def __str__(self):
         return f"{self.line_no} : {self.locals}"
 
-def trace_program(handler : Callable, lines : List[Line]):
+def trace_program(handler : Callable, lines : list[Line]):
     def wrapper(frame : FrameType, event : str, arg : Any):
         handler(frame, event, arg, lines)
         return wrapper

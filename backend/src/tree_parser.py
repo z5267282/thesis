@@ -1,5 +1,5 @@
 import inspect
-from typing import Callable, List, Type
+from typing import Callable, Type
 
 from cfg import OFFSET
 import helper
@@ -182,7 +182,7 @@ def end_conditional(
     # there were reference issues when the top wasn't being returned
     return top
 
-def calculate_last_line(start : int, lines : List[str]):
+def calculate_last_line(start : int, lines : list[str]):
     return start + len(lines) - 1 - OFFSET
 
 def parse_last_line(last : int, stack : Stack):
