@@ -37,8 +37,8 @@ class BodyBlock(Block):
         super().__init__(start)
         self.body         : list[Type["BodyBlock"] | CodeBlock] = []
         # for storing the most recent code block
-        self.code_block   : CodeBlock | None                   = None
-        self.indent_level : int                                = indent_level
+        self.code_block   : CodeBlock | None = None
+        self.indent_level : int              = indent_level
     
     def to_dict(self):
         parent = super().to_dict()
