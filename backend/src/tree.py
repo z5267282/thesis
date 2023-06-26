@@ -47,10 +47,6 @@ class BodyBlock(Block):
         ]
         return parent
     
-    def pretty_print(self):
-        """a pretty printer for debugging"""
-        print(json.dumps(self.to_dict(), indent=2))
-    
     def map_lines(self, line_mapping: dict[int, Type[Block]]):
         super().map_lines(line_mapping)
         for b in self.body:
