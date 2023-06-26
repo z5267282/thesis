@@ -1,14 +1,15 @@
 import sys
 from types import FrameType
-from typing import Any, Callable
+from typing import Any, Callable, Type
 
 from program import program
-from tree import Block, BodyBlock
+from tree import Block, BodyBlock, CodeBlock
 from tree_parser import parse
 
 def main():
-    root  : BodyBlock = parse(program)
-    lines : list[Line] = []
+    root         : BodyBlock = parse(program)
+    lines        : list[Line] = []
+    line_mapping : dict[int, Type[Block]] = {}
     trace_program(trace_line, lines)
 
 class Line:
@@ -34,6 +35,20 @@ def trace_line(frame : FrameType, event : str, arg : Any, lines):
         return
 
     lines.append(Line(frame.f_lineno, frame.f_locals))
+
+def generate_execution_graph(root : BodyBlock, lines : list[Line]):
+    """create the intelligent unique execution path
+    return a condensed line list"""
+
+    line_mapping : dict[int, Type[Block]] = {}
+    root.map_lines(line_mapping)
+    # must use a while loop to control what line we are up to
+    curr : CodeBlock | None = None
+    for line in lines:
+        line_no : int = line.line_no
+        node : Type[Block] = lines[line_no]
+        if isinstance(node, CodeBlock) and node.start == line_no:
+            curr = node
 
 if __name__ == '__main__':
     main()
