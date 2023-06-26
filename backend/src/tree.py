@@ -20,7 +20,7 @@ class Block():
             }
         }
     
-    def create_mapping(self, line_mappings : dict[int, Type["Block"]]):
+    def map_lines(self, line_mappings : dict[int, Type["Block"]]):
         for i in range(self.start, self.end + 1):
             line_mappings[i] = self
 
@@ -54,10 +54,10 @@ class BodyBlock(Block):
         """a pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
     
-    def create_mapping(self, line_mappings: dict[int, Type[Block]]):
-        super().create_mapping(line_mappings)
+    def map_lines(self, line_mappings: dict[int, Type[Block]]):
+        super().map_lines(line_mappings)
         for b in self.body:
-            b.create_mapping(line_mappings)
+            b.map_lines(line_mappings)
     
     def add_same_level_block(self, block : ForwardReferenceOptionalBody):
         self.body.append(block)
@@ -100,12 +100,12 @@ class IfBlock(BodyBlock):
             None if self.else_ is None else self.else_.to_dict()
         return parent
     
-    def create_mapping(self, line_mappings: dict[int, Type[Block]]):
-        super().create_mapping(line_mappings)
+    def map_lines(self, line_mappings: dict[int, Type[Block]]):
+        super().map_lines(line_mappings)
         for e in self.elifs:
-            e.create_mapping(line_mappings)
+            e.map_lines(line_mappings)
         if self.else_ is None:
-            self.else_.create_mapping(line_mappings)
+            self.else_.map_lines(line_mappings)
     
     def add_elif(self, elif_block : ElifBlock):
         self.elifs.append(elif_block)
