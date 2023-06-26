@@ -12,14 +12,13 @@ class Line:
         self.locals  : dict = locals
     
     def __str__(self):
-        return str(self.line_no)
-    
-    def tick(self):
-        pass
-    
+        return f"{self.line_no} : {self.locals}"
+
 def main():
     lines = []
     trace_hook_arg(handler, lines)
+    for l in lines:
+        print(l)
 
 def handler(frame : FrameType, event : str, arg : Any, lines):
     lines.append(Line(frame.f_lineno, frame.f_locals))
