@@ -19,6 +19,10 @@ class Block():
                 "end"   : self.end
             }
         }
+    
+    def create_mapping(self, line_mappings : dict[int, Type["Block"]]):
+        for i in range(self.start, self.end + 1):
+            line_mappings[i] = self
 
     def pretty_print(self):
         """a pretty printer for debugging"""
@@ -39,15 +43,19 @@ class BodyBlock(Block):
         self.code_block   : CodeBlock | None                   = None
         self.indent_level : int                                = indent_level
     
-    def add_same_level_block(self, block : ForwardReferenceOptionalBody):
-        self.body.append(block)
-    
     def to_dict(self):
         parent = super().to_dict()
         parent[self.__class__.__name__]["body"] = [
             b.to_dict() for b in self.body
         ]
         return parent
+    
+    def pretty_print(self):
+        """a pretty printer for debugging"""
+        print(json.dumps(self.to_dict(), indent=2))
+    
+    def add_same_level_block(self, block : ForwardReferenceOptionalBody):
+        self.body.append(block)
     
     def end_code_block(self, end : int):
         """end the code block if set"""
