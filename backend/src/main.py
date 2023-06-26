@@ -2,8 +2,15 @@ import sys
 from types import FrameType
 from typing import Any, List
 
-from tree_parser import parse
 from program import program
+from tree import BodyBlock
+from tree_parser import parse
+
+def main():
+    root  : BodyBlock = parse(program)
+    lines : List[Line] = []
+    trace_program(trace_line, lines)
+    root.pretty_print()
 
 class Line:
     """dataclass to store line information"""
@@ -14,16 +21,6 @@ class Line:
     def __str__(self):
         return f"{self.line_no} : {self.locals}"
 
-def main():
-    lines = []
-    trace_program(trace_line, lines)
-
-def trace_line(frame : FrameType, event : str, arg : Any, lines):
-    if event != "line":
-        return
-
-    lines.append(Line(frame.f_lineno, frame.f_locals))
-
 def trace_program(handler, lines):
     def wrapper(frame : FrameType, event : str, arg : Any):
         handler(frame, event, arg, lines)
@@ -32,6 +29,12 @@ def trace_program(handler, lines):
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
+
+def trace_line(frame : FrameType, event : str, arg : Any, lines):
+    if event != "line":
+        return
+
+    lines.append(Line(frame.f_lineno, frame.f_locals))
 
 if __name__ == '__main__':
     main()
