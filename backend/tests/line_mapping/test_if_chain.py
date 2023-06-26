@@ -34,9 +34,13 @@ def test_if_chain():
     root.add_same_level_block(c_start)
     root.add_same_level_block(i)
 
-    line_mappings = {}
-    root.map_lines(line_mappings)
-    assert line_mappings == {
+    line_mapping = {}
+    root.map_lines(line_mapping)
+
+    for l in line_mapping:
+        print(f"{l} : {line_mapping[l]}")
+
+    assert line_mapping == {
         5 : c_start,
         6 : i,
         7 : i_body,
