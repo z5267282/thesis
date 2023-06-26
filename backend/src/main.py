@@ -1,6 +1,6 @@
 import sys
 from types import FrameType
-from typing import Any, Callable, Dict, List, Type
+from typing import Any, Callable, List
 
 from program import program
 from tree import Block, BodyBlock
@@ -9,7 +9,6 @@ from tree_parser import parse
 def main():
     root  : BodyBlock = parse(program)
     lines : List[Line] = []
-    line_mappings : dict[int, Type[Block]] = {}
     trace_program(trace_line, lines)
 
 class Line:
@@ -29,10 +28,6 @@ def trace_program(handler : Callable, lines : List[Line]):
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
-
-def get_line_mappings(
-    root : Type[Block], line_mappings : dict[int, Type[Block]]
-):
 
 def trace_line(frame : FrameType, event : str, arg : Any, lines):
     if event != "line":

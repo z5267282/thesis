@@ -54,6 +54,11 @@ class BodyBlock(Block):
         """a pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
     
+    def create_mapping(self, line_mappings: dict[int, Type[Block]]):
+        super().create_mapping(line_mappings)
+        for b in self.body:
+            b.create_mapping(line_mappings)
+    
     def add_same_level_block(self, block : ForwardReferenceOptionalBody):
         self.body.append(block)
     
@@ -94,6 +99,13 @@ class IfBlock(BodyBlock):
         parent[self.__class__.__name__]["else"] = \
             None if self.else_ is None else self.else_.to_dict()
         return parent
+    
+    def create_mapping(self, line_mappings: dict[int, Type[Block]]):
+        super().create_mapping(line_mappings)
+        for e in self.elifs:
+            e.create_mapping(line_mappings)
+        if self.else_ is None:
+            self.else_.create_mapping(line_mappings)
     
     def add_elif(self, elif_block : ElifBlock):
         self.elifs.append(elif_block)
