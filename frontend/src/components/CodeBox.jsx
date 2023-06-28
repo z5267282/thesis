@@ -1,4 +1,5 @@
 import './style.css';
+import React from 'react';
 
 export default function CodeBox() {
   const formStyle = {
@@ -24,10 +25,10 @@ export default function CodeBox() {
     >
       <p className="large-text">Code Input</p>
       <textarea
+        defaultValue="hello"
         rows={30}
         cols={60}
         name="code-upload"
-        defaultValue=""
         onChange={update}
         spellCheck={false}
         autoFocus={false}
