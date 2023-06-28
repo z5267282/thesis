@@ -78,7 +78,7 @@ export default function CodeBox() {
   const [showTrace, setShowTrace] = React.useState(true);
 
   return (
-    <>
+    <form id="code-upload" style={formStyle}>
       <p className="large-text">Code Input</p>
       <div style={{ display : "flex", width : "20%", justifyContent : "space-evenly", marginBottom : 20 }}>
         <button onClick={() => {setShowTrace(true)}}>Trace</button>
@@ -100,34 +100,6 @@ export default function CodeBox() {
           />
         }
       </div>
-    </>
+    </form>
   );
-
-  // return (
-  //   <form
-  //     id="code-upload"
-  //     style={formStyle}
-  //   >
-  //     <p className="large-text">Code Input</p>
-  //     <p>{`showTrace is: ${showTrace}`}</p>
-  //     <div style={{ display : "flex", width : "20%", justifyContent : "space-evenly", marginBottom : 20 }}>
-  //       <button onClick={() => {setShowTrace(true)}}>Trace</button>
-  //       <button onClick={() => {setShowTrace(false)}}>Upload</button>
-  //     </div>
-  //     {
-  //       (showTrace) ?
-  //         <textarea
-  //           rows={30} cols={60} name="code-upload" spellCheck={false} disabled style={{ backgroundColor : "red" }} defaultValue="fish"
-  //         />
-  //       :
-  //       <textarea
-  //         rows={30} cols={60} name="code-upload" spellCheck={false} style={{ backgroundColor : "green" }} defaultValue="dog"
-  //       />
-  //     }
-  //     <div style={buttonBoxStyle}>
-  //       <button>prev</button>
-  //       <button>next</button>
-  //     </div>
-  //   </form>
-  // );
 }
