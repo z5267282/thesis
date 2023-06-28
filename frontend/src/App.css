@@ -1,12 +1,21 @@
 .App {
+  height: 100vh;
+  width: 100;
+  margin-top: 2.5vh;
   display: flex;
   justify-content: center;
-  width: 100vw;
 }
 
-.outputs {
+#main {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+#outputs {
   display: flex;
   flex-direction: column;
   width: 25%;
-  justify-content: space-evenly;
+  margin-top: 5%;
+  justify-content: flex-start;
 }

@@ -7,10 +7,12 @@ import VariableBox from './components/VariableBox';
 export default function App() {
   return (
     <div className="App">
-      <CodeBox />
-      <div className="outputs">
-        <VariableBox />
-        <OutputBox />
+      <div id="main">
+        <CodeBox />
+        <div id="outputs">
+          <VariableBox />
+          <OutputBox />
+        </div>
       </div>
     </div>
   );
