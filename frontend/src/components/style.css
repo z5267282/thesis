@@ -3,6 +3,11 @@ button {
     border: solid;
     border-width: 1.5pt;
     border-radius: 5pt;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: aqua;
 }
 
 textarea {
