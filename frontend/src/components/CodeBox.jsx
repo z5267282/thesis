@@ -1,5 +1,6 @@
-import React from "react";
 import styles from "./CodeBox.module.css";
+
+import React from "react";
 
 export default function CodeBox() {
   const [showTrace, setShowTrace] = React.useState(false);

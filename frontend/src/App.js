@@ -1,15 +1,15 @@
-import './App.css';
+import styles from "./App.module.css";
 
-import CodeBox from './components/CodeBox';
-import OutputBox from './components/OutputBox';
-import VariableBox from './components/VariableBox';
+import CodeBox from "./components/CodeBox";
+import OutputBox from "./components/OutputBox";
+import VariableBox from "./components/VariableBox";
 
 export default function App() {
   return (
-    <div className="App">
-      <div id="main">
+    <div className={styles.App}>
+      <div className={styles.container}>
         <CodeBox />
-        <div id="outputs">
+        <div className={styles.outputs}>
           <VariableBox />
           <OutputBox />
         </div>

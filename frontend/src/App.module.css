@@ -6,13 +6,13 @@
   justify-content: center;
 }
 
-#main {
+.container {
   display: flex;
   justify-content: center;
   width: 70%;
 }
 
-#outputs {
+.outputs {
   display: flex;
   flex-direction: column;
   width: 25%;
