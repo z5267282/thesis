@@ -1,22 +1,10 @@
-export default function VariableBox() {
-  const style = {
-    width: "100%",
-    height: "30%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  };
+import styles from "./VariableBox.module.css";
 
+export default function VariableBox() {
   return (
-    <div
-      style={style}
-    >
+    <label htmlFor="outputBox" className={styles.container}>
       <p className="large-text">Variables</p>
-      <textarea
-        value="vars"
-        spellCheck={false}
-        readOnly={true}
-      />
-    </div>
+      <textarea id="outputBox" value="vars" spellCheck={false} readOnly/>
+    </label>
   );
 };
