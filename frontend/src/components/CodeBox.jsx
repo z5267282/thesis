@@ -21,7 +21,7 @@ export default function CodeBox() {
 
   return (
     <div style={formStyle}>
-      <div style={{ display : "flex", width : "20%", justifyContent : "space-evenly", marginBottom : 20 }}>
+      <div style={{ display : "flex", width : "50%", justifyContent : "space-evenly", marginBottom : 20 }}>
         <button type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
         <button type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
       </div>
