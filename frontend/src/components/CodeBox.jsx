@@ -2,13 +2,6 @@ import React from "react";
 import styles from "./CodeBox.module.css";
 
 export default function CodeBox() {
-  const buttonBoxStyle = {
-    display: "flex",
-    justifyContent: "space-evenly",
-    width: "50%",
-    marginTop: "2%"
-  };
-
   const [showTrace, setShowTrace] = React.useState(false);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -18,7 +11,7 @@ export default function CodeBox() {
         <button type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
         <button type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
       </div>
-      <label htmlFor="box" style={{ display : "flex", flexDirection : "column", alignItems : "center" }}>
+      <label htmlFor="box" className={styles.codeBox}>
         <p className={styles.largeText}>
           { (showTrace) ? "Trace execution" : "Upload code" }
         </p>
@@ -34,7 +27,7 @@ export default function CodeBox() {
           />
         }
       </label>
-      <div style={buttonBoxStyle}>
+      <div className={styles.transitionContainer}>
         <button>prev</button>
         <button>next</button>
       </div>

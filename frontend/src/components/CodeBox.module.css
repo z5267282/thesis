@@ -32,6 +32,19 @@ textarea {
     justify-content: space-evenly;
 }
 
+.codeBox {
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+}
+
 .largeText {
     font-size: 16pt;
+}
+
+.transitionContainer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    margin-top: 2%;
 }
