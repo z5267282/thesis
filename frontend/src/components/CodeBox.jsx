@@ -1,5 +1,5 @@
-import './style.css';
-import React from 'react';
+import React from "react";
+import styles from "./OutputBox.module.css";
 
 export default function CodeBox() {
   const formStyle = {
@@ -26,7 +26,7 @@ export default function CodeBox() {
         <button type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
       </div>
       <label htmlFor="box" style={{ display : "flex", flexDirection : "column", alignItems : "center" }}>
-        <p className="large-text">
+        <p className={styles.largeText}>
           { (showTrace) ? "Trace execution" : "Upload code" }
         </p>
         {

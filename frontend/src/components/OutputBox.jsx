@@ -1,4 +1,4 @@
-import './style.css';
+import styles from "./OutputBox.module.css";
 
 export default function VariableBox() {
   const style = {
@@ -16,7 +16,7 @@ export default function VariableBox() {
       <p className="large-text">Output</p>
       <textarea
         value="out"
-        className="side-box"
+        className={styles.sideBox}
         spellCheck={false}
         readOnly={true}
       />
