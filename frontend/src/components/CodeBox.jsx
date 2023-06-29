@@ -1,27 +1,20 @@
 import React from "react";
-import styles from "./OutputBox.module.css";
+import styles from "./CodeBox.module.css";
 
 export default function CodeBox() {
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "65%"
-  };
-
   const buttonBoxStyle = {
     display: "flex",
     justifyContent: "space-evenly",
     width: "50%",
     marginTop: "2%"
-  }
+  };
 
   const [showTrace, setShowTrace] = React.useState(false);
   const [traceCode, setTraceCode] = React.useState("");
 
   return (
-    <div style={formStyle}>
-      <div style={{ display : "flex", width : "50%", justifyContent : "space-evenly", marginBottom : 20 }}>
+    <div className={styles.container}>
+      <div className={styles.tabSelector}>
         <button type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
         <button type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
       </div>
