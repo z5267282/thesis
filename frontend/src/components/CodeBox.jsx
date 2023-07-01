@@ -13,22 +13,15 @@ export default function CodeBox() {
   );
 
   const UploadBox = (
-    <>
-      <div className={styles.hello}>
-        {
-          traceCode.split("\n").map((_, line) => {
-            console.log("hello");
-            return (
-              <p key={`line-${line}`}>{line + 1}</p>
-            );
-          })
-        }
+    <div className={styles.editorBox}>
+      <div className={styles.lineNumbers}>
+        { traceCode.split("\n").map(() => <span>f</span>) }
       </div>
       <textarea
         rows={30} cols={60} name="code-upload" spellCheck={false} id="box"
         onInput={(event) => setTraceCode(event.target.value)} 
       />
-    </>
+    </div>
   );
 
   return (

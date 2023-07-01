@@ -11,12 +11,12 @@ button:hover {
 }
 
 textarea {
-    resize: none;
-    padding: 1%;
-    font-size: 12pt;
+    line-height: 12pt;
+    padding: 0;
     border: solid;
     border-width: 1.5pt;
     border-radius: 1%;
+    resize: none;
 }
 
 .container {
@@ -49,6 +49,31 @@ textarea {
     margin-top: 2%;
 }
 
-.hello {
-    background-color: red;
+.editorBox {
+    display: inline-flex;
+    font-family: monospace;
+    line-height: 14pt;
+    border-radius: 2px;
+    gap: 1%;
+}
+
+.codeFont {
+    line-height: 12pt;
+    font-family: "Courier"
+}
+
+.lineNumbers{
+    background-color: aqua;
+    width: 2.5%;
+    text-align: right;
+}
+
+.lineNumbers span {
+    counter-increment: linenumber;
+}
+
+.line-numbers span::before {
+    content: counter(linenumber);
+    display: block;
+    color: #506882;
 }
