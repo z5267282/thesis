@@ -10,17 +10,6 @@ button:hover {
     background-color: aqua;
 }
 
-textarea {
-    line-height: 14pt;
-    padding: 0;
-    border: none;
-    border-width: 1.5pt;
-    border-radius: 1%;
-    resize: none;
-    width: 80%;
-    outline: none;
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -50,32 +39,4 @@ textarea {
     justify-content: space-evenly;
     width: 50%;
     margin-top: 2%;
-}
-
-.editorBox {
-    display: inline-flex;
-    font-family: monospace;
-    line-height: 14pt;
-    border-radius: 2px;
-    gap: 2.5%;
-    border: solid;
-    border-width: 2.5px;
-    border-color: black;
-    padding: 2.5%;
-    width: 80%;
-    background-color: beige;
-}
-
-.lineNumbers{
-    width: auto;
-    text-align: right;
-}
-
-.lineNumbers span {
-    counter-increment: linenumber;
-}
-
-.lineNumbers span::before {
-    content: counter(linenumber);
-    display: block;
 }

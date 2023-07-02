@@ -1,5 +1,7 @@
 import styles from "./CodeBox.module.css";
 
+import UploadBox from "./UploadBox";
+
 import React from "react";
 
 export default function CodeBox() {
@@ -12,18 +14,6 @@ export default function CodeBox() {
     />
   );
 
-  const UploadBox = (
-    <div className={styles.editorBox}>
-      <div className={styles.lineNumbers}>
-        { traceCode.split("\n").map(() => <span />) }
-      </div>
-      <textarea
-        name="code-upload" spellCheck={false} id="box"
-        onInput={(event) => setTraceCode(event.target.value)} 
-      />
-    </div>
-  );
-
   return (
     <div className={styles.container}>
       <div className={styles.tabSelector}>
@@ -34,7 +24,12 @@ export default function CodeBox() {
         <p className={styles.largeText}>
           { (showTrace) ? "Trace execution" : "Upload code" }
         </p>
-        { (showTrace) ? TraceBox : UploadBox }
+        {
+          (showTrace) ?
+            TraceBox
+          :
+            <UploadBox traceCode={traceCode} setTraceCode={setTraceCode} />
+        }
       </label>
       <div className={styles.transitionContainer}>
         <button>prev</button>
