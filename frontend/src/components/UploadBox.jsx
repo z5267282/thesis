@@ -9,7 +9,7 @@ export default function UploadBox({traceCode, setTraceCode}) {
           { traceCode.split("\n").map(() => <span />) }
         </div>
         <textarea
-          name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput}
+          name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput} value={traceCode}
           onInput={(event) => setTraceCode(event.target.value)} 
         />
       </div>
