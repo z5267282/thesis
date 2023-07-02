@@ -1,12 +1,12 @@
-.codeInput {
-    line-height: 14pt;
-    padding: 0;
-    border: none;
-    border-width: 1.5pt;
-    border-radius: 1%;
-    resize: none;
+.container {
+    display : flex;
+    flex-direction : column;
+    align-items : center;
     width: 80%;
-    outline: none;
+}
+
+.largeText {
+    font-size: 16pt;
 }
 
 .editorBox {
@@ -20,6 +20,17 @@
     border-color: black;
     padding: 2.5%;
     width: 80%;
+}
+
+.codeInput {
+    line-height: 14pt;
+    padding: 0;
+    border: none;
+    border-width: 1.5pt;
+    border-radius: 1%;
+    resize: none;
+    width: 80%;
+    outline: none;
 }
 
 .lineNumbers{
