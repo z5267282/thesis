@@ -6,7 +6,7 @@ export default function UploadBox({traceCode, setTraceCode}) {
       <p className={styles.largeText}>Upload code</p>
       <div className={styles.editorBox}>
         <div className={styles.lineNumbers}>
-          { traceCode.split("\n").map(() => <span />) }
+          { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
         <textarea
           name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput} value={traceCode}
