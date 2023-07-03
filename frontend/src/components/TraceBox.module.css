@@ -15,3 +15,7 @@
     font-family: monospace; 
     font-size: 14pt;
 }
+
+.preserveSpace {
+    white-space: pre;
+}

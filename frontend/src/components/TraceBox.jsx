@@ -12,15 +12,12 @@ export default function TraceBox() {
       <div className={styles.codeBox}>
         {
           dummy.code.map(
-            (line, i) => {
-              const preservedSpacing = line.replace(/^ /g, "\u00A0");
-              return (
-                  <Fragment key={`line-${i}`}>
-                    <span>{dummy.lines[i]}</span>
-                    <span id={`code-line-${i}`}>{preservedSpacing}</span>
-                  </Fragment>
-              );
-            }
+            (line, i) => (
+              <Fragment key={`line-${i}`}>
+                <span>{dummy.lines[i]}</span>
+                <span id={`code-line-${i}`} className={styles.preserveSpace}>{line}</span>
+              </Fragment>
+            )
           )
         } 
       </div>
