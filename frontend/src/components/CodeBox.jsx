@@ -6,7 +6,7 @@ import UploadBox from "./UploadBox";
 import React from "react";
 
 export default function CodeBox() {
-  const [showTrace, setShowTrace] = React.useState(false);
+  const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
   return (

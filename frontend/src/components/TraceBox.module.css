@@ -11,5 +11,7 @@
 
 .codeBox {
     display: grid;
-    grid-template-columns: 20px 100px;
+    grid-template-columns: 30px 200px;
+    font-family: monospace; 
+    font-size: 14pt;
 }

@@ -1,4 +1,4 @@
-export const data = {
+const data = {
     code: [
         "i = 1",
         "while i < 9:",
@@ -33,3 +33,5 @@ export const data = {
         1: [3, 8]
     }
 };
+
+export default data;
