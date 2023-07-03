@@ -1,12 +1,15 @@
+import {dummy} from "../dummy.js";
+
 import styles from "./TraceBox.module.css";
 
-export default function TraceBox({traceCode}) {
+export default function TraceBox() {
+  console.log(dummy);
   return (
-      <label htmlFor="traceBox" className={styles.container}>
-        <p className={styles.largeText}>Trace execution</p>
-        <textarea
-          rows={30} cols={60} spellCheck={false} disabled value={traceCode} id="traceBox"
-        />
-      </label>
+    <div className={styles.container}>
+      <p className={styles.largeText}>Trace execution</p>
+      <div className={styles.codeBox}>
+
+      </div>
+    </div>
   );
 } 

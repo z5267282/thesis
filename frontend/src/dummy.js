@@ -1,4 +1,4 @@
-const data = {
+export const data = {
     code: [
         "i = 1",
         "while i < 9:",

@@ -17,7 +17,7 @@ export default function CodeBox() {
       </div>
       {
         (showTrace) ?
-          <TraceBox traceCode={traceCode} />
+          <TraceBox />
         :
           <UploadBox traceCode={traceCode} setTraceCode={setTraceCode} />
       }
