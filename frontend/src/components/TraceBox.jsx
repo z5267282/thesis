@@ -2,19 +2,17 @@ import styles from "./TraceBox.module.css";
 
 import { Fragment } from "react";
 
-import dummy from "../dummy.js";
-
-export default function TraceBox() {
+export default function TraceBox({code, lines}) {
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
       <div className={styles.traceBox}>
         <div className={styles.codeBox}>
           {
-            dummy.code.map(
+            code.map(
               (line, i) => (
                 <Fragment key={`line-${i}`}>
-                  <span>{`${dummy.lines[i]}${dummy.lines[i] === "" ? "" : "."}`}</span>
+                  <span>{`${lines[i]}${lines[i] === "" ? "" : "."}`}</span>
                   <span id={`code-line-${i}`} className={styles.preserveSpace}>{line}</span>
                 </Fragment>
               )

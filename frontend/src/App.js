@@ -4,11 +4,13 @@ import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
+import dummy from "./dummy";
+
 export default function App() {
   return (
     <div className={styles.App}>
       <div className={styles.container}>
-        <CodeBox />
+        <CodeBox code={dummy.code} lines={dummy.lines} />
         <div className={styles.outputs}>
           <VariableBox />
           <OutputBox />

@@ -5,7 +5,7 @@ import UploadBox from "./UploadBox";
 
 import React from "react";
 
-export default function CodeBox() {
+export default function CodeBox({code, lines}) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -17,7 +17,7 @@ export default function CodeBox() {
       </div>
       {
         (showTrace) ?
-          <TraceBox />
+          <TraceBox code={code} lines={lines} />
         :
           <UploadBox traceCode={traceCode} setTraceCode={setTraceCode} />
       }
