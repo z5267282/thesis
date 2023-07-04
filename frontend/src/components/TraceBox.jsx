@@ -5,21 +5,25 @@ import { Fragment } from "react";
 import dummy from "../dummy.js";
 
 export default function TraceBox() {
-  console.log(dummy);
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
-      <div className={styles.codeBox}>
-        {
-          dummy.code.map(
-            (line, i) => (
-              <Fragment key={`line-${i}`}>
-                <span>{dummy.lines[i]}</span>
-                <span id={`code-line-${i}`} className={styles.preserveSpace}>{line}</span>
-              </Fragment>
+      <div className={styles.traceBox}>
+        <div className={styles.codeBox}>
+          {
+            dummy.code.map(
+              (line, i) => (
+                <Fragment key={`line-${i}`}>
+                  <span>{`${dummy.lines[i]}${dummy.lines[i] === "" ? "" : "."}`}</span>
+                  <span id={`code-line-${i}`} className={styles.preserveSpace}>{line}</span>
+                </Fragment>
+              )
             )
-          )
-        } 
+          } 
+        </div>
+        <svg width={300} height={300}>
+          <path d="M 0 0 Q 50 50 0 100 T 0 200" stroke="black" fill="transparent" />
+        </svg>
       </div>
     </div>
   );

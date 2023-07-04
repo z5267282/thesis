@@ -11,9 +11,14 @@
 
 .codeBox {
     display: grid;
-    grid-template-columns: 30px 200px;
+    grid-template-columns: 30px 400px;
     font-family: monospace; 
-    font-size: 14pt;
+    font-size: 12pt;
+}
+
+.traceBox {
+    display: grid;
+    grid-template-columns: 65% 25%;
 }
 
 .preserveSpace {
