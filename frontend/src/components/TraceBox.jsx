@@ -4,11 +4,16 @@ import { Fragment, useEffect, useRef } from "react";
 
 export default function TraceBox({code, lines}) {
   const lineRefs = useRef([]);
-  let dimenensions = [];
+  const dimenensions = useRef([]);
 
   useEffect(() => {
-    dimenensions = lineRefs.current.map((ref) => ref.getBoundingClientRect());
-    console.log(dimenensions);
+    dimenensions.current = lineRefs.current.map((ref) => ref.getBoundingClientRect());
+    // lineRefs.current.map((ref) => {
+    //   console.log(ref.getBoundingClientRect())
+    //   dimenensions.current.push(ref.getBoundingClientRect());
+    // });
+    // console.log(dimenensions);
+    // console.log("fish");
   }, []);
 
   return (
