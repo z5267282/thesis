@@ -1,15 +1,14 @@
 import styles from "./TraceBox.module.css";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef } from "react";
 
 export default function TraceBox({code, lines}) {
   const lineRefs = useRef([]);
-  const [lineDimensions, setLineDimensions]= useState([]);
+  let dimenensions = [];
 
   useEffect(() => {
-    setLineDimensions(
-      lineRefs.map((ref) => ref.current.getBoundingClientRect())
-    );
+    dimenensions = lineRefs.current.map((ref) => ref.getBoundingClientRect());
+    console.log(dimenensions);
   }, []);
 
   return (
@@ -19,16 +18,17 @@ export default function TraceBox({code, lines}) {
         <div className={styles.codeBox}>
           {
             code.map(
-              (line, i) => {
-                const ref = useRef(null);
-                lineRefs.push(ref);
-                return (
-                  <Fragment key={`line-${i}`}>
-                    <span>{`${lines[i]}${lines[i] === "" ? "" : "."}`}</span>
-                    <span className={styles.preserveSpace} ref={ref}>{line}</span>
-                  </Fragment>
-                );
-              }
+              (line, i) => (
+                <Fragment key={`line-${i}`}>
+                  <span>{`${lines[i]}${lines[i] === "" ? "" : "."}`}</span>
+                  <span
+                    className={styles.preserveSpace}
+                    ref={(element) => lineRefs.current.push(element)}
+                  >
+                    {line}
+                  </span>
+                </Fragment>
+              )
             )
           } 
         </div>
@@ -38,7 +38,6 @@ export default function TraceBox({code, lines}) {
           {/* <path d="M 0 200 Q 50 250 0 300" stroke="black" fill="transparent" /> */}
         </svg>
       </div>
-      {lineDimensions}
     </div>
   );
 } 
