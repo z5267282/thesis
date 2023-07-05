@@ -12,7 +12,13 @@
 .traceBox {
     display: grid;
     grid-template-columns: 65% 25%;
-    height: 400px;
+    height: 80%;
+}
+
+.traceBox span {
+    margin-top: 2pt;
+    margin-bottom: 2pt;
+    line-height: 14pt;
 }
 
 .codeBox {
