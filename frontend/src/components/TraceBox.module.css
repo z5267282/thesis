@@ -6,19 +6,20 @@
     display : flex;
     flex-direction : column;
     align-items : center;
-    width: 80%;
-}
-
-.codeBox {
-    display: grid;
-    grid-template-columns: 30px 400px;
-    font-family: monospace; 
-    font-size: 12pt;
+    width: 90%;
 }
 
 .traceBox {
     display: grid;
     grid-template-columns: 65% 25%;
+    height: 400px;
+}
+
+.codeBox {
+    display: grid;
+    grid-template-columns: 40px 300px;
+    font-family: monospace; 
+    font-size: 14pt;
 }
 
 .preserveSpace {

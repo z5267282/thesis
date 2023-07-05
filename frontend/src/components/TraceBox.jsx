@@ -19,9 +19,9 @@ export default function TraceBox({code, lines}) {
             )
           } 
         </div>
-        <svg width={300} height={300}>
+        {/* <svg width={300} height={300}>
           <path d="M 0 0 Q 50 50 0 100 T 0 200" stroke="black" fill="transparent" />
-        </svg>
+        </svg> */}
       </div>
     </div>
   );
