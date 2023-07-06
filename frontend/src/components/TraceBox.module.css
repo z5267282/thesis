@@ -35,3 +35,7 @@
 .preserveSpace {
     white-space: pre;
 }
+
+.highlight {
+    color: aqua;
+}
