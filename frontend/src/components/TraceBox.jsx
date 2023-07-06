@@ -36,7 +36,7 @@ export default function TraceBox({code, lines, path}) {
         {
           (Object.keys(path).length > 0) &&
             // have this here to force the svg to take up whole height of code box
-            <svg height="100%">
+            <svg height="100%" width={50}>
               <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
         }

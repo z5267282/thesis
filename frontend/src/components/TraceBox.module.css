@@ -6,11 +6,13 @@
     display : flex;
     flex-direction : column;
     align-items : center;
-    width: 90%;
+    width: 100%;
 }
 
 .traceBox {
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     /* justify-content: flex-start; */
     /* grid-template-columns: 70% 25%; */
     /* height: 80%; */
@@ -18,10 +20,16 @@
 
 .codeBox {
     display: grid;
-    grid-template-columns: 40px 300px;
+    grid-template-columns: 15% 85%;
     font-family: monospace; 
     line-height: 25px;
     font-size: 20px;
+}
+
+.traceBox svg {
+    height: 100%;
+    width: 60px;
+    margin-left: 50px;
 }
 
 .preserveSpace {
