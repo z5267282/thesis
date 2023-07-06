@@ -10,9 +10,10 @@
 }
 
 .traceBox {
-    display: grid;
-    grid-template-columns: 65% 25%;
-    height: 80%;
+    display: flex;
+    /* justify-content: flex-start; */
+    /* grid-template-columns: 70% 25%; */
+    /* height: 80%; */
 }
 
 .codeBox {
