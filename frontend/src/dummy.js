@@ -2,7 +2,7 @@ const data = {
     code: [
         "i = 1",
         "while i < 9:",
-        "    if i % 3 == 0:",
+        "   if i % 3 == 0:",
         "        ...",
         "   elif i % 7 == 0:",
         "       ...",

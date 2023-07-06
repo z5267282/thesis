@@ -1,20 +1,17 @@
 import styles from "./TraceBox.module.css";
 
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment } from "react";
 
-export default function TraceBox({code, lines}) {
-  const lineRefs = useRef([]);
-  const dimenensions = useRef([]);
+function genSVGPath(coords) {
+  if (coords.length === 0) return [];
 
-  useEffect(() => {
-    dimenensions.current = lineRefs.current.map((ref) => ref.getBoundingClientRect());
-    // lineRefs.current.map((ref) => {
-    //   console.log(ref.getBoundingClientRect())
-    //   dimenensions.current.push(ref.getBoundingClientRect());
-    // });
-    // console.log(dimenensions);
-    // console.log("fish");
-  }, []);
+  const LINE_HEIGHT = 18;
+  const startIndex = coords[0][0];
+  const path = [`M 0 ${startIndex * LINE_HEIGHT + (LINE_HEIGHT / 2) }`];
+}
+
+export default function TraceBox({code, lines, path}) {
+  // make a list of string of the commands
 
   return (
     <div className={styles.container}>
@@ -26,12 +23,7 @@ export default function TraceBox({code, lines}) {
               (line, i) => (
                 <Fragment key={`line-${i}`}>
                   <span>{`${lines[i]}${lines[i] === "" ? "" : "."}`}</span>
-                  <span
-                    className={styles.preserveSpace}
-                    ref={(element) => lineRefs.current.push(element)}
-                  >
-                    {line}
-                  </span>
+                  <span className={styles.preserveSpace}>{line}</span>
                 </Fragment>
               )
             )

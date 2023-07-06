@@ -15,16 +15,11 @@
     height: 80%;
 }
 
-.traceBox span {
-    margin-top: 2pt;
-    margin-bottom: 2pt;
-    line-height: 14pt;
-}
-
 .codeBox {
     display: grid;
     grid-template-columns: 40px 300px;
     font-family: monospace; 
+    line-height: 18pt;
     font-size: 14pt;
 }
 
