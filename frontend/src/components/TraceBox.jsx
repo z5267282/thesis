@@ -2,17 +2,21 @@ import styles from "./TraceBox.module.css";
 
 import { Fragment } from "react";
 
+// return list of string of the path commands that can be joined with .join()
 function genSVGPath(coords) {
-  if (coords.length === 0) return [];
-
   const LINE_HEIGHT = 18;
-  const startIndex = coords[0][0];
-  const path = [`M 0 ${startIndex * LINE_HEIGHT + (LINE_HEIGHT / 2) }`];
+  const path = [`M 0pt ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}pt`];
+  let prev = coords.start;
+  coords.rest.forEach((coord) => {
+    const height = (coord - prev) * LINE_HEIGHT;
+    path.push(`q 0pt ${height / 2}pt 0pt ${height}pt`);
+    prev = coord;
+  });
+  console.log(path.join(" "));
+  return path;
 }
 
 export default function TraceBox({code, lines, path}) {
-  // make a list of string of the commands
-
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
@@ -29,11 +33,14 @@ export default function TraceBox({code, lines, path}) {
             )
           } 
         </div>
-        <svg>
-          {/* <path d="M 0 0 Q 50 50 0 100 T 0 200 T 0 600" stroke="black" fill="transparent" /> */}
-          <path d="M 0 0 Q 50 50 0 100 Q 50 150 0 200" stroke="black" fill="transparent" />
-          {/* <path d="M 0 200 Q 50 250 0 300" stroke="black" fill="transparent" /> */}
-        </svg>
+        {
+          (Object.keys(path).length > 0) &&
+            <svg>
+              {/* <path d="M 0pt 9pt q 0pt 9pt 0pt 18pt q 0pt 9pt 0pt 18pt q 0pt 9pt 0pt 18pt q 0pt 27pt 0pt 54pt" stroke="black" fill="transparent" /> */}
+              {/* <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" /> */}
+              <path d="M10pt 10pt L90pt 10pt L50pt 90pt Z" fill="none" stroke="black" />
+            </svg>
+        }
       </div>
     </div>
   );

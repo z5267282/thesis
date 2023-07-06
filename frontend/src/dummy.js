@@ -23,12 +23,10 @@ const data = {
     out: [
         "three: 3"
     ],
-    path: [
-        [0, 1],
-        [1, 2],
-        [2, 3],
-        [3, 6]
-    ],
+    path: {
+        start: 0,
+        rest: [1, 2, 3, 6]
+    },
     counters: {
         1: [3, 8]
     }
