@@ -19,8 +19,8 @@
     display: grid;
     grid-template-columns: 40px 300px;
     font-family: monospace; 
-    line-height: 18pt;
-    font-size: 14pt;
+    line-height: 25px;
+    font-size: 20px;
 }
 
 .preserveSpace {

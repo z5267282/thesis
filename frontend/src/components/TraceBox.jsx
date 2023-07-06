@@ -4,12 +4,12 @@ import { Fragment } from "react";
 
 // return list of string of the path commands that can be joined with .join()
 function genSVGPath(coords) {
-  const LINE_HEIGHT = 18;
-  const path = [`M 0pt ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}pt`];
+  const LINE_HEIGHT = 25;
+  const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
   let prev = coords.start;
   coords.rest.forEach((coord) => {
     const height = (coord - prev) * LINE_HEIGHT;
-    path.push(`q 0pt ${height / 2}pt 0pt ${height}pt`);
+    path.push(`q 50 ${height / 2} 0 ${height}`);
     prev = coord;
   });
   console.log(path.join(" "));
@@ -35,10 +35,8 @@ export default function TraceBox({code, lines, path}) {
         </div>
         {
           (Object.keys(path).length > 0) &&
-            <svg>
-              {/* <path d="M 0pt 9pt q 0pt 9pt 0pt 18pt q 0pt 9pt 0pt 18pt q 0pt 9pt 0pt 18pt q 0pt 27pt 0pt 54pt" stroke="black" fill="transparent" /> */}
-              {/* <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" /> */}
-              <path d="M10pt 10pt L90pt 10pt L50pt 90pt Z" fill="none" stroke="black" />
+            <svg height="100%">
+              <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
         }
       </div>
