@@ -18,6 +18,17 @@ function genSVGPath(coords) {
   return path;
 }
 
+
+/**
+ * check whether the ith line should be highlighted.
+ * the last line should be highlighted
+ * @param {*} i 
+ * @param {*} code 
+ */
+function colourLine(i, code) {
+  return (i === code.length - 1) ? styles.highlight : "";
+}
+
 export default function TraceBox({code, lines, path}) {
   return (
     <div className={styles.container}>
@@ -28,12 +39,10 @@ export default function TraceBox({code, lines, path}) {
             code.map(
               (line, i) => (
                 <Fragment key={`line-${i}`}>
-                  <span
-                    // hightlight colour
-                  >
+                  <span className={colourLine(i, code)}>
                     {`${lines[i]}${lines[i] === "" ? "" : "."}`}
                   </span>
-                  <span className={styles.preserveSpace}>{line}</span>
+                  <span className={`${styles.preserveSpace} ${colourLine(i, code)}`}>{line}</span>
                 </Fragment>
               )
             )
