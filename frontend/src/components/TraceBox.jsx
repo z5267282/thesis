@@ -1,6 +1,6 @@
 import styles from "./TraceBox.module.css";
 
-import { FONT_SCALING_FACTOR, LINE_HEIGHT } from "../config";
+import { FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH } from "../config";
 
 import { Fragment } from "react";
 
@@ -13,7 +13,7 @@ function genSVGPath(coords) {
   let prev = coords.start;
   coords.rest.forEach((coord) => {
     const height = (coord - prev) * LINE_HEIGHT;
-    path.push(`q 50 ${height / 2} 0 ${height}`);
+    path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
     prev = coord;
   });
   return path;
