@@ -45,13 +45,6 @@ export default function TraceBox({code, lines, path, counter}) {
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
-
-      <span>
-          <span className={styles.topText}>{counter.numerator}</span>
-          /
-          <span className={styles.bottomText}>{counter.denominator}</span>
-      </span>
-
       <div className={styles.traceBox}>
         <div className={styles.codeBox}>
           {
@@ -73,16 +66,16 @@ export default function TraceBox({code, lines, path, counter}) {
               <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
         }
-        {/* {
+        {
           (counter !== null) && 
             <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end)}>
-              <p className={styles.heightBox}>
+              <span className={styles.fraction}>
                 <span className={styles.topText}>{counter.numerator}</span>
                 /
                 <span className={styles.bottomText}>{counter.denominator}</span>
-              </p>
+              </span>
             </div>
-        } */}
+        }
       </div>
     </div>
   );
