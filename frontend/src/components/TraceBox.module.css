@@ -44,8 +44,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 30px;
 }
 
-.smallText {
-    font-size: 5pt;
+.topText {
+    vertical-align: top;
+}
+
+.bottomText {
+    vertical-align: bottom;
 }
