@@ -43,7 +43,7 @@
 .counterBox {
     border-left: solid;
     border-color: limegreen;
-    padding-left: 20px;
+    padding-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -24,8 +24,9 @@ function genSVGPath(coords) {
  * @returns an inline style object with a top margin and heights for the counter's div
  */
 function genCounterStyle(start, end) {
+  const half_line = LINE_HEIGHT / 2;
   return {
-    marginTop: start * LINE_HEIGHT,
+    marginTop: (start * LINE_HEIGHT) + half_line,
     height: (end - start) * LINE_HEIGHT
   };
 }
@@ -41,6 +42,7 @@ function colourLine(i, code) {
 }
 
 export default function TraceBox({code, lines, path, counter}) {
+  console.log(genCounterStyle(counter.start, counter.end));
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
