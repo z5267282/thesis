@@ -1,6 +1,6 @@
 import styles from "./TraceBox.module.css";
 
-import { FONT_SCALING, LINE_HEIGHT } from "../config";
+import { FONT_SCALING_FACTOR, LINE_HEIGHT } from "../config";
 
 import { Fragment } from "react";
 
@@ -49,7 +49,7 @@ export default function TraceBox({code, lines, path, counter}) {
   // this must be inline to import config value
   const lineHeight = {
     lineHeight: addPixels(LINE_HEIGHT),
-    fontSize: addPixels(LINE_HEIGHT * FONT_SCALING)
+    fontSize: addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
 
   return (
