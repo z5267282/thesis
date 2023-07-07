@@ -3,7 +3,7 @@ const data = {
         "i = 1",
         "while i < 9:",
         "   if i % 3 == 0:",
-        "        ...",
+        "        print(f\"three: {i}\")",
         "   elif i % 7 == 0:",
         "       ...",
         "   i += 1"

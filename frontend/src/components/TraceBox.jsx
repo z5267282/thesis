@@ -67,11 +67,15 @@ export default function TraceBox({code, lines, path, counter}) {
             </svg>
         }
         {
-          (counter!== null) && 
+          (counter !== null) &&
+            <p>fish</p>
+        }
+        {/* {
+          (counter !== null) && 
             <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end)}>
               <sup>{counter.numerator}</sup>/<sub>{counter.denominator}</sub>
             </div>
-        }
+        } */}
       </div>
     </div>
   );
