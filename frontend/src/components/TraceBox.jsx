@@ -1,5 +1,7 @@
 import styles from "./TraceBox.module.css";
 
+import { LINE_HEIGHT } from "../config";
+
 import { Fragment } from "react";
 
 /**
@@ -7,7 +9,6 @@ import { Fragment } from "react";
  * @returns list of string of the path commands that can be joined with .join()
  */
 function genSVGPath(coords) {
-  const LINE_HEIGHT = 25;
   const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
   let prev = coords.start;
   coords.rest.forEach((coord) => {
@@ -18,6 +19,25 @@ function genSVGPath(coords) {
   return path;
 }
 
+/**
+ * @param {*} counters an object with a start line and list of remaining lines
+ * @returns a dictionary with a top margin and dimensions for remaining divs
+ */
+function genCounterDimensions(counters) {
+  const top = counters.start * LINE_HEIGHT;
+  const dimensions = [];
+  let prev = counters.prev;
+  counters.rest.forEach(
+    (line) => {
+      dimensions.push((line - prev) * LINE_HEIGHT);
+      prev = line;
+    }
+  );
+  return {
+    topMargin: top,
+    dimensions: dimensions
+  };
+}
 
 /**
  * check whether the ith line should be highlighted.
@@ -29,7 +49,7 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path}) {
+export default function TraceBox({code, lines, path, counters}) {
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
@@ -49,7 +69,7 @@ export default function TraceBox({code, lines, path}) {
           } 
         </div>
         {
-          (Object.keys(path).length > 0) &&
+          (path !== null) &&
             // have this here to force the svg to take up whole height of code box
             <svg height="100%" width={50}>
               <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />

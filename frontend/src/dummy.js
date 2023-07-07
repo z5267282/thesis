@@ -28,8 +28,8 @@ const data = {
         rest: [1, 2, 3, 6]
     },
     counters: {
-        1: [3, 8]
+        start: 3,
+        rest: [8]
     }
 };
-
 export default data;
