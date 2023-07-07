@@ -70,7 +70,9 @@ export default function TraceBox({code, lines, path, counter}) {
         {
           (counter !== null) && 
             <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end)}>
-              <sup>{counter.numerator}</sup>/<sub>{counter.denominator}</sub>
+              x<sup className={styles.smallText}>{counter.numerator}</sup>
+              /
+              y<sub className={styles.smallText}>{counter.denominator}</sub>
             </div>
         }
       </div>
