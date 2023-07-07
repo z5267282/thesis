@@ -1,9 +1,12 @@
 import styles from "./TraceBox.module.css";
 
 import { FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH } from "../config";
-import { addPixels } from "../helper";
 
 import { Fragment } from "react";
+
+function addPixels(dimension) {
+  return `${dimension}px`;
+}
 
 /**
  * @param {*} coords object with the starting line and all remaining ones
