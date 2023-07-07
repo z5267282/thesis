@@ -24,9 +24,9 @@ function genSVGPath(coords) {
  * @returns an inline style object with a top margin and heights for the counter's div
  */
 function genCounterStyle(start, end) {
-  const half_line = LINE_HEIGHT / 2;
+  const halfLine = LINE_HEIGHT / 2;
   return {
-    marginTop: (start * LINE_HEIGHT) + half_line,
+    marginTop: (start * LINE_HEIGHT) + halfLine,
     height: (end - start) * LINE_HEIGHT
   };
 }
