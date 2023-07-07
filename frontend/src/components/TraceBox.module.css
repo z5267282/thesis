@@ -47,6 +47,10 @@
     line-height: 30px;
 }
 
+.heightBox {
+    line-height: 40px;
+}
+
 .topText {
     vertical-align: top;
 }
