@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div className={styles.App}>
       <div className={styles.container}>
-        <CodeBox code={dummy.code} lines={dummy.lines} path={dummy.path} counters={dummy.counter} />
+        <CodeBox code={dummy.code} lines={dummy.lines} path={dummy.path} counter={dummy.counter} />
         <div className={styles.outputs}>
           <VariableBox />
           <OutputBox />
