@@ -39,3 +39,14 @@
 .highlight {
     color: blue;
 }
+
+.countersBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.centred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

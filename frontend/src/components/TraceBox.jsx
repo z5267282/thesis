@@ -21,7 +21,7 @@ function genSVGPath(coords) {
 
 /**
  * @param {*} counters an object with a start line and list of remaining lines
- * @returns a dictionary with a top margin and dimensions for remaining divs
+ * @returns a dictionary with a top margin and heights for remaining divs
  */
 function genCounterDimensions(counters) {
   const top = counters.start * LINE_HEIGHT;
@@ -35,7 +35,7 @@ function genCounterDimensions(counters) {
   );
   return {
     topMargin: top,
-    dimensions: dimensions
+    heights: dimensions
   };
 }
 
@@ -74,6 +74,21 @@ export default function TraceBox({code, lines, path, counters}) {
             <svg height="100%" width={50}>
               <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
+        }
+        {
+          (counters !== null) && 
+            <div
+              className={styles.countersBox}
+              style={{ marginTop: genCounterDimensions(counters).topMargin }}
+            >
+              {
+                genCounterDimensions(counters).heights.map(() => 
+                  <div className={styles.centred}>
+                    
+                  </div>
+                )
+              }
+            </div>
         }
       </div>
     </div>
