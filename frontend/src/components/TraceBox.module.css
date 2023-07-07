@@ -40,12 +40,9 @@
     color: blue;
 }
 
-.countersBox {
-    display: flex;
-    flex-direction: column;
-}
-
-.centred {
+.counterBox {
+    border-left: solid;
+    border-color: red;
     display: flex;
     justify-content: center;
     align-items: center;

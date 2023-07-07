@@ -20,22 +20,13 @@ function genSVGPath(coords) {
 }
 
 /**
- * @param {*} counters an object with a start line and list of remaining lines
- * @returns a dictionary with a top margin and heights for remaining divs
+ * @param {*}
+ * @returns an inline style object with a top margin and heights for the counter's div
  */
-function genCounterDimensions(counters) {
-  const top = counters.start * LINE_HEIGHT;
-  const dimensions = [];
-  let prev = counters.prev;
-  counters.rest.forEach(
-    (line) => {
-      dimensions.push((line - prev) * LINE_HEIGHT);
-      prev = line;
-    }
-  );
+function genCounterStyle(start, end) {
   return {
-    topMargin: top,
-    heights: dimensions
+    marginTop: start * LINE_HEIGHT,
+    height: (end - start) * LINE_HEIGHT
   };
 }
 
@@ -49,7 +40,7 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path, counters}) {
+export default function TraceBox({code, lines, path, counter}) {
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
@@ -76,18 +67,9 @@ export default function TraceBox({code, lines, path, counters}) {
             </svg>
         }
         {
-          (counters !== null) && 
-            <div
-              className={styles.countersBox}
-              style={{ marginTop: genCounterDimensions(counters).topMargin }}
-            >
-              {
-                genCounterDimensions(counters).heights.map(() => 
-                  <div className={styles.centred}>
-                    
-                  </div>
-                )
-              }
+          (counter!== null) && 
+            <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end)}>
+              <sup>{counter.numerator}</sup>/<sub>{counter.denominator}</sub>
             </div>
         }
       </div>
