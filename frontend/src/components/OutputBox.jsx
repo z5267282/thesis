@@ -1,7 +1,5 @@
 import styles from "./OutputBox.module.css";
 
-import { addPixels } from "../helper";
-
 function genArrowPath(width, height, arrow_length) {
   const verticalLine = `M 0 ${width / 2} l 0 ${height} m 0 ${height * -1}`;
   return verticalLine;
