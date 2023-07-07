@@ -29,7 +29,7 @@ const data = {
     },
     counter: {
         start: 1,
-        end: 5,
+        end: 6,
         numerator: 3,
         denominator: 8,
     }

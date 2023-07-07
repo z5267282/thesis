@@ -1,6 +1,6 @@
 import styles from "./TraceBox.module.css";
 
-import { LINE_HEIGHT } from "../config";
+import { FONT_SCALING, LINE_HEIGHT } from "../config";
 
 import { Fragment } from "react";
 
@@ -41,12 +41,22 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
+function addPixels(dimension) {
+  return `${dimension}px`;
+}
+
 export default function TraceBox({code, lines, path, counter}) {
+  // this must be inline to import config value
+  const lineHeight = {
+    lineHeight: addPixels(LINE_HEIGHT),
+    fontSize: addPixels(LINE_HEIGHT * FONT_SCALING)
+  };
+
   return (
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
       <div className={styles.traceBox}>
-        <div className={styles.codeBox}>
+        <div className={styles.codeBox} style={lineHeight}>
           {
             code.map(
               (line, i) => (
