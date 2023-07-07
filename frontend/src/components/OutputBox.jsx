@@ -1,7 +1,7 @@
 import styles from "./OutputBox.module.css";
 
 function genArrowPath(width, height, arrow_length) {
-  const verticalLine = `M 0 ${width / 2} l 0 ${height} m 0 ${height * -1}`;
+  const verticalLine = `M ${width / 2} 0 l 0 ${height} m 0 ${height * -1}`;
   const arrowVector = {
     dx: arrow_length * Math.sqrt(3),
     dy: arrow_length * (Math.sqrt(3) / 2)
@@ -15,16 +15,11 @@ function genArrowPath(width, height, arrow_length) {
   const left = drawReset(arrowVector.dx, arrowVector.dy);
   const right = drawReset(arrowVector.dx * -1, arrowVector.dy * -1);
 
-  // const res = `${verticalLine} ${left} ${right}`;
-  // const res = `${verticalLine} ${right} l -10 0`;
-  const res = `${verticalLine} l -10 0`;
-  console.log(right);
-  console.log(res)
-  return res;
+  return `${verticalLine} ${left} ${right}`;
 }
 
 export default function OutputBox() {
-  const SVG_WIDTH = 30;
+  const SVG_WIDTH = 100;
   const SVG_HEIGHT = 100;
   const ARROW_HEAD_LENGTH = 15;
 
