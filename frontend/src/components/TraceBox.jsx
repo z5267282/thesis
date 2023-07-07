@@ -1,6 +1,7 @@
 import styles from "./TraceBox.module.css";
 
 import { FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH } from "../config";
+import { addPixels } from "../helper";
 
 import { Fragment } from "react";
 
@@ -39,10 +40,6 @@ function genCounterStyle(start, end) {
  */
 function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
-}
-
-function addPixels(dimension) {
-  return `${dimension}px`;
 }
 
 export default function TraceBox({code, lines, path, counter}) {
