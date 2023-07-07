@@ -52,9 +52,9 @@
 }
 
 .topText {
-    vertical-align: top;
+    vertical-align: sup;
 }
 
 .bottomText {
-    vertical-align: bottom;
+    vertical-align: sub;
 }
