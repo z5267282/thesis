@@ -1,36 +1,38 @@
 import styles from "./OutputBox.module.css";
 
+import { addPixels } from "../helper";
+
 function genArrowPath(width, height, arrow_length) {
-  const verticalLine = `M ${width / 2} 0 l 0 ${height} m 0 ${height * -1}`;
+  const halfWidth = width / 2;
+  const verticalLine = `M ${halfWidth} ${halfWidth}l 0 ${height} m 0 ${height * -1}`;
+  // using an angle of 30 degrees
   const arrowVector = {
-    dx: arrow_length * Math.sqrt(3),
+    dx: arrow_length / 2,
     dy: arrow_length * (Math.sqrt(3) / 2)
   };
 
   const drawReset = (dx, dy) => {
-    const penDown = `l ${-1 * dx} ${-1 * dy}`;
-    const reset = `m ${dx} ${dy}`;
+    const penDown = `l ${-1 * dx} ${dy}`;
+    const reset = `m ${dx} ${-1 * dy}`;
     return `${penDown} ${reset}`;
   };
   const left = drawReset(arrowVector.dx, arrowVector.dy);
-  const right = drawReset(arrowVector.dx * -1, arrowVector.dy * -1);
+  const right = drawReset(arrowVector.dx * -1, arrowVector.dy);
 
   return `${verticalLine} ${left} ${right}`;
 }
 
 export default function OutputBox() {
-  const SVG_WIDTH = 100;
-  const SVG_HEIGHT = 100;
-  const ARROW_HEAD_LENGTH = 15;
-
+  const SVG_WIDTH = 30;
+  const SVG_HEIGHT = 50;
+  const ARROW_HEAD_LENGTH = 10;
   return (
     <label className={styles.container}>
       Output
       <div className={styles.outputBox}>
         <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
-        <svg width={SVG_WIDTH * 1.5}>
+        <svg className={styles.arrow} style={{ width: addPixels(SVG_WIDTH) }}>
           <path d={genArrowPath(SVG_WIDTH, SVG_HEIGHT, ARROW_HEAD_LENGTH)} stroke="black" fill="transparent"></path>
-          {/* <path d="M 15 0 l 0 100 m 0 -100" stroke="black" fill="transparent"></path> */}
         </svg>
       </div>
     </label>

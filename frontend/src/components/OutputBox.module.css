@@ -17,3 +17,9 @@
     resize: none;
     height: 50%;
 }
+
+.arrow {
+    border: solid;
+    border-color: black;
+    height: 100%;
+}
