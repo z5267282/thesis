@@ -40,9 +40,6 @@ def test_if_chain():
     line_mapping = {}
     root.map_lines(line_mapping)
 
-    for l in line_mapping:
-        print(f"{l} : {line_mapping[l]}")
-
     assert line_mapping == {
         5 : c_start,
         6 : i,
