@@ -22,17 +22,14 @@ function genArrowPath(width, height, arrow_length) {
   return `${verticalLine} ${left} ${right}`;
 }
 
-export default function OutputBox() {
-  const SVG_WIDTH = 30;
-  const SVG_HEIGHT = 50;
-  const ARROW_HEAD_LENGTH = 10;
+export default function OutputBox({width, height, head_length}) {
   return (
     <label className={styles.container}>
       Output
       <div className={styles.outputBox}>
         <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
-        <svg className={styles.arrow} style={{ width: addPixels(SVG_WIDTH) }}>
-          <path d={genArrowPath(SVG_WIDTH, SVG_HEIGHT, ARROW_HEAD_LENGTH)} stroke="black" fill="transparent"></path>
+        <svg className={styles.arrow} style={{ width: addPixels(width) }}>
+          <path d={genArrowPath(width, height, head_length)} stroke="black" fill="transparent"></path>
         </svg>
       </div>
     </label>

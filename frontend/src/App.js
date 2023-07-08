@@ -5,6 +5,7 @@ import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
 import dummy from "./dummy";
+import { ARROW_DIMENSIONS } from "./config";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
         <CodeBox code={dummy.code} lines={dummy.lines} path={dummy.path} counter={dummy.counter} />
         <div className={styles.outputs}>
           <VariableBox />
-          <OutputBox />
+          <OutputBox {...ARROW_DIMENSIONS} />
         </div>
       </div>
     </div>
