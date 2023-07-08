@@ -2,13 +2,13 @@ import styles from "./OutputBox.module.css";
 
 import { addPixels } from "../helper";
 
-function genArrowPath(width, height, arrow_length) {
+function genArrowPath(width, height, arrowLength) {
   const halfWidth = width / 2;
   const verticalLine = `M ${halfWidth} ${halfWidth}l 0 ${height} m 0 ${height * -1}`;
   // using an angle of 30 degrees
   const arrowVector = {
-    dx: arrow_length / 2,
-    dy: arrow_length * (Math.sqrt(3) / 2)
+    dx: arrowLength / 2,
+    dy: arrowLength * (Math.sqrt(3) / 2)
   };
 
   const drawReset = (dx, dy) => {
@@ -22,13 +22,13 @@ function genArrowPath(width, height, arrow_length) {
   return `${verticalLine} ${left} ${right}`;
 }
 
-export default function OutputBox({width, height, head_length}) {
+export default function OutputBox({width, height, headLength}) {
   return (
     <label className={styles.container}>
       Output
       <div className={styles.outputBox}>
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
-          <path d={genArrowPath(width, height, head_length)} stroke="black" fill="transparent"></path>
+          <path d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent"></path>
         </svg>
         <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
       </div>

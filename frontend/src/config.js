@@ -8,5 +8,5 @@ export const TRACE_GRAPH_WIDTH = 50;
 export const ARROW_DIMENSIONS = {
     width: 30,
     height: 100,
-    head_length: 10
+    headLength: 10
 };
