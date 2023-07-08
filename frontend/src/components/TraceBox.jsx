@@ -44,7 +44,7 @@ function colourLine(i, code) {
 
 export default function TraceBox({code, lines, path, counter}) {
   // this must be inline to import config value
-  const lineHeight = {
+  const lineHeightStyle = {
     lineHeight: addPixels(LINE_HEIGHT),
     fontSize: addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
@@ -53,7 +53,7 @@ export default function TraceBox({code, lines, path, counter}) {
     <div className={styles.container}>
       <p className={styles.largeText}>Trace execution</p>
       <div className={styles.traceBox}>
-        <div className={styles.codeBox} style={lineHeight}>
+        <div className={styles.codeBox} style={lineHeightStyle}>
           {
             code.map(
               (line, i) => (
