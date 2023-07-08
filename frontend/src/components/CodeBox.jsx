@@ -5,7 +5,7 @@ import UploadBox from "./UploadBox";
 
 import React from "react";
 
-export default function CodeBox({code, lines, path, counter, lineHeight}) {
+export default function CodeBox({code, lines, path, counter, lineHeight, fontScaling, graphWidth}) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -19,7 +19,10 @@ export default function CodeBox({code, lines, path, counter, lineHeight}) {
         (showTrace) ?
           <TraceBox code={code} lines={lines} path={path} counter={counter} />
         :
-          <UploadBox traceCode={traceCode} setTraceCode={setTraceCode} lineHeight={lineHeight} />
+          <UploadBox
+            traceCode={traceCode} setTraceCode={setTraceCode}
+            lineHeight={lineHeight} fontScaling={fontScaling} graphWidth={graphWidth}
+          />
       }
       <div className={styles.transitionContainer}>
         <button>prev</button>

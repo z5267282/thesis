@@ -1,6 +1,5 @@
 import styles from "./TraceBox.module.css";
 
-import { FONT_SCALING_FACTOR, TRACE_GRAPH_WIDTH } from "../config";
 import { addPixels } from "../helper";
 
 import { Fragment } from "react";
@@ -9,12 +8,12 @@ import { Fragment } from "react";
  * @param {*} coords object with the starting line and all remaining ones
  * @returns list of string of the path commands that can be joined with .join()
  */
-function genSVGPath(coords, lineHeight) {
+function genSVGPath(coords, lineHeight, graphWidth) {
   const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
   let prev = coords.start;
   coords.rest.forEach((coord) => {
     const height = (coord - prev) * lineHeight;
-    path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
+    path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
     prev = coord;
   });
   return path;
@@ -42,11 +41,11 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path, counter, lineHeight}) {
+export default function TraceBox({code, lines, path, counter, lineHeight, fontScaling, graphWidth}) {
   // this must be inline to import config value
   const lineHeightStyle = {
     lineHeight: addPixels(lineHeight),
-    fontSize: addPixels(lineHeight * FONT_SCALING_FACTOR)
+    fontSize: addPixels(lineHeight * fontScaling)
   };
 
   return (
@@ -70,7 +69,7 @@ export default function TraceBox({code, lines, path, counter, lineHeight}) {
         {
           (path !== null) &&
             <svg>
-              <path d={`${genSVGPath(path, lineHeight).join(" ")}`} stroke="black" fill="transparent" />
+              <path d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
         }
         {
