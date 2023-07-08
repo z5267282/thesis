@@ -1,6 +1,6 @@
 import styles from "./TraceBox.module.css";
 
-import { FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH } from "../config";
+import { FONT_SCALING_FACTOR, TRACE_GRAPH_WIDTH } from "../config";
 import { addPixels } from "../helper";
 
 import { Fragment } from "react";
@@ -9,11 +9,11 @@ import { Fragment } from "react";
  * @param {*} coords object with the starting line and all remaining ones
  * @returns list of string of the path commands that can be joined with .join()
  */
-function genSVGPath(coords) {
-  const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
+function genSVGPath(coords, lineHeight) {
+  const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
   let prev = coords.start;
   coords.rest.forEach((coord) => {
-    const height = (coord - prev) * LINE_HEIGHT;
+    const height = (coord - prev) * lineHeight;
     path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
     prev = coord;
   });
@@ -24,11 +24,11 @@ function genSVGPath(coords) {
  * @param {*}
  * @returns an inline style object with a top margin and heights for the counter's div
  */
-function genCounterStyle(start, end) {
-  const halfLine = LINE_HEIGHT / 2;
+function genCounterStyle(start, end, lineHeight) {
+  const halfLine = lineHeight / 2;
   return {
-    marginTop: (start * LINE_HEIGHT) + halfLine,
-    height: (end - start) * LINE_HEIGHT
+    marginTop: addPixels((start * lineHeight) + halfLine),
+    height: addPixels((end - start) * lineHeight)
   };
 }
 
@@ -42,11 +42,11 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path, counter}) {
+export default function TraceBox({code, lines, path, counter, lineHeight}) {
   // this must be inline to import config value
   const lineHeightStyle = {
-    lineHeight: addPixels(LINE_HEIGHT),
-    fontSize: addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
+    lineHeight: addPixels(lineHeight),
+    fontSize: addPixels(lineHeight * FONT_SCALING_FACTOR)
   };
 
   return (
@@ -70,7 +70,7 @@ export default function TraceBox({code, lines, path, counter}) {
         {
           (path !== null) &&
             <svg>
-              <path d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent" />
+              <path d={`${genSVGPath(path, lineHeight).join(" ")}`} stroke="black" fill="transparent" />
             </svg>
         }
         {
