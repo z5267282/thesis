@@ -27,10 +27,10 @@ export default function OutputBox({width, height, head_length}) {
     <label className={styles.container}>
       Output
       <div className={styles.outputBox}>
-        <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
           <path d={genArrowPath(width, height, head_length)} stroke="black" fill="transparent"></path>
         </svg>
+        <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
       </div>
     </label>
   );
