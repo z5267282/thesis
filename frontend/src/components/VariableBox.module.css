@@ -5,3 +5,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+.fontSize {
+    font-size: 12pt;
+}

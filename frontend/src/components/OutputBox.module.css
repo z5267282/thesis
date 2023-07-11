@@ -20,6 +20,10 @@
     width: 100%;
 }
 
+.fontSize {
+    font-size: 12pt;
+}
+
 .arrow {
     height: 100%;
 }
