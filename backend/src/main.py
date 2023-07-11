@@ -42,8 +42,7 @@ def generate_execution_graph(root : BodyBlock, lines : list[Line]):
 
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
-    # must use a while loop to control what line we are up to
-    curr : CodeBlock | None = None
+    curr : Type[Block] | None = None
     for line in lines:
         line_no : int = line.line_no
         node : Type[Block] = lines[line_no]
