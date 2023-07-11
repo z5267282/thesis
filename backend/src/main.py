@@ -1,3 +1,4 @@
+from io import StringIO
 import sys
 from types import FrameType
 from typing import Any, Callable, Type
@@ -10,31 +11,39 @@ def main():
     root         : BodyBlock = parse(program)
     lines        : list[Line] = []
     line_mapping : dict[int, Type[Block]] = {}
-    trace_program(trace_line, lines)
+    output       : StringIO = StringIO()
+    trace_program(trace_line, lines, output)
+
+    for l in lines:
+        print(l)
 
 class Line:
     """dataclass to store line information"""
-    def __init__(self, line_no : int, locals : dict):
+    def __init__(self, line_no : int, locals : dict, out : str):
         self.line_no : int  = line_no
         self.locals  : dict = locals
+        self.out     : str  = out
     
     def __str__(self):
-        return f"{self.line_no} : {self.locals}"
+        # return f"{self.line_no} : {self.locals}"
+        return f"line - {self.line_no} {self.out}"
 
-def trace_program(handler : Callable, lines : list[Line]):
+def trace_program(handler : Callable, lines : list[Line], output : StringIO):
     def wrapper(frame : FrameType, event : str, arg : Any):
-        handler(frame, event, arg, lines)
+        handler(frame, event, arg, lines, output)
         return wrapper
     
+    sys.stdout = output
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
+    sys.stdout = sys.__stdout__
 
-def trace_line(frame : FrameType, event : str, arg : Any, lines):
+def trace_line(frame : FrameType, event : str, arg : Any, lines, output : StringIO):
     if event != "line":
         return
 
-    lines.append(Line(frame.f_lineno, frame.f_locals))
+    lines.append(Line(frame.f_lineno, frame.f_locals, output.getvalue()))
 
 def generate_execution_graph(root : BodyBlock, lines : list[Line]):
     """create the intelligent unique execution path
