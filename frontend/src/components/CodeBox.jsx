@@ -17,11 +17,13 @@ export default function CodeBox({code, lines, path, counter, lineHeight, fontSca
       </div>
       {
         (showTrace) ?
-          <TraceBox code={code} lines={lines} path={path} counter={counter} />
+          <TraceBox
+            code={code} lines={lines} path={path} counter={counter}
+            lineHeight={lineHeight} fontScaling={fontScaling} graphWidth={graphWidth}
+          />
         :
           <UploadBox
             traceCode={traceCode} setTraceCode={setTraceCode}
-            lineHeight={lineHeight} fontScaling={fontScaling} graphWidth={graphWidth}
           />
       }
       <div className={styles.transitionContainer}>
