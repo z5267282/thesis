@@ -12,8 +12,8 @@ export default function CodeBox({code, lines, path, counter, lineHeight, fontSca
   return (
     <div className={styles.container}>
       <div className={styles.tabSelector}>
-        <button type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
-        <button type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
+        <button className={styles.customButton} type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
+        <button className={styles.customButton} type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
       </div>
       {
         (showTrace) ?

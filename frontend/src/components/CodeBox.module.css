@@ -1,12 +1,12 @@
-button {
+.customButton {
     font-size: 10pt;
     border: solid;
-    border-width: 1.5pt;
-    border-radius: 5pt;
+    border-width: 1pt;
+    border-radius: 0;
     cursor: pointer;
 }
 
-button:hover {
+button.customButton:hover {
     background-color: aqua;
 }
 
