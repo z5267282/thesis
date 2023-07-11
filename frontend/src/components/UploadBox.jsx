@@ -3,7 +3,7 @@ import styles from "./UploadBox.module.css";
 export default function UploadBox({traceCode, setTraceCode}) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
-      <p className={styles.largeText}>Upload code</p>
+      <h1 className={styles.largeText}>Upload code</h1>
       <div className={styles.editorBox}>
         <div className={styles.lineNumbers}>
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }

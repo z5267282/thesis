@@ -50,7 +50,7 @@ export default function TraceBox({code, lines, path, counter, lineHeight, fontSc
 
   return (
     <div className={styles.container}>
-      <p className={styles.largeText}>Trace execution</p>
+      <h1 className={styles.largeText}>Trace execution</h1>
       <div className={styles.traceBox}>
         <div className={styles.codeBox} style={lineHeightStyle}>
           {
