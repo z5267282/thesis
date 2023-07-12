@@ -1,7 +1,7 @@
 def program():
     i = 1
     twos, sevens = 0, 0
-    while i < 5:
+    while i < 8:
         if i % 2 == 0:
             print("two")
             twos += 1

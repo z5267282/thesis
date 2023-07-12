@@ -26,7 +26,7 @@ class Line:
     
     def __str__(self):
         # return f"{self.line_no} : {self.locals}"
-        return f"line - {self.line_no} {self.out}"
+        return f"lno: {self.line_no}, out: '{self.out}'"
 
 def trace_program(handler : Callable, lines : list[Line], output : StringIO):
     def wrapper(frame : FrameType, event : str, arg : Any):
