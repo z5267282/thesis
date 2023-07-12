@@ -7,6 +7,11 @@ def trace_function(frame, event, arg):
     return trace_function
 
 def main():
+    pass
+    i = 1
+    i += 1
+
+def b():
     i = 1
     twos, sevens = 0, 0
     while i < 5:
