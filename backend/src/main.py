@@ -14,6 +14,8 @@ def main():
     line_mapping : dict[int, Type[Block]] = {}
     output       : list[str] = []
     trace_program(trace_line, lines, output)
+    for l in lines:
+        print(l)
 
 def trace_program(handler : Callable, lines : list[Line], output : list[str]):
     def wrapper(frame : FrameType, event : str, arg : Any):
@@ -23,6 +25,10 @@ def trace_program(handler : Callable, lines : list[Line], output : list[str]):
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
+    sys.stdout = sys.__stdout__
+
+# class Output:
+#     """A dataclass to store program output which can be reset"""
 
 def trace_line(frame : FrameType, event : str, arg : Any, lines, output : list[str]):
     if event != "line":
@@ -30,9 +36,7 @@ def trace_line(frame : FrameType, event : str, arg : Any, lines, output : list[s
 
     line_output : StringIO = StringIO()
     sys.stdout = line_output
-    output.insert(0, line_output.getvalue())
     lines.append(Line(frame.f_lineno, frame.f_locals, output))
-    sys.stdout = sys.__stdout__
 
 if __name__ == '__main__':
     main()
