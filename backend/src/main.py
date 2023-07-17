@@ -27,9 +27,6 @@ def trace_program(handler : Callable, lines : list[Line], output : list[str]):
     sys.settrace(None)
     sys.stdout = sys.__stdout__
 
-# class Output:
-#     """A dataclass to store program output which can be reset"""
-
 def trace_line(frame : FrameType, event : str, arg : Any, lines, output : list[str]):
     if event != "line":
         return
