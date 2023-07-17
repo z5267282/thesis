@@ -31,7 +31,7 @@ def trace_line(
         return
 
     # state related steps
-    vars : dict[str, str] = frame.f_lineno
+    vars : dict[str, str] = frame.f_locals
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)

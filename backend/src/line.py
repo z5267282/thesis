@@ -10,4 +10,6 @@ class Line:
     def __str__(self):
         return f"""line no {self.line_no}:
     output: {self.output}
-    vars  : {self.vars}"""
+    vars  :
+        - prev: {self.vars.prev}
+        - curr: {self.vars.curr}"""
