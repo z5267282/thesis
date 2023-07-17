@@ -1,5 +1,5 @@
 import json
-from typing import Type, Union
+from typing import Type
 
 class Block():
     def __init__(self, start : int):
