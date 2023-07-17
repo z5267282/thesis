@@ -1,5 +1,11 @@
 #!/bin/dash
 
 PATH="$PATH:$(pwd)"
-wrap-program
+
+wrap-program program raw.py
+
+cp raw.py adjusted.py
+echo pass >> adjusted.py
+wrap-program adjusted_program adjusted.py
+
 python3 main.py
