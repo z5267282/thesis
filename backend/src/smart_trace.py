@@ -37,10 +37,14 @@ def trace_line(
     diff : str = string_diff(printed.prev, printed.curr)
     output.append(diff)
 
-    # the current line output is unknown until the next one is run
+    if lines:
+        top : Line = lines[-1]
+        top.
+
+    vars : dict[str, str] = frame.f_lineno
 
     out : list[str] = output + [diff]
-    lines.append(Line(frame.f_lineno, prev_vars))
+    lines.append(Line(frame.f_lineno, vars))
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
