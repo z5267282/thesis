@@ -36,14 +36,26 @@ def trace_line(
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
 
+    # with open("/tmp/a.txt", "w") as f:
+    #     # print(f"{frame.f_lineno} - {diff}", file=f)
+    #     print(frame.f_lineno, file=f)
+
     # manage previous state - note a "previous" state needs to exist (ie. line > starting)
     if lines:
         top : Line = lines[-1]
         top.vars.curr = vars
         # join list to not create references over same lines
+
+        # if diff:
+        #     top.output = output + [diff]
+
         top.output = output + [diff]
 
+    # if diff:
+    #     output.append(diff)
+
     output.append(diff)
+
     lines.append(Line(frame.f_lineno, vars))
 
 def string_diff(prev : str, curr : str):
