@@ -37,6 +37,7 @@ def trace_line(
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
 
+    # manage previous state - note a "previous" state needs to exist (ie. line > starting)
     if lines:
         top : Line = lines[-1]
         top.vars.curr = vars
