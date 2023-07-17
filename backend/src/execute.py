@@ -40,16 +40,12 @@ def trace_line(
     if lines:
         top : Line = lines[-1]
         top.vars.curr = vars
-        # join list to not create references over same lines
-
-        if diff:
-            top.output = output + [diff]
-        else:
-            top.output = output + [diff]
+        # create a new list from the original
+        rest : list = [diff] if diff else []
+        top.output = output + rest
 
     if diff:
         output.append(diff)
-
     lines.append(Line(frame.f_lineno, vars))
 
 def string_diff(prev : str, curr : str):
