@@ -8,6 +8,6 @@ class Line:
         self.vars    : State = State(prev_vars)
     
     def __str__(self):
-        return "the output is: @{}@".format(", ".join(self.output))
-        # return f"{self.line_no} : {self.locals}"
-        # return f"lno: {self.line_no}, out: '{self.out}'"
+        return f"""line no {self.line_no}:
+    output: {self.output}
+    vars  : {self.vars}"""
