@@ -32,18 +32,18 @@ def trace_line(
         return
 
     # state related steps
+    vars : dict[str, str] = frame.f_lineno
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
-    output.append(diff)
 
     if lines:
         top : Line = lines[-1]
-        top.
+        top.vars.curr = vars
+        # join list to not create references over same lines
+        top.output = output + [diff]
 
-    vars : dict[str, str] = frame.f_lineno
-
-    out : list[str] = output + [diff]
+    output.append(diff)
     lines.append(Line(frame.f_lineno, vars))
 
 def string_diff(prev : str, curr : str):
