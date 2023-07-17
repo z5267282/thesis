@@ -4,7 +4,7 @@ from typing import Type
 from adjusted_program import adjusted_program
 from line import Line
 from program import program
-from smart_trace import trace_program
+from execute import trace_program
 from state import State
 from tree import Block, BodyBlock
 from tree_parser import parse
