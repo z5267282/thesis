@@ -7,19 +7,19 @@ from types import FrameType
 from typing import Any, Callable
 
 def trace_program(
-    program : Callable,
+    adjusted_program : Callable,
     lines : list[Line], output : list[str], buffer : StringIO, printed : State
 ):
     """Intelligently execute and trace a program.
     The adjusted program must end with an extra pass at the end.
     Modify a list of lines given by reference which must be initially empty."""
     def wrapper(frame : FrameType, event : str, arg : Any):
-        trace_line(frame, event, arg, lines, output, buffer, printed, vars)
+        trace_line(frame, event, arg, lines, output, buffer, printed)
         return wrapper
 
     sys.stdout = buffer
     sys.settrace(wrapper)
-    program()
+    adjusted_program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
 
