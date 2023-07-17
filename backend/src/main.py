@@ -20,5 +20,8 @@ def main():
     printed : State = State("", curr="")
     trace_program(adjusted_program, lines, output, buffer, printed)
 
+    for l in lines:
+        print(l)
+
 if __name__ == '__main__':
     main()
