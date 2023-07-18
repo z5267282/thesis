@@ -1,3 +1,4 @@
+import copy
 from io import StringIO
 import sys
 
@@ -10,7 +11,7 @@ def trace_program(
     adjusted_program : Callable,
     lines : list[Line], output : list[str], buffer : StringIO, printed : State
 ):
-    """Intelligently execute and trace a program.
+    """Get the execution path of a program with state information at each line.
     The adjusted program must end with an extra pass at the end.
     Modify a list of lines given by reference which must be initially empty."""
     def wrapper(frame : FrameType, event : str, arg : Any):
@@ -31,7 +32,7 @@ def trace_line(
         return
 
     # state related steps
-    vars : dict[str, str] = {key : frame.f_locals[key] for key in frame.f_locals} 
+    vars : dict[str, str] = copy.deepcopy(frame.f_locals)
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)

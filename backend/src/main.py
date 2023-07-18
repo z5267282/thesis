@@ -14,9 +14,9 @@ def main():
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
 
-    buffer : StringIO = StringIO()
-    lines  : list[Line] = []
-    output : list[str] = []
+    buffer  : StringIO = StringIO()
+    lines   : list[Line] = []
+    output  : list[str] = []
     printed : State = State("", curr="")
     trace_program(adjusted_program, lines, output, buffer, printed)
 
