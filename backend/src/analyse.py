@@ -32,5 +32,5 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
 def trace_while(lines : list[Line]):
     # get first path
     i = 0
-    while 
+    # while 
     return []
