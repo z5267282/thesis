@@ -25,6 +25,12 @@ function genSVGPath(coords, lineHeight, graphWidth) {
  */
 function genCounterStyle(start, end, lineHeight) {
   const halfLine = lineHeight / 2;
+  console.log(
+    {
+      marginTop: addPixels((start * lineHeight) + halfLine),
+      height: addPixels((end - start) * lineHeight)
+    }
+  );
   return {
     marginTop: addPixels((start * lineHeight) + halfLine),
     height: addPixels((end - start) * lineHeight)
@@ -74,7 +80,7 @@ export default function TraceBox({code, lines, path, counter, lineHeight, fontSc
         }
         {
           (counter !== null) && 
-            <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end)}>
+            <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end, lineHeight)}>
               <span className={styles.fraction}>
                 <span className={styles.topText}>{counter.numerator}</span>
                 /
