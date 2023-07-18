@@ -7,13 +7,15 @@ from state import State
 from types import FrameType
 from typing import Any, Callable
 
-def trace_program(
-    adjusted_program : Callable,
-    lines : list[Line], output : list[str], buffer : StringIO, printed : State
-):
+def trace_program(adjusted_program : Callable):
+    buffer  : StringIO = StringIO()
+    lines   : list[Line] = []
+    output  : list[str] = []
+    printed : State = State("", curr="")
     """Get the execution path of a program with state information at each line.
-    The adjusted program must end with an extra pass at the end.
-    Modify a list of lines given by reference which must be initially empty."""
+    The program must end with an extra pass at the end and is hence "adjusted".
+    Return a list of Line objects representing the program's raw execution path.
+    """
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, output, buffer, printed)
         return wrapper
@@ -23,6 +25,7 @@ def trace_program(
     adjusted_program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
+    return lines
 
 def trace_line(
     frame : FrameType, event : str, arg : Any, lines : list[Line],
