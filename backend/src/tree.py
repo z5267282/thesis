@@ -42,6 +42,7 @@ class BodyBlock(Block):
     
     def get_top(self):
         """Return the top most block in body"""
+        return self.body[0]
     
     def to_dict(self):
         parent = super().to_dict()
@@ -108,3 +109,17 @@ class IfBlock(BodyBlock):
     
     def add_else(self, else_block : ElseBlock):
         self.else_ = else_block
+    
+    def find_branch(self, line_no : int):
+        """Find which branch starts at a given line number if any"""
+        if line_no == self.start:
+            return self
+        
+        for e in self.elifs:
+            if line_no == e.start:
+                return e
+        
+        if self.else_ is not None and line_no == self.else_.start:
+            return self.else_
+        
+        return None
