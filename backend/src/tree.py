@@ -7,7 +7,7 @@ class Block():
         self.end      : int = None
     
     def __str__(self):
-        """simply print the block without recursive unpacking"""
+        """Simply print the block without recursive unpacking"""
         return "{}(start={}, end={})".format(
             self.__class__.__name__, self.start, self.end
         )
@@ -25,14 +25,14 @@ class Block():
             line_mapping[i] = self
 
     def pretty_print(self):
-        """a pretty printer for debugging"""
+        """A pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
 
 class CodeBlock(Block):
     pass
 
 class BodyBlock(Block):
-    """for storing a succession of blocks on the same indetation level"""
+    """For storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int):
         super().__init__(start)
         self.body         : list[Type["BodyBlock"] | CodeBlock] = []
@@ -59,7 +59,7 @@ class BodyBlock(Block):
         self.body.append(block)
     
     def end_code_block(self, end : int):
-        """end the code block if set"""
+        """End the code block if set"""
         if self.code_block is None:
             return
 
@@ -72,15 +72,15 @@ class WhileBlock(BodyBlock):
 # put these here for type hints in the if block
 
 class ElifBlock(BodyBlock):
-    """separate this so that the IfBlock tracks the entire branch structure"""
+    """Separate this so that the IfBlock tracks the entire branch structure"""
     pass
 
 class ElseBlock(BodyBlock):
-    """made a class to differentiate from BodyBlock"""
+    """Made a class to differentiate from BodyBlock"""
     pass
 
 class IfBlock(BodyBlock):
-    """the if block must lay out on the same nesting level:
+    """The if block must lay out on the same nesting level:
     any elifs, and an else"""
     def __init__(self, start: int, indent_level : int):
         super().__init__(start, indent_level)
