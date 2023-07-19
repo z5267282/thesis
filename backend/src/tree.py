@@ -40,6 +40,9 @@ class BodyBlock(Block):
         self.code_block   : CodeBlock | None = None
         self.indent_level : int              = indent_level
     
+    def get_top(self):
+        """Return the top most block in body"""
+    
     def to_dict(self):
         parent = super().to_dict()
         parent[self.__class__.__name__]["body"] = [

@@ -29,6 +29,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 j += 1
             lines.extend(trace_while(while_lines))
 
+def trace_if(lines: list[Line], root : IfBlock):
+
+
 def trace_while(lines : list[Line]):
     # get first path
     i = 0
