@@ -21,7 +21,7 @@ export default function App() {
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
         />
         <div className={styles.outputs}>
-          <VariableBox />
+          <VariableBox variables={dummy_loop.vars} />
           <OutputBox {...ARROW_DIMENSIONS} />
         </div>
       </div>
