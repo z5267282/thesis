@@ -28,7 +28,7 @@ const data = {
     ],
     path: {
         start: 0,
-        rest: [0, 1, 2, 3, 5]
+        rest: [1, 2, 3, 5]
     },
     counters: [
         {

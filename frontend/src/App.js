@@ -8,9 +8,7 @@ import VariableBox from "./components/VariableBox";
 
 import dummy_loop from "./dummy-2d-loop";
 
-import {
-  ARROW_DIMENSIONS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH
-} from "./config";
+import { ARROW_DIMENSIONS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH } from "./config";
 
 export default function App() {
   const [dataFrame, setDataFrame] = React.useState(dummy_loop);
