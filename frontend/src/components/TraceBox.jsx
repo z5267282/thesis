@@ -54,6 +54,8 @@ export default function TraceBox({code, lines, path, counters, lineHeight, fontS
     fontSize: addPixels(lineHeight * fontScaling)
   };
 
+  console.log(counters)
+
   return (
     <div className={styles.container}>
       <h1 className={styles.largeText}>Trace execution</h1>

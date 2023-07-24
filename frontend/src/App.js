@@ -13,13 +13,13 @@ import {
 } from "./config";
 
 export default function App() {
-  const dataFrame = React.useState(dummy_loop);
+  const [dataFrame, setDataFrame] = React.useState(dummy_loop);
 
   return (
     <div className={styles.App}>
       <div className={styles.container}>
         <CodeBox
-          code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counter={dataFrame.counter}
+          code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters}
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
         />
         <div className={styles.outputs}>
