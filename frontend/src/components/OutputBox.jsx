@@ -22,7 +22,7 @@ function genArrowPath(width, height, arrowLength) {
   return `${verticalLine} ${left} ${right}`;
 }
 
-export default function OutputBox({width, height, headLength}) {
+export default function OutputBox({width, height, headLength, outputs}) {
   return (
     <label className={styles.container}>
       <h2 className={styles.fontSize}>Output</h2>
@@ -30,7 +30,7 @@ export default function OutputBox({width, height, headLength}) {
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
           <path d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent"></path>
         </svg>
-        <textarea className={styles.uploadBox} value="out" spellCheck={false} readOnly/>
+        <textarea className={styles.uploadBox} value={outputs.join("\n")} spellCheck={false} readOnly/>
       </div>
     </label>
   );
