@@ -91,7 +91,7 @@ export default function TraceBox({code, lines, path, counters, lineHeight, fontS
                     <span className={styles.bottomText}>{counter.denominator}</span>
                   </span>
                 </div>
-          )
+            )
         }
       </div>
     </div>
