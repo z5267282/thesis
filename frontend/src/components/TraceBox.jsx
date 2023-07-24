@@ -47,7 +47,7 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path, counter, lineHeight, fontScaling, graphWidth}) {
+export default function TraceBox({code, lines, path, counters, lineHeight, fontScaling, graphWidth}) {
   // this must be inline to import config value
   const lineHeightStyle = {
     lineHeight: addPixels(lineHeight),
@@ -79,14 +79,17 @@ export default function TraceBox({code, lines, path, counter, lineHeight, fontSc
             </svg>
         }
         {
-          (counter !== null) && 
-            <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end, lineHeight)}>
-              <span className={styles.fraction}>
-                <span className={styles.topText}>{counter.numerator}</span>
-                /
-                <span className={styles.bottomText}>{counter.denominator}</span>
-              </span>
-            </div>
+          (counters.length !== 0) &&
+            counters.map(
+              (counter, i) => 
+                <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end, lineHeight)}>
+                  <span className={styles.fraction}>
+                    <span className={styles.topText}>{counter.numerator}</span>
+                    /
+                    <span className={styles.bottomText}>{counter.denominator}</span>
+                  </span>
+                </div>
+          )
         }
       </div>
     </div>

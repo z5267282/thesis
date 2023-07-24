@@ -27,11 +27,13 @@ const data = {
         start: 0,
         rest: [1, 2, 3, 6]
     },
-    counter: {
-        start: 1,
-        end: 6,
-        numerator: 3,
-        denominator: 8,
-    }
+    counters: [
+        {
+            start: 1,
+            end: 6,
+            numerator: 3,
+            denominator: 8,
+        }
+    ]
 };
 export default data;
