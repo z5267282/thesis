@@ -6,7 +6,7 @@ import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
-import dummy_loop from "./dummy-2d-loop";
+import data from "./dummy/2d-loop";
 
 import {
   ARROW_WIDTH, ARROW_HEIGHT, ARROW_HEAD_LENGTH,
@@ -14,7 +14,7 @@ import {
 } from "./config";
 
 export default function App() {
-  const [dataFrame, setDataFrame] = React.useState(dummy_loop);
+  const [dataFrame, setDataFrame] = React.useState(data);
 
   return (
     <div className={styles.App}>
@@ -24,7 +24,7 @@ export default function App() {
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
         />
         <div className={styles.outputs}>
-          <VariableBox variables={dummy_loop.vars} />
+          <VariableBox variables={dataFrame.vars} />
           <OutputBox width={ARROW_WIDTH} height={ARROW_HEIGHT} headLength={ARROW_HEAD_LENGTH} outputs={dataFrame.out} />
         </div>
       </div>
