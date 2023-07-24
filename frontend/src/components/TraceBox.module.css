@@ -39,12 +39,12 @@
 
 .counterBox {
     border-left: solid;
-    border-color: limegreen;
     padding-left: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     line-height: 30px;
+    margin-right: 30px;
 }
 
 .fraction {

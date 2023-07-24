@@ -5,7 +5,7 @@ import UploadBox from "./UploadBox";
 
 import React from "react";
 
-export default function CodeBox({code, lines, path, counters, lineHeight, fontScaling, graphWidth}) {
+export default function CodeBox({code, lines, path, counters, counterColours, lineHeight, fontScaling, graphWidth}) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -18,7 +18,7 @@ export default function CodeBox({code, lines, path, counters, lineHeight, fontSc
       {
         (showTrace) ?
           <TraceBox
-            code={code} lines={lines} path={path} counters={counters}
+            code={code} lines={lines} path={path} counters={counters} counterColours={counterColours}
             lineHeight={lineHeight} fontScaling={fontScaling} graphWidth={graphWidth}
           />
         :

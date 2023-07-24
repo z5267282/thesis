@@ -20,18 +20,23 @@ function genSVGPath(coords, lineHeight, graphWidth) {
 }
 
 /**
+ * provide a colour for the ith counter
+ * @param {*} index of the counter
+ * @param {*} colours
+ * @returns 
+ */
+function colourCounter(index, colours) {
+  return colours[index % colours.length]
+}
+
+/**
  * @param {*}
  * @returns an inline style object with a top margin and heights for the counter's div
  */
-function genCounterStyle(start, end, lineHeight) {
+function genCounterStyle(start, end, lineHeight, index, colours) {
   const halfLine = lineHeight / 2;
-  console.log(
-    {
-      marginTop: addPixels((start * lineHeight) + halfLine),
-      height: addPixels((end - start) * lineHeight)
-    }
-  );
   return {
+    borderColor: colourCounter(index, colours),
     marginTop: addPixels((start * lineHeight) + halfLine),
     height: addPixels((end - start) * lineHeight)
   };
@@ -47,14 +52,12 @@ function colourLine(i, code) {
   return (i === code.length - 1) ? styles.highlight : "";
 }
 
-export default function TraceBox({code, lines, path, counters, lineHeight, fontScaling, graphWidth}) {
+export default function TraceBox({code, lines, path, counters, counterColours, lineHeight, fontScaling, graphWidth}) {
   // this must be inline to import config value
   const lineHeightStyle = {
     lineHeight: addPixels(lineHeight),
     fontSize: addPixels(lineHeight * fontScaling)
   };
-
-  console.log(counters)
 
   return (
     <div className={styles.container}>
@@ -84,7 +87,10 @@ export default function TraceBox({code, lines, path, counters, lineHeight, fontS
           (counters.length !== 0) &&
             counters.map(
               (counter, i) => 
-                <div className={styles.counterBox} style={genCounterStyle(counter.start, counter.end, lineHeight)}>
+                <div
+                  className={styles.counterBox}  key={`counter-${i}`}
+                  style={genCounterStyle(counter.start, counter.end, lineHeight, i, counterColours)}
+                >
                   <span className={styles.fraction}>
                     <span className={styles.topText}>{counter.numerator}</span>
                     /

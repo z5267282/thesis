@@ -10,3 +10,5 @@ export const ARROW_DIMENSIONS = {
     height: 100,
     headLength: 10
 };
+
+export const COUNTER_COLOURS = ["green", "blue"]
