@@ -34,9 +34,12 @@ def find_region(lines : list[Line], end : int, start : int):
     """Return a region and the next line in lines to go to"""
     region : list[Line] = []
     i : int = start
-    while i < len(lines) and lines[i].line_no <= end:
-        region.append(lines[i])
-        i += 1
+    for line in enumerate(lines):
+        if line.line_no > end:
+            break
+
+        region.append(line)
+
     return region, i
 
 def trace_code_block(region: list[Line]):
@@ -51,8 +54,7 @@ def trace_if(lines: list[Line], root : IfBlock):
     rest : list[Line] = [] 
 
     i : int = 0
-    while i < len(lines):
-        line : Line = lines[i]
+    for i, line in enumerate(lines):
         line_no : int = line.line_no
         MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
         branch : MaybeConditional = root.find_branch(line_no)
@@ -61,7 +63,6 @@ def trace_if(lines: list[Line], root : IfBlock):
         elif line_no == branch.get_top().start:
             rest.extend(lines[i:])
             break
-        i += 1
 
     return won, rest
 
