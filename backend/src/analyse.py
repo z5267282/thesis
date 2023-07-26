@@ -79,6 +79,7 @@ def trace_while(lines : list[Line], start : int):
     for line in lines:
         # start of new path
         # must make sure we're not on the first line of the whole while
+        # this ensures the last check which fails the while is not run
         if line.line_no == start and curr:
             all_paths.append(curr)
             curr = []
@@ -89,9 +90,6 @@ def trace_while(lines : list[Line], start : int):
     if not all_paths:
         return []
     
-    # last path will be just the while
-    all_paths.pop(-1)
-
     paths: list[list[Line]] = []
     counters : list[Fraction] = []
     n : int = len(all_paths)
