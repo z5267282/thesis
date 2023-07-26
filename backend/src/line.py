@@ -8,11 +8,13 @@ class Line:
         self.vars    : State = State(prev_vars)
     
     def __str__(self):
-        return f"""line no {self.line_no}:
-    output: {self.output}
-    vars  :
-        - prev: {self.vars.prev}
-        - curr: {self.vars.curr}"""
+    #     return f"""line no {self.line_no}:
+    # output: {self.output}
+    # vars  :
+    #     - prev: {self.vars.prev}
+    #     - curr: {self.vars.curr}"""
+
+        return str(self.line_no)
     
     def __eq__(self, other):
         return self.line_no == other.line_no

@@ -1,5 +1,6 @@
 from typing import Type
 
+from analyse import smart_trace
 from adjusted_program import adjusted_program
 from line import Line
 from program import program
@@ -12,9 +13,12 @@ def main():
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
     lines : list[Line] = trace_program(adjusted_program)
+    # remove the filler line
+    lines.pop(-1)
 
-    for l in lines:
-        print(l)
+    filtered : list[Line] = smart_trace(line_mapping, lines)
+    for f in filtered:
+        print(f)
 
 if __name__ == '__main__':
     main()
