@@ -22,12 +22,12 @@ def program():
 
 def test_while_if():
     root : BodyBlock = parse(program)
-    line_mapping : dict[int, Type[Block]]
+    line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
     lines : list[Line] =  trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, lines)
 
-    assert len(filtered == 12)
+    assert len(filtered) == 12
 
     assert filtered[0].line_no == 11
     assert filtered[1].line_no == 12
