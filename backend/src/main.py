@@ -9,7 +9,7 @@ from tree import Block, BodyBlock
 from tree_parser import parse
 
 def main():
-    root         : BodyBlock = parse(program)
+    root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
     lines : list[Line] = trace_program(adjusted_program)
