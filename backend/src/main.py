@@ -1,7 +1,6 @@
 from typing import Type
 
 from analyse import smart_trace
-from adjusted_program import adjusted_program
 from line import Line
 from program import program
 from execute import trace_program
@@ -12,7 +11,7 @@ def main():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
-    lines : list[Line] = trace_program(adjusted_program)
+    lines : list[Line] = trace_program(program)
     # remove the filler line
     lines.pop(-1)
 
