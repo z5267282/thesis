@@ -12,8 +12,6 @@ def main():
     line_mapping : dict[int, Type[Block]] = {}
     root.map_lines(line_mapping)
     lines : list[Line] = trace_program(program)
-    # remove the filler line
-    lines.pop(-1)
 
     filtered : list[Line] = smart_trace(line_mapping, lines)
     for f in filtered:
