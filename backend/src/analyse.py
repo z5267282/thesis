@@ -88,6 +88,7 @@ def trace_while(lines : list[Line], start : int):
     counters : list[Fraction]
     n : int = len(paths)
     for i, path in enumerate(all_paths, start=1):
+        # this relies on Line.__eq__ using the line number only
         if path not in paths:
             paths.append(path)
             counters.append(Fraction(i, n))
