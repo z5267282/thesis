@@ -8,6 +8,9 @@ class Line:
         self.vars    : State = State(prev_vars)
     
     def __str__(self):
+        return str(self.line_no)
+    
+    def long_print(self):
         return f"""line no {self.line_no}:
     output: {self.output}
     vars  :
