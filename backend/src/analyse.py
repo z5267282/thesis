@@ -22,12 +22,10 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             filtered.append(won)
             filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
-            j = i
-            while_lines : list[Line] = []
-            while lines[j].line_no <= block.end:
-                while_lines.append(j)
-                j += 1
-            lines.extend(trace_while(while_lines))
+            paths , _ = trace_while(lines, block.start)
+            for path in paths:
+                filtered.append(path.pop(0))
+                filtered.extend(path)
         i = offset
     
     return filtered
@@ -68,26 +66,29 @@ def trace_if(lines: list[Line], root : IfBlock):
     return won, rest
 
 def trace_while(lines : list[Line], start : int):
-    paths : list[Line] = []
+    all_paths : list[Line] = []
     curr : list[Line] = []
     for i, line in enumerate(lines):
         # start of new path
         # must make sure we're not on the first line of the whole while
         if i == start and curr:
-            paths.append(curr)
+            all_paths.append(curr)
             curr.clear()
 
         curr.append(line)
 
     # should not filter any lines from a non-taken while
-    if not paths:
+    if not all_paths:
         return []
     
     # last path will be just the while
-    paths.pop(-1)
-    result : list[Line]
+    all_paths.pop(-1)
+    paths: list[list[Line]]
     counters : list[Fraction]
-    for i, path in enumerate(paths, start=1):
-        pass
-        # if tuple_path not in result:
-            # result[tuple_path] = 
+    n : int = len(paths)
+    for i, path in enumerate(all_paths, start=1):
+        if path not in paths:
+            paths.append(path)
+            counters.append(Fraction(i, n))
+    
+    return paths, counters

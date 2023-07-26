@@ -13,3 +13,6 @@ class Line:
     vars  :
         - prev: {self.vars.prev}
         - curr: {self.vars.curr}"""
+    
+    def __eq__(self, other):
+        return self.line_no == other.line_no
