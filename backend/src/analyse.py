@@ -1,3 +1,5 @@
+from collections import OrderedDict
+from fractions import Fraction
 from typing import Type
 
 from line import Line
@@ -63,11 +65,29 @@ def trace_if(lines: list[Line], root : IfBlock):
             rest.extend(lines[i:])
             break
         i += 1
-    
+
     return won, rest
 
-def trace_while():
-    # get first path
-    i = 0
-    # while 
-    return []
+def trace_while(lines : list[Line], start : int):
+    paths : list[Line] = []
+    curr : list[Line] = []
+    for i, line in enumerate(lines):
+        # start of new path
+        # must make sure we're not on the first line of the whole while
+        if i == start and curr:
+            paths.append(curr)
+            curr.clear()
+
+        curr.append(line)
+
+    # should not filter any lines from a non-taken while
+    if not paths:
+        return []
+    
+    # last path will be just the while
+    paths.pop(-1)
+    result : OrderedDict[tuple[Line], Fraction] = OrderedDict()
+    for i, path in enumerate(paths, start=1):
+        tuple_path = tuple(path)
+        if tuple_path not in result:
+            # result[tuple_path] = 
