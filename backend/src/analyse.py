@@ -17,7 +17,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         block : Type[Block] = line_mapping[line.line_no]
         region, offset = find_region(lines, block.end, i)
         if isinstance(block, CodeBlock):
-            filtered.extend(trace_code_block(region))
+            filtered.append(trace_code_block(region))
         elif isinstance(block, IfBlock):
             won, rest = trace_if(region, block)
             if won is not None:
@@ -44,8 +44,9 @@ def find_region(lines : list[Line], end : int, start : int):
     return region, i
 
 def trace_code_block(lines: list[Line]):
+    """Return the end of a CodeBlock"""
     last : Line = lines[-1]
-    return [last]
+    return last
 
 def trace_if(lines: list[Line], root : IfBlock):
     """Given all lines related to an if statement, filter out the winning
@@ -72,6 +73,9 @@ def trace_if(lines: list[Line], root : IfBlock):
     return None, []
 
 def trace_while(lines : list[Line], start : int):
+    """Filter out a sequence of while iterations into paths
+    Return the paths comprised of a list of lines taken by the while and
+    a corresponding list of counters"""
     all_paths : list[Line] = []
     curr : list[Line] = []
     for line in lines:
