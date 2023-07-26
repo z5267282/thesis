@@ -27,6 +27,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 filtered.append(path.pop(0))
                 filtered.extend(path)
         i = offset
+        print(i)
     
     return filtered
 
@@ -34,11 +35,9 @@ def find_region(lines : list[Line], end : int, start : int):
     """Return a region and the next line in lines to go to"""
     region : list[Line] = []
     i : int = start
-    for line in enumerate(lines):
-        if line.line_no > end:
-            break
-
-        region.append(line)
+    while i < len(lines) and lines[i].line_no <= end:
+        region.append(lines[i])
+        i += 1
 
     return region, i
 
@@ -84,9 +83,9 @@ def trace_while(lines : list[Line], start : int):
     
     # last path will be just the while
     all_paths.pop(-1)
-    paths: list[list[Line]]
-    counters : list[Fraction]
-    n : int = len(paths)
+    paths: list[list[Line]] = []
+    counters : list[Fraction] = []
+    n : int = len(all_paths)
     for i, path in enumerate(all_paths, start=1):
         # this relies on Line.__eq__ using the line number only
         if path not in paths:
