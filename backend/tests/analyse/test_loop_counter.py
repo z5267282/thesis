@@ -43,17 +43,61 @@ def test_loop_counter():
     assert filtered[10].line_no == 20
     assert filtered[11].line_no == 22
 
+    # first line
+    assert len(filtered[0].counters) == 0
+
+    # first path: skip to end
     assert len(filtered[1].counters) == 1
     counter : Counter = filtered[1].counters[0]
     assert counter.iteration == 1
     assert counter.total == 7
 
     assert len(filtered[2].counters) == 1
-    counter = filtered[1].counters[0]
+    counter = filtered[2].counters[0]
     assert counter.iteration == 1
     assert counter.total == 7
 
+    # if branch
     assert len(filtered[3].counters) == 1
-    counter = filtered[1].counters[0]
-    assert counter.iteration == 3
+    counter = filtered[3].counters[0]
+    assert counter.iteration == 2
     assert counter.total == 7
+
+    assert len(filtered[4].counters) == 1
+    counter = filtered[4].counters[0]
+    assert counter.iteration == 2
+    assert counter.total == 7
+
+    assert len(filtered[5].counters) == 1
+    counter = filtered[5].counters[0]
+    assert counter.iteration == 2
+    assert counter.total == 7
+
+    assert len(filtered[6].counters) == 1
+    counter = filtered[6].counters[0]
+    assert counter.iteration == 2
+    assert counter.total == 7
+
+    # elif branch
+    assert len(filtered[7].counters) == 1
+    counter = filtered[7].counters[0]
+    assert counter.iteration == 7
+    assert counter.total == 7
+
+    assert len(filtered[8].counters) == 1
+    counter = filtered[8].counters[0]
+    assert counter.iteration == 7
+    assert counter.total == 7
+
+    assert len(filtered[9].counters) == 1
+    counter = filtered[9].counters[0]
+    assert counter.iteration == 7
+    assert counter.total == 7
+
+    assert len(filtered[10].counters) == 1
+    counter = filtered[10].counters[0]
+    assert counter.iteration == 7
+    assert counter.total == 7
+
+    # end of program
+    assert len(filtered[11].counters) == 0
