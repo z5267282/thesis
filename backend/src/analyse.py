@@ -53,17 +53,19 @@ def trace_if(lines: list[Line], root : IfBlock):
     path.
     Return the won branch and the remaining lines in the region to be parsed."""
     won : Line | None = None
+    MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
+    last_seen_branch : MaybeConditional = None
     rest : list[Line] = [] 
 
     i : int = 0
     for i, line in enumerate(lines):
         line_no : int = line.line_no
-        MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
         branch : MaybeConditional = root.find_branch(line_no)
-        print(f"{line_no} - {type(branch)}")
         if branch is not None:
             won = line
-        elif line_no == branch.get_top().start:
+            last_seen_branch = branch
+        elif last_seen_branch is not None \
+        and line_no == last_seen_branch.get_top().start:
             rest.extend(lines[i:])
             break
 
