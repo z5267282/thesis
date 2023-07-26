@@ -47,3 +47,13 @@ def test_loop_counter():
     counter : Counter = filtered[1].counters[0]
     assert counter.iteration == 1
     assert counter.total == 7
+
+    assert len(filtered[2].counters) == 1
+    counter = filtered[1].counters[0]
+    assert counter.iteration == 1
+    assert counter.total == 7
+
+    assert len(filtered[3].counters) == 1
+    counter = filtered[1].counters[0]
+    assert counter.iteration == 3
+    assert counter.total == 7
