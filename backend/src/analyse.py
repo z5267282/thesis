@@ -4,8 +4,6 @@ from typing import Type
 from line import Line
 from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
 
-print_lines = lambda lines, i: print("{} - [{}]".format(i, ", ".join(str(l) for l in lines)))
-
 def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
