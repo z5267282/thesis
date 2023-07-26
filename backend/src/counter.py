@@ -9,6 +9,7 @@ class Counter:
         self.while_ = while_
     
     def __str__(self):
-        return "line {} - ({}/{})".format(
-            self.while_, self.iteration.numerator, self.iteration.denominator
+        return "({}/{}) : {}".format(
+            self.iteration.numerator, self.iteration.denominator,
+            self.while_.start
         )

@@ -20,12 +20,17 @@ class Line:
         return self.line_no == other.line_no
     
     def long_str(self):
+        counters : str = """
+        {}
+    """.format(
+            "\n".join(str(counter) for counter in self.counters)
+        ) if self.counters else ""
         return f"""line no {self.line_no}:
     output: {self.output}
     vars  :
         - prev: {self.vars.prev}
         - curr: {self.vars.curr}
-    counters: [{", ".join(str(counter for counter in self.counters))}]"""
+    counters: [{counters}]"""
     
     def add_counter(self, iteration : Fraction, while_ : WhileBlock):
         """Add a counter of an increased depth"""
