@@ -1,4 +1,4 @@
-from typing import Callable, Type
+from typing import Type
 
 from line import Line
 from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
@@ -17,8 +17,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         if isinstance(block, CodeBlock):
             filtered.extend(trace_code_block(region))
         elif isinstance(block, IfBlock):
-            # TODO
-            pass
+            won, rest = trace_if(line_mapping, lines, block)
+            filtered.append(won)
+            filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
             j = i
             while_lines : list[Line] = []
@@ -26,6 +27,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 while_lines.append(j)
                 j += 1
             lines.extend(trace_while(while_lines))
+        i = offset
+    
+    return filtered
 
 def find_region(lines : list[Line], end : int, start : int):
     """Return a region and the next line in lines to go to"""
@@ -40,44 +44,27 @@ def trace_code_block(region: list[Line]):
     last : Line = region[-1]
     return [last]
 
-def find_last(lines : list[Line], end : int):
-    last = None
-    i = 0
-    while list[i].line_no <= end:
-        last = list[i]
-        i += 1
-    return last
-
-
 def trace_if(line_mapping : dict[int, Type[Block]], lines: list[Line], root : IfBlock):
-    """
-        Given all lines related to an if statement, filter out the winning path
-    """
-    MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
+    """Given all lines related to an if statement, filter out the winning
+    path.
+    Return the won branch and the remaining lines in the region to be parsed."""
     won : Line | None = None
-    result : list[Line] = [] 
+    rest : list[Line] = [] 
 
     i : int = 0
     while i < len(lines):
         line : Line = lines[i]
         line_no : int = line.line_no
+        MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
         branch : MaybeConditional = root.find_branch(line_no)
         if branch is not None:
             won = line
         elif line_no == branch.get_top().start:
-            result.append(won)
-            result.extend(lines[i:])
+            rest.extend(lines[i:])
             break
         i += 1
     
-    return result
-    #     # current line is more deeply nested than previous
-    #     # cannot see indentation level of current line
-    #     # blank lines -> cannot rely on this
-    #     line_no = branch.line_no
-    #     block = line_mapping[branch.line_no]
-
-    #     # or, current line is the start of a branch's top
+    return won, rest
 
 def trace_while(lines : list[Line]):
     # get first path
