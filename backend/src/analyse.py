@@ -17,7 +17,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         if isinstance(block, CodeBlock):
             filtered.extend(trace_code_block(region))
         elif isinstance(block, IfBlock):
-            won, rest = trace_if(line_mapping, lines, block)
+            won, rest = trace_if(lines, block)
             filtered.append(won)
             filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
@@ -44,7 +44,7 @@ def trace_code_block(region: list[Line]):
     last : Line = region[-1]
     return [last]
 
-def trace_if(line_mapping : dict[int, Type[Block]], lines: list[Line], root : IfBlock):
+def trace_if(lines: list[Line], root : IfBlock):
     """Given all lines related to an if statement, filter out the winning
     path.
     Return the won branch and the remaining lines in the region to be parsed."""
@@ -66,7 +66,7 @@ def trace_if(line_mapping : dict[int, Type[Block]], lines: list[Line], root : If
     
     return won, rest
 
-def trace_while(lines : list[Line]):
+def trace_while():
     # get first path
     i = 0
     # while 
