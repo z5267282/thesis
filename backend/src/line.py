@@ -1,5 +1,3 @@
-from fractions import Fraction
-
 from counter import Counter
 from state import State
 from tree import WhileBlock
@@ -32,6 +30,6 @@ class Line:
         - curr: {self.vars.curr}
     counters: [{counters}]"""
     
-    def add_counter(self, iteration : Fraction, while_ : WhileBlock):
+    def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
         """Add a counter of an increased depth"""
-        self.counters.append(Counter(iteration, while_))
+        self.counters.append(Counter(iteration, total, while_))

@@ -1,4 +1,3 @@
-from fractions import Fraction
 from typing import Type
 
 from line import Line
@@ -97,9 +96,8 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     for i, path in enumerate(all_paths, start=1):
         # this relies on Line.__eq__ using the line number only
         if path not in paths:
-            iteration : Fraction = Fraction(i, n)
             for line in path:
-                line.add_counter(iteration, while_)
+                line.add_counter(i, n, while_)
 
             paths.append(path)
     
