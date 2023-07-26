@@ -26,7 +26,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
             print("here!")
-            print_lines(lines)
+            print_lines(region)
             paths , _ = trace_while(region, block.start)
             for path in paths:
                 filtered.append(path.pop(0))
@@ -44,6 +44,7 @@ def find_region(lines : list[Line], end : int, start : int):
         region.append(lines[i])
         i += 1
 
+    print(f"in find_region: {i}")
     return region, i
 
 def trace_code_block(region: list[Line]):
