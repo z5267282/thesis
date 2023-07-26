@@ -20,6 +20,20 @@ def program():
     
     print(f"2s: {twos}, 7s: {sevens}")
 
+"""Expected:
+3
+4
+11
+4
+5
+7
+11
+4
+8
+10
+11
+13"""
+
 # def test_while_if():
 #     root : BodyBlock = parse(program)
 #     line_mapping : dict[int, Type[Block]]
