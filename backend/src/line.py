@@ -24,7 +24,8 @@ class Line:
     output: {self.output}
     vars  :
         - prev: {self.vars.prev}
-        - curr: {self.vars.curr}"""
+        - curr: {self.vars.curr}
+    counters: [{", ".join(str(counter for counter in self.counters))}]"""
     
     def add_counter(self, iteration : Fraction, while_ : WhileBlock):
         """Add a counter of an increased depth"""
