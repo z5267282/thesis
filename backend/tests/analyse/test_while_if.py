@@ -34,9 +34,24 @@ def program():
 11
 13"""
 
-# def test_while_if():
-#     root : BodyBlock = parse(program)
-#     line_mapping : dict[int, Type[Block]]
-#     root.map_lines(line_mapping)
-#     lines : list[Line] =  trace_program()
-#     filtered : list[Line] = smart_trace(line_mapping, lin)
+def test_while_if():
+    root : BodyBlock = parse(program)
+    line_mapping : dict[int, Type[Block]]
+    root.map_lines(line_mapping)
+    lines : list[Line] =  trace_program(program)
+    filtered : list[Line] = smart_trace(line_mapping, lines)
+
+    assert len(filtered == 12)
+
+    assert filtered[0].line_no == 10
+    assert filtered[1].line_no == 11
+    assert filtered[2].line_no == 18
+    assert filtered[3].line_no == 11
+    assert filtered[4].line_no == 12
+    assert filtered[5].line_no == 14
+    assert filtered[6].line_no == 18
+    assert filtered[7].line_no == 11
+    assert filtered[8].line_no == 15
+    assert filtered[9].line_no == 17
+    assert filtered[10].line_no == 18
+    assert filtered[11].line_no == 20
