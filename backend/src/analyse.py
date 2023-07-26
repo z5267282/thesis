@@ -8,7 +8,8 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
     Decompose lines into regions of CodeBlocks, IfBlocks or WhileBlocks."""
-    print(", ".join(str(l) for l in lines))
+    print_lines = lambda lines : print(", ".join(str(l) for l in lines))
+    print_lines(lines)
 
     filtered : list[Line] = []
     i : int = 0
@@ -24,10 +25,13 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             filtered.append(won)
             filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
+            print("here!")
+            print_lines(lines)
             paths , _ = trace_while(region, block.start)
             for path in paths:
                 filtered.append(path.pop(0))
-                filtered.extend(path)
+                filtered.extend(smart_trace(line_mapping, path))
+
         i = offset
     
     return filtered
