@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from fractions import Fraction
 from typing import Type
 
@@ -86,8 +85,9 @@ def trace_while(lines : list[Line], start : int):
     
     # last path will be just the while
     paths.pop(-1)
-    result : OrderedDict[tuple[Line], Fraction] = OrderedDict()
+    result : list[Line]
+    counters : list[Fraction]
     for i, path in enumerate(paths, start=1):
-        tuple_path = tuple(path)
-        if tuple_path not in result:
+        pass
+        # if tuple_path not in result:
             # result[tuple_path] = 
