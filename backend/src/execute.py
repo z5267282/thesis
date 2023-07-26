@@ -34,15 +34,16 @@ def trace_line(
         return
 
     # state related steps
-    vars : dict[str, str] = copy.deepcopy(frame.f_locals)
+    variables : dict[str, str] = copy.deepcopy(frame.f_locals)
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
 
-    # manage previous state - note a "previous" state needs to exist (ie. line > starting)
+    # manage previous state
+    # note a "previous" state needs to exist (ie. line > starting)
     if lines:
         top : Line = lines[-1]
-        top.vars.curr = vars
+        top.vars.curr = variables
         # create a new list from the original
         rest : list = [diff] if diff else []
         top.output = output + rest
@@ -51,7 +52,7 @@ def trace_line(
         output.append(diff)
 
     if event == "line":
-        lines.append(Line(frame.f_lineno, vars))
+        lines.append(Line(frame.f_lineno, variables))
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
