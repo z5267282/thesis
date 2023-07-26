@@ -10,7 +10,7 @@ class Line:
     def __str__(self):
         return str(self.line_no)
     
-    def long_print(self):
+    def long_str(self):
         return f"""line no {self.line_no}:
     output: {self.output}
     vars  :

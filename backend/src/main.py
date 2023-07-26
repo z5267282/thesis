@@ -15,7 +15,7 @@ def main():
 
     filtered : list[Line] = smart_trace(line_mapping, lines)
     for f in filtered:
-        print(f)
+        print(f.long_str())
 
 if __name__ == '__main__':
     main()
