@@ -9,6 +9,6 @@ class Counter:
     
     def __str__(self):
         return "({}/{}) : {}".format(
-            self.iteration.numerator, self.iteration.denominator,
+            self.iteration, self.total,
             self.while_.start
         )
