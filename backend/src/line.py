@@ -16,6 +16,17 @@ class Line:
     vars  :
         - prev: {self.vars.prev}
         - curr: {self.vars.curr}"""
-
-    def __eq__(self, other):
+    
+    def line_no_equal(self, other):
         return self.line_no == other.line_no
+
+    @classmethod
+    def lines_equal(lhs : list["Line"] , rhs : list["Line"]):
+        if len(lhs) != len(rhs):
+            return False
+    
+        for left, right in zip(lhs, rhs):
+            if not lhs.line_no_equal(rhs):
+                return False
+        
+        return True
