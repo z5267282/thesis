@@ -43,8 +43,8 @@ def find_region(lines : list[Line], end : int, start : int):
 
     return region, i
 
-def trace_code_block(region: list[Line]):
-    last : Line = region[-1]
+def trace_code_block(lines: list[Line]):
+    last : Line = lines[-1]
     return [last]
 
 def trace_if(lines: list[Line], root : IfBlock):
