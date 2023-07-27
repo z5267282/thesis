@@ -15,7 +15,7 @@ class Line:
         return str(self.line_no)
     
     def __eq__(self, other : "Line"):
-        return self.line_no == other.line_no and self.counters == other.counters
+        return self.line_no == other.line_no
     
     def long_str(self):
         counters : str = """
