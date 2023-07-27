@@ -36,25 +36,3 @@
 .highlight {
     background-color: yellow;
 }
-
-.counterBox {
-    border-left: solid;
-    padding-left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 30px;
-    margin-right: 30px;
-}
-
-.fraction {
-    line-height: 1;
-}
-
-.topText {
-    vertical-align: sup;
-}
-
-.bottomText {
-    vertical-align: sub;
-}
