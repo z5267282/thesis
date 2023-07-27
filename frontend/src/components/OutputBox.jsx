@@ -1,6 +1,6 @@
-import styles from "./OutputBox.module.css";
-
 import { addPixels } from "../helper";
+
+import styles from "./OutputBox.module.css";
 
 function genArrowPath(width, height, arrowLength) {
   const halfWidth = width / 2;

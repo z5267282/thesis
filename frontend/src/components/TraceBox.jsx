@@ -1,8 +1,8 @@
-import styles from "./TraceBox.module.css";
+import { Fragment } from "react";
 
 import { addPixels } from "../helper";
 
-import { Fragment } from "react";
+import styles from "./TraceBox.module.css";
 
 /**
  * @param {*} coords object with the starting line and all remaining ones

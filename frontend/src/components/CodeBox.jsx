@@ -1,9 +1,9 @@
-import styles from "./CodeBox.module.css";
+import React from "react";
 
 import TraceBox from "./TraceBox";
 import UploadBox from "./UploadBox";
 
-import React from "react";
+import styles from "./CodeBox.module.css";
 
 export default function CodeBox({code, lines, path, counters, counterColours, lineHeight, fontScaling, graphWidth}) {
   const [showTrace, setShowTrace] = React.useState(true);
