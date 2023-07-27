@@ -19,6 +19,7 @@ const data = {
         "7",
         "8"
     ],
+    curr : 5,
     vars: [
         "i = 0",
         "j = 3"

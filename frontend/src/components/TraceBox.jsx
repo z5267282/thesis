@@ -6,7 +6,7 @@ import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
 
-export default function TraceBox({code, lines, path, counters, counterColours, lineHeight, fontScaling, graphWidth}) {
+export default function TraceBox({code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth}) {
   // this must be inline to import config value
   const lineHeightStyle = {
     lineHeight: addPixels(lineHeight),
@@ -18,7 +18,7 @@ export default function TraceBox({code, lines, path, counters, counterColours, l
       <h1 className={styles.largeText}>Trace execution</h1>
       <div className={styles.traceBox}>
         <div className={styles.codeBox} style={lineHeightStyle}>
-          <Lines code={code} lines={lines} />
+          <Lines code={code} lines={lines} curr={curr} />
         </div>
         {
           (path !== null) &&
