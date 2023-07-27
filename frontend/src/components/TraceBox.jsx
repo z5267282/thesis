@@ -59,46 +59,46 @@ export default function TraceBox({code, lines, path, counters, counterColours, l
     fontSize: addPixels(lineHeight * fontScaling)
   };
 
+  const Lines = () => code.map(
+    (line, i) => (
+      <Fragment key={`line-${i}`}>
+        <span className={colourLine(i, code)}>
+          {`${lines[i]}${lines[i] === "" ? "" : "."}`}
+        </span>
+        <span className={`${styles.preserveSpace} ${colourLine(i, code)}`}>{line}</span>
+      </Fragment>
+    )
+  );
+
+  const Path = () => (
+    <svg>
+      <path d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent" />
+    </svg>
+  );
+
+  const Counters = () => counters.map(
+    (counter, i) => 
+      <div
+        className={styles.counterBox}  key={`counter-${i}`}
+        style={genCounterStyle(counter.start, counter.end, lineHeight, i, counterColours)}
+      >
+        <span className={styles.fraction}>
+          <span className={styles.topText}>{counter.numerator}</span>
+          /
+          <span className={styles.bottomText}>{counter.denominator}</span>
+        </span>
+      </div>
+  )
+
   return (
     <div className={styles.container}>
       <h1 className={styles.largeText}>Trace execution</h1>
       <div className={styles.traceBox}>
         <div className={styles.codeBox} style={lineHeightStyle}>
-          {
-            code.map(
-              (line, i) => (
-                <Fragment key={`line-${i}`}>
-                  <span className={colourLine(i, code)}>
-                    {`${lines[i]}${lines[i] === "" ? "" : "."}`}
-                  </span>
-                  <span className={`${styles.preserveSpace} ${colourLine(i, code)}`}>{line}</span>
-                </Fragment>
-              )
-            )
-          } 
+          <Lines />
         </div>
-        {
-          (path !== null) &&
-            <svg>
-              <path d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent" />
-            </svg>
-        }
-        {
-          (counters.length !== 0) &&
-            counters.map(
-              (counter, i) => 
-                <div
-                  className={styles.counterBox}  key={`counter-${i}`}
-                  style={genCounterStyle(counter.start, counter.end, lineHeight, i, counterColours)}
-                >
-                  <span className={styles.fraction}>
-                    <span className={styles.topText}>{counter.numerator}</span>
-                    /
-                    <span className={styles.bottomText}>{counter.denominator}</span>
-                  </span>
-                </div>
-            )
-        }
+        { (path !== null) && <Path /> }
+        { (counters.length !== 0) && <Counters /> }
       </div>
     </div>
   );
