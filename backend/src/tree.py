@@ -3,8 +3,8 @@ from typing import Type
 
 class Block():
     def __init__(self, start : int):
-        self.start    : int = start
-        self.end      : int = None
+        self.start : int = start
+        self.end   : int = None
     
     def __str__(self):
         """Simply print the block without recursive unpacking"""
@@ -40,7 +40,7 @@ class BodyBlock(Block):
         self.body         : list[Type["BodyBlock"] | CodeBlock] = []
         # for storing the most recent code block
         self.code_block   : CodeBlock | None = None
-        self.indent_level : int              = indent_level
+        self.indent_level : int = indent_level
     
     def get_top(self):
         """Return the top most block in body"""
