@@ -5,6 +5,7 @@ import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
 import data from "./dummy/2d-loop";
+// import data from "./dummy/while-if";
 
 import styles from "./App.module.css";
 
