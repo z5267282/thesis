@@ -30,7 +30,23 @@ def test_while_if():
 
     # this is the only path through the program
     assert filtered[1].line_no == 12
+    assert len(filtered[1].counters) == 1
+    assert filtered[1].counters[0].iteration == 1
+    assert filtered[1].counters[0].total == 3
+
     assert filtered[2].line_no == 13
+    assert len(filtered[2].counters)
+    assert filtered[2].counters[0].iteration == 1
+    assert filtered[2].counters[0].total == 3
+
+    # two counters for nested loop
     assert filtered[3].line_no == 14
+    assert len(filtered[3].counters) == 2
+    assert filtered[3].counters[0].iteration == 1
+    assert filtered[3].counters[0].total == 3
+
+    assert filtered[3].counters[1].iteration == 1
+    assert filtered[3].counters[1].total == 3
+
     assert filtered[4].line_no == 16
     assert filtered[5].line_no == 19
