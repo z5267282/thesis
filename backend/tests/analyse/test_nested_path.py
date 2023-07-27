@@ -58,7 +58,8 @@ def test_while_if():
     assert filtered[9].counters == ninth_iter_outer
 
     first_iter_inner = [Counter(1, 4, None)]
-    inner_exp = fourth_iter_outer + first_iter_inner
+    inner_exp = ninth_iter_outer + first_iter_inner
     assert filtered[10].counters == inner_exp
     assert filtered[11].counters == inner_exp
-    assert filtered[12].counters == inner_exp
+
+    assert filtered[12].counters == ninth_iter_outer
