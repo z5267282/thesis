@@ -1,23 +1,10 @@
 import { Fragment } from "react";
 
+import Path from "./Path";
+
 import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
-
-/**
- * @param {*} coords object with the starting line and all remaining ones
- * @returns list of string of the path commands that can be joined with .join()
- */
-function genSVGPath(coords, lineHeight, graphWidth) {
-  const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
-  let prev = coords.start;
-  coords.rest.forEach((coord) => {
-    const height = (coord - prev) * lineHeight;
-    path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
-    prev = coord;
-  });
-  return path;
-}
 
 /**
  * provide a colour for the ith counter
@@ -70,12 +57,6 @@ export default function TraceBox({code, lines, path, counters, counterColours, l
     )
   );
 
-  const Path = () => (
-    <svg>
-      <path d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent" />
-    </svg>
-  );
-
   const Counters = () => counters.map(
     (counter, i) => 
       <div
@@ -97,7 +78,10 @@ export default function TraceBox({code, lines, path, counters, counterColours, l
         <div className={styles.codeBox} style={lineHeightStyle}>
           <Lines />
         </div>
-        { (path !== null) && <Path /> }
+        {
+          (path !== null) &&
+            <Path path={path} lineHeight={lineHeight} graphWidth={graphWidth} />
+        }
         { (counters.length !== 0) && <Counters /> }
       </div>
     </div>
