@@ -18,6 +18,9 @@ export default function App() {
   const [index, setIndex] = React.useState(0);
   const dataFrame = data[index];
 
+  const atFirstIndex = () => (index === 0);
+  const atLastIndex = () => (index === frames.length);
+
   const changeIndex = (offset) => {
     const newIndex = index + offset;
     if (newIndex >= 0 && newIndex < data.length) {
@@ -32,7 +35,7 @@ export default function App() {
           code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
           counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
-          changeIndex={changeIndex}
+          changeIndex={changeIndex} atFirstIndex={atFirstIndex} atLastIndex={atLastIndex}
         />
         <div className={styles.outputs}>
           <VariableBox variables={dataFrame.vars} />
