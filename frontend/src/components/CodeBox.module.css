@@ -10,6 +10,10 @@ button.customButton:hover {
     background-color: beige;
 }
 
+.disabled {
+    cursor: no-drop;
+}
+
 .container {
     display: flex;
     flex-direction: column;

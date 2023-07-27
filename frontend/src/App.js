@@ -18,8 +18,8 @@ export default function App() {
   const [index, setIndex] = React.useState(0);
   const dataFrame = data[index];
 
-  const atFirstIndex = () => (index === 0);
-  const atLastIndex = () => (index === frames.length);
+  const atFirstIndex = (index === 0);
+  const atLastIndex = (index === frames.length);
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;

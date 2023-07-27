@@ -33,8 +33,18 @@ export default function CodeBox(
           />
       }
       <div className={styles.transitionContainer}>
-        <button onClick={() => changeIndex(-1)}>prev</button>
-        <button onClick={() => changeIndex(1)}>next</button>
+        <button
+          onClick={() => changeIndex(-1)} disabled={atFirstIndex}
+          className={atFirstIndex ? styles.disabled : ""}
+        >
+          prev
+        </button>
+        <button
+          onClick={() => changeIndex(1)} disabled={atLastIndex}
+          className={atLastIndex ? styles.disabled : ""}
+        >
+          next
+        </button>
       </div>
     </div>
   );
