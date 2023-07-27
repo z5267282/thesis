@@ -4,7 +4,7 @@ import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
-import data from "./dummy/simple-prog";
+import data from "./dummy/simple-program";
 
 import styles from "./App.module.css";
 
@@ -14,7 +14,18 @@ import {
 } from "./config";
 
 export default function App() {
-  const [dataFrame, setDataFrame] = React.useState(data);
+  const [frames, setFrames] = React.useState(data)
+  const [index, setIndex] = React.useState(0);
+  const frame = React.useRef(data[index]);
+  const dataFrame = frame.current;
+  console.log(dataFrame);
+
+  const changeIndex = (offset) => {
+    const newIndex = index + offset;
+    if (newIndex >= 0 && newIndex < data.length) {
+      setIndex(newIndex);
+    }
+  }
 
   return (
     <div className={styles.App}>

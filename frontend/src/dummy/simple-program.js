@@ -25,7 +25,7 @@ const data = [
         vars: ["i = 7"],
         out: [],
         path: null,
-        counter: []
+        counters: []
     },
     {
         code: [
@@ -45,7 +45,7 @@ const data = [
         path: {
             start: 0, rest: [1]
         },
-        counter: []
+        counters: []
     },
     {
         code: [
@@ -65,7 +65,7 @@ const data = [
         path: {
             start: 0, rest: [1, 4]
         },
-        counter: []
+        counters: []
     },
     {
         code: [
@@ -90,7 +90,7 @@ const data = [
         path: {
             start: 0, rest: [1, 4, 5]
         },
-        counter: []
+        counters: []
     },
 ];
 export default data;
