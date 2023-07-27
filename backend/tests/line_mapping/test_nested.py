@@ -43,8 +43,7 @@ def test_tested():
 
     b.pretty_print()
 
-    line_mapping = {}
-    b.map_lines(line_mapping)
+    line_mapping = b.map_lines()
     assert line_mapping == {
         5: c1,
         6: w,

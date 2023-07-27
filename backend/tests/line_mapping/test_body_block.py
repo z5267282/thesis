@@ -14,8 +14,7 @@ def test_body_block():
     c3.end = 3
     b.add_same_level_block(c3)
 
-    line_mapping = {}
-    b.map_lines(line_mapping)
+    line_mapping = b.map_lines()
 
     # b was not a most nested item anywhere, so shouldn't be in mappings
     assert line_mapping == {

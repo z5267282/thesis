@@ -20,9 +20,11 @@ class Block():
             }
         }
     
-    def map_lines(self, line_mapping : dict[int, Type["Block"]]):
+    def map_lines(self, ):
+        line_mapping : dict[int, Type["Block"]] = {}
         for i in range(self.start, self.end + 1):
             line_mapping[i] = self
+        return line_mapping
 
     def pretty_print(self):
         """A pretty printer for debugging"""
@@ -51,10 +53,11 @@ class BodyBlock(Block):
         ]
         return parent
     
-    def map_lines(self, line_mapping: dict[int, Type[Block]]):
-        super().map_lines(line_mapping)
+    def map_lines(self, ):
+        parent : dict[int, Type[Block]] = super().map_lines()
         for b in self.body:
-            b.map_lines(line_mapping)
+            parent.update(b.map_lines())
+        return parent
     
     def add_same_level_block(self, block : Type["BodyBlock"] | CodeBlock):
         self.body.append(block)
@@ -97,12 +100,12 @@ class IfBlock(BodyBlock):
             None if self.else_ is None else self.else_.to_dict()
         return parent
     
-    def map_lines(self, line_mapping: dict[int, Type[Block]]):
-        super().map_lines(line_mapping)
+    def map_lines(self, ):
+        parent : dict[int, Type[Block]] = super().map_lines()
         for e in self.elifs:
-            e.map_lines(line_mapping)
+            parent.update(e.map_lines())
         if self.else_ is not None:
-            self.else_.map_lines(line_mapping)
+            parent.update(self.else_.map_lines())
     
     def add_elif(self, elif_block : ElifBlock):
         self.elifs.append(elif_block)
