@@ -12,3 +12,6 @@ class Counter:
             self.iteration, self.total,
             self.while_.start
         )
+    
+    def __eq__(self, other : "Counter"):
+        return self.iteration == other.iteration and self.total == other.total
