@@ -106,6 +106,7 @@ class IfBlock(BodyBlock):
             parent.update(e.map_lines())
         if self.else_ is not None:
             parent.update(self.else_.map_lines())
+        return parent
     
     def add_elif(self, elif_block : ElifBlock):
         self.elifs.append(elif_block)
