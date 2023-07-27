@@ -19,7 +19,7 @@ export default function App() {
   const dataFrame = data[index];
 
   const atFirstIndex = (index === 0);
-  const atLastIndex = (index === frames.length);
+  const atLastIndex = (index === frames.length - 1);
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;
