@@ -9,3 +9,7 @@
 .fontSize {
     font-size: 12pt;
 }
+
+.noResize {
+    resize: none;
+}
