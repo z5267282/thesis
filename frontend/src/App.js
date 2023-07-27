@@ -16,9 +16,7 @@ import {
 export default function App() {
   const [frames, setFrames] = React.useState(data)
   const [index, setIndex] = React.useState(0);
-  const frame = React.useRef(data[index]);
-  const dataFrame = frame.current;
-  console.log(dataFrame);
+  const dataFrame = data[index];
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;
@@ -34,6 +32,7 @@ export default function App() {
           code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
           counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
+          changeIndex={changeIndex}
         />
         <div className={styles.outputs}>
           <VariableBox variables={dataFrame.vars} />

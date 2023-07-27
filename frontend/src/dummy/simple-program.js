@@ -80,7 +80,7 @@ const data = [
         lines: [
             "1", "2", "3", "", "4", "5", "6"
         ],
-        curr: 5,
+        curr: 6,
         vars: ["i = 7"],
         out: [
             "seven",
@@ -88,7 +88,7 @@ const data = [
             "doing some counting"
         ],
         path: {
-            start: 0, rest: [1, 4, 5]
+            start: 0, rest: [1, 4, 6]
         },
         counters: []
     },

@@ -5,7 +5,7 @@ import UploadBox from "./UploadBox";
 
 import styles from "./CodeBox.module.css";
 
-export default function CodeBox({code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth}) {
+export default function CodeBox({code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth, changeIndex}) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -27,8 +27,8 @@ export default function CodeBox({code, lines, path, counters, curr, counterColou
           />
       }
       <div className={styles.transitionContainer}>
-        <button>prev</button>
-        <button>next</button>
+        <button onClick={() => changeIndex(-1)}>prev</button>
+        <button onClick={() => changeIndex(1)}>next</button>
       </div>
     </div>
   );
