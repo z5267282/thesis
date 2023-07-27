@@ -28,11 +28,3 @@
     width: 60px;
     margin-left: 50px;
 }
-
-.preserveSpace {
-    white-space: pre;
-}
-
-.highlight {
-    background-color: yellow;
-}
