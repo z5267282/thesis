@@ -1,12 +1,12 @@
 import React from "react";
 
-import styles from "./App.module.css";
-
 import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
 import data from "./dummy/2d-loop";
+
+import styles from "./App.module.css";
 
 import {
   ARROW_WIDTH, ARROW_HEIGHT, ARROW_HEAD_LENGTH,
