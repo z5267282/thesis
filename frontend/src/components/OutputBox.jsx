@@ -24,7 +24,7 @@ function genArrowPath(width, height, arrowLength) {
 
 export default function OutputBox({width, height, headLength, outputs}) {
   return (
-    <label className={styles.container} htmlfor="output-box">
+    <label className={styles.container} htmlFor="output-box">
       <h2 className={styles.fontSize}>Output</h2>
       <div className={styles.outputBox}>
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
