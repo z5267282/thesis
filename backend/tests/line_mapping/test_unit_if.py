@@ -1,6 +1,6 @@
 from tree import CodeBlock, IfBlock
 
-def test_if():
+def test_unit_if():
     body = CodeBlock(2)
     body.end = 4
 
