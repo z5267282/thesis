@@ -100,7 +100,7 @@ class IfBlock(BodyBlock):
             None if self.else_ is None else self.else_.to_dict()
         return parent
     
-    def map_lines(self, ):
+    def map_lines(self):
         parent : dict[int, Type[Block]] = super().map_lines()
         for e in self.elifs:
             parent.update(e.map_lines())
