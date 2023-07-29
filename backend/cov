@@ -1,3 +1,8 @@
 #!/bin/zsh
 
-pytest --cov=src --cov-report=html --cov-config=.coveragerc
+# note that the coverage depends on command line arg given
+
+# not right coverage:
+# pytest --cov=src --cov-report=html --cov-config=.coveragerc
+
+pytest --cov=src --cov-report=html --cov-config=.coveragerc tests/counter/test_constructor.py
