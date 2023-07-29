@@ -5,4 +5,4 @@
 # not right coverage:
 # pytest --cov=src --cov-report=html --cov-config=.coveragerc
 
-pytest --cov=src --cov-report=html --cov-config=.coveragerc tests/counter/test_constructor.py
+pytest --cov=src --cov-report=html --cov-branch

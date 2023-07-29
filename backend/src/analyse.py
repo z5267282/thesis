@@ -7,7 +7,6 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
     Decompose lines into regions of CodeBlocks, IfBlocks or WhileBlocks."""
-
     filtered : list[Line] = []
     i : int = 0
     while i < len(lines):
