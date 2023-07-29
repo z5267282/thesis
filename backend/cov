@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# usage: cov [ -[e]xecute tests ]
+# usage: cov [ -[n]o execute tests ]
 
 # tests not involving execute
 pytest \
@@ -10,5 +10,6 @@ pytest \
     --cov-branch \
     --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage
 
-[ "$1" = '-e' ] && ./test-execute
-exit 0
+[ "$1" = '-o' ] && exit 0
+
+./test-execute
