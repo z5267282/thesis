@@ -1,4 +1,4 @@
-from src.counter import Counter
+from counter import Counter
 
 def test_constructor():
     c = Counter(42, 69, None)

@@ -3,3 +3,5 @@ omit =
     src/main.py
     src/raw.py
     src/program.py 
+
+dynamic_context = test_function
