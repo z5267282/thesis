@@ -26,7 +26,7 @@ class Block():
             line_mapping[i] = self
         return line_mapping
 
-    def pretty_print(self):
+    def pretty_print(self): # pragma: no cover
         """A pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
 

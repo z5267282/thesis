@@ -9,7 +9,6 @@ def test_if_else():
             print("something else!")
     
     root = parse(if_else)
-    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,

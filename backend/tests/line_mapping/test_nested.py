@@ -41,8 +41,6 @@ def test_tested():
     c4.end = 11
     b.add_same_level_block(c4)
 
-    b.pretty_print()
-
     line_mapping = b.map_lines()
     assert line_mapping == {
         5: c1,
