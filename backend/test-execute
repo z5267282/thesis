@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+terminal=$(tput cols)
+alias banner='python3 -c "print(\"-\" * $terminal)"'
+alias colour="printf '\033[1;36m'" # aqua
+alias reset="printf '\033[0m'"
+
+echo ''
+colour
+banner
+echo ''
+
+message='tests involving execute'
+n=${#message}
+buffer=$(( (terminal - n) / 2 ))
+perl -e "print ' ' x $buffer"
+echo "$message"
+
+echo ''
+banner
+reset
+echo ''
