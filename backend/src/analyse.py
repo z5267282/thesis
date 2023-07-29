@@ -64,7 +64,8 @@ def trace_if(lines: list[Line], root : IfBlock):
             won = line
             last_seen_branch = branch
         elif last_seen_branch is not None \
-        and line_no == last_seen_branch.get_top().start:
+            and line_no == last_seen_branch.get_top().start:
+
             rest.extend(lines[i:])
             return won, rest
 
