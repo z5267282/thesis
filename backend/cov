@@ -10,31 +10,5 @@ pytest \
     --cov-branch \
     --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage
 
-if ! [ "$1" = '-e' ] 
-then
-    exit 0
-fi
-
-banner() {
-    python3 -c "print('-' * $(tput cols))"
-}
-
-colour() {
-    # aqua
-    printf '\033[1;36m'
-}
-
-reset() {
-    printf '\033[0m'
-}
-
-
-echo ''
-colour
-banner
-echo ''
-echo 'hello!'
-echo ''
-banner
-reset
-echo ''
+[ "$1" = '-e' ] && ./test-execute
+exit 0
