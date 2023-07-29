@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-# note that the coverage depends on command line arg given
-
-# not right coverage:
-# pytest --cov=src --cov-report=html --cov-config=.coveragerc
-
-pytest --cov=src --cov-report=html --cov-branch
+# tests not involving execute
+pytest \
+    --cov=src \
+    --cov-report=html \
+    --cov-branch \
+    --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage

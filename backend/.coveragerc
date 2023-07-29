@@ -3,3 +3,4 @@ omit =
     src/main.py
     src/raw.py
     src/program.py 
+    src/execute.py
