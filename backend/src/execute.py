@@ -44,9 +44,8 @@ def trace_line(
     if lines:
         top : Line = lines[-1]
         top.vars.curr = variables
-        # create a new list from the original
-        rest : list = [diff] if diff else []
-        top.output = output + rest
+        if diff:
+            top.output.append(diff)
 
     if diff:
         output.append(diff)
