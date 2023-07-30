@@ -15,12 +15,12 @@ def test_whitespace():
     root = parse(whitespace)
     assert root.to_dict() == {
         "BodyBlock" : {
-            "start" : 5,
+            "start" : 6,
             "end" : 13,
             "body" : [
                 {
                     "CodeBlock" : {
-                        "start" : 5,
+                        "start" : 6,
                         "end" : 6
                     }
                 },
