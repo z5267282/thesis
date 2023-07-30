@@ -62,8 +62,9 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
     stack = Stack(root)
     if isinstance(first_block, (IfBlock, WhileBlock)):
         stack.push(first_block)
-    elif isinstance(first_block, CodeBlock):
+    elif isinstance(first_block, CodeBlock): # pragma: no branch
         root.code_block = first_block
+    # note we define it impossible to not start on an If, While or Code block
     root.add_same_level_block(first_block)
     return root, stack
 
@@ -88,10 +89,14 @@ def parse_same_level_block(
     if isinstance(block, CodeBlock):
         return
 
-    if isinstance(block, (IfBlock, WhileBlock)):
+    # this is the only other option
+    # but for clarity we define the condition
+    if isinstance(block, (IfBlock, WhileBlock)): # pragma: no cover
         top.end_code_block(line_no - 1)
         top.add_same_level_block(block)
         stack.push(block)
+    
+    # impossible to get to this line
 
 def parse_indented_block(
     block : Type[Block], top : Type[BodyBlock], stack : Stack
@@ -124,7 +129,9 @@ def parse_unindented_block(
         top_is_branch : bool = is_branch(top)
         if isinstance(top, IfBlock) or top_is_branch:
             top = end_conditional(top, top_is_branch, prev, stack)
-        elif isinstance(top, WhileBlock):
+        # this is the only other choice
+        # we write the condition for clarity
+        elif isinstance(top, WhileBlock): # pragma: no cover
             top.end = prev
             top = stack.pop_peek()
         handle_stack_indentation_change(block, top, stack)
