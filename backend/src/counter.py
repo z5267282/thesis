@@ -9,8 +9,7 @@ class Counter:
     
     def __str__(self):
         return "({}/{}) : {}".format(
-            self.iteration, self.total,
-            self.while_.start
+            self.iteration, self.total, self.while_
         )
     
     def __eq__(self, other : "Counter"):
