@@ -54,9 +54,7 @@ def trace_if(lines: list[Line], root : IfBlock):
     won : Line | None = None
     MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
     last_seen_branch : MaybeConditional = None
-    rest : list[Line] = [] 
 
-    i : int = 0
     for i, line in enumerate(lines):
         line_no : int = line.line_no
         branch : MaybeConditional = root.find_branch(line_no)
@@ -66,8 +64,7 @@ def trace_if(lines: list[Line], root : IfBlock):
         elif last_seen_branch is not None \
             and line_no == last_seen_branch.get_top().start:
 
-            rest.extend(lines[i:])
-            return won, rest
+            return won, lines[i:]
 
     return None, []
 
