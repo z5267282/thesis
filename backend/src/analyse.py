@@ -72,7 +72,7 @@ def trace_if(lines: list[Line], root : IfBlock):
     return None, []
 
 def trace_while(lines : list[Line], while_ : WhileBlock):
-    """Filter out a sequence of while iterations into paths
+    """Filter out a sequence of while iterations into paths.
     Return the paths comprised of a list of lines taken by the while.
     All lines in the path will have a counters added to them."""
     all_paths : list[Line] = []
