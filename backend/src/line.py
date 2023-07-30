@@ -18,10 +18,11 @@ class Line:
         return self.line_no == other.line_no
     
     def long_str(self):
+        delim = ",\n{}".format(" " * 8)
         counters : str = """
         {}
     """.format(
-            "\n".join(str(counter) for counter in self.counters)
+            delim.join(str(counter) for counter in self.counters)
         ) if self.counters else ""
 
         dict_to_str = lambda dic: ", ".join(
