@@ -1,8 +1,8 @@
 from tree_parser import parse
 
-def test_while_whole_program():
-    """Note this test will break the program rules.
-    There is no other way to write a program which is entirely a while."""
+# note this test will break the program rules
+# there is no other way to write a program which is entirely a while
+def program():
     while True:
         password = "fish"
         guess = input("enter password: ")
@@ -11,8 +11,8 @@ def test_while_whole_program():
             break
 
 def test_while_whole_program():
-    root = parse(test_while_whole_program)
-    assert root == {
+    root = parse(program)
+    assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 6,
             "end"   : 11,
@@ -39,12 +39,12 @@ def test_while_whole_program():
                                                 "end"   : 11
                                             }
                                         }
-                                    ]
+                                    ],
+                                    "elifs" : [],
+                                    "else" : None
                                 }
                             }
-                        ],
-                        "elifs" : [],
-                        "else" : None
+                        ]
                     }
                 }
             ]
