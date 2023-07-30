@@ -12,3 +12,6 @@ class Counter:
     
     def __eq__(self, other : "Counter"):
         return self.iteration == other.iteration and self.total == other.total
+
+    def __ne__(self, other : "Counter"):
+        return not self == other

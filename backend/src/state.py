@@ -8,3 +8,6 @@ class State:
 
     def __eq__(self, other : "State"):
         return self.prev == other.prev and self.curr == other.curr
+
+    def __ne__(self, other : "State"):
+        return not self == other

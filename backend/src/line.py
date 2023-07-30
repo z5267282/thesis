@@ -16,6 +16,9 @@ class Line:
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no
+
+    def __ne__(self, other : "Line"):
+        return not self == other
     
     def long_str(self):
         delim = ",\n{}".format(" " * 8)
