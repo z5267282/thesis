@@ -8,7 +8,7 @@ class Counter:
         self.while_ = while_
     
     def __str__(self):
-        return "f({self.iteration}/{self.total}) : {self.while_}"
+        return f"({self.iteration}/{self.total}) : {self.while_}"
     
     def __eq__(self, other : "Counter"):
         return self.iteration == other.iteration and self.total == other.total
