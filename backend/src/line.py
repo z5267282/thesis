@@ -23,11 +23,16 @@ class Line:
     """.format(
             "\n".join(str(counter) for counter in self.counters)
         ) if self.counters else ""
-        return f"""line no {self.line_no}:
-    output: {self.output}
+
+        dict_to_str = lambda dic: ", ".join(
+            f"{key} : {dic[key]}" for key in dic
+        )
+
+        return f"""line {self.line_no}:
+    output: [{", ".join(str(o) for o in self.output)}]
     vars  :
-        - prev: {self.vars.prev}
-        - curr: {self.vars.curr}
+        - prev: {{{dict_to_str(self.vars.prev)}}}
+        - curr: {{{dict_to_str(self.vars.curr)}}}
     counters: [{counters}]"""
     
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
