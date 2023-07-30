@@ -49,8 +49,9 @@ def trace_code_block(lines: list[Line]):
 def trace_if(lines: list[Line], root : IfBlock):
     """Given all lines related to an if statement, filter out the winning
     path.
-    If no branch won, return None and an empty list
-    Return the won branch and the remaining lines in the region to be parsed."""
+    If no branch won, return None and an empty list.
+    Otherwise, return the won branch and the remaining lines in the region to be
+    parsed."""
     won : Line | None = None
     MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
     last_seen_branch : MaybeConditional = None
