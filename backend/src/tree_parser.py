@@ -18,16 +18,16 @@ def parse(program : Callable):
         line         : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
+        # comment or blank line
+        if is_skipable(line):
+            continue
+
         # first line
         if prev_indent is None:
             prev_indent = indent_level
             root, stack = parse_first_line(line, line_no, indent_level)
             continue
         
-        # comment or blank line
-        if is_skipable(line):
-            continue
-
         top   : Type[BodyBlock] = stack.peek()
         block : Type[Block] = parse_line(line, line_no, indent_level)
         if indent_level == prev_indent:
