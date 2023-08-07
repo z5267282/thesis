@@ -30,6 +30,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 raw_line_nos : list[int] = [
                     line.line_no for line in filtered_path
                 ]
+
+                print("line {} - [{}]".format(line.line_no, ", ".join(str(l) for l in filtered_path)))
+
                 for j, line in enumerate(filtered_path):
                     line.loop_path.extend(raw_line_nos[:j])
                 filtered.extend(filtered_path)

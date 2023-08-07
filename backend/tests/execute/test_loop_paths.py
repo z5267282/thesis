@@ -21,9 +21,23 @@ def test_no_gaps_2d_while():
     filtered = smart_trace(line_mapping, lines)
 
     for i in range(1, 6):
-        print("{}: {}".format(i, ", ".join(str(j) for j in lines[i].loop_path)))
+        print("{}({}): {}".format(i, lines[i].line_no, ", ".join(str(j) for j in lines[i].loop_path)))
 
-# code region
+    print(f"fish: {lines[4].line_no}")
+
+    assert filtered == [
+        Line(7, {}),
+        Line(8, {}),
+        Line(9, {}),
+        Line(10, {}),
+        Line(12, {}),
+        Line(14, {}),
+        Line(15, {})
+    ]
+
+    assert filtered[4].line_no == 11
+
+    # code region
     assert filtered[0].loop_path == []
 
     # while region
