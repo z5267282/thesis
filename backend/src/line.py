@@ -1,3 +1,5 @@
+from collections import deque
+
 from counter import Counter
 from state import State
 from tree import WhileBlock
@@ -11,7 +13,7 @@ class Line:
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
         # list of line numbers if this line is part of a loop iteration
-        self.loop_path : list[int] = []
+        self.loop_path : deque[int] = deque()
     
     def __str__(self):
         return str(self.line_no)

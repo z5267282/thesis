@@ -27,17 +27,17 @@ def test_no_gaps_2d_while():
 
     # code region
     assert filtered[0].line_no == 7
-    assert filtered[0].loop_path == []
+    assert list(filtered[0].loop_path) == []
 
     # while region
     assert filtered[1].line_no == 8
-    assert filtered[1].loop_path == []
+    assert list(filtered[1].loop_path) == []
 
     assert filtered[2].line_no == 9
-    assert filtered[2].loop_path == [8]
-    assert filtered[3].loop_path == [8, 9]
-    assert filtered[4].loop_path == [8, 9, 10]
-    assert filtered[5].loop_path == [8, 9, 10, 12]
+    assert list(filtered[2].loop_path) == [8]
+    assert list(filtered[3].loop_path) == [8, 9]
+    assert list(filtered[4].loop_path) == [8, 9, 10]
+    assert list(filtered[5].loop_path) == [8, 9, 10, 12]
 
     # code block
-    assert filtered[6].loop_path == []
+    assert list(filtered[6].loop_path) == []
