@@ -25,7 +25,14 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             paths = trace_while(region, block)
             for path in paths:
                 filtered.append(path.pop(0))
-                filtered.extend(smart_trace(line_mapping, path))
+                filtered_path = smart_trace(line_mapping, path) 
+
+                raw_line_nos : list[int] = [
+                    line.line_no for line in filtered_path
+                ]
+                for j, line in enumerate(filtered_path):
+                    line.loop_path.extend(raw_line_nos[:j])
+                filtered.extend(filtered_path)
 
         i = offset
     

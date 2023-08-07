@@ -5,11 +5,13 @@ from tree import WhileBlock
 class Line:
     """A dataclass to store line information"""
     def __init__(self, line_no : int, prev_vars : dict[str, str]):
-        self.line_no  : int = line_no
-        self.output   : list[str] = []
-        self.vars     : State = State(prev_vars)
+        self.line_no   : int = line_no
+        self.output    : list[str] = []
+        self.vars      : State = State(prev_vars)
         # counters are stored from least indented to most indented
-        self.counters : list[Counter] = []
+        self.counters  : list[Counter] = []
+        # list of line numbers if this line is part of a loop iteration
+        self.loop_path : list[int] = []
     
     def __str__(self):
         return str(self.line_no)
