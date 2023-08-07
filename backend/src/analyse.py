@@ -22,9 +22,10 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
-            paths = trace_while(region, block)
+            paths : list[list[Line]] = trace_while(region, block)
             for path in paths:
-                filtered.append(path.pop(0))
+                while_start : Line = path.pop(0)
+                filtered.append(while_start)
                 filtered_path = smart_trace(line_mapping, path) 
 
                 raw_line_nos : list[int] = [
@@ -34,6 +35,8 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 print("line {} - [{}]".format(line.line_no, ", ".join(str(l) for l in filtered_path)))
 
                 for j, line in enumerate(filtered_path):
+                    # need the starting line of the while
+                    line.loop_path.append(while_start.line_no)
                     line.loop_path.extend(raw_line_nos[:j])
                 filtered.extend(filtered_path)
 
