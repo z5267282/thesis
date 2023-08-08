@@ -35,7 +35,11 @@ def test_no_gaps_2d_while():
 
     assert filtered[2].line_no == 9
     assert list(filtered[2].loop_path) == [8]
+
+    assert filtered[3].line_no == 10
     assert list(filtered[3].loop_path) == [8, 9]
+
+    assert filtered[4].line_no == 12
     assert list(filtered[4].loop_path) == [8, 9, 10]
     assert list(filtered[5].loop_path) == [8, 9, 10, 12]
 

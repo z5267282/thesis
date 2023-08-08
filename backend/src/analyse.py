@@ -34,10 +34,15 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
 
                 print("line {} - [{}]".format(line.line_no, ", ".join(str(l) for l in filtered_path)))
 
-                for j, line in enumerate(filtered_path):
-                    line.loop_path.extendleft(reversed(raw_line_nos[:j]))
+                for j, l in enumerate(filtered_path):
+                    # print(f"region starting: {line.line_no}")
+                    # print(f"    line {line}")
+                    # print(f"    ")
+
+
+                    l.loop_path.extendleft(reversed(raw_line_nos[:j]))
                     # need the starting line of the while
-                    line.loop_path.appendleft(while_start.line_no)
+                    l.loop_path.appendleft(while_start.line_no)
                 filtered.extend(filtered_path)
 
         i = offset
