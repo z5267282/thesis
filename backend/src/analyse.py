@@ -112,12 +112,13 @@ def generate_while_prev_paths(filtered_path : list[Line], while_start : int):
         line.line_no for line in filtered_path
     ]
 
-    for j, l in enumerate(filtered_path):
-        prev = raw_line_nos[:j]
+    for i, line in enumerate(filtered_path):
+        prev = raw_line_nos[:i]
 
-        if prev and l.loop_path and l.loop_path[0] == prev[-1]:
-            l.loop_path.popleft()
 
-        l.loop_path.extendleft(reversed(prev))
+        if prev and line.loop_path and line.loop_path[0] == prev[-1]:
+            line.loop_path.popleft()
+
+        line.loop_path.extendleft(reversed(prev))
         # need the starting line of the while
-        l.loop_path.appendleft(while_start)
+        line.loop_path.appendleft(while_start)
