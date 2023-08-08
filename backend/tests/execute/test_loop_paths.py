@@ -20,7 +20,7 @@ def test_no_gaps_2d_while():
     lines = trace_program(program)
     filtered = smart_trace(line_mapping, lines)
 
-    # for clarity, let's write the line numbers as well
+    # for clarity write the line numbers as well
 
     # code region
     assert filtered[0].line_no == 7
