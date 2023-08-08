@@ -20,9 +20,6 @@ def test_no_gaps_2d_while():
     lines = trace_program(program)
     filtered = smart_trace(line_mapping, lines)
 
-    for i in range(1, 6):
-        print("{}: {}".format(filtered[i].line_no, ", ".join(str(j) for j in filtered[i].loop_path)))
-
     # for clarity, let's write the line numbers as well
 
     # code region
