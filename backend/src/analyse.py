@@ -27,35 +27,8 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 while_start : Line = path.pop(0)
                 filtered.append(while_start)
                 filtered_path = smart_trace(line_mapping, path) 
-
-                raw_line_nos : list[int] = [
-                    line.line_no for line in filtered_path
-                ]
-
-                print_path = lambda l: ", ".join(str(k) for k in l.loop_path)
-
-                print(f"region starting: {line.line_no}")
-
-                for j, l in enumerate(filtered_path):
-                    # print(f"    line {l.line_no}")
-                    # print("        filtered_path: {}".format(", ".join(str(k) for k in raw_line_nos[:j])))
-                    # print(f"        while: {while_start}")
-                    # print("        before: [{}]".format(print_path(l)))
-
-                    prev = raw_line_nos[:j]
-
-                    if prev and l.loop_path and l.loop_path[0] == prev[-1]:
-                        l.loop_path.popleft()
-
-                    l.loop_path.extendleft(reversed(prev))
-                    # need the starting line of the while
-                    l.loop_path.appendleft(while_start.line_no)
-
-                    # print("        afterwards: [{}]".format(print_path(l)))
-
+                generate_while_prev_paths(filtered_path, while_start.line_no)
                 filtered.extend(filtered_path)
-
-                print('')
 
         i = offset
     
@@ -131,3 +104,20 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
             paths.append(path)
     
     return paths
+
+def generate_while_prev_paths(filtered_path : list[Line], while_start : int):
+    """For each line in a filtered while region, add all lines before to its
+    loop path"""
+    raw_line_nos : list[int] = [
+        line.line_no for line in filtered_path
+    ]
+
+    for j, l in enumerate(filtered_path):
+        prev = raw_line_nos[:j]
+
+        if prev and l.loop_path and l.loop_path[0] == prev[-1]:
+            l.loop_path.popleft()
+
+        l.loop_path.extendleft(reversed(prev))
+        # need the starting line of the while
+        l.loop_path.appendleft(while_start)
