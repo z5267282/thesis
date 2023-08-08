@@ -1,19 +1,20 @@
 from collections import deque
-from typing import Deque, Type
+from typing import Type
 
 from tree import BodyBlock
 
 class Stack:
-    """a simple wrapper around deque"""
+    """A simple wrapper around deque"""
+
     def __init__(self, root : BodyBlock):
-        self.items : Deque[Type[BodyBlock]] = deque()
+        self.items : deque[Type[BodyBlock]] = deque()
         self.push(root)
     
     def __str__(self):
-        """print items from top to bottom"""
-        # note a deque stores items in insertion order
+        """Print items from top to bottom"""
         return "\n".join(
             f"{i} : {block}" 
+                # note a deque stores items in insertion order
                 for i, block in enumerate(reversed(self.items), start=1)
         )
 
@@ -24,18 +25,17 @@ class Stack:
         return len(self) == 0
     
     def peek(self):
-        """retrive the top item without removing it
-
-        method according to the documentation here:
+        """Retrive the top item without removing it.
+        Method according to the documentation here:
         https://docs.python.org/3/library/collections.html#collections.deque"""
         return self.items[-1]
 
     def pop(self):
-        """remove the top item and return it"""
+        """Remove the top item and return it"""
         return self.items.pop()
     
     def pop_peek(self):
-        """remove the top item and return the new top"""
+        """Remove the top item and return the new top"""
         self.pop()
         return self.peek()
     
