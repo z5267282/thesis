@@ -115,7 +115,8 @@ def generate_while_prev_paths(filtered_path : list[Line], while_start : int):
     for i, line in enumerate(filtered_path):
         prev = raw_line_nos[:i]
 
-
+        # the left most item in the current line's path can only be the same 
+        # as the ith line if it was the start of a commonly nested while loop
         if prev and line.loop_path and line.loop_path[0] == prev[-1]:
             line.loop_path.popleft()
 
