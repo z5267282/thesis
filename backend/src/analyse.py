@@ -24,11 +24,8 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         elif isinstance(block, WhileBlock):
             paths : list[list[Line]] = trace_while(region, block)
             for path in paths:
-                while_start : Line = path.pop(0)
-                filtered.append(while_start)
-                filtered_path = smart_trace(line_mapping, path) 
-                generate_while_prev_paths(filtered_path, while_start.line_no)
-                filtered.extend(filtered_path)
+                filtered.append(path.pop(0))
+                filtered.extend(smart_trace(line_mapping, path))
 
         i = offset
     
@@ -104,22 +101,3 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
             paths.append(path)
     
     return paths
-
-def generate_while_prev_paths(filtered_path : list[Line], while_start : int):
-    """For each line in a filtered while region, add all lines before to its
-    loop path"""
-    raw_line_nos : list[int] = [
-        line.line_no for line in filtered_path
-    ]
-
-    for i, line in enumerate(filtered_path):
-        prev = raw_line_nos[:i]
-
-        # the left most item in the current line's path can only be the same 
-        # as the ith line if it was the start of a commonly nested while loop
-        if prev and line.loop_path and line.loop_path[0] == prev[-1]:
-            line.loop_path.popleft()
-
-        line.loop_path.extendleft(reversed(prev))
-        # need the starting line of the while
-        line.loop_path.appendleft(while_start)
