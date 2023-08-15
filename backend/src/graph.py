@@ -49,7 +49,7 @@ def generate_ith_graph(
     return result()
 
 def generate_from_state(top_level : list[int], whiles : Stack[While]):
-    result : list[int] = list.copy()
+    result : list[int] = top_level.copy()
     # stack supports linear iteration from bottom to top
     for w in whiles:
         result.append(w.node.start)
