@@ -59,7 +59,7 @@ def parse_first_line(line : str, line_no : int, indent_level : int):
     Return the root of the tree and a stack with it."""
     first_block : Type[Block] = parse_line(line, line_no, indent_level)
     root = BodyBlock(line_no, indent_level)
-    stack = Stack(root)
+    stack = Stack[BodyBlock](root)
     if isinstance(first_block, (IfBlock, WhileBlock)):
         stack.push(first_block)
     elif isinstance(first_block, CodeBlock): # pragma: no branch
