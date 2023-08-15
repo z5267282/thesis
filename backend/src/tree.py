@@ -20,7 +20,7 @@ class Block():
             }
         }
     
-    def map_lines(self, ):
+    def map_lines(self):
         line_mapping : dict[int, Type["Block"]] = {}
         for i in range(self.start, self.end + 1):
             line_mapping[i] = self
