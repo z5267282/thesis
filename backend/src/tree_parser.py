@@ -49,7 +49,7 @@ def get_code_info(program : Callable):
 
 def init_state():
     root        : BodyBlock = None
-    stack       : Stack = None
+    stack       : Stack[Type[BodyBlock]] = None
     prev_indent : int = None
     line_no     : int = 0
     return root, stack, prev_indent, line_no
@@ -84,7 +84,7 @@ def is_skipable(line : str):
     return line == "" or line.startswith("#")
 
 def parse_same_level_block(
-    block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack
+    block : Type[Block], line_no : int, top : Type[BodyBlock], stack : Stack[Type[BodyBlock]]
 ):
     if isinstance(block, CodeBlock):
         return
@@ -99,12 +99,12 @@ def parse_same_level_block(
     # impossible to get to this line
 
 def parse_indented_block(
-    block : Type[Block], top : Type[BodyBlock], stack : Stack
+    block : Type[Block], top : Type[BodyBlock], stack : Stack[Type[BodyBlock]]
 ):
     handle_stack_indentation_change(block, top, stack)
 
 def handle_stack_indentation_change(
-    block : Type[Block], top : Type[BodyBlock], stack : Stack
+    block : Type[Block], top : Type[BodyBlock], stack : Stack[Type[BodyBlock]]
 ):
     """Manage a new Block on the stack when indentation changes.
     Assume that if the Block introduces indentation it cannot be a branch
@@ -117,7 +117,7 @@ def handle_stack_indentation_change(
 
 def parse_unindented_block(
     block : Type[Block], line_no : int, indent_level : int,
-    top : Type[BodyBlock], stack : Stack,
+    top : Type[BodyBlock], stack : Stack[Type[BodyBlock]],
 ):
     prev : int = line_no - 1
     top.end_code_block(prev)
@@ -137,7 +137,7 @@ def parse_unindented_block(
         handle_stack_indentation_change(block, top, stack)
 
 def unwind_indentations(
-    top : Type[BodyBlock], stack : Stack,
+    top : Type[BodyBlock], stack : Stack[Type[BodyBlock]],
     indent_level : int, prev : int
 ):
     """Pop off stack until a block with the same indentation level is found.
@@ -155,7 +155,7 @@ def is_branch(block : Type[BodyBlock]):
 
 def add_branch(
     block : ElifBlock | ElseBlock, prev : int,
-    top : Type[BodyBlock], stack : Stack
+    top : Type[BodyBlock], stack : Stack[Type[BodyBlock]]
 ):
     """Add an elif or else to a parent if branch.
     The parent if will either be the first or second thing on the stack."""
@@ -170,7 +170,7 @@ def add_branch(
 
 def end_conditional(
     top : IfBlock | ElifBlock | ElseBlock, top_is_branch : bool,
-    prev : int, stack : Stack
+    prev : int, stack : Stack[Type[BodyBlock]]
 ):
     """End an entire parent if block stored near the top of the stack.
     Return the new root.
@@ -192,7 +192,7 @@ def end_conditional(
 def calculate_last_line(start : int, lines : list[str]):
     return start + len(lines) - 1 - OFFSET
 
-def parse_last_line(last : int, stack : Stack):
+def parse_last_line(last : int, stack : Stack[Type[BodyBlock]]):
     top : Type[BodyBlock] = stack.peek()
     top.end_code_block(last)
     while not stack.empty():

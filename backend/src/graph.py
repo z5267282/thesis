@@ -28,9 +28,8 @@ def generate_ith_graph(
             node : WhileBlock = top.node
             if line_no == node.start:
 
-
-            if line_no == node.start or line_no > node.end:
-                break
-            whiles.pop()
+            # if line_no == node.start or line_no > node.end:
+            #     break
+            # whiles.pop()
 
     if 
