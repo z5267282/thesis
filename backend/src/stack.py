@@ -1,8 +1,6 @@
 from collections import deque
 from typing import Generic, Type, TypeVar
 
-from tree import BodyBlock
-
 T = TypeVar("T")
 
 class Stack(Generic[T]):
