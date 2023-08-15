@@ -23,6 +23,9 @@ class Stack(Generic[T]):
 
     def __len__(self):
         return len(self.items)
+
+    def __iter__(self):
+        return iter(self.items)
     
     def empty(self):
         return len(self) == 0
