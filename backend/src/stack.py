@@ -1,14 +1,17 @@
 from collections import deque
-from typing import Type
+from typing import Generic, Type, TypeVar
 
 from tree import BodyBlock
 
-class Stack:
+T = TypeVar("T")
+
+class Stack(Generic[T]):
     """A simple wrapper around deque"""
 
-    def __init__(self, root : BodyBlock):
-        self.items : deque[Type[BodyBlock]] = deque()
-        self.push(root)
+    def __init__(self, first : T=None):
+        self.items : deque[Type[T]] = deque()
+        if first is not None:
+            self.push(first)
     
     def __str__(self):
         """Print items from top to bottom"""
@@ -39,5 +42,5 @@ class Stack:
         self.pop()
         return self.peek()
     
-    def push(self, item : Type[BodyBlock]):
+    def push(self, item : Type[T]):
         self.items.append(item)
