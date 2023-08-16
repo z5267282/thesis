@@ -1,4 +1,3 @@
-from collections import deque
 from typing import Generic, Type, TypeVar
 
 T = TypeVar("T")
@@ -7,7 +6,7 @@ class Stack(Generic[T]):
     """A simple wrapper around deque"""
 
     def __init__(self):
-        self.items : deque[Type[T]] = deque()
+        self.items : list[Type[T]] = []
     
     def __str__(self):
         """Print items from top to bottom"""
