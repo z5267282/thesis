@@ -8,7 +8,7 @@ def generate_graphs(
     filtered : list[Line], line_mapping : dict[int, Type[Block]]
 ):
     top_level : list[int] = []
-    whiles    : Stack[While] = Stack[While]()
+    whiles    : Stack[While] = Stack()
     return [
         generate_ith_graph(
             f.line_no, line_mapping[f.line_no], top_level, whiles

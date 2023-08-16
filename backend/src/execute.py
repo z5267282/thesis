@@ -11,7 +11,7 @@ def trace_program(program : Callable):
     buffer  : StringIO = StringIO()
     lines   : list[Line] = []
     output  : list[str] = []
-    printed : State = State("", curr="")
+    printed : State[str] = State("", curr="")
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
