@@ -1,8 +1,8 @@
-from typing import TypeVar
+from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
-class State:
+class State(Generic[T]):
     """dataclass to track previous and current state"""
     def __init__(self, prev : T, curr : T=None):
         self.prev : T = prev
