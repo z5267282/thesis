@@ -37,6 +37,8 @@ def generate_ith_graph(
 
         if line_no <= curr.end:
             break
+            
+        whiles.pop()
     
     # the top of the stack now stores the correct item
     if isinstance(node, WhileBlock):
