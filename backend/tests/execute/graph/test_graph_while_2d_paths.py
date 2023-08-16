@@ -31,7 +31,7 @@ def test_graph_simple():
     filtered = smart_trace(line_mapping, lines)
     graphs = generate_graphs(filtered, line_mapping)
 
-    exp = [
+    assert filtered == [
         # outer
         Line(9, {}),
         # i = 1
@@ -59,8 +59,3 @@ def test_graph_simple():
         # end
         Line(25, {})
     ]
-
-    for f in filtered:
-        print(f.line_no)
-    
-    assert False

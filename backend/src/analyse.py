@@ -22,10 +22,14 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock):
-            paths : list[list[Line]] = trace_while(region, block)
-            for path in paths:
-                filtered.append(path.pop(0))
-                filtered.extend(smart_trace(line_mapping, path))
+            raw  : list[list[Line]] = trace_while(region, block)
+            seen : list[list[Line]] = []
+            for r in raw:
+                rest = smart_trace(line_mapping, r[1:])
+                path = r[:1] + rest
+                if path not in seen:
+                    filtered.extend(path)
+                    seen.append(path)
 
         i = offset
     
