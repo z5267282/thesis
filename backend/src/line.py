@@ -7,7 +7,7 @@ class Line:
     def __init__(self, line_no : int, prev_vars : dict[str, str]):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.vars      : State = State(prev_vars)
+        self.vars      : State[dict[str, str]] = State(prev_vars)
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
     
