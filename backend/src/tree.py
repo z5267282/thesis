@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import json
 from typing import Type
 
@@ -25,6 +26,10 @@ class Block():
         for i in range(self.start, self.end + 1):
             line_mapping[i] = self
         return line_mapping
+    
+    def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
+        for i in range(self.start, self.end + 1):
+            show[i] = True
 
     def pretty_print(self): # pragma: no cover
         """A pretty printer for debugging"""
@@ -42,10 +47,6 @@ class BodyBlock(Block):
         self.code_block   : CodeBlock | None = None
         self.indent_level : int = indent_level
     
-    def get_top(self):
-        """Return the top most block in body"""
-        return self.body[0]
-    
     def to_dict(self):
         parent = super().to_dict()
         parent[self.__class__.__name__]["body"] = [
@@ -53,11 +54,19 @@ class BodyBlock(Block):
         ]
         return parent
     
-    def map_lines(self, ):
+    def map_lines(self):
         parent : dict[int, Type[Block]] = super().map_lines()
         for b in self.body:
             parent.update(b.map_lines())
         return parent
+    
+    def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
+        for b in self.body:
+            b.show_lines(graph, show)
+
+    def get_top(self):
+        """Return the top most block in body"""
+        return self.body[0]
     
     def add_same_level_block(self, block : Type["BodyBlock"] | CodeBlock):
         self.body.append(block)
@@ -71,7 +80,11 @@ class BodyBlock(Block):
         self.code_block = None
 
 class WhileBlock(BodyBlock):
-    pass
+    def show_lines(self, graph: list[int], show: OrderedDict[int, bool]):
+        show[self.start] = True
+        # any lines from the graph in the body
+        if any(g > self.start and g <= self.end for g in graph):
+            super().show_lines(graph, show)
 
 # put these here for type hints in the if block
 
