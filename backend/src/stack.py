@@ -6,10 +6,8 @@ T = TypeVar("T")
 class Stack(Generic[T]):
     """A simple wrapper around deque"""
 
-    def __init__(self, first : T=None):
+    def __init__(self):
         self.items : deque[Type[T]] = deque()
-        if first is not None:
-            self.push(first)
     
     def __str__(self):
         """Print items from top to bottom"""

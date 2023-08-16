@@ -4,7 +4,8 @@ from tree import BodyBlock
 def test_print():
     root = BodyBlock(1, 0)
     root.end = 4
-    stack = Stack[BodyBlock](root)
+    stack = Stack[BodyBlock]()
+    stack.push(root)
 
     b1 = BodyBlock(2, 2)
     b1.end = 3
