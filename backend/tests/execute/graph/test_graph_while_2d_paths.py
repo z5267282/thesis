@@ -60,9 +60,6 @@ def test_graph_simple():
         Line(25, {})
     ]
 
-    for g in graphs:
-        print(", ".join(str(gi) for gi in g))
-
     assert graphs == [
         [9],
 
