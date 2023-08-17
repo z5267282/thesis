@@ -1,6 +1,7 @@
 from cfg import ELLIPSE
 from collapse import collapse
 from helper import get_code_info
+from line import Line
 from tree_parser import parse
 
 def program():
@@ -20,7 +21,7 @@ def test_graph_simple():
     root = parse(program)
     program_code = get_code_info(program)
 
-    graph = [7, 8, 10, 17]
+    graph = [Line(8, {}), Line(9, {}), Line(11, {}), Line(18, {})]
     code, lines, rest = collapse(graph, program_code, root)
 
     assert code == [
@@ -36,15 +37,15 @@ def test_graph_simple():
     ]
 
     assert lines == [
-        7, 
-        8,
+        8, 
         9,
         10,
         11,
+        12,
         None,
-        14,
+        15,
         None,
-        17 
+        18 
     ]
 
     assert rest == [0, 1, 3, 8]

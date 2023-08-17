@@ -13,10 +13,10 @@ def main():
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     lines : list[Line] = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, lines)
-    graphs : list[list[int]] = generate_graphs(filtered, line_mapping)
+    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     # generate the dataframes
     dataframes = []
-    for graph in graphs:
+    for line_graph in line_graphs:
         pass
 
 if __name__ == '__main__':

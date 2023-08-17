@@ -3,9 +3,10 @@ from typing import Type
 
 from cfg import ELLIPSE, LEADING_SPACES
 from helper import uniq
+from line import Line
 from tree import Block, BodyBlock
 
-def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
+def collapse(line_graph : list[Line], program : dict[int, str], root : BodyBlock):
     """Collapse a program by showing indentation levels which have been
     executed.
     Return the lines of code, line numbers and rest of path indices as 
@@ -13,6 +14,9 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
     show : OrderedDict[int, bool] = OrderedDict(
         (line, False) for line in range(root.start, root.end + 1)
     )
+
+    graph : list[int] = [ line.line_no for line in line_graph ]
+
     root.show_lines(graph, show)
     filtered : OrderedDict[int, bool] = uniq(show)
 
