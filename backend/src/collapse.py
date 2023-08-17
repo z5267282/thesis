@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from typing import Type
 
+from cfg import ELLIPSE
 from helper import uniq
 from tree import Block, BodyBlock
 
@@ -19,7 +20,7 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     code : list[int] = [
         program[line] if shown else \
-        "{}{}".format(" " * line_mapping[line].indent_level, "·" * 3) \
+        "{}{}".format(" " * line_mapping[line].indent_level, ELLIPSE) \
         for line, shown in filtered.items()
     ]
     lines : list[int | None] = [
