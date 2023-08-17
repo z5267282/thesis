@@ -63,6 +63,9 @@ class BodyBlock(Block):
     def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
         for b in self.body:
             b.show_lines(graph, show)
+    
+    def part_of(self, graph : list[int]):
+        return self.start in graph and graph[-1] != self.start
 
     def get_top(self):
         """Return the top most block in body"""
@@ -82,10 +85,8 @@ class BodyBlock(Block):
 class WhileBlock(BodyBlock):
     def show_lines(self, graph: list[int], show: OrderedDict[int, bool]):
         show[self.start] = True
-        if self.start in graph:
+        if self.part_of(graph):
             super().show_lines(graph, show)
-
-# put these here for type hints in the if block
 
 class ElifBlock(BodyBlock):
     """Separate this so that the IfBlock tracks the entire branch structure"""
@@ -124,15 +125,15 @@ class IfBlock(BodyBlock):
         # recursive order doesn't matter:
         # can find then recurse, or the other way around :)
         show[self.start] = True
-        if self.start in graph:
+        if self.part_of(graph): 
             super().show_lines(graph, show)
         for e in self.elifs:
             show[e.start] = True
-            if e.start in graph:
+            if e.part_of(graph):
                 e.show_lines(graph, show)
         if self.else_ is not None:
             show[self.else_] = True
-            if self.else_.start in graph:
+            if self.else_.part_of(graph):
                 self.else_.show_lines(graph, show)
     
     def add_elif(self, elif_block : ElifBlock):
