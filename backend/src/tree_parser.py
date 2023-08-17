@@ -6,7 +6,8 @@ from stack import Stack
 from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
-def parse(code : dict[int, str]):
+def parse(program : Callable):
+    code : dict[int, str] = helper.get_code_info(program)
     root, stack, prev_indent, line_no = init_state()
     for line_no, line_contents in code.items():
         line         : str = helper.get_stripped_line(line_contents)
