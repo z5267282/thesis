@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from typing import Type
 
-from cfg import ELLIPSE
+from cfg import ELLIPSE, LEADING_SPACES
 from helper import uniq
 from tree import Block, BodyBlock
 
@@ -23,8 +23,8 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
 
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     code : list[int] = [
-        program[line] if shown else \
-        "{}{}".format(" " * line_mapping[line].indent_level, ELLIPSE) \
+        parse_line(line, program) if shown \
+        else parse_blank(line, program, line_mapping) \
         for line, shown in filtered.items()
     ]
     lines : list[int | None] = [
@@ -32,3 +32,14 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
     ]
 
     return code, lines, [ indexed_lines[g] for g in graph ]
+
+def parse_line(line : int, program : dict[int, str]):
+    result = program[line][LEADING_SPACES:]
+    return result[:-1] if result[-1] == '\n' else result
+
+def parse_blank(
+    line : int, program : dict[int, str],
+    line_mapping : dict[int, Type["Block"]]
+):
+    indent_level : int = line_mapping[line].indent_level
+    return "{}{}".format(" " * (indent_level - LEADING_SPACES), ELLIPSE)

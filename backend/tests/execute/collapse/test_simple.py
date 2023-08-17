@@ -31,11 +31,11 @@ def test_graph_simple():
     code, lines, rest = collapse(graph, program_code, root)
 
     assert code == [
-        "i = 1\n",
-        "twos, fives = 0, 0\n",
-        "while i < 6:\n",
-        f"    {ELLIPSE}\n"
-        "print(f\"2s: {twos}, 5s: {fives}\")\n"
+        "i = 1",
+        "twos, fives = 0, 0",
+        "while i < 6:",
+        f"    {ELLIPSE}",
+        "print(f\"2s: {twos}, 5s: {fives}\")"
     ]
 
     assert lines == [
