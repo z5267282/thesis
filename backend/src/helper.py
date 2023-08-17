@@ -1,4 +1,17 @@
 from collections import OrderedDict
+import inspect
+from typing import Callable
+
+from cfg import OFFSET
+
+def get_code_info(program : Callable):
+    lines, start = inspect.getsourcelines(program)
+    start += OFFSET
+    return OrderedDict(
+        (line_no, line_contents) for line_no, line_contents in enumerate(
+            lines[OFFSET:], start=start
+        )
+    )
 
 def find_first_nospace(string : str):
     """a crude way of finding the first non-space character"""

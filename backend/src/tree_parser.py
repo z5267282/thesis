@@ -1,15 +1,13 @@
 from collections import OrderedDict
-import inspect
 from typing import Callable, Type
 
-from cfg import OFFSET
 import helper
 from stack import Stack
 from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
-    code = get_code_info(program)
+    code = helper.get_code_info(program)
     root, stack, prev_indent, line_no = init_state()
     for line_no, line_contents in code.items():
         line         : str = helper.get_stripped_line(line_contents)
@@ -38,15 +36,6 @@ def parse(program : Callable):
     last : int = calculate_last_line(code)
     parse_last_line(last, stack)
     return root
-
-def get_code_info(program : Callable):
-    lines, start = inspect.getsourcelines(program)
-    start += OFFSET
-    return OrderedDict(
-        (line_no, line_contents) for line_no, line_contents in enumerate(
-            lines[OFFSET:], start=start
-        )
-    )
 
 def init_state():
     root        : BodyBlock = None
