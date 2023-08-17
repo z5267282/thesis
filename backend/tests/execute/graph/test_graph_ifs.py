@@ -28,8 +28,8 @@ def test_graph_simple():
     ]
 
     assert graphs == [
-        [8],
-        [8, 11],
-        [8, 11, 13],
-        [8, 11, 13, 14]
+        [Line(8, {})],
+        [Line(8, {}), Line(11, {})],
+        [Line(8, {}), Line(11, {}), Line(13, {})],
+        [Line(8, {}), Line(11, {}), Line(13, {}), Line(14, {})]
     ]

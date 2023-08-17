@@ -1,6 +1,7 @@
 from analyse import smart_trace
 from execute import trace_program
 from graph import generate_graphs
+from line import Line
 from tree_parser import parse
 
 def program():
@@ -16,5 +17,5 @@ def test_graph_simple():
     graphs = generate_graphs(filtered, line_mapping)
 
     assert graphs == [
-        [9]
+        [Line(10, {})]
     ]
