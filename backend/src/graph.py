@@ -56,6 +56,6 @@ def generate_from_state(top_level : list[Line], whiles : Stack[While]):
     result : list[Line] = deepcopy(top_level)
     # stack supports linear iteration from bottom to top
     for w in whiles:
-        result.append(w.node.start)
+        result.append(w.called)
         result.extend(w.lines)
     return result
