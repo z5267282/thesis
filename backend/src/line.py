@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from counter import Counter
 from state import State
 from tree import WhileBlock
@@ -45,3 +47,7 @@ class Line:
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
         """Add a counter of an increased depth"""
         self.counters.append(Counter(iteration, total, while_))
+    
+    def range_filter_counters(self, filtered : OrderedDict[int, bool]):
+        for counter in self.counters:
+            counter.find_filtered_range(filtered)
