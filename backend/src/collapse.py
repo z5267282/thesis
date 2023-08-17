@@ -6,6 +6,10 @@ from helper import uniq
 from tree import Block, BodyBlock
 
 def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
+    """Collapse a program by showing indentation levels which have been
+    executed.
+    Return the lines of code, line numbers and rest of path indices as 
+    per the data frame specification."""
     show : OrderedDict[int, bool] = OrderedDict(
         (line, True) for line in range(root.start, root.end + 1)
     )
@@ -27,9 +31,4 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
         line if shown else None for line, shown in filtered.items()
     ]
 
-    rest : list[int] = [ indexed_lines[g] for g in graph ]
-
-    return \
-        code, \
-        [ str(line) if line is not None else "" for line in lines ], \
-        { "start" : next(iter(program)), "rest" : rest }
+    return code, lines, [ indexed_lines[g] for g in graph ]
