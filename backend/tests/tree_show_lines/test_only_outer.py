@@ -22,7 +22,7 @@ def program():
 
     print(f"2s: {twos}, 5s: {fives}")
 
-def test_inner_show():
+def test_only_outer():
     root = parse(program)
 
     show = OrderedDict()
