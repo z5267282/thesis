@@ -1,5 +1,5 @@
 #!/bin/dash
 
 PATH="$PATH:$(pwd)"
-wrap-program program raw.py
+wrap-program raw.py
 python3 main.py

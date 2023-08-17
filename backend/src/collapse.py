@@ -11,13 +11,13 @@ def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
     Return the lines of code, line numbers and rest of path indices as 
     per the data frame specification."""
     show : OrderedDict[int, bool] = OrderedDict(
-        (line, True) for line in range(root.start, root.end + 1)
+        (line, False) for line in range(root.start, root.end + 1)
     )
     root.show_lines(graph, show)
     filtered : OrderedDict[int, bool] = uniq(show)
 
     # index in filtered which corresponds to shown line i
-    indexed_lines = dict[int, int] = {
+    indexed_lines : dict[int, int] = {
         line : new for new, line in enumerate(filtered) if filtered[line]
     }
 
