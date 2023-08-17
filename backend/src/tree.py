@@ -82,8 +82,7 @@ class BodyBlock(Block):
 class WhileBlock(BodyBlock):
     def show_lines(self, graph: list[int], show: OrderedDict[int, bool]):
         show[self.start] = True
-        # any lines from the graph in the body
-        if any(g > self.start and g <= self.end for g in graph):
+        if self.start in graph:
             super().show_lines(graph, show)
 
 # put these here for type hints in the if block
@@ -120,6 +119,21 @@ class IfBlock(BodyBlock):
         if self.else_ is not None:
             parent.update(self.else_.map_lines())
         return parent
+    
+    def show_lines(self, graph: list[int], show: OrderedDict[int, bool]):
+        # recursive order doesn't matter:
+        # can find then recurse, or the other way around :)
+        show[self.start] = True
+        if self.start in graph:
+            super().show_lines(graph, show)
+        for e in self.elifs:
+            show[e.start] = True
+            if e.start in graph:
+                e.show_lines(graph, show)
+        if self.else_ is not None:
+            show[self.else_] = True
+            if self.else_.start in graph:
+                self.else_.show_lines(graph, show)
     
     def add_elif(self, elif_block : ElifBlock):
         self.elifs.append(elif_block)
