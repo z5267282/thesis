@@ -132,7 +132,7 @@ class IfBlock(BodyBlock):
             if e.part_of(graph):
                 e.show_lines(graph, show)
         if self.else_ is not None:
-            show[self.else_] = True
+            show[self.else_.start] = True
             if self.else_.part_of(graph):
                 self.else_.show_lines(graph, show)
     
