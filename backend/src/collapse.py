@@ -24,17 +24,19 @@ def collapse(
 
     code : list[int] = []
     lines : list[int | None] = []
-    # path not including the start
-    # TODO: start should be root's start
-    rest : list[int] = []
-
-    # make this once to avoid O(n^2) recalls
-    raw = filtered.items()
-    for i, (line, shown) in enumerate(raw):
+    for line, shown in filtered.items():
         # should be impossible to hide the first line
-        if shown or i == 0:
+        if shown:
             code.append(program[line])
             lines.append(line)
         else:
-            parent_line, _ = raw[i - 1]
-            parent = line_mapping[parent_line]
+            code.append(
+                "{}{}".format(
+                    " " * line_mapping[line].indent_level, "·" * 3
+                )
+            )
+            lines.append(None)
+
+    # path not including the start
+    # TODO: start should be root's start
+    rest : list[int] = []
