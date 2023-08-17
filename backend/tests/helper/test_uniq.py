@@ -14,3 +14,16 @@ def test_all_falses():
     exp[0] = False
     
     assert uniq(original) == exp
+
+def test_leading_falses():
+    original = OrderedDict((i, False) for i in range(10))
+    for i in range(10, 13):
+        original[i] = True
+    
+    exp = OrderedDict()
+    exp[0] = False
+    exp[10] = True
+    exp[11] = True
+    exp[12] = True
+
+    assert uniq(original) == exp
