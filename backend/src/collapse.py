@@ -4,13 +4,7 @@ from typing import Callable, Type
 from helper import uniq
 from tree import Block, BodyBlock
 
-tmp = "·"
-
-def collapse(
-    graph : list[int], program : dict[int, str],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]]
-):
-    # should be a wrapper
+def collapse(graph : list[int], program : dict[int, str], root : BodyBlock):
     show : OrderedDict[int, bool] = OrderedDict(
         (line, True) for line in range(root.start, root.end + 1)
     )
@@ -18,10 +12,11 @@ def collapse(
     filtered : OrderedDict[int, bool] = uniq(show)
 
     # index in filtered which corresponds to shown line i
-    original_to_filtered = dict[int, int] = {
+    indexed_lines = dict[int, int] = {
         line : new for new, line in enumerate(filtered) if filtered[line]
     }
 
+    line_mapping : dict[int, Type[Block]] = root.map_lines()
     code : list[int] = [
         program[line] if shown else \
         "{}{}".format(" " * line_mapping[line].indent_level, "·" * 3) \
@@ -31,6 +26,9 @@ def collapse(
         line if shown else None for line, shown in filtered.items()
     ]
 
-    # path not including the start
-    # TODO: start should be root's start
-    rest : list[int] = []
+    rest : list[int] = [ indexed_lines[g] for g in graph ]
+
+    return \
+        code, \
+        [ str(line) if line is not None else "" for line in lines ], \
+        { "start" : next(iter(program)), "rest" : rest }
