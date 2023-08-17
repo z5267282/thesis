@@ -23,6 +23,6 @@ def uniq(mapping : OrderedDict[int, bool]):
     for index, value in mapping.items():
         if value or not prev_false:
             filtered[index] = value
-            prev_false = False
+            prev_false = not value
     
     return filtered
