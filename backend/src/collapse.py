@@ -19,6 +19,8 @@ def collapse(line_graph : list[Line], program : dict[int, str], root : BodyBlock
 
     root.show_lines(graph, show)
     filtered : OrderedDict[int, bool] = uniq(show)
+    for line in line_graph:
+
 
     # index in filtered which corresponds to shown line i
     indexed_lines : dict[int, int] = {
