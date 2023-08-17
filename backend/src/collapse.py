@@ -6,7 +6,9 @@ from helper import uniq
 from line import Line
 from tree import Block, BodyBlock
 
-def collapse(line_graph : list[Line], program : dict[int, str], root : BodyBlock):
+def collapse(
+    line_graph : list[Line], program : dict[int, str], root : BodyBlock
+):
     """Collapse a program by showing indentation levels which have been
     executed.
     Return the lines of code, line numbers and rest of path indices as 
