@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Callable, Type
+from typing import Type
 
 from helper import uniq
 from tree import Block, BodyBlock
