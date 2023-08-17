@@ -22,20 +22,14 @@ def collapse(
         line : new for new, line in enumerate(filtered) if filtered[line]
     }
 
-    code : list[int] = []
-    lines : list[int | None] = []
-    for line, shown in filtered.items():
-        # should be impossible to hide the first line
-        if shown:
-            code.append(program[line])
-            lines.append(line)
-        else:
-            code.append(
-                "{}{}".format(
-                    " " * line_mapping[line].indent_level, "·" * 3
-                )
-            )
-            lines.append(None)
+    code : list[int] = [
+        program[line] if shown else \
+        "{}{}".format(" " * line_mapping[line].indent_level, "·" * 3) \
+        for line, shown in filtered.items()
+    ]
+    lines : list[int | None] = [
+        line if shown else None for line, shown in filtered.items()
+    ]
 
     # path not including the start
     # TODO: start should be root's start
