@@ -31,7 +31,7 @@ def test_while_counter():
     _, line = graphs[1]
     assert line.counters == [Counter(1, 3, line_mapping[13])]
     counter, = line.counters
-    code, lines, rest = collapse(graphs[1], program_code, root)
+    _, lines, _ = collapse(graphs[1], program_code, root)
     assert lines == [12, 13, None]
     assert counter.start == 1
     assert counter.end == 1

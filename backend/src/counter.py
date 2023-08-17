@@ -27,6 +27,10 @@ class Counter:
         except ValueError:
             return
 
+
+        print("i got in here")
+        print(index == len(keys) - 1)
+        print(len(keys))
         if index == len(keys) - 1:
             return
         
