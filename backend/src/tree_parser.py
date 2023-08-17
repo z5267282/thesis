@@ -13,7 +13,6 @@ def parse(program : Callable):
         line         : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
-        # comment or blank line
         if is_skipable(line):
             continue
 
