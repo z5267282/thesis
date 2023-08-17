@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import inspect
 from typing import Callable, Type
 
@@ -8,13 +9,9 @@ from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
 def parse(program : Callable):
-    lines, start = get_code_info(program)
-    # the root and stack can only be initialised when the first line is parsed
-    # however, their scope must cover the entire function
-    # hence they are declared here
+    code = get_code_info(program)
     root, stack, prev_indent, line_no = init_state()
-
-    for line_no, line_contents in enumerate(lines[OFFSET:], start=start):
+    for line_no, line_contents in code.items():
         line         : str = helper.get_stripped_line(line_contents)
         indent_level : int = helper.num_leading_whitespace(line_contents)
 
@@ -38,14 +35,18 @@ def parse(program : Callable):
             parse_unindented_block(block, line_no, indent_level, top, stack)
         prev_indent = indent_level
     
-    last : int = calculate_last_line(start, lines)
+    last : int = calculate_last_line(code)
     parse_last_line(last, stack)
     return root
 
 def get_code_info(program : Callable):
     lines, start = inspect.getsourcelines(program)
     start += OFFSET
-    return lines, start
+    return OrderedDict(
+        (line_no, line_contents) for line_no, line_contents in enumerate(
+            lines[OFFSET:], start=start
+        )
+    )
 
 def init_state():
     root        : BodyBlock = None
@@ -192,8 +193,8 @@ def end_conditional(
     # there were reference issues when the top wasn't being returned
     return top
 
-def calculate_last_line(start : int, lines : list[str]):
-    return start + len(lines) - 1 - OFFSET
+def calculate_last_line(code : OrderedDict[int, str]):
+    return next(reversed(code))
 
 def parse_last_line(last : int, stack : Stack[BodyBlock]):
     top : Type[BodyBlock] = stack.peek()
