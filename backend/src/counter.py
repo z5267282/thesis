@@ -6,6 +6,8 @@ class Counter:
         self.iteration = iteration
         self.total = total
         self.while_ = while_
+        self.start = None
+        self.end = None
     
     def __str__(self):
         return f"({self.iteration}/{self.total}) : {self.while_}"

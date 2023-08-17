@@ -12,6 +12,7 @@ def DataFrame():
         self.curr : int = curr
         self.vars : dict[str, str] = variables
         self.out : list[str] = out
+        self.path : list[int] = path
         self.counters = counters
         self.evalbox = evalbox
     
