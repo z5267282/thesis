@@ -13,7 +13,7 @@ def test_tested():
     b = BodyBlock(5, 0)
     b.end = 11
 
-    c1 = CodeBlock(5)
+    c1 = CodeBlock(5, 0)
     c1.end = 5
     b.add_same_level_block(c1)
 
@@ -25,19 +25,19 @@ def test_tested():
     i1.end = 9
     w.add_same_level_block(i1)
 
-    i2 = IfBlock(8, 4)
+    i2 = IfBlock(8, 8)
     i2.end = 9
     i1.add_same_level_block(i2)
 
-    c2 = CodeBlock(9)
+    c2 = CodeBlock(9, 12)
     c2.end = 9
     i2.add_same_level_block(c2)
 
-    c3 = CodeBlock(10)
+    c3 = CodeBlock(10, 4)
     c3.end = 10
     w.add_same_level_block(c3)
 
-    c4 = CodeBlock(11)
+    c4 = CodeBlock(11, 0)
     c4.end = 11
     b.add_same_level_block(c4)
 

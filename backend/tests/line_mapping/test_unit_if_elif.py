@@ -2,12 +2,12 @@ from tree import CodeBlock, ElifBlock, IfBlock
 
 def test_unit_if_elif():
     i = IfBlock(1, 0)
-    body_i = CodeBlock(2)
+    body_i = CodeBlock(2, 1)
     body_i.end = 2
     i.add_same_level_block(body_i)
 
     e = ElifBlock(3, 0)
-    body_e = CodeBlock(4)
+    body_e = CodeBlock(4, 1)
     body_e.end = 4
     e.add_same_level_block(body_e)
     i.add_elif(e)

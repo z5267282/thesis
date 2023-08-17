@@ -1,7 +1,7 @@
 from tree import BodyBlock, CodeBlock, IfBlock
 
 def test_code_block():
-    c = CodeBlock(1)
+    c = CodeBlock(1, 0)
     c.end = 10
     assert c.to_dict() == {
         "CodeBlock" : {
@@ -14,11 +14,11 @@ def test_body_block():
     b = BodyBlock(1, 0)
     b.end = 10
 
-    c1 = CodeBlock(1)
+    c1 = CodeBlock(1, 0)
     c1.end = 4
     b.add_same_level_block(c1)
 
-    c2 = CodeBlock(5)
+    c2 = CodeBlock(5, 0)
     c2.end = 10
     b.add_same_level_block(c2)
 

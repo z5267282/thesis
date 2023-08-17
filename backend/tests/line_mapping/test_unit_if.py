@@ -1,7 +1,7 @@
 from tree import CodeBlock, IfBlock
 
 def test_unit_if():
-    body = CodeBlock(2)
+    body = CodeBlock(2, 1)
     body.end = 4
 
     if_ = IfBlock(1, 0)

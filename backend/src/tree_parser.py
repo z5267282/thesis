@@ -68,7 +68,7 @@ def parse_line(line : str, line_no : int, indent_level : int):
         return ElifBlock(line_no, indent_level)
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
-    return CodeBlock(line_no)
+    return CodeBlock(line_no, indent_level)
 
 def is_skipable(line : str):
     """check whether a line stripped of leading spaces is a comment or blank."""

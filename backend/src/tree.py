@@ -3,9 +3,10 @@ import json
 from typing import Type
 
 class Block():
-    def __init__(self, start : int):
-        self.start : int = start
-        self.end   : int = None
+    def __init__(self, start : int, indent_level : int):
+        self.start        : int = start
+        self.end          : int = None
+        self.indent_level : int = indent_level
     
     def __str__(self):
         """Simply print the block without recursive unpacking"""
@@ -41,11 +42,10 @@ class CodeBlock(Block):
 class BodyBlock(Block):
     """For storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int):
-        super().__init__(start)
-        self.body         : list[Type["BodyBlock"] | CodeBlock] = []
+        super().__init__(start, indent_level)
+        self.body       : list[Type["BodyBlock"] | CodeBlock] = []
         # for storing the most recent code block
-        self.code_block   : CodeBlock | None = None
-        self.indent_level : int = indent_level
+        self.code_block : CodeBlock | None = None
     
     def to_dict(self):
         parent = super().to_dict()
