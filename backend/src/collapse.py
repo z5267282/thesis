@@ -27,5 +27,4 @@ def collapse(graph : list[int], root : BodyBlock):
     # TODO: start should be root's start
     path_rest : list[int] = []
 
-    for line in filtered:
-
+    # for line in filtered:
