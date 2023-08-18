@@ -9,32 +9,36 @@ class DataFrame:
         variables : dict[str, str], out : list[str],
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
-        self.code : list[str] = code
+        self.code  : list[str] = code
         self.lines : list[str] = lines
-        self.curr : int = curr
-        self.vars : dict[str, str] = variables
+        self.curr  : int = curr
+        self.vars  : dict[str, str] = variables
 
         self.out : list[str] = deepcopy(out)
         self.out.reverse()
 
-        self.path : list[int] = path
-        self.counters = counters
-        self.evalbox = evalbox
+        self.path     : list[int] = path
+        self.counters : list[Counter] = counters
+        self.evalbox  : list[str] = evalbox
     
     def to_dict(self):
+        path = {
+            "start" : 0,
+            "rest"  : self.path
+        },
+
+        counters = [
+            counter.to_dict() for counter in self.counters \
+            if counter.has_valid_range()
+        ]
+
         return {
-            "code" : self.code,
-            "lines" : self.lines,
-            "curr" : self.curr,
-            "vars" : self.vars,
-            "out" : self.out,
-            "path" : {
-                "start" : 0,
-                "rest" : self.path
-            },
-            "counters" : [
-                counter.to_dict() for counter in self.counters \
-                if counter.has_valid_range()
-            ],
-            "evalbox" : self.evalbox
+            "code"     : self.code,
+            "lines"    : self.lines,
+            "curr"     : self.curr,
+            "vars"     : self.vars,
+            "out"      : self.out,
+            "path"     : path,
+            "counters" : counters,
+            "evalbox"  : self.evalbox
         }
