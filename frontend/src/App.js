@@ -4,6 +4,8 @@ import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
+import { generateData } from "./helper";
+
 import styles from "./App.module.css";
 
 import {
@@ -14,18 +16,12 @@ import {
 export default function App() {
   const [frames, setFrames] = React.useState([])
   const [index, setIndex] = React.useState(0);
-  const dataFrame = data[index];
 
-  if (frames.length === 0) {
-
-  }
-
-  const disablePrev = (index === 0);
-  const disableNext = (index === frames.length - 1);
+  const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;
-    if (newIndex >= 0 && newIndex < data.length) {
+    if (newIndex >= 0 && newIndex < frames.length) {
       setIndex(newIndex);
     }
   }
