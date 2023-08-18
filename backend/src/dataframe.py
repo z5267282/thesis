@@ -5,7 +5,7 @@ def DataFrame():
         self,
         code : list[str], lines : list[str], curr : int,
         variables : dict[str, str], out : list[str],
-        path : list[int], counters : list[Counter], evalbox : str
+        path : list[int], counters : list[Counter], evalbox : list[str]
     ):
         self.code : list[str] = code
         self.lines : list[str] = lines
