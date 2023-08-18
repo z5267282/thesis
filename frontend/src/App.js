@@ -16,8 +16,8 @@ import {
 } from "./config";
 
 export default function App() {
-  // const [frames, setFrames] = React.useState(data)
-  const [frames, setFrames] = React.useState([]);
+  const [frames, setFrames] = React.useState(data)
+  // const [frames, setFrames] = React.useState([]);
   const [index, setIndex] = React.useState(0);
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);

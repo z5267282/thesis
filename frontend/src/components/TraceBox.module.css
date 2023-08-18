@@ -17,12 +17,6 @@
     margin-top: 2%;
 }
 
-.tabSelector {
-    display: flex;
-    width: 40%;
-    justify-content: space-evenly;
-}
-
 .disabled {
     cursor: no-drop;
 }
