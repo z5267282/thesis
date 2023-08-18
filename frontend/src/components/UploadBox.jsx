@@ -1,3 +1,5 @@
+import { SERVER } from "../config";
+
 import styles from "./UploadBox.module.css";
 
 export default function UploadBox({traceCode, setTraceCode, setFrames}) {
@@ -14,7 +16,19 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
         />
       </div>
       <div className={styles.buttons}>
-        <button type="button" className={styles.clicker}>
+        <button
+          type="button" className={styles.clicker}
+          onClick={
+            () => {
+              fetch(`${SERVER}/analyse`, {
+                method : "PUT",
+                body   : JSON.stringify(traceCode)
+              })
+                .then(res => res.json())
+                .then(frames => setFrames(frames))
+                .catch(_ => alert("An issue occurred with parsing"));
+            }
+          }>
           Submit
         </button>
         <button type="reset" className={styles.clicker} onClick={() => {
