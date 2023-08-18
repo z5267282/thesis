@@ -6,6 +6,8 @@ import VariableBox from "./components/VariableBox";
 
 import { generateData } from "./helper";
 
+import data from "./dummy/simple-program";
+
 import styles from "./App.module.css";
 
 import {
@@ -14,7 +16,8 @@ import {
 } from "./config";
 
 export default function App() {
-  const [frames, setFrames] = React.useState([])
+  // const [frames, setFrames] = React.useState(data)
+  const [frames, setFrames] = React.useState([]);
   const [index, setIndex] = React.useState(0);
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
