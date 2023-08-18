@@ -1,5 +1,6 @@
 import Counters from "./Counters";
 import Lines from "./Lines";
+import LoadingBox from "./LoadingBox";
 import Path from "./Path";
 
 import { addPixels } from "../helper";
@@ -20,7 +21,12 @@ export default function TraceBox({
       <h1 className={styles.largeText}>Trace execution</h1>
       <div className={styles.traceBox}>
         <div className={styles.codeBox} style={lineHeightStyle}>
-          <Lines code={code} lines={lines} curr={curr} />
+          {
+            (code.length === 0) ?
+              <LoadingBox />
+            : 
+              <Lines code={code} lines={lines} curr={curr} />
+          }
         </div>
         {
           (path !== null) &&
