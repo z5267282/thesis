@@ -11,23 +11,7 @@
 
 .traceBox {
     width: 90%;
-    background-color: blue;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-}
-
-.codeBox {
-    background-color: green;
-    display: grid;
-    grid-template-columns: 15% 85%;
-    font-family: monospace; 
-    line-height: 25px;
-    font-size: 20px;
-}
-
-.traceBox svg {
-    height: 100%;
-    width: 60px;
-    margin-left: 50px;
 }
