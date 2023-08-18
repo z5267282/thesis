@@ -16,8 +16,8 @@ export default function TracedLinesBox({
   };
 
   return (
-    <>
-      <div className={styles.tracedLinesBox} style={lineHeightStyle}>
+    <div className={styles.tracedLinesBox}>
+      <div className={styles.tracedLines} style={lineHeightStyle}>
         <Lines code={code} lines={lines} curr={curr} />
       </div>
       {
@@ -28,6 +28,6 @@ export default function TracedLinesBox({
         (counters.length !== 0) &&
           <Counters counters={counters} lineHeight={lineHeight} counterColours={counterColours} />
       }
-    </>
+    </div>
   );
 }
