@@ -36,9 +36,19 @@ class Counter:
             return
 
         self.start = index
+        # note the lines should be in non-decreasing order
         for i, key in enumerate(keys[index:], start=index):
+            if key > self.while_.end:
+                break
+
             if key <= self.while_.end:
                 self.end = i
+        # after the loop terminates, i should be the largest index:
+        # 1. key[i] <= while end
+        # 2. consecutive from index
+
+        # possible that self.start is None, but not self.end
+        # this will be considered invalid later
 
     def has_valid_range(self):
         if self.start is None or self.end is None or self.start == self.end:
