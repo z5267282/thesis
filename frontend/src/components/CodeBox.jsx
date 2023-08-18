@@ -14,7 +14,7 @@ export default function CodeBox({
   const [traceCode, setTraceCode] = React.useState("");
 
   return (
-    <div className={styles.container}>
+    <div className={styles.codeBox}>
       <div className={styles.tabSelector}>
         <button className={styles.customButton} type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
         <button className={styles.customButton} type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
