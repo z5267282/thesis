@@ -1,10 +1,10 @@
 from counter import Counter
 
-def DataFrame():
+class DataFrame:
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int,
-        variables : dict[str, str], out : list[str], start : int,
+        variables : dict[str, str], out : list[str],
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
         self.code : list[str] = code
