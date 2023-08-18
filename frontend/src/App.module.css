@@ -1,5 +1,4 @@
 .App {
-  height: 100vh;
   width: 100vw;
   margin-top: 2.5vh;
   margin-left: 0;
@@ -12,7 +11,7 @@
 .outputs {
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 30%;
   margin-top: 5%;
   justify-content: flex-start;
 }
