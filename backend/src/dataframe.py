@@ -12,7 +12,9 @@ class DataFrame:
         self.code  : list[str] = code
         self.lines : list[str] = lines
         self.curr  : int = curr
-        self.vars  : dict[str, str] = variables
+        self.vars  : list[str] = {
+            f"{name} = {value}" for name, value in variables.items()
+        }
 
         self.out : list[str] = deepcopy(out)
         self.out.reverse()
