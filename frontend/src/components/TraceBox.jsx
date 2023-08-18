@@ -11,13 +11,9 @@ export default function TraceBox({
 }) {
   // this must be inline to import config value
   const lineHeightStyle = {
-    lineHeight: addPixels(lineHeight),
-    fontSize: addPixels(lineHeight * fontScaling)
+    lineHeight : addPixels(lineHeight),
+    fontSize   : addPixels(lineHeight * fontScaling)
   };
-
-  console.log(
-    code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth
-  );
 
   return (
     <div className={styles.container}>
