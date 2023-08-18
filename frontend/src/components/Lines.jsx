@@ -9,7 +9,7 @@ import styles from "./Lines.module.css";
  * @param {*} code 
  */
 function colourLine(index, curr) {
-  return (curr !== null && index === curr) ? styles.highlight : "";
+  return (index === curr) ? styles.highlight : "";
 }
 
 export default function Lines({code, lines, curr}) {

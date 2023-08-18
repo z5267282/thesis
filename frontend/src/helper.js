@@ -4,7 +4,7 @@ export function addPixels(dimension) {
 
 export function generateDefaultData() {
   return {
-    code     : ["[ upload code for execution "],
+    code     : [],
     lines    : [],
     curr     : null,
     vars     : [],
