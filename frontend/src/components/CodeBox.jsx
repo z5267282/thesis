@@ -24,26 +24,13 @@ export default function CodeBox({
           <TraceBox
             code={code} lines={lines} path={path} counters={counters} curr={curr} counterColours={counterColours}
             lineHeight={lineHeight} fontScaling={fontScaling} graphWidth={graphWidth}
+            changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
           />
         :
           <UploadBox
             traceCode={traceCode} setTraceCode={setTraceCode}
           />
       }
-      <div className={styles.transitionContainer}>
-        <button
-          onClick={() => changeIndex(-1)} disabled={disablePrev}
-          className={disablePrev ? styles.disabled : ""}
-        >
-          prev
-        </button>
-        <button
-          onClick={() => changeIndex(1)} disabled={disableNext}
-          className={disableNext ? styles.disabled : ""}
-        >
-          next
-        </button>
-      </div>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import TracedLinesBox from "./TracedLinesBox";
 import styles from "./TraceBox.module.css";
 
 export default function TraceBox({
-  code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth
+  code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth,
+  changeIndex, disablePrev, disableNext
 }) {
   return (
     <div className={styles.traceBox}>
@@ -18,9 +19,23 @@ export default function TraceBox({
           <TracedLinesBox
             code={code} lines={lines} curr={curr} path={path}
             lineHeight={lineHeight} fontScaling={fontScaling}
-            graphWidth={graphWidth} counters={counters} counterColours
+            graphWidth={graphWidth} counters={counters} counterColours={counterColours}
           />
       }
+      <div className={styles.transitionContainer}>
+        <button
+          onClick={() => changeIndex(-1)} disabled={disablePrev}
+          className={disablePrev ? styles.disabled : ""}
+        >
+          prev
+        </button>
+        <button
+          onClick={() => changeIndex(1)} disabled={disableNext}
+          className={disableNext ? styles.disabled : ""}
+        >
+          next
+        </button>
+      </div>
     </div>
   );
 } 

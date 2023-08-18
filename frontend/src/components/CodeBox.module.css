@@ -18,10 +18,6 @@ button.customButton:hover {
     background-color: beige;
 }
 
-.disabled {
-    cursor: no-drop;
-}
-
 .tabSelector {
     display: flex;
     width: 40%;
@@ -30,11 +26,4 @@ button.customButton:hover {
 
 .largeText {
     font-size: 16pt;
-}
-
-.transitionContainer {
-    display: flex;
-    justify-content: space-evenly;
-    width: 50%;
-    margin-top: 2%;
 }
