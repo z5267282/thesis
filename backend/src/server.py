@@ -1,6 +1,8 @@
 from flask import Flask, request
 
-from main import main
+import json
+
+# from main import main
 
 app = Flask(__name__)
 
@@ -8,3 +10,4 @@ app = Flask(__name__)
 def analyse():
     data = request.get_json()
     print(data)
+    return json.dumps("great!")
