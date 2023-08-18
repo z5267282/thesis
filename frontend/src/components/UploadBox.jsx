@@ -13,6 +13,14 @@ export default function UploadBox({traceCode, setTraceCode}) {
           onInput={(event) => setTraceCode(event.target.value)} 
         />
       </div>
+      <div className={styles.buttons}>
+        <button type="button" className={styles.clicker}>
+          Submit
+        </button>
+        <button type="reset" className={styles.clicker}>
+          Reset
+        </button>
+      </div>
     </label>
   );
 }

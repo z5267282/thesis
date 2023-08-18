@@ -46,3 +46,16 @@
     content: counter(linenumber);
     display: block;
 }
+
+.buttons {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.clicker:hover {
+    cursor: grab;
+}
