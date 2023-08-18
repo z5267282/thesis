@@ -1,5 +1,4 @@
 from analyse import smart_trace
-from cfg import ELLIPSE
 from collapse import collapse
 from counter import Counter
 from execute import trace_program
@@ -23,16 +22,16 @@ def test_while_counter():
     program_code = get_code_info(program)
 
     assert graphs == [
-        [Line(12, {})],
-        [Line(12, {}), Line(13, {})],
-        [Line(12, {}), Line(13, {}), Line(15, {})]
+        [Line(11, {})],
+        [Line(11, {}), Line(12, {})],
+        [Line(11, {}), Line(12, {}), Line(14, {})]
     ]
 
     _, lines, _ = collapse(graphs[1], program_code, root)
     _, line = graphs[1]
-    assert line.counters == [Counter(1, 3, line_mapping[13])]
+    assert line.counters == [Counter(1, 3, line_mapping[12])]
     counter, = line.counters
-    assert lines == [12, 13, None]
+    assert lines == [11, 12, None]
     assert counter.start is None
     assert counter.end is None
 
@@ -40,6 +39,6 @@ def test_while_counter():
     _, _, line = graphs[2]
     assert line.counters == [Counter(1, 3, line_mapping[13])]
     counter, = line.counters
-    assert lines == [12, 13, 14, 15]
+    assert lines == [11, 12, 13, 14]
     assert counter.start == 1
     assert counter.end == 3
