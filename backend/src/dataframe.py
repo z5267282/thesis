@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from counter import Counter
 
 class DataFrame:
@@ -11,7 +13,10 @@ class DataFrame:
         self.lines : list[str] = lines
         self.curr : int = curr
         self.vars : dict[str, str] = variables
-        self.out : list[str] = out
+
+        self.out : list[str] = deepcopy(out)
+        self.out.reverse()
+
         self.path : list[int] = path
         self.counters = counters
         self.evalbox = evalbox
