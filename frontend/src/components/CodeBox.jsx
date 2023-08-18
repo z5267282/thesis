@@ -5,13 +5,11 @@ import UploadBox from "./UploadBox";
 
 import styles from "./CodeBox.module.css";
 
-export default function CodeBox(
-  {
+export default function CodeBox({
     code, lines, path, counters, curr, counterColours,
     lineHeight, fontScaling, graphWidth,
     changeIndex, disablePrev, disableNext
-  }
-) {
+}) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 

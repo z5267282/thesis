@@ -6,12 +6,18 @@ import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
 
-export default function TraceBox({code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth}) {
+export default function TraceBox({
+  code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth
+}) {
   // this must be inline to import config value
   const lineHeightStyle = {
     lineHeight: addPixels(lineHeight),
     fontSize: addPixels(lineHeight * fontScaling)
   };
+
+  console.log(
+    code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth
+  );
 
   return (
     <div className={styles.container}>
