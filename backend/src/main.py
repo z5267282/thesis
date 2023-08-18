@@ -45,7 +45,7 @@ def main():
             code, correct_lines, len(line_graph) - 1,
             variables, curr.output, path, curr.counters, evalbox
         )
-        dataframes.append(DataFrame)
+        dataframes.append(frame)
     
     import json
     print(json.dumps([d.to_dict() for d in dataframes], indent=2))    
