@@ -1,13 +1,29 @@
 from flask import Flask, request
 
 import json
+import os
+import sys
 
-# from main import main
+sys.path.append("src")
+
+from cfg import LEADING_SPACES
+from main import main
 
 app = Flask(__name__)
 
 @app.put("/analyse")
 def analyse():
-    data = request.get_json()
-    print(data)
-    return json.dumps("great!")
+    raw_code : str = request.get_json()
+    wrap_program(raw_code)
+    dataframes = main()
+    return json.dumps(dataframes)
+
+def wrap_program(raw_code : str):
+    code     : list[str] = ["def program():"]
+    code.extend(
+        "{}{}".format(" " * LEADING_SPACES, raw)
+            for raw in raw_code.split("\n")
+    )
+    with open(os.join("src", "program.py"), "w") as f:
+        for c in code:
+            print(c, file=f)
