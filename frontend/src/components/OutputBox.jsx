@@ -29,8 +29,9 @@ export default function OutputBox({width, height, headLength, outputs}) {
       <div className={styles.outputBox}>
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
           <path
-            d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent">
-          </path>
+            d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent"
+            className={styles.thickPen}
+          />
         </svg>
         <textarea
           id="output-box" className={styles.uploadBox}

@@ -27,3 +27,7 @@
 .arrow {
     height: 90%;
 }
+
+.thickPen {
+    stroke-width: 2;
+}
