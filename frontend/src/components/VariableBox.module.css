@@ -4,12 +4,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .fontSize {
     font-size: 12pt;
 }
 
-.noResize {
+.variableBox {
     resize: none;
+    width: 60%;
+    height: 60%;
 }
