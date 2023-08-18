@@ -25,7 +25,7 @@ class DataFrame:
             "out" : self.out,
             "path" : {
                 "start" : 0,
-                "rest" : self.rest
+                "rest" : self.path
             },
             "counters" : [
                 counter.to_dict() for counter in self.counters \
