@@ -47,9 +47,4 @@ def main():
         )
         dataframes.append(frame)
     
-    import json
-    print(json.dumps([d.to_dict() for d in dataframes], indent=2))    
     return dataframes
-
-if __name__ == '__main__':
-    main()
