@@ -8,7 +8,8 @@ import styles from "./CodeBox.module.css";
 export default function CodeBox({
     code, lines, path, counters, curr, counterColours,
     lineHeight, fontScaling, graphWidth,
-    changeIndex, disablePrev, disableNext
+    changeIndex, disablePrev, disableNext,
+    setFrames,
 }) {
   const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
@@ -28,7 +29,7 @@ export default function CodeBox({
           />
         :
           <UploadBox
-            traceCode={traceCode} setTraceCode={setTraceCode}
+            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
           />
       }
     </div>

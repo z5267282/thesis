@@ -1,6 +1,6 @@
 import styles from "./UploadBox.module.css";
 
-export default function UploadBox({traceCode, setTraceCode}) {
+export default function UploadBox({traceCode, setTraceCode, setFrames}) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
@@ -17,7 +17,10 @@ export default function UploadBox({traceCode, setTraceCode}) {
         <button type="button" className={styles.clicker}>
           Submit
         </button>
-        <button type="reset" className={styles.clicker}>
+        <button type="reset" className={styles.clicker} onClick={() => {
+          setTraceCode("");
+          setFrames([]);
+        }}>
           Reset
         </button>
       </div>

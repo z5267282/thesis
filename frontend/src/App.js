@@ -16,8 +16,8 @@ import {
 } from "./config";
 
 export default function App() {
-  const [frames, setFrames] = React.useState(data)
-  // const [frames, setFrames] = React.useState([]);
+  // const [frames, setFrames] = React.useState(data);
+  const [frames, setFrames] = React.useState([]);
   const [index, setIndex] = React.useState(0);
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
@@ -36,6 +36,7 @@ export default function App() {
         counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
         lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
         changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
+        setFrames={setFrames}
       />
       <div className={styles.outputs}>
         <VariableBox variables={dataFrame.vars} />
