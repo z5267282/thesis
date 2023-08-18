@@ -36,21 +36,32 @@ def generate_data_frame(
     root : BodyBlock, line_mapping : dict[int, Type[Block]]
 ):
     code, lines, path = collapse(line_graph, program_code, root)
-    correct_lines = [
-        f"{str(line - OFFSET)}" if line is not None else "" \
-        for line in lines
-    ]
     curr : Line = line_graph[-1]
     variables : dict[str, str] = curr.vars.curr
-
     evalbox : list[str] = []
     curr_line : int = curr.line_no
     if line_mapping[curr_line].is_conditional():
-        raw_line : str = get_stripped_line(program_code[curr_line])
-        expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
-        evalbox.append(evaluate(expression, variables))
+        evalbox.append(
+            generate_evalbox(program_code[curr_line], variables)
+        )
 
     return DataFrame(
-        code, correct_lines, len(line_graph) - 1,
+        code, adjust_lines(lines), len(line_graph) - 1,
         variables, curr.output, path, curr.counters, evalbox
     )
+
+def adjust_lines(lines):
+    """Adjust line numbers so they are displayed correctly.
+    Collapsed lines should be represented by an empty string.
+    Line numbers should start from 1."""
+    return [
+        f"{str(line - OFFSET)}" if line is not None else "" \
+        for line in lines
+    ]
+
+def generate_evalbox(line : str, variables : dict[str, str]):
+    """Given a line with a conditional expression, expand it from a mapping
+    of variable values."""
+    raw_line : str = get_stripped_line(line)
+    expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
+    return evaluate(expression, variables)
