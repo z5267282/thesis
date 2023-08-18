@@ -23,28 +23,32 @@ def main():
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
-    # generate the dataframes
-    dataframes = []
-    for line_graph in line_graphs:
-        code, lines, path = collapse(line_graph, program_code, root)
-        correct_lines = [
-            f"{str(line - OFFSET)}" if line is not None else "" \
-            for line in lines
-        ]
-        curr : Line = line_graph[-1]
-        variables : dict[str, str] = curr.vars.curr
+    return [
+        generate_data_frame(
+            line_graph, program_code, root, line_mapping
+        ) for line_graph in line_graphs
+    ]
 
-        evalbox : list[str] = []
-        curr_line : int = curr.line_no
-        if line_mapping[curr_line].is_conditional():
-            raw_line : str = get_stripped_line(program_code[curr_line])
-            expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
-            evalbox.append(evaluate(expression, variables))
+def generate_data_frame(
+    line_graph : list[Line], program_code : OrderedDict[int, str],
+    root : BodyBlock, line_mapping : dict[int, Type[Block]]
+):
+    code, lines, path = collapse(line_graph, program_code, root)
+    correct_lines = [
+        f"{str(line - OFFSET)}" if line is not None else "" \
+        for line in lines
+    ]
+    curr : Line = line_graph[-1]
+    variables : dict[str, str] = curr.vars.curr
 
-        frame : DataFrame = DataFrame(
-            code, correct_lines, len(line_graph) - 1,
-            variables, curr.output, path, curr.counters, evalbox
-        )
-        dataframes.append(frame)
+    evalbox : list[str] = []
+    curr_line : int = curr.line_no
+    if line_mapping[curr_line].is_conditional():
+        raw_line : str = get_stripped_line(program_code[curr_line])
+        expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
+        evalbox.append(evaluate(expression, variables))
 
-    return dataframes
+    return DataFrame(
+        code, correct_lines, len(line_graph) - 1,
+        variables, curr.output, path, curr.counters, evalbox
+    )
