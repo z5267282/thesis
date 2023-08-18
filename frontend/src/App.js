@@ -28,17 +28,15 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <div className={styles.container}>
-        <CodeBox
-          code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
-          counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
-          lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
-          changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
-        />
-        <div className={styles.outputs}>
-          <VariableBox variables={dataFrame.vars} />
-          <OutputBox width={ARROW_WIDTH} height={ARROW_HEIGHT} headLength={ARROW_HEAD_LENGTH} outputs={dataFrame.out} />
-        </div>
+      <CodeBox
+        code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
+        counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
+        lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
+        changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
+      />
+      <div className={styles.outputs}>
+        <VariableBox variables={dataFrame.vars} />
+        <OutputBox width={ARROW_WIDTH} height={ARROW_HEIGHT} headLength={ARROW_HEAD_LENGTH} outputs={dataFrame.out} />
       </div>
     </div>
   );
