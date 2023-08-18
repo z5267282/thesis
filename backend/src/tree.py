@@ -31,6 +31,9 @@ class Block():
     def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
         for i in range(self.start, self.end + 1):
             show[i] = True
+    
+    def is_conditional(self):
+        return False
 
     def pretty_print(self): # pragma: no cover
         """A pretty printer for debugging"""
@@ -82,21 +85,25 @@ class BodyBlock(Block):
         self.code_block.end = end
         self.code_block = None
 
-class WhileBlock(BodyBlock):
+class ConditionalBlock(BodyBlock):
+    def is_conditional(self):
+        return True
+
+class WhileBlock(ConditionalBlock):
     def show_lines(self, graph: list[int], show: OrderedDict[int, bool]):
         show[self.start] = True
         if self.part_of(graph):
             super().show_lines(graph, show)
 
-class ElifBlock(BodyBlock):
+class ElifBlock(ConditionalBlock):
     """Separate this so that the IfBlock tracks the entire branch structure"""
     pass
 
-class ElseBlock(BodyBlock):
+class ElseBlock(ConditionalBlock):
     """Made a class to differentiate from BodyBlock"""
     pass
 
-class IfBlock(BodyBlock):
+class IfBlock(ConditionalBlock):
     """The if block must lay out on the same nesting level:
     any elifs, and an else"""
     def __init__(self, start: int, indent_level : int):
