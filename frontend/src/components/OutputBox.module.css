@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
 }
 
 .uploadBox {
@@ -26,5 +25,5 @@
 }
 
 .arrow {
-    height: 100%;
+    height: 90%;
 }

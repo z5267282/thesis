@@ -28,9 +28,14 @@ export default function OutputBox({width, height, headLength, outputs}) {
       <h2 className={styles.fontSize}>Output</h2>
       <div className={styles.outputBox}>
         <svg className={styles.arrow} style={{ width: addPixels(width) }}>
-          <path d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent"></path>
+          <path
+            d={genArrowPath(width, height, headLength)} stroke="black" fill="transparent">
+          </path>
         </svg>
-        <textarea id="output-box" className={styles.uploadBox} value={outputs.join("\n")} spellCheck={false} readOnly/>
+        <textarea
+          id="output-box" className={styles.uploadBox}
+          value={outputs.join("\n")} spellCheck={false} readOnly
+        />
       </div>
     </label>
   );
