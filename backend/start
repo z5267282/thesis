@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+. .venv/bin/activate
+flask --app server run
