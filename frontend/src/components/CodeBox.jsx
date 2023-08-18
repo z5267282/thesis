@@ -9,7 +9,7 @@ export default function CodeBox(
   {
     code, lines, path, counters, curr, counterColours,
     lineHeight, fontScaling, graphWidth,
-    changeIndex, atFirstIndex, atLastIndex
+    changeIndex, disablePrev, disableNext
   }
 ) {
   const [showTrace, setShowTrace] = React.useState(true);
@@ -34,14 +34,14 @@ export default function CodeBox(
       }
       <div className={styles.transitionContainer}>
         <button
-          onClick={() => changeIndex(-1)} disabled={atFirstIndex}
-          className={atFirstIndex ? styles.disabled : ""}
+          onClick={() => changeIndex(-1)} disabled={disablePrev}
+          className={disablePrev ? styles.disabled : ""}
         >
           prev
         </button>
         <button
-          onClick={() => changeIndex(1)} disabled={atLastIndex}
-          className={atLastIndex ? styles.disabled : ""}
+          onClick={() => changeIndex(1)} disabled={disableNext}
+          className={disableNext ? styles.disabled : ""}
         >
           next
         </button>

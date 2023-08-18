@@ -4,8 +4,6 @@ import CodeBox from "./components/CodeBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
-import data from "./dummy/simple-program";
-
 import styles from "./App.module.css";
 
 import {
@@ -14,12 +12,16 @@ import {
 } from "./config";
 
 export default function App() {
-  const [frames, setFrames] = React.useState(data)
+  const [frames, setFrames] = React.useState([])
   const [index, setIndex] = React.useState(0);
   const dataFrame = data[index];
 
-  const atFirstIndex = (index === 0);
-  const atLastIndex = (index === frames.length - 1);
+  if (frames.length === 0) {
+
+  }
+
+  const disablePrev = (index === 0);
+  const disableNext = (index === frames.length - 1);
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;
@@ -35,7 +37,7 @@ export default function App() {
           code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
           counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
           lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
-          changeIndex={changeIndex} atFirstIndex={atFirstIndex} atLastIndex={atLastIndex}
+          changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
         />
         <div className={styles.outputs}>
           <VariableBox variables={dataFrame.vars} />
