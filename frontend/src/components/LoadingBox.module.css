@@ -1,9 +1,10 @@
 .loadingBox {
-    height: 80%;
-    width: min(60%, 400px);
-    background-color: red;
+    height: max(80%, 400px);
+    width: max(60%, 400px);
+    width: 500px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     border: solid;
     border-color: black;
