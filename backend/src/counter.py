@@ -27,10 +27,7 @@ class Counter:
         except ValueError:
             return
 
-
-        print("i got in here")
-        print(index == len(keys) - 1)
-        print(len(keys))
+        # if the while is last in filtered graph, it is being evaluated
         if index == len(keys) - 1:
             return
         
@@ -40,9 +37,8 @@ class Counter:
 
         self.start = index
         for i, key in enumerate(keys[index:], start=index):
-            if key > self.while_.end:
+            if key <= self.while_.end:
                 self.end = i
-                return
 
     def has_valid_range(self):
         if self.start is None or self.end is None or self.start == self.end:

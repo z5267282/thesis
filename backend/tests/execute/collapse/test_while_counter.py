@@ -28,10 +28,18 @@ def test_while_counter():
         [Line(12, {}), Line(13, {}), Line(15, {})]
     ]
 
+    _, lines, _ = collapse(graphs[1], program_code, root)
     _, line = graphs[1]
     assert line.counters == [Counter(1, 3, line_mapping[13])]
     counter, = line.counters
-    _, lines, _ = collapse(graphs[1], program_code, root)
     assert lines == [12, 13, None]
+    assert counter.start is None
+    assert counter.end is None
+
+    _, lines, _ = collapse(graphs[2], program_code, root)
+    _, _, line = graphs[2]
+    assert line.counters == [Counter(1, 3, line_mapping[13])]
+    counter, = line.counters
+    assert lines == [12, 13, 14, 15]
     assert counter.start == 1
-    assert counter.end == 1
+    assert counter.end == 3
