@@ -24,6 +24,6 @@ def wrap_program(raw_code : str):
         "{}{}".format(" " * LEADING_SPACES, raw)
             for raw in raw_code.split("\n")
     )
-    with open(os.join("src", "program.py"), "w") as f:
+    with open(os.path.join("src", "program.py"), "w") as f:
         for c in code:
             print(c, file=f)
