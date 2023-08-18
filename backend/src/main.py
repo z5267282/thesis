@@ -17,6 +17,8 @@ from tree import Block, BodyBlock
 from tree_parser import parse
 
 def main():
+    """Execute a program and generate a list of DataFrames representing
+    execution states."""
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     all_lines : list[Line] = trace_program(program)
