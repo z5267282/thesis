@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import cross_origin
 
 import json
 import os
@@ -12,6 +13,7 @@ from main import main
 app = Flask(__name__)
 
 @app.put("/analyse")
+@cross_origin()
 def analyse():
     raw_code : str = request.get_json()
     wrap_program(raw_code)

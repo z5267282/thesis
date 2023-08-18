@@ -26,7 +26,10 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
               })
                 .then(res => res.json())
                 .then(frames => setFrames(frames))
-                .catch(_ => alert("An issue occurred with parsing"));
+                .catch(err => {
+                  console.log(err);
+                  alert("An issue occurred with parsing");
+                });
             }
           }>
           Submit
