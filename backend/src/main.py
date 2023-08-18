@@ -46,5 +46,4 @@ def main():
             variables, curr.output, path, curr.counters, evalbox
         )
         dataframes.append(frame)
-    
     return dataframes

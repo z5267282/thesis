@@ -16,7 +16,7 @@ def analyse():
     raw_code : str = request.get_json()
     wrap_program(raw_code)
     dataframes = main()
-    return json.dumps(dataframes)
+    return json.dumps([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
     code     : list[str] = ["def program():"]
