@@ -4,3 +4,4 @@
 # testing
 backend/.coverage
 backend/htmlcov
+backend/.venv
