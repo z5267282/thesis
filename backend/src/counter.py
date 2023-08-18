@@ -54,3 +54,11 @@ class Counter:
         if self.start is None or self.end is None or self.start == self.end:
             return False
         return True
+    
+    def to_dict(self):
+        return {
+            "start"       : self.start,
+            "end"         : self.end,
+            "numerator"   : self.iteration,
+            "denominator" : self.total
+        }

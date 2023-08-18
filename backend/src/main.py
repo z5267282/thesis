@@ -33,9 +33,6 @@ def main():
         ]
         curr : Line = line_graph[-1]
         variables : dict[str, str] = curr.vars.curr
-        counters : list[Counter] = [
-            counter for counter in curr.counters if counter.has_valid_range()
-        ]
 
         evalbox : list[str] = []
         curr_line : int = curr.line_no
@@ -46,9 +43,12 @@ def main():
 
         frame : DataFrame = DataFrame(
             code, correct_lines, len(line_graph) - 1,
-            variables, curr.output, path, counters, evalbox
+            variables, curr.output, path, curr.counters, evalbox
         )
         dataframes.append(DataFrame)
+    
+    import json
+    print(json.dumps([d.to_dict() for d in dataframes], indent=2))    
     return dataframes
 
 if __name__ == '__main__':

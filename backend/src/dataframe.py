@@ -4,7 +4,7 @@ def DataFrame():
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int,
-        variables : dict[str, str], out : list[str],
+        variables : dict[str, str], out : list[str], start : int,
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
         self.code : list[str] = code
@@ -17,4 +17,19 @@ def DataFrame():
         self.evalbox = evalbox
     
     def to_dict(self):
-        pass
+        return {
+            "code" : self.code,
+            "lines" : self.lines,
+            "curr" : self.curr,
+            "vars" : self.vars,
+            "out" : self.out,
+            "path" : {
+                "start" : 0,
+                "rest" : self.rest
+            },
+            "counters" : [
+                counter.to_dict() for counter in self.counters \
+                if counter.has_valid_range()
+            ],
+            "evalbox" : self.evalbox
+        }
