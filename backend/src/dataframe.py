@@ -13,8 +13,6 @@ class DataFrame:
         self.lines : list[str] = lines
         self.curr  : int = curr
 
-        print(variables)
-
         self.vars  : list[str] = [
             f"{name} = {value}" for name, value in variables.items()
         ]
