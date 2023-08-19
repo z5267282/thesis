@@ -34,8 +34,6 @@ class DataFrame:
             if counter.has_valid_range()
         ]
 
-        print(path)
-
         return {
             "code"     : self.code,
             "lines"    : self.lines,
