@@ -25,11 +25,22 @@ def main():
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
-    return [
-        generate_data_frame(
-            line_graph, program_code, root, line_mapping
-        ) for line_graph in line_graphs
-    ]
+    return \
+        [ generate_first_data_frame(program_code, root) ] \
+        + [
+            generate_data_frame(
+                line_graph, program_code, root, line_mapping
+            ) for line_graph in line_graphs
+        ]
+
+def generate_first_data_frame(
+    program_code : OrderedDict[int, str], root : BodyBlock,
+):
+    code, lines, path = collapse([], program_code, root)
+    return DataFrame(
+        code, adjust_lines(lines), None,
+        {}, [], path, [], [] 
+    )
 
 def generate_data_frame(
     line_graph : list[Line], program_code : OrderedDict[int, str],
@@ -38,7 +49,6 @@ def generate_data_frame(
     code, lines, path = collapse(line_graph, program_code, root)
     curr : Line = line_graph[-1]
     variables : dict[str, str] = curr.vars.curr
-    print(variables)
 
     evalbox : list[str] = []
     curr_line : int = curr.line_no

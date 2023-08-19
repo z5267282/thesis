@@ -5,7 +5,7 @@ from counter import Counter
 class DataFrame:
     def __init__(
         self,
-        code : list[str], lines : list[str], curr : int,
+        code : list[str], lines : list[str], curr : int | None,
         variables : dict[str, str], out : list[str],
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
