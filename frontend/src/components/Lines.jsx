@@ -13,13 +13,15 @@ function colourLine(index, curr) {
 }
 
 export default function Lines({code, lines, curr}) {
+  console.log(code);
+
   return code.map(
     (line, i) => (
       <Fragment key={`line-${i}`}>
         <span className={colourLine(i, code)}>
           {`${lines[i]}${lines[i] === "" ? "" : "."}`}
         </span>
-        <span className={`${styles.preserveSpace} ${colourLine(i, curr)}`}>{line}</span>
+        <span className={`${styles.preserveSpace} ${colourLine(i, curr)}`}>{`'${line}'`}</span>
       </Fragment>
     )
   );

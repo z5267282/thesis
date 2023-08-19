@@ -13,8 +13,6 @@ function genSVGPath(coords, lineHeight, graphWidth) {
     prev = coord;
   });
 
-  console.log(path);
-
   return path;
 }
 
