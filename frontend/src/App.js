@@ -6,8 +6,6 @@ import VariableBox from "./components/VariableBox";
 
 import { generateData } from "./helper";
 
-import data from "./dummy/simple-program";
-
 import styles from "./App.module.css";
 
 import {
@@ -21,8 +19,6 @@ export default function App() {
   const [index, setIndex] = React.useState(0);
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
-
-  console.log(dataFrame);
 
   const changeIndex = (offset) => {
     const newIndex = index + offset;
