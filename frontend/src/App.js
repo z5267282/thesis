@@ -17,14 +17,14 @@ export default function App() {
   const [frames, setFrames] = React.useState([]);
   const [index, setIndex] = React.useState(0);
 
-  const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
-
   const changeIndex = (offset) => {
     const newIndex = index + offset;
     if (newIndex >= 0 && newIndex < frames.length) {
       setIndex(newIndex);
     }
   }
+
+  const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
   return (
     <div className={styles.App}>
