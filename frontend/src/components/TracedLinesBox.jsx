@@ -21,7 +21,10 @@ export default function TracedLinesBox({
       <div className={styles.tracedLines} style={lineHeightStyle}>
         <Lines code={code} lines={lines} curr={curr} />
       </div>
-      <Path path={path} lineHeight={lineHeight} graphWidth={graphWidth} />
+      {
+        (path !== null) &&
+          <Path path={path} lineHeight={lineHeight} graphWidth={graphWidth} />
+      }
       {
         (counters.length !== 0) &&
           <Counters counters={counters} lineHeight={lineHeight} counterColours={counterColours} />
