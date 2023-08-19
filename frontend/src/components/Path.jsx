@@ -12,6 +12,9 @@ function genSVGPath(coords, lineHeight, graphWidth) {
     path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
     prev = coord;
   });
+
+  console.log(path);
+
   return path;
 }
 
