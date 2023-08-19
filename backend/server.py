@@ -16,11 +16,8 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    print(raw_code)
     wrap_program(raw_code)
     dataframes = main()
-    for d in dataframes:
-        print(json.dumps(d.to_dict()))
     return json.dumps([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
