@@ -2,7 +2,32 @@ import { SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
 
-export default function UploadBox({traceCode, setTraceCode, setFrames, resetIndex, showTraceBox}) {
+function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
+  fetch(`${SERVER}/analyse`, {
+    method : "PUT",
+    headers: { "Content-Type" : "application/json" },
+    body   : JSON.stringify(traceCode),
+  })
+    .then(res => res.json())
+    .then(frames => {
+      setFrames(frames);
+      resetIndex();
+      showTraceBox();
+    })
+    .catch(err => {
+      alert(`An issue occurred with parsing: ${err}`);
+    });
+}
+
+function resetState(setTraceCode, resetIndex, setFrames) {
+  setTraceCode("");
+  resetIndex();
+  setFrames([]);
+}
+
+export default function UploadBox({
+  traceCode, setTraceCode, setFrames, resetIndex, showTraceBox
+}) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
@@ -18,31 +43,14 @@ export default function UploadBox({traceCode, setTraceCode, setFrames, resetInde
       <div className={styles.buttons}>
         <button
           type="submit" className={styles.clicker}
-          onClick={
-            () => {
-              fetch(`${SERVER}/analyse`, {
-                method : "PUT",
-                headers: { "Content-Type" : "application/json" },
-                body   : JSON.stringify(traceCode),
-              })
-                .then(res => res.json())
-                .then(frames => {
-                  setFrames(frames);
-                  resetIndex();
-                  showTraceBox();
-                })
-                .catch(err => {
-                  alert(`An issue occurred with parsing: ${err}`);
-                });
-            }
-          }>
+          onClick={() => generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox)}
+        >
           Submit
         </button>
-        <button type="reset" className={styles.clicker} onClick={() => {
-          setTraceCode("");
-          resetIndex();
-          setFrames([]);
-        }}>
+        <button
+          type="reset" className={styles.clicker}
+          onClick={() => resetState(setTraceCode, resetIndex, setFrames)}
+        >
           Reset
         </button>
       </div>
