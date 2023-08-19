@@ -24,7 +24,7 @@ def analyse():
     return json.dumps([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
-    code     : list[str] = ["def program():"]
+    code : list[str] = ["def program():"]
     code.extend(
         "{}{}".format(" " * LEADING_SPACES, raw)
             for raw in raw_code.split("\n")
