@@ -17,13 +17,13 @@ export default function TraceBox({
           onClick={() => changeIndex(-1)} disabled={disablePrev}
           className={disablePrev ? styles.disabled : ""}
         >
-          prev
+          ◀
         </button>
         <button
           onClick={() => changeIndex(1)} disabled={disableNext}
           className={disableNext ? styles.disabled : ""}
         >
-          next
+          ▶
         </button>
       </div>
       {
