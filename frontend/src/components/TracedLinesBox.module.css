@@ -9,10 +9,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 15% 85%;
-    grid-template-rows: repeat(auto-fill, 25px);
-    line-height: 25px;
     font-family: monospace; 
-    font-size: 20px;
 }
 
 .tracedLinesBox svg {

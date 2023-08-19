@@ -11,8 +11,9 @@ export default function TracedLinesBox({
 }) {
   // this must be inline to import config value
   const lineHeightStyle = {
-    lineHeight : addPixels(lineHeight),
-    fontSize   : addPixels(lineHeight * fontScaling)
+    gridTemplateRows : `repeat(auto-fill, ${addPixels(lineHeight)})`,
+    lineHeight       : addPixels(lineHeight),
+    fontSize         : addPixels(lineHeight * fontScaling)
   };
 
   return (
