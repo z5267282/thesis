@@ -24,7 +24,7 @@ export default function App() {
       setIndex(newIndex);
     }
   }
-  const resetIndex = () => { setIndex(0) };
+  const resetIndex = () => setIndex(0);
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
