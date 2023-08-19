@@ -14,7 +14,6 @@ function colourLine(index, curr) {
 
 export default function Lines({code, lines, curr}) {
   return code.map(
-
     (line, i) => {
       const colour = colourLine(i, curr);
       return (
