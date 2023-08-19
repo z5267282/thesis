@@ -9,9 +9,8 @@ export default function CodeBox({
     code, lines, path, counters, curr, counterColours,
     lineHeight, fontScaling, graphWidth,
     changeIndex, disablePrev, disableNext,
-    setFrames, resetIndex
+    setFrames, resetIndex,  showTrace, setShowTrace
 }) {
-  const [showTrace, setShowTrace] = React.useState(true);
   const [traceCode, setTraceCode] = React.useState("");
 
   return (
