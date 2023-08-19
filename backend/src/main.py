@@ -46,7 +46,7 @@ def generate_data_frame(
         )
 
     return DataFrame(
-        code, adjust_lines(lines), len(line_graph) - 1,
+        code, adjust_lines(lines), 0 if not path else path[-1],
         variables, curr.output, path, curr.counters, evalbox
     )
 
