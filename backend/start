@@ -1,4 +1,11 @@
 #!/bin/zsh
 
+# usage: start [ [-d]ebug ]
+
+# in debug mode the server restarts itself when local changes are made
+
 . .venv/bin/activate
-flask --app server run
+
+debug=''
+[ "$1" = '-d '] && debug='--debug'
+flask --app server run"$debug"

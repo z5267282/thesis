@@ -38,6 +38,8 @@ def generate_data_frame(
     code, lines, path = collapse(line_graph, program_code, root)
     curr : Line = line_graph[-1]
     variables : dict[str, str] = curr.vars.curr
+    print(variables)
+
     evalbox : list[str] = []
     curr_line : int = curr.line_no
     if line_mapping[curr_line].is_conditional():
