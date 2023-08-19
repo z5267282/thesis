@@ -8,7 +8,6 @@ import sys
 sys.path.append("src")
 
 from cfg import LEADING_SPACES
-from main import main
 
 app = Flask(__name__)
 CORS(app)
@@ -17,7 +16,11 @@ CORS(app)
 def analyse():
     raw_code : str = request.get_json()
     wrap_program(raw_code)
+    # we must alter the program source code, then import it
+    from main import main
     dataframes = main()
+    for d in dataframes:
+        print(d.to_dict())
     return json.dumps([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
