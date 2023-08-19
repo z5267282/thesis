@@ -21,7 +21,7 @@ export default function Lines({code, lines, curr}) {
         <span className={colourLine(i, code)}>
           {`${lines[i]}${lines[i] === "" ? "" : "."}`}
         </span>
-        <span className={`${styles.preserveSpace} ${colourLine(i, curr)}`}>{`'${line}'`}</span>
+        <span className={`${styles.preserveSpace} ${colourLine(i, curr)}`}>{line}</span>
       </Fragment>
     )
   );
