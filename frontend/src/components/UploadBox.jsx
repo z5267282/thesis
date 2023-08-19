@@ -2,7 +2,7 @@ import { SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
 
-export default function UploadBox({traceCode, setTraceCode, setFrames}) {
+export default function UploadBox({traceCode, setTraceCode, setFrames, resetIndex}) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
@@ -26,7 +26,10 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
                 body   : JSON.stringify(traceCode),
               })
                 .then(res => res.json())
-                .then(frames => setFrames(frames))
+                .then(frames => {
+                  setFrames(frames);
+                  resetIndex();
+                })
                 .catch(err => {
                   alert(`An issue occurred with parsing: ${err}`);
                 });
@@ -36,6 +39,7 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
         </button>
         <button type="reset" className={styles.clicker} onClick={() => {
           setTraceCode("");
+          resetIndex();
           setFrames([]);
         }}>
           Reset

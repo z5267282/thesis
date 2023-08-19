@@ -23,8 +23,11 @@ export default function App() {
       setIndex(newIndex);
     }
   }
+  const resetIndex = () => { setIndex(0) };
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
+
+  console.log(dataFrame);
 
   return (
     <div className={styles.App}>
@@ -33,7 +36,7 @@ export default function App() {
         counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
         lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
         changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
-        setFrames={setFrames}
+        setFrames={setFrames} resetIndex={resetIndex}
       />
       <div className={styles.outputs}>
         <VariableBox variables={dataFrame.vars} />
