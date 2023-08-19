@@ -5,6 +5,10 @@ import styles from "./Path.module.css";
  * @returns list of string of the path commands that can be joined with .join()
  */
 function genSVGPath(coords, lineHeight, graphWidth) {
+  console.log(coords);
+  console.log(Object.keys(coords));
+  console.log(coords.rest);
+
   const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
   let prev = coords.start;
   coords.rest.forEach((coord) => {

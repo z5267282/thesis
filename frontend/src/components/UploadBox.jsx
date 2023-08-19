@@ -17,7 +17,7 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
       </div>
       <div className={styles.buttons}>
         <button
-          type="button" className={styles.clicker}
+          type="submit" className={styles.clicker}
           onClick={
             () => {
               fetch(`${SERVER}/analyse`, {

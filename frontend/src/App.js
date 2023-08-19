@@ -22,6 +22,8 @@ export default function App() {
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
+  console.log(dataFrame);
+
   const changeIndex = (offset) => {
     const newIndex = index + offset;
     if (newIndex >= 0 && newIndex < frames.length) {

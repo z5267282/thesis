@@ -27,12 +27,14 @@ class DataFrame:
         path = {
             "start" : 0,
             "rest"  : self.path
-        },
+        }
 
         counters = [
             counter.to_dict() for counter in self.counters \
             if counter.has_valid_range()
         ]
+
+        print(path)
 
         return {
             "code"     : self.code,
