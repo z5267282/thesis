@@ -28,7 +28,8 @@ export default function CodeBox({
           />
         :
           <UploadBox
-            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames} resetIndex={resetIndex}
+            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
+            resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
           />
       }
     </div>

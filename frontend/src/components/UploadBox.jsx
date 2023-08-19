@@ -2,7 +2,7 @@ import { SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
 
-export default function UploadBox({traceCode, setTraceCode, setFrames, resetIndex}) {
+export default function UploadBox({traceCode, setTraceCode, setFrames, resetIndex, showTraceBox}) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
@@ -29,6 +29,7 @@ export default function UploadBox({traceCode, setTraceCode, setFrames, resetInde
                 .then(frames => {
                   setFrames(frames);
                   resetIndex();
+                  showTraceBox();
                 })
                 .catch(err => {
                   alert(`An issue occurred with parsing: ${err}`);
