@@ -11,8 +11,8 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
         <textarea
-          name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput} value={traceCode}
-          onInput={(event) => setTraceCode(event.target.value)} 
+          name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput}
+          value={traceCode} onInput={(event) => setTraceCode(event.target.value)} 
         />
       </div>
       <div className={styles.buttons}>
@@ -22,7 +22,8 @@ export default function UploadBox({traceCode, setTraceCode, setFrames}) {
             () => {
               fetch(`${SERVER}/analyse`, {
                 method : "PUT",
-                body   : JSON.stringify(traceCode)
+                headers: { "Content-Type" : "application/json" },
+                body   : JSON.stringify(traceCode),
               })
                 .then(res => res.json())
                 .then(frames => setFrames(frames))

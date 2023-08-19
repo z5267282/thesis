@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_cors import cross_origin
+from flask_cors import CORS
 
 import json
 import os
@@ -11,11 +11,12 @@ from cfg import LEADING_SPACES
 from main import main
 
 app = Flask(__name__)
+CORS(app)
 
 @app.put("/analyse")
-@cross_origin()
 def analyse():
     raw_code : str = request.get_json()
+    print(raw_code)
     wrap_program(raw_code)
     dataframes = main()
     return json.dumps([ d.to_dict() for d in dataframes ])
