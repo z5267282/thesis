@@ -65,3 +65,7 @@ def generate_evalbox(line : str, variables : dict[str, str]):
     raw_line : str = get_stripped_line(line)
     expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
     return evaluate(expression, variables)
+
+df = main()
+for k, v in df[0].to_dict().items():
+    print(k, v, type(k), type(v))
