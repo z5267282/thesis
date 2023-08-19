@@ -1,5 +1,4 @@
 def program():
-    i = 42
-    j = 69
-    print(f"{i} + {j} = {i + j}")
-    
+    i = 1
+    i += 1
+    print(i)
