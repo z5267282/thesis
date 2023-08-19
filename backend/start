@@ -6,6 +6,9 @@
 
 . .venv/bin/activate
 
-debug=''
-[ "$1" = '-d '] && debug='--debug'
-flask --app server run"$debug"
+if [ "$1" = '-d ']
+then
+    flask --app server run
+else
+    flask --app server run --debug
+fi
