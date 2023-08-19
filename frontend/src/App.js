@@ -27,8 +27,6 @@ export default function App() {
 
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
-  console.log(dataFrame);
-
   return (
     <div className={styles.App}>
       <CodeBox
