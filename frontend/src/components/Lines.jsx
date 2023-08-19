@@ -9,20 +9,22 @@ import styles from "./Lines.module.css";
  * @param {*} code 
  */
 function colourLine(index, curr) {
-  return (index === curr) ? styles.highlight : "";
+  return (curr !== null && index === curr) ? styles.highlight : "";
 }
 
 export default function Lines({code, lines, curr}) {
-  console.log(code);
-
   return code.map(
-    (line, i) => (
-      <Fragment key={`line-${i}`}>
-        <span className={colourLine(i, code)}>
-          {`${lines[i]}${lines[i] === "" ? "" : "."}`}
-        </span>
-        <span className={`${styles.preserveSpace} ${colourLine(i, curr)}`}>{line}</span>
-      </Fragment>
-    )
+
+    (line, i) => {
+      const colour = colourLine(i, curr);
+      return (
+        <Fragment key={`line-${i}`}>
+          <span className={`${styles.lineNumber} ${colour}`}>
+            {`${lines[i]}${lines[i] === "" ? "" : "."}`}
+          </span>
+          <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+        </Fragment>
+      );
+    }
   );
 } 

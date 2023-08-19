@@ -1,3 +1,7 @@
+.lineNumber {
+    padding-left: 65%;
+}
+
 .preserveSpace {
     white-space: pre;
 }
