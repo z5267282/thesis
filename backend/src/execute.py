@@ -39,16 +39,15 @@ def trace_line(
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
 
+    if diff:
+        output.append(diff)
+
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
     if lines:
         top : Line = lines[-1]
         top.vars.curr = variables
-        if diff:
-            top.output.append(diff)
-
-    if diff:
-        output.append(diff)
+        top.output.extend(output)
 
     if event == "line":
         lines.append(Line(frame.f_lineno, variables))
