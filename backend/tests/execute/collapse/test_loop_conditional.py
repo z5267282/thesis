@@ -49,10 +49,49 @@ def test_on_while_line():
     ]
 
     _, graph = line_graphs[:2]
-    code, lines, path = collapse(graph, program_code, root)
+    collapse(graph, program_code, root)
     _, curr = graph
     assert len(curr.counters) == 1
     counter, = curr.counters
     assert counter.start is None
     assert counter.end is None
     assert not counter.has_valid_range()
+
+def test_inside_while():
+    root : BodyBlock = parse(program)
+    line_mapping : dict[int, Type[Block]] = root.map_lines()
+    all_lines : list[Line] = trace_program(program)
+    filtered : list[Line] = smart_trace(line_mapping, all_lines)
+    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
+    program_code : OrderedDict[int, str] = get_code_info(program)
+
+    assert line_graphs[:3] == [
+        [Line(3, {})],
+        [Line(3, {}), Line(4, {})],
+        [Line(3, {}), Line(4, {}), Line(12, {})]
+    ]
+
+    _, _, graph = line_graphs[:3]
+    _, lines, _ = collapse(graph, program_code, root)
+
+    assert lines == [
+        2,
+        3,
+        4,
+        5,
+        None,
+        8,
+        None,
+        12,
+        13,
+        None,
+        17,
+        18,
+        19
+    ]
+
+    _, _, curr = graph
+    assert len(curr.counters) == 1
+    counter, = curr.counters
+    assert counter.start == 2
+    assert counter.end == 11
