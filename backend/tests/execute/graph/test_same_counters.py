@@ -61,4 +61,9 @@ def test_same_counters():
 
     assert counter1 is not counter2
 
-    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
+    print(repr(counter1))
+    print(repr(counter2))
+
+    assert False
+
+    # line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
