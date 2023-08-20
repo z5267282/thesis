@@ -27,7 +27,7 @@ class DataFrame:
     def to_dict(self):
         path = {
             "start" : 0,
-            "rest"  : self.path
+            "rest"  : self.generate_rest()
         }
 
         counters = [
@@ -45,3 +45,13 @@ class DataFrame:
             "counters" : counters,
             "evalbox"  : self.evalbox
         }
+    
+    def generate_rest(self):
+        """Generate the remaining path ensuring that it does not start with 0"""
+        if not self.path:
+            return self.path
+        
+        if self.path[0] == 0:
+            return self.path[1:]
+        
+        return self.path
