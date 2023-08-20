@@ -12,3 +12,7 @@ def test_line_output():
     assert lines == [
         Line(2, {}), Line(3, {}), Line(4, {}), Line(5, {})
     ]
+
+    assert len(lines[0].output) == 0
+
+    assert lines[1].output == ["hello: 0"]
