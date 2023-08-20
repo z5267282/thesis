@@ -17,3 +17,5 @@ def program():
         i += 1
     
     print(f"2s: {twos}, 5s: {fives}")
+
+from generate import generate_dataframes()

@@ -25,14 +25,14 @@ def generate_dataframes(program : Callable):
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
     return \
-        [ generate_first_data_frame(program_code, root) ] \
+        [ generate_first_dataframe(program_code, root) ] \
         + [
-            generate_data_frame(
+            generate_dataframe(
                 line_graph, program_code, root, line_mapping
             ) for line_graph in line_graphs
         ]
 
-def generate_first_data_frame(
+def generate_first_dataframe(
     program_code : OrderedDict[int, str], root : BodyBlock,
 ):
     code, lines, path = collapse([], program_code, root)
@@ -41,7 +41,7 @@ def generate_first_data_frame(
         {}, [], path, [], [] 
     )
 
-def generate_data_frame(
+def generate_dataframe(
     line_graph : list[Line], program_code : OrderedDict[int, str],
     root : BodyBlock, line_mapping : dict[int, Type[Block]]
 ):
