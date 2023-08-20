@@ -9,8 +9,8 @@ class DataFrame:
         variables : dict[str, str], out : list[str],
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
-        self.code  : list[str] = code
-        self.lines : list[str] = lines
+        self.code  : list[str] = deepcopy(code)
+        self.lines : list[str] = deepcopy(lines)
         self.curr  : int = curr
 
         self.vars  : list[str] = [
@@ -20,9 +20,9 @@ class DataFrame:
         self.out : list[str] = deepcopy(out)
         self.out.reverse()
 
-        self.path     : list[int] = path
-        self.counters : list[Counter] = counters
-        self.evalbox  : list[str] = evalbox
+        self.path     : list[int] = deepcopy(path)
+        self.counters : list[Counter] = deepcopy(counters)
+        self.evalbox  : list[str] = deepcopy(evalbox)
     
     def to_dict(self):
         path = {

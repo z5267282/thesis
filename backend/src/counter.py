@@ -36,6 +36,8 @@ class Counter:
         
         # while loop might have already been collapsed
         if not filtered[keys[index + 1]]:
+            # if db:
+            #     print(f"{self!r}, {self.start}, {self.end}")
             return
 
         self.start = index
