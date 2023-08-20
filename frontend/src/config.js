@@ -10,6 +10,7 @@ export const ARROW_WIDTH = 30;
 export const ARROW_HEIGHT = 100;
 export const ARROW_HEAD_LENGTH = 10;
 
-export const COUNTER_COLOURS = ["lime", "aqua"];
+// export const COUNTER_COLOURS = ["lime", "aqua"];
+export const COUNTER_COLOURS = ["blue", "green"];
 
 export const SERVER = "http://127.0.0.1:5000";
