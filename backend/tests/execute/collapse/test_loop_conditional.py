@@ -23,17 +23,12 @@ from typing import Type
 
 from analyse import smart_trace
 from collapse import collapse
-from counter import Counter
-from dataframe import DataFrame
 from graph import generate_graphs
-from helper import get_code_info, get_stripped_line
+from helper import get_code_info
 from line import Line
-from evaluate import evaluate
 from execute import trace_program
 from tree import Block, BodyBlock
 from tree_parser import parse
-
-from generate import generate_dataframes
 
 def test_on_while_line():
     root : BodyBlock = parse(program)
