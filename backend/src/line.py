@@ -16,8 +16,8 @@ class Line:
     def __str__(self):
         return str(self.line_no)
     
-    # def __repr__(self):
-    #     return f"Line({self.line_no})"
+    def __repr__(self):
+        return f"Line({self.line_no})"
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no
