@@ -1,6 +1,7 @@
 import React from "react";
 
 import CodeBox from "./components/CodeBox";
+import EvalBox from "./components/EvalBox";
 import OutputBox from "./components/OutputBox";
 import VariableBox from "./components/VariableBox";
 
@@ -40,6 +41,10 @@ export default function App() {
       {
         (showTrace) && 
           <div className={styles.outputs}>
+            {
+              (dataFrame.evalbox.length > 0) &&
+                <EvalBox evallines={dataFrame.evalbox} />
+            }
             <VariableBox variables={dataFrame.vars} />
             <OutputBox width={ARROW_WIDTH} height={ARROW_HEIGHT} headLength={ARROW_HEAD_LENGTH} outputs={dataFrame.out} />
           </div>

@@ -1,0 +1,9 @@
+.evalBox {
+    width: 80%;
+    border: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
