@@ -61,9 +61,57 @@ def test_same_counters():
 
     assert counter1 is not counter2
 
-    print(repr(counter1))
-    print(repr(counter2))
+    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
+
+    assert line_graphs == [
+        [Line(3, {})],
+        [Line(3, {}), Line(4, {})],
+        [Line(3, {}), Line(4, {}), Line(12, {})],
+        [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {})],
+        [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {}), Line(15, {})],
+        [Line(3, {}), Line(4, {}), Line(12, {}), Line(17, {})],
+        [Line(3, {}), Line(4, {})],
+        [Line(3, {}), Line(4, {}), Line(5, {})],
+        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {})],
+        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {})],
+        [
+            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
+            Line(13, {})
+        ],
+        [
+            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
+            Line(13, {}), Line(15, {})
+        ],
+        [
+            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
+            Line(17, {})
+        ],
+        [Line(3, {}), Line(4, {})],
+        [Line(3, {}), Line(4, {}), Line(8, {})],
+        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {})],
+        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {})],
+        [
+            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
+            Line(13, {})
+        ],
+        [
+            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
+            Line(13, {}), Line(15, {})
+        ],
+        [
+            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
+            Line(17, {})
+        ],
+        [Line(3, {}), Line(19, {})]
+    ]
+
+    for l in line_graphs:
+        print(
+            "["
+            + ", ".join(
+                f"Line({li.line_no}, {{}})" for li in l
+            )
+            + "],"
+        )
 
     assert False
-
-    # line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
