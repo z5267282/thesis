@@ -34,7 +34,7 @@ class Line:
         ) if self.counters else ""
 
         dict_to_str = lambda dic: ", ".join(
-            f"{key} : {dic[key]}" for key in dic
+            f"{key} : {value}" for key, value in dic.items()
         )
 
         return f"""line {self.line_no}:
