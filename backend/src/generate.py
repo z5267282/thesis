@@ -5,7 +5,6 @@ from typing import Callable, Type
 from analyse import smart_trace
 from cfg import OFFSET
 from collapse import collapse
-from counter import Counter
 from dataframe import DataFrame
 from graph import generate_graphs
 from helper import get_code_info, get_stripped_line
