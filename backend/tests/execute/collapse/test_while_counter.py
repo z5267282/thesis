@@ -32,8 +32,9 @@ def test_while_counter():
     assert line.counters == [Counter(1, 3, line_mapping[12])]
     counter, = line.counters
     assert lines == [11, 12, None]
-    assert counter.start is None
-    assert counter.end is None
+    assert counter.start == 1
+    assert counter.end == 2
+    assert counter.has_valid_range()
 
     _, lines, _ = collapse(graphs[2], program_code, root)
     _, _, line = graphs[2]
