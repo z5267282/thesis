@@ -47,4 +47,4 @@ class Line:
     
     def range_filter_counters(self, filtered : OrderedDict[int, bool]):
         for counter in self.counters:
-            counter.find_filtered_range(filtered)
+            counter.find_filtered_range(filtered, self.line_no)

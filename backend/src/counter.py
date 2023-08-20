@@ -19,9 +19,10 @@ class Counter:
 
     def __ne__(self, other : "Counter"):
         return not self == other
-    
-    def find_filtered_range(self, filtered : OrderedDict[int, bool]):
-        print(f"{self} | {filtered}")
+
+    def find_filtered_range(
+        self, filtered : OrderedDict[int, bool], curr_line : int
+    ):
         keys = list(filtered)
         try:
             index = keys.index(self.while_.start)
@@ -35,11 +36,11 @@ class Counter:
         if index == len(keys) - 1:
             return
         
-        # we should still display statistics for a while if we're up to it
-        if index == len(keys) - 2:
+        # we are current executing the while the counter is tracking
+        # display statistics info
+        if self.while_.start == curr_line:
             self.start = index
-            self.end = index
-            return
+            self.end = index + 1
         
         # while loop might have already been collapsed
         if not filtered[keys[index + 1]]:

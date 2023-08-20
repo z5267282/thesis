@@ -44,13 +44,15 @@ def test_on_while_line():
     ]
 
     _, graph = line_graphs[:2]
-    collapse(graph, program_code, root)
+    _, lines, _ = collapse(graph, program_code, root)
     _, curr = graph
     assert len(curr.counters) == 1
     counter, = curr.counters
-    assert counter.start is None
-    assert counter.end is None
-    assert not counter.has_valid_range()
+
+    assert lines == [2, 3, 4, None, 19]
+    assert counter.start == 2
+    assert counter.end == 3
+    assert counter.has_valid_range()
 
 def test_inside_while():
     root : BodyBlock = parse(program)
