@@ -23,7 +23,7 @@ def collapse(
     filtered : OrderedDict[int, bool] = uniq(show)
 
     for line in line_graph:
-        line.range_filter_counters(filtered, graph==[3,4])
+        line.range_filter_counters(filtered)
 
     # index in filtered which corresponds to shown line i
     indexed_lines : dict[int, int] = {

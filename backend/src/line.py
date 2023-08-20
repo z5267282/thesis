@@ -45,6 +45,6 @@ class Line:
         """Add a counter of an increased depth"""
         self.counters.append(Counter(iteration, total, while_))
     
-    def range_filter_counters(self, filtered : OrderedDict[int, bool], db=False):
+    def range_filter_counters(self, filtered : OrderedDict[int, bool]):
         for counter in self.counters:
-            counter.find_filtered_range(filtered, db)
+            counter.find_filtered_range(filtered)
