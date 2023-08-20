@@ -14,5 +14,6 @@ def test_line_output():
     ]
 
     assert len(lines[0].output) == 0
-
-    assert lines[1].output == ["hello: 0"]
+    assert lines[1].output == ["hello: 0\n"]
+    assert lines[2].output == ["hello: 0\n"]
+    assert lines[3].output == ["hello: 0\n", "0 + 1 = 1\n"]
