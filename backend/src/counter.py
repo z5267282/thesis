@@ -20,7 +20,10 @@ class Counter:
     def __ne__(self, other : "Counter"):
         return not self == other
     
-    def find_filtered_range(self, filtered : OrderedDict[int, bool]):
+    def find_filtered_range(self, filtered : OrderedDict[int, bool], db):
+        if db:
+            print(f"{self!r} : {filtered}")
+
         keys = list(filtered)
         try:
             index = keys.index(self.while_.start)

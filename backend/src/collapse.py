@@ -21,11 +21,9 @@ def collapse(
 
     root.show_lines(graph, show)
     filtered : OrderedDict[int, bool] = uniq(show)
-    if graph == [3, 4]:
-        print(filtered)
 
     for line in line_graph:
-        line.range_filter_counters(filtered)
+        line.range_filter_counters(filtered, graph==[3,4])
 
     # index in filtered which corresponds to shown line i
     indexed_lines : dict[int, int] = {

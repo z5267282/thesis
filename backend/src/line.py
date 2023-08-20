@@ -16,8 +16,8 @@ class Line:
     def __str__(self):
         return str(self.line_no)
     
-    def __repr__(self):
-        return f"Line({self.line_no})"
+    # def __repr__(self):
+    #     return f"Line({self.line_no})"
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no
@@ -48,6 +48,6 @@ class Line:
         """Add a counter of an increased depth"""
         self.counters.append(Counter(iteration, total, while_))
     
-    def range_filter_counters(self, filtered : OrderedDict[int, bool]):
+    def range_filter_counters(self, filtered : OrderedDict[int, bool], db=False):
         for counter in self.counters:
-            counter.find_filtered_range(filtered)
+            counter.find_filtered_range(filtered, db)
