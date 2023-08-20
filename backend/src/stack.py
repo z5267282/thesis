@@ -3,7 +3,7 @@ from typing import Generic, Type, TypeVar
 T = TypeVar("T")
 
 class Stack(Generic[T]):
-    """A simple wrapper around deque"""
+    """A LIFO data structure"""
 
     def __init__(self):
         self.items : list[Type[T]] = []
