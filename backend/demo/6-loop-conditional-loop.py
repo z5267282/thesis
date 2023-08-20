@@ -12,6 +12,7 @@ while i < 6:
     while j < i:
         print("X", end="")
         j += 1
+    print("")
     
     i += 1
     
