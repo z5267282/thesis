@@ -32,5 +32,33 @@ def test_same_counters():
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     all_lines : list[Line] = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
-    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
 
+    assert filtered == [
+        Line(3, {}),
+
+        # index 1
+        Line(4, {}), Line(12, {}), Line(13, {}), Line(15, {}), Line(17, {}),
+
+        # index 6
+        Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}), Line(13, {}),
+        Line(15, {}), Line(17, {}),
+
+        Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}), Line(13, {}),
+        Line(15, {}), Line(17, {}),
+
+        Line(19, {})
+    ]
+
+    iter1, iter2 = filtered[1], filtered[6]
+    assert iter1 == iter2
+    assert iter1 is not iter2
+
+    assert len(iter1.counters) == 1
+    assert len(iter2.counters) == 1
+
+    counter1, = iter1.counters
+    counter2, = iter2.counters
+
+    assert counter1 is not counter2
+
+    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
