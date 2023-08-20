@@ -33,8 +33,11 @@ def generate_ith_graph(
     while whiles:
         top : While = whiles.peek()
         curr : WhileBlock = top.node
+        # we have found the next iteration of the most indented while
+        # update this on the stack
         if line.line_no == curr.start:
-            top.lines.clear()
+            whiles.pop()
+            whiles.push(While(node, line))
             return result()
 
         if line.line_no <= curr.end:

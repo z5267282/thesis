@@ -121,6 +121,7 @@ def test_same_counters():
 
     # the line graphs should correspond to the same lines above
     assert start1 is iter1
+    assert start2 is iter2
 
     assert start1 is not start2
 
