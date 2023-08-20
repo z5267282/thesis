@@ -37,6 +37,6 @@ def test_counters():
 
     assert len(while_.counters) == 1
     counter, = while_.counters
-    print(counter.start, counter.end)
-    print(repr(counter))
-    assert not counter.has_valid_range()
+    assert counter.has_valid_range()
+    assert counter.start == 2
+    assert counter.end == 3
