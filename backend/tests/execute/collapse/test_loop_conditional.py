@@ -18,4 +18,4 @@ def program():
     
     print(f"2s: {twos}, 5s: {fives}")
 
-from generate import generate_dataframes()
+from generate import generate_dataframes
