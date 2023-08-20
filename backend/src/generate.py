@@ -23,6 +23,10 @@ def generate_dataframes(program : Callable):
     all_lines : list[Line] = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
+
+    for l in line_graphs:
+        print(", ".join(str(li.line_no) for li in l))
+
     program_code : OrderedDict[int, str] = get_code_info(program)
     return \
         [ generate_first_dataframe(program_code, root) ] \

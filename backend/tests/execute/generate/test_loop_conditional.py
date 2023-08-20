@@ -25,7 +25,12 @@ def test_counters():
     assert len(dataframes) >= 3
     start, top_level, while_ = dataframes[:3]
     assert len(start.counters) == 0
+
     assert len(top_level.counters) == 0
+
+    assert while_.lines == ["1", "2", "3", "", "18"]
+    assert while_.path == [0, 1, 2]
+
     assert len(while_.counters) == 1
     counter, = while_.counters
     assert not counter.has_valid_range()
