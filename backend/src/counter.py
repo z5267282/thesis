@@ -28,7 +28,16 @@ class Counter:
             return
 
         # if the while is last in filtered graph, it is being evaluated
+        # should be impossible for a while to be the last filtered line
+        # a while can only ever be the second last item in the filtered list
+        # where its body should be last
         if index == len(keys) - 1:
+            return
+        
+        # we should still display statistics for a while if we're up to it
+        if index == len(keys) - 2:
+            self.start = index
+            self.end = index
             return
         
         # while loop might have already been collapsed
@@ -51,7 +60,8 @@ class Counter:
         # this will be considered invalid later
 
     def has_valid_range(self):
-        if self.start is None or self.end is None or self.start == self.end:
+        if self.start is None or self.end is None:
+        # if self.start is None or self.end is None or self.start == self.end:
             return False
         return True
     
