@@ -1,9 +1,15 @@
 .evalBox {
-    width: 80%;
+    width: 60%;
+    height: 5vh;
     border: solid;
     border-color: black;
+    border-width: 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.fontSize {
+    font-size: 12pt;
 }
