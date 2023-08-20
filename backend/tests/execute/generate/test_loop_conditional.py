@@ -20,5 +20,12 @@ def program():
 
 from generate import generate_dataframes
 
-def test_loop_conditional():
+def test_counters():
     dataframes = generate_dataframes(program)
+    assert len(dataframes) >= 3
+    start, top_level, while_ = dataframes[:3]
+    assert len(start.counters) == 0
+    assert len(top_level.counters) == 0
+    assert len(while_.counters) == 1
+    counter, = while_.counters
+    assert not counter.has_valid_range()
