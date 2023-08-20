@@ -65,11 +65,13 @@ def test_same_counters():
 
     assert line_graphs == [
         [Line(3, {})],
+        # index 1
         [Line(3, {}), Line(4, {})],
         [Line(3, {}), Line(4, {}), Line(12, {})],
         [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {})],
         [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {}), Line(15, {})],
         [Line(3, {}), Line(4, {}), Line(12, {}), Line(17, {})],
+        # index 6
         [Line(3, {}), Line(4, {})],
         [Line(3, {}), Line(4, {}), Line(5, {})],
         [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {})],
@@ -105,13 +107,22 @@ def test_same_counters():
         [Line(3, {}), Line(19, {})]
     ]
 
-    for l in line_graphs:
-        print(
-            "["
-            + ", ".join(
-                f"Line({li.line_no}, {{}})" for li in l
-            )
-            + "],"
-        )
+    graph1, graph2 = line_graphs[1], line_graphs[6]
+    _, start1 = graph1
+    _, start2 = graph2
 
-    assert False
+    assert start1.line_no == 4
+    assert start2.line_no == 4
+
+    print(repr(iter1))
+    print(repr(iter2))
+    print(repr(start1))
+    print(repr(start2))
+
+    # the line graphs should correspond to the same lines above
+    assert start1 is iter1
+
+    assert start1 is not start2
+
+    assert len(start1.counters) == 1
+    assert len(start2.counters) == 1
