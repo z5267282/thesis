@@ -33,6 +33,8 @@ class Block():
             show[i] = True
     
     def is_conditional(self):
+        """Verify whether the current node is a conditional block.
+        Conditional blocks have an expression associated with them"""
         return False
 
     def pretty_print(self): # pragma: no cover
@@ -100,8 +102,9 @@ class ElifBlock(ConditionalBlock):
     pass
 
 class ElseBlock(ConditionalBlock):
-    """Made a class to differentiate from BodyBlock"""
-    pass
+    def is_conditional(self):
+        """An else block does not have an expression attached to it"""
+        return False
 
 class IfBlock(ConditionalBlock):
     """The if block must lay out on the same nesting level:
