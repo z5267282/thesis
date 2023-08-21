@@ -34,7 +34,7 @@ export default function OutputBox({width, height, headLength, outputs}) {
           />
         </svg>
         <textarea
-          id="output-box" className={styles.uploadBox}
+          id="output-box" className={`${styles.uploadBox} ${styles.fontSize}`}
           value={outputs.join("")} spellCheck={false} readOnly
         />
       </div>
