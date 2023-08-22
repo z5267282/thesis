@@ -8,12 +8,13 @@ while i < 6:
         print("five")
         fives += 1
     
+    total = 0
     j = 0
-    while j < i:
-        print("X", end="")
+    while j <= i:
+        total += j
         j += 1
-    print("")
-    
+
+    print(f"sum 0..{i} = {total}")
     i += 1
     
 print(f"2s: {twos}, 5s: {fives}")
