@@ -1,13 +1,13 @@
 i = 0
 while i < 4:
-    if i % 2 == 0:
+    if i == 0:
         row = ""
         j = i
         while j >= 0:
             row = f"{row} {j}"
             j -= 1
         print(row)
-    else:
+    elif i == 1:
         row = ""
         j = 0
         while j <= i:
