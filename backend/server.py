@@ -1,13 +1,13 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-import json
 import os
 import sys
 
 sys.path.append("src")
 
 from cfg import LEADING_SPACES
+from main import main
 
 app = Flask(__name__)
 CORS(app)
@@ -16,10 +16,8 @@ CORS(app)
 def analyse():
     raw_code : str = request.get_json()
     wrap_program(raw_code)
-    # we must alter the program source code, then import it
-    from main import main
     dataframes = main()
-    return json.dumps([ d.to_dict() for d in dataframes ])
+    return jsonify([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]

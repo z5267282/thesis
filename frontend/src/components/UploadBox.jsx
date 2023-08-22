@@ -4,9 +4,10 @@ import styles from "./UploadBox.module.css";
 
 function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
   fetch(`${SERVER}/analyse`, {
-    method : "PUT",
-    headers: { "Content-Type" : "application/json" },
-    body   : JSON.stringify(traceCode),
+    method  : "PUT",
+    headers : { "Content-Type" : "application/json" },
+    mode    : "cors",
+    body    : JSON.stringify(traceCode),
   })
     .then(res => res.json())
     .then(frames => {
