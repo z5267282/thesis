@@ -7,7 +7,7 @@ while i < 4:
             row = f"{row} {j}"
             j -= 1
         print(row)
-    elif i == 1:
+    elif i == 2:
         row = ""
         j = 0
         while j <= i:
