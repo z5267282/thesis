@@ -4,5 +4,4 @@ if i % 7 == 0:
     print(":D")
 else:
     print("meh")
-
 print("that's all folks")

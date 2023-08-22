@@ -19,6 +19,10 @@ def analyse():
     # we must alter the program source code, then import it
     from main import main
     dataframes = main()
+
+    with open("/tmp/a.json", "w") as f:
+        json.dump([ d.to_dict() for d in dataframes ], f, indent=2)
+
     return json.dumps([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
