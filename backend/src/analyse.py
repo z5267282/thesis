@@ -17,9 +17,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         if isinstance(block, CodeBlock):
             filtered.append(trace_code_block(region))
         elif isinstance(block, IfBlock):
-            print(f"region: {Line.display_lines(region)}")
             won, rest = trace_if(region, block)
-            print(f"won: {won}, rest: {Line.display_lines(rest)}")
             if won is not None:
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
