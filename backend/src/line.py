@@ -22,6 +22,10 @@ class Line:
     def __ne__(self, other : "Line"):
         return not self == other
     
+    @staticmethod
+    def display_lines(lines : list["Line"]):
+        return ", ".join(str(line) for line in lines)
+    
     def long_str(self):
         delim = ",\n{}".format(" " * 8)
         counters : str = """
