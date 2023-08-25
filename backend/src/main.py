@@ -8,3 +8,5 @@ def main():
     execution states."""
     importlib.reload(program)
     return generate_dataframes(program.program)
+
+main()

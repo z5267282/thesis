@@ -10,4 +10,4 @@ from line import Line
 
 def test_if_else():
     lines = trace_program(program)
-    assert lines == [ Line(2, {}), Line(3, {}), Line(5, {}) ]
+    assert lines == [ Line(2, {}), Line(3, {}), Line(6, {}) ]
