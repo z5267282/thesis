@@ -17,7 +17,7 @@ def program():
 
     print(f"2s: {twos}, 5s: {fives}")
 
-def test_graph_simple():
+def test_if_elif():
     root = parse(program)
     program_code = get_code_info(program)
 

@@ -1,6 +1,6 @@
 from tree import BodyBlock, CodeBlock, IfBlock, WhileBlock
 
-def test_tested():
+def test_nested():
     """based off:
     i = 0
     while i < 13:

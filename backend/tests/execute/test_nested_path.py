@@ -21,7 +21,7 @@ def program():
         
         i += 1
 
-def test_while_if():
+def test_nested_path():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     lines : list[Line] =  trace_program(program)

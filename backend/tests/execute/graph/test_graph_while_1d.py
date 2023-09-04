@@ -18,7 +18,7 @@ def program():
 
     print(f"2s: {twos}, 7s: {sevens}")
 
-def test_graph_simple():
+def test_graph_while_1d():
     root = parse(program)
     lines = trace_program(program)
     line_mapping = root.map_lines()

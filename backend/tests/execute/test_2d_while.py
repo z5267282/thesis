@@ -18,7 +18,7 @@ def program():
         print("\n")
         i += 1
 
-def test_while_if():
+def test_2d_while():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     lines : list[Line] =  trace_program(program)

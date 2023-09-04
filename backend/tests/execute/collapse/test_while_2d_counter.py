@@ -16,7 +16,7 @@ def program():
             j += 1
         i += 1
 
-def test_nested_loop():
+def test_while_2d_counter():
     root = parse(program)
     line_mapping = root.map_lines()
     run_lines = trace_program(program)

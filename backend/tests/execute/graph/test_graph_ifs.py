@@ -13,7 +13,7 @@ def program():
         print("fancy!")
     print("end of day!")
 
-def test_graph_simple():
+def test_graph_ifs():
     root = parse(program)
     lines = trace_program(program)
     line_mapping = root.map_lines()

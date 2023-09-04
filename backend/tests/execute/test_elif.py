@@ -14,7 +14,7 @@ def program():
         print("woot a five")
         print(":)")
 
-def test_if():
+def test_elif():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     lines : list[Line] =  trace_program(program)

@@ -20,7 +20,7 @@ def program():
 
 from generate import generate_dataframes
 
-def test_counters():
+def test_loop_conditional():
     dataframes = generate_dataframes(program)
     assert len(dataframes) >= 3
     start, top_level, while_ = dataframes[:3]
