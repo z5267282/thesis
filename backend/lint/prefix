@@ -10,5 +10,6 @@ prefixes () {
 
 prefixes | while read prefix
 do
-    echo "the prefix is $prefix"
-done | prefixes
+    echo "prefix : $prefix"
+    find ../tests -name "${prefix}*py" | sed -E 's/^/    /'
+done
