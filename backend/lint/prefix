@@ -2,6 +2,13 @@
 
 # find all common prefix names in test cases
 
-find ../tests \
-    -name '*.py' ! -name '__init__.py' \
-    -exec basename {} \; | grep -E -o 'test_[a-z]+_' | sort | uniq
+prefixes () {
+    find ../tests \
+        -name '*.py' ! -name '__init__.py' \
+        -exec basename {} \; | grep -E -o 'test_[a-z]+_' | sort | uniq
+}
+
+prefixes | while read prefix
+do
+    echo "the prefix is $prefix"
+done | prefixes
