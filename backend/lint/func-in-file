@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+# check which tests do not have their test function named after
+# their filename
+
+check() {
+    dir="$1"
+    for f in "$dir/"*
+    do
+        if [ -d "$f" ]
+        then
+            "$0" "$f"
+        elif echo "$f" | grep -E -q '\.py$'
+        then
+            name="$(basename "$f")"
+            [ "$name" = '__init__.py' ] && continue
+            base="${name:0:(-3)}"
+            grep -F -q "$base" "$f" || echo "$f"
+        fi
+    done
+}
+
+check ../tests
