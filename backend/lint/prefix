@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+# find all common prefix names in test cases
+
+find ../tests \
+    -name '*.py' ! -name '__init__.py' \
+    -exec basename {} \; | grep -E -o 'test_[a-z]+_' | sort | uniq
