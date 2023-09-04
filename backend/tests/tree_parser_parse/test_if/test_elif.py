@@ -1,14 +1,14 @@
 from tree_parser import parse
 
-def test_if_else():
-    def if_else():
+def test_elif():
+    def if_elif():
         i = 0
         if i == 1:
             print("one")
-        else:
-            print("something else!")
+        elif i == 2:
+            print("two")
     
-    root = parse(if_else)
+    root = parse(if_elif)
     assert root.to_dict() == {
         "BodyBlock" : {
             "start" : 5,
@@ -32,21 +32,23 @@ def test_if_else():
                                 }
                             }
                         ],
-                        "elifs" : [],
-                        "else" : {
-                            "ElseBlock" : {
-                                "start" : 8,
-                                "end" : 9,
-                                "body" : [
-                                    {
-                                        "CodeBlock" : {
-                                            "start" : 9,
-                                            "end" : 9
+                        "elifs" : [
+                            {
+                                "ElifBlock" : {
+                                    "start" : 8,
+                                    "end" : 9,
+                                    "body" : [
+                                        {
+                                            "CodeBlock" : {
+                                                "start" : 9,
+                                                "end" : 9
+                                            }
                                         }
-                                    }
-                                ]
+                                    ]
+                                }
                             }
-                        }
+                        ],
+                        "else" : None
                     }
                 }
             ]

@@ -1,6 +1,6 @@
 from tree_parser import parse
 
-def test_if_elif_chain():
+def test_elif_chain():
     def if_elif_chain():
         i = 0
         if i == 1:

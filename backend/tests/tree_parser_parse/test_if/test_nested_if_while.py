@@ -1,6 +1,6 @@
 from tree_parser import parse
 
-def test_if_if_while():
+def test_nested_if_while():
     def if_if_while():
         i = 6
         if i % 2 == 0:
