@@ -1,6 +1,6 @@
 from tree_parser import parse
 
-def test_if():
+def test_simple():
     def if_block():
         i = 0
         if i % 2 == 0:
