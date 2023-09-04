@@ -4,12 +4,14 @@ from graph import generate_graphs
 from line import Line
 from tree_parser import parse
 
+
 def program():
     i = 1
     j = 1
     print(f"the sum is: {i + j}")
 
-def test_graph_simple():
+
+def test_simple():
     root = parse(program)
     lines = trace_program(program)
     line_mapping = root.map_lines()

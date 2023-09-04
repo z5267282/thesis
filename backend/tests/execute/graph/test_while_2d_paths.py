@@ -24,7 +24,7 @@ def program():
 
     print(f"2s: {twos}, 5s: {fives}")
 
-def test_graph_while_2d_paths():
+def test_while_2d_paths():
     root = parse(program)
     lines = trace_program(program)
     line_mapping = root.map_lines()
