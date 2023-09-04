@@ -4,7 +4,6 @@ from graph import generate_graphs
 from line import Line
 from tree_parser import parse
 
-
 def program():
     i = 1
     twos, sevens = 0, 0
@@ -18,7 +17,6 @@ def program():
         i += 1
 
     print(f"2s: {twos}, 7s: {sevens}")
-
 
 def test_while_1d():
     root = parse(program)
