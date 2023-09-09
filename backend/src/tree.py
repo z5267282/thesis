@@ -165,3 +165,15 @@ class IfBlock(ConditionalBlock):
             return self.else_
         
         return None
+    
+    def within_else(self, line_no : int):
+        """Determine whether a given line number is within an else block.
+        Return the start of the else block if within bounds, otherwise None."""
+        if self.else_ is None:
+            return None
+        
+        bounded : bool = (
+            line_no >= self.else_.start
+            and line_no <= self.else_.end
+        )
+        return self.else_.start if bounded else None

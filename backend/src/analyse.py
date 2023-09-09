@@ -62,6 +62,12 @@ def trace_if(lines: list[Line], root : IfBlock):
 
     for i, line in enumerate(lines):
         line_no : int = line.line_no
+        # we look at lines in order
+        # hence we find the first line the if was run on
+        else_ : None | int = root.within_else(line_no)
+        if else_ is not None:
+            return else_, lines[i:]
+
         branch : MaybeConditional = root.find_branch(line_no)
         if branch is not None:
             won = line
