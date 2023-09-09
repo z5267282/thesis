@@ -11,5 +11,5 @@ prefixes () {
 prefixes | while read prefix
 do
     echo "prefix : $prefix"
-    find ../tests -name "${prefix}*py" | sed -E 's/^/    /'
+    find ../tests -name "${prefix}*.py" | sed -E 's/^/    /'
 done
