@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from typing import Type
 
 from line import Line
@@ -33,6 +35,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
 
         i = offset
     
+    print(Line.display_lines(filtered))
     return filtered
 
 def find_region(lines : list[Line], end : int, start : int):
@@ -62,14 +65,15 @@ def trace_if(lines: list[Line], root : IfBlock):
 
     for i, line in enumerate(lines):
         line_no : int = line.line_no
-        # we look at lines in order
-        # hence we find the first line the if was run on
-        else_ : None | int = root.within_else(line_no)
-        if else_ is not None:
-            return else_, lines[i:]
-
         branch : MaybeConditional = root.find_branch(line_no)
         if branch is not None:
+            # elses do not have their lines executed;
+            # instead make a copy of the last seen branch
+            if isinstance(branch, ElseBlock):
+                else_line : Line = deepcopy(won)
+                else_line.line_no = branch.start
+                return else_line, lines[i:]
+
             won = line
             last_seen_branch = branch
         elif (

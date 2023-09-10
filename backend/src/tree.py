@@ -160,11 +160,8 @@ class IfBlock(ConditionalBlock):
         for e in self.elifs:
             if line_no == e.start:
                 return e
-        
-        if self.else_ is not None and line_no == self.else_.start:
-            return self.else_
-        
-        return None
+
+        return self.within_else(line_no)    
     
     def within_else(self, line_no : int):
         """Determine whether a given line number is within an else block.
@@ -176,4 +173,4 @@ class IfBlock(ConditionalBlock):
             line_no >= self.else_.start
             and line_no <= self.else_.end
         )
-        return self.else_.start if bounded else None
+        return self.else_ if bounded else None
