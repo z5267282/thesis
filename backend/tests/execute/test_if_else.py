@@ -15,6 +15,4 @@ def test_if_else():
     assert all_lines == [ Line(2, {}), Line(3, {}), Line(6, {}) ]
     root = parse(program)
     lines = smart_trace(root.map_lines(), all_lines)
-    for i, l in enumerate(lines):
-        print(f"{i} : {type(l)}")
     assert lines == [ Line(2, {}), Line(5, {}), Line(6, {}) ]
