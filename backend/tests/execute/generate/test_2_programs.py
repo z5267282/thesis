@@ -13,7 +13,6 @@ def program2():
     print(f"{i} + {j} = {i + j}")
 
 from generate import generate_dataframes
-from line import Line
 
 def test_2_programs():
     frames1 = generate_dataframes(program1)
