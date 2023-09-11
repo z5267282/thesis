@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import re
-from typing import Callable, Type
+from typing import Any, Callable, Type
 
 from analyse import smart_trace
 from cfg import OFFSET
@@ -46,7 +46,7 @@ def generate_dataframe(
 ):
     code, lines, path = collapse(line_graph, program_code, root)
     curr : Line = line_graph[-1]
-    variables : dict[str, str] = curr.vars.curr
+    variables : dict[str, Any] = curr.vars.curr
 
     evalbox : list[str] = []
     curr_line : int = curr.line_no
@@ -69,7 +69,7 @@ def adjust_lines(lines):
         for line in lines
     ]
 
-def generate_evalbox(line : str, variables : dict[str, str]):
+def generate_evalbox(line : str, variables : dict[str, Any]):
     """Given a line with a conditional expression, expand it from a mapping
     of variable values."""
     raw_line : str = get_stripped_line(line)

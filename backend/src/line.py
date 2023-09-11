@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Any
 
 from counter import Counter
 from state import State
@@ -6,10 +7,10 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, prev_vars : dict[str, str]):
+    def __init__(self, line_no : int, prev_vars : dict[str, Any]):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.vars      : State[dict[str, str]] = State(prev_vars)
+        self.vars      : State[dict[str, Any]] = State(prev_vars)
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
     
