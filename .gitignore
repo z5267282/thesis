@@ -6,3 +6,6 @@ backend/.coverage
 backend/htmlcov
 backend/.venv
 backend/src/program.py
+
+# Local Netlify folder
+.netlify
