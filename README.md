@@ -15,7 +15,7 @@ Programs are restricted to the following syntax features:
 
 # Environments
 
-Environment variable `REACT_APP_THESIS_HOST` controls configuration settings about the application.
+Environment variable `REACT_APP_HOST` controls configuration settings about the application.
 It can have two possible values:
 |value|implications|
 |-|-|
