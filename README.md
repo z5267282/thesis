@@ -15,10 +15,10 @@ Programs are restricted to the following syntax features:
 
 # Environments
 
-Environment variable `$LOCATION` controls configuration settings about the application.
+Environment variable `$HOST` controls configuration settings about the application.
 It can have two possible values:
 |value|implications|
 |-|-|
 |`LOCAL`| The app is configured to run locally|
-|`HOST`| The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/)|
-If the environment variable is not set, then `HOST` is used.
+|`REMOTE`| The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/)|
+If the environment variable is not set, then `REMOTE` is used.

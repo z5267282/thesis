@@ -6,7 +6,7 @@ import sys
 
 sys.path.append("src")
 
-from cfg import LEADING_SPACES
+from cfg import LEADING_SPACES, PROGRAM_PATH
 from main import main
 
 app = Flask(__name__)
@@ -25,6 +25,6 @@ def wrap_program(raw_code : str):
         "{}{}".format(" " * LEADING_SPACES, raw)
             for raw in raw_code.split("\n")
     )
-    with open(os.path.join("src", "program.py"), "w") as f:
+    with open(os.path.join(*PROGRAM_PATH), "w") as f:
         for c in code:
             print(c, file=f)
