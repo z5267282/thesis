@@ -1,5 +1,5 @@
+import os
 import sys
-from typing import Any, Callable
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -16,8 +16,8 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code   : str = request.get_json()
-    program    : Callable = wrap_program(raw_code)
-    dataframes : list[DataFrame] = main(program)
+    wrap_program(raw_code)
+    dataframes : list[DataFrame] = main()
     return jsonify([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
