@@ -10,8 +10,5 @@ LEADING_SPACES : int = 4
 
 PROGRAM_PATH : list[str] = ["src", "program.py"]
 
-with open("/tmp/log.txt", "w") as f:
-    print(os.getenv("REACT_APP_HOST"), file=f)
-
 if os.getenv("REACT_APP_HOST") == "REMOTE":
-    PROGRAM_PATH = ["home", "z5267282", "focus-tracker"] + PROGRAM_PATH
+    PROGRAM_PATH.insert("focus-tracker")
