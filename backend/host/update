@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# get the latest code from thesis source code and put in proper path
+# proper path corresponds to pythonanywhere configuration
+
+# get updates
+cd thesis
+out="$(mktemp)"
+trap 'rm "$out"' EXIT 
+git pull > "$out" || exit 1
+grep -F 'Already up to date.' "$out" && exit 0
+
+# move files
+cd ..
+rm -r focus-tracker
+cp -r thesis/backend focus-tracker
+
+# add filler program.py
+cat << EOF > focus-tracker/src/program.py
+def program():
+    pass
+EOF
+
+# update host files
+mv focus-tracker/host/update .
