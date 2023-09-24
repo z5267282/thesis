@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div className={styles.App}>
       <div>The server is: "{SERVER}"</div>
-      <div>environment : "{process.env}"</div>
+      <div>environment : "{process.env.THESIS_HOST}"</div>
       <CodeBox
         code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
         counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
