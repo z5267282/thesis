@@ -1,12 +1,13 @@
+import sys
+from typing import Any, Callable
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
-import os
-import sys
 
 sys.path.append("src")
 
 from cfg import LEADING_SPACES, PROGRAM_PATH
+from dataframe import DataFrame
 from main import main
 
 app = Flask(__name__)
@@ -14,9 +15,9 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
-    raw_code : str = request.get_json()
-    wrap_program(raw_code)
-    dataframes = main()
+    raw_code   : str = request.get_json()
+    program    : Callable = wrap_program(raw_code)
+    dataframes : list[DataFrame] = main(program)
     return jsonify([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):

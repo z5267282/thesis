@@ -1,10 +1,8 @@
-import importlib
+from typing import Callable
 
 from generate import generate_dataframes
-import program
 
-def main():
+def main(program : Callable):
     """Execute a program and generate a list of DataFrames representing
     execution states."""
-    importlib.reload(program)
-    return generate_dataframes(program.program)
+    return generate_dataframes(program)
