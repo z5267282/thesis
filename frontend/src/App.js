@@ -11,7 +11,7 @@ import styles from "./App.module.css";
 
 import {
   ARROW_WIDTH, ARROW_HEIGHT, ARROW_HEAD_LENGTH,
-  COUNTER_COLOURS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH
+  COUNTER_COLOURS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH, SERVER
 } from "./config";
 
 export default function App() {
@@ -31,6 +31,7 @@ export default function App() {
 
   return (
     <div className={styles.App}>
+      <div>{SERVER}</div>
       <CodeBox
         code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
         counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
