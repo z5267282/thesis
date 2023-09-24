@@ -1,3 +1,6 @@
 body {
     font-family: Arial;
+    margin-left: 20%;
+    margin-right: 20%;
+    white-space: pre-wrap;
 }
