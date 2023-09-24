@@ -22,8 +22,9 @@ def analyse():
 
 def wrap_program(raw_code : str):
     """From raw source code, return a wrapped Python function object"""
-    code      : list[str] = [f"def {PROGRAM}():"] + indent(raw_code)
-    namespace : dict[str, Any] = {}
+    code_lines : list[str] = [f"def {PROGRAM}():"] + indent(raw_code)
+    code       : str = "\n".join(code_lines)
+    namespace  : dict[str, Any] = {}
     exec(code, namespace)
     return namespace[PROGRAM]
 
