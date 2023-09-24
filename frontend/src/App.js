@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <div>{SERVER}</div>
+      <div>The server is: "{SERVER}"</div>
       <CodeBox
         code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path}
         counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
