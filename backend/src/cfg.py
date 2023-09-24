@@ -11,4 +11,4 @@ LEADING_SPACES : int = 4
 PROGRAM_PATH : list[str] = ["src", "program.py"]
 
 if os.getenv("REACT_APP_HOST") == "REMOTE":
-    PROGRAM_PATH.insert("focus-tracker")
+    PROGRAM_PATH.insert(0, "focus-tracker")
