@@ -14,7 +14,7 @@ export const ARROW_HEAD_LENGTH = 10;
 export const COUNTER_COLOURS = ["blue", "green"];
 
 const setServer = () => {
-    return (process.env.THESIS_HOST === "REMOTE") ?
+    return (process.env.REACT_APP_THESIS_HOST === "REMOTE") ?
         "https://z5267282.pythonanywhere.com/"
     :
         "http://127.0.0.1:5000";
