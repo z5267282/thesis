@@ -9,5 +9,5 @@ ELLIPSE : str = "·" * 3
 LEADING_SPACES : int = 4
 
 PROGRAM_PATH : list[str] = ["src", "program.py"]
-if os.getenv("THESIS_HOST") == "REMOTE":
+if os.getenv("REACT_APP_THESIS_HOST") == "REMOTE":
     PROGRAM_PATH = ["home", "z5267282", "focus-tracker"] + PROGRAM_PATH
