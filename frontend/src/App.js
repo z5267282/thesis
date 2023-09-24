@@ -37,8 +37,6 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <div>The server is: "{SERVER}"</div>
-      <div>environment : "{process.env.REACT_APP_HOST}"</div>
       <CodeBox
         code={dataFrame.code}
         lines={dataFrame.lines}
