@@ -16,8 +16,7 @@ import {
   COUNTER_COLOURS,
   FONT_SCALING_FACTOR,
   LINE_HEIGHT,
-  TRACE_GRAPH_WIDTH,
-  SERVER,
+  TRACE_GRAPH_WIDTH
 } from "./config";
 
 export default function App() {
