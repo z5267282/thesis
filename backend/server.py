@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 sys.path.append("src")
 
-from cfg import LEADING_SPACES, PROGRAM
+from cfg import LEADING_SPACES, PROGRAM_PATH
 from dataframe import DataFrame
 from main import main
 
@@ -21,14 +21,11 @@ def analyse():
     return jsonify([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
-    """From raw source code, return a wrapped Python function object"""
-    code_lines : list[str] = [f"def {PROGRAM}():"] + indent(raw_code)
-    code       : str = "\n".join(code_lines)
-    namespace  : dict[str, Any] = {}
-    exec(code, namespace)
-    return namespace[PROGRAM]
-
-def indent(raw_code : str):
-    return [
-        "{}{}".format(" " * LEADING_SPACES, raw) for raw in raw_code.split("\n")
-    ]
+    code : list[str] = ["def program():"]
+    code.extend(
+        "{}{}".format(" " * LEADING_SPACES, raw)
+            for raw in raw_code.split("\n")
+    )
+    with open(os.path.join(*PROGRAM_PATH), "w") as f:
+        for c in code:
+            print(c, file=f)
