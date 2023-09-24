@@ -19,4 +19,5 @@ const setServer = () => {
     :
         "http://127.0.0.1:5000";
 }
+console.log(process.env)
 export const SERVER = setServer();
