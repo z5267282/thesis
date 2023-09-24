@@ -15,7 +15,7 @@ export const COUNTER_COLOURS = ["blue", "green"];
 
 const setServer = () => {
   return process.env.REACT_APP_HOST === "REMOTE"
-    ? "https://z5267282.pythonanywhere.com/"
+    ? "https://z5267282.pythonanywhere.com"
     : "http://127.0.0.1:5000";
 };
 export const SERVER = setServer();

@@ -16,7 +16,8 @@ import {
   COUNTER_COLOURS,
   FONT_SCALING_FACTOR,
   LINE_HEIGHT,
-  TRACE_GRAPH_WIDTH
+  TRACE_GRAPH_WIDTH,
+  SERVER,
 } from "./config";
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
 
   return (
     <div className={styles.App}>
+      <div>The server is: "{SERVER}"</div>
       <CodeBox
         code={dataFrame.code}
         lines={dataFrame.lines}
