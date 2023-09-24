@@ -17,8 +17,10 @@ Programs are restricted to the following syntax features:
 
 Environment variable `REACT_APP_HOST` controls configuration settings about the application.
 It can have two possible values:
-|value|implications|
-|-|-|
-|`LOCAL`| The app is configured to run locally|
-|`REMOTE`| The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/)|
+
+| value    | implications                                                                                          |
+| -------- | ----------------------------------------------------------------------------------------------------- |
+| `LOCAL`  | The app is configured to run locally                                                                  |
+| `REMOTE` | The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/) |
+
 If the environment variable is not set, then `REMOTE` is used.
