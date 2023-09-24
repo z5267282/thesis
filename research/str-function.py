@@ -13,6 +13,8 @@ namespace = {}
 source = "\n".join(code)
 exec(source, namespace)
 prog = namespace["program"]
-print(prog)
 
-prog()
+for k in namespace:
+    print(k)
+
+# prog()

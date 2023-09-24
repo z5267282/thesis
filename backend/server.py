@@ -1,12 +1,13 @@
+import sys
+from typing import Any, Callable
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-import os
-import sys
-
 sys.path.append("src")
 
-from cfg import LEADING_SPACES
+from cfg import LEADING_SPACES, PROGRAM
+from dataframe import DataFrame
 from main import main
 
 app = Flask(__name__)
@@ -14,17 +15,19 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
-    raw_code : str = request.get_json()
-    wrap_program(raw_code)
-    dataframes = main()
+    raw_code   : str = request.get_json()
+    program    : Callable = wrap_program(raw_code)
+    dataframes : list[DataFrame] = main(program)
     return jsonify([ d.to_dict() for d in dataframes ])
 
 def wrap_program(raw_code : str):
-    code : list[str] = ["def program():"]
-    code.extend(
-        "{}{}".format(" " * LEADING_SPACES, raw)
-            for raw in raw_code.split("\n")
-    )
-    with open(os.path.join("src", "program.py"), "w") as f:
-        for c in code:
-            print(c, file=f)
+    """From raw source code, return a wrapped Python function object"""
+    code      : list[str] = [f"def {PROGRAM}():"] + indent(raw_code)
+    namespace : dict[str, Any] = {}
+    exec(code, namespace)
+    return namespace[PROGRAM]
+
+def indent(raw_code : str):
+    return [
+        "{}{}".format(" " * LEADING_SPACES, raw) for raw in raw_code.split("\n")
+    ]
