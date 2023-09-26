@@ -45,6 +45,7 @@
 
 .lineNumbers span::before {
     font-size: 16pt;
+    margin-right: 10px;
     content: counter(linenumber);
     display: block;
 }
