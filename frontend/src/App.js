@@ -41,41 +41,43 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <Tabs centered onChange={changeTab}>
+      <Tabs value={selectedTab} onChange={changeTab}>
         <Tab value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
         <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
       </Tabs>
-      {
-        (showTrace) ?
-          <TraceBox
-            textColor="secondary"
-            indicatorColor="secondary"
-            code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
-            lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
-            changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
-          />
-        :
-          <UploadBox
-            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
-            resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
-          />
-      }
-      {
-        showTrace && (
-          <div className={styles.outputs}>
-            {dataFrame.evalbox.length > 0 && (
-              <EvalBox evallines={dataFrame.evalbox} />
-            )}
-            <VariableBox variables={dataFrame.vars} />
-            <OutputBox
-              width={ARROW_WIDTH}
-              height={ARROW_HEIGHT}
-              headLength={ARROW_HEAD_LENGTH}
-              outputs={dataFrame.out}
+      <div className={styles.main}>
+        {
+          (showTrace) ?
+            <TraceBox
+              textColor="secondary"
+              indicatorColor="secondary"
+              code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
+              lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
+              changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
             />
-          </div>
-        )
-      }
+          :
+            <UploadBox
+              traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
+              resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
+            />
+        }
+        {
+          showTrace && (
+            <div className={styles.outputs}>
+              {dataFrame.evalbox.length > 0 && (
+                <EvalBox evallines={dataFrame.evalbox} />
+              )}
+              <VariableBox variables={dataFrame.vars} />
+              <OutputBox
+                width={ARROW_WIDTH}
+                height={ARROW_HEIGHT}
+                headLength={ARROW_HEAD_LENGTH}
+                outputs={dataFrame.out}
+              />
+            </div>
+          )
+        }
+      </div>
     </div>
   );
 }
