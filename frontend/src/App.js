@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Tab, Tabs } from "@mui/material";
+
 import CodeBox from "./components/CodeBox";
 import EvalBox from "./components/EvalBox";
 import OutputBox from "./components/OutputBox";
@@ -20,10 +22,12 @@ import {
 } from "./config";
 
 export default function App() {
-  const [frames, setFrames] = React.useState([]);
-  const [index, setIndex] = React.useState(0);
-  const [showTrace, setShowTrace] = React.useState(true);
+  const [selectedTab, setSelectedTab] = React.useState("upload");
+  const changeTab = (_, newTab) => setSelectedTab(newTab);
+  const [showTrace, setShowTrace] = React.useState(false);
+  const [traceCode, setTraceCode] = React.useState("");
 
+  const [index, setIndex] = React.useState(0);
   const changeIndex = (offset) => {
     const newIndex = index + offset;
     if (newIndex >= 0 && newIndex < frames.length) {
@@ -31,12 +35,28 @@ export default function App() {
     }
   };
   const resetIndex = () => setIndex(0);
-
+  const [frames, setFrames] = React.useState([]);
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
   return (
     <div className={styles.App}>
-      <CodeBox
+      <Tabs centered textColor="secondary" indicatorColor="secondary" onChange={changeTab}>
+        <Tab value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
+        <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
+      </Tabs>
+        (showTrace) ?
+          <TraceBox
+            code={dataFrame.code} lines={lines} path={path} counters={counters} curr={curr} counterColours={COUNTER_COLOURS}
+            lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
+            changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
+          />
+        :
+          <UploadBox
+            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
+            resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
+          />
+
+      {/* <CodeBox
         code={dataFrame.code}
         lines={dataFrame.lines}
         path={dataFrame.path}
@@ -53,7 +73,7 @@ export default function App() {
         resetIndex={resetIndex}
         showTrace={showTrace}
         setShowTrace={setShowTrace}
-      />
+      /> */}
       {showTrace && (
         <div className={styles.outputs}>
           {dataFrame.evalbox.length > 0 && (
