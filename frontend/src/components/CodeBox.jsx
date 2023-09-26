@@ -1,8 +1,5 @@
 import React from "react";
 
-import TraceBox from "./TraceBox";
-import UploadBox from "./UploadBox";
-
 import styles from "./CodeBox.module.css";
 
 export default function CodeBox({
