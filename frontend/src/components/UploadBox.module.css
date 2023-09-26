@@ -12,7 +12,7 @@
 .editorBox {
     display: inline-flex;
     font-family: monospace;
-    line-height: 14pt;
+    line-height: 18pt;
     border-radius: 2px;
     gap: 2.5%;
     border: solid;
@@ -23,7 +23,8 @@
 }
 
 .codeInput {
-    line-height: 14pt;
+    line-height: 18pt;
+    font-size: 16pt;
     padding: 0;
     border: none;
     border-width: 1.5pt;
@@ -43,6 +44,7 @@
 }
 
 .lineNumbers span::before {
+    font-size: 16pt;
     content: counter(linenumber);
     display: block;
 }
