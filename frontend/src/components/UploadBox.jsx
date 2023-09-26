@@ -15,9 +15,7 @@ function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
       resetIndex();
       showTraceBox();
     })
-    .catch(err => {
-      alert(`An issue occurred with parsing: ${err}`);
-    });
+    .catch(err => alert(`An issue occurred with parsing: ${err}`));
 }
 
 function resetState(setTraceCode, resetIndex, setFrames) {
