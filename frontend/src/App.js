@@ -41,7 +41,7 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <Tabs value={selectedTab} onChange={changeTab}>
+      <Tabs value={selectedTab} onChange={changeTab} style={{backgroundColor : "red"}}>
         <Tab value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
         <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
       </Tabs>
@@ -49,8 +49,6 @@ export default function App() {
         {
           (showTrace) ?
             <TraceBox
-              textColor="secondary"
-              indicatorColor="secondary"
               code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
               lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
