@@ -2,9 +2,10 @@ import React from "react";
 
 import { Tab, Tabs } from "@mui/material";
 
-import CodeBox from "./components/CodeBox";
 import EvalBox from "./components/EvalBox";
 import OutputBox from "./components/OutputBox";
+import TraceBox from "./components/TraceBox"
+import UploadBox from "./components/UploadBox"
 import VariableBox from "./components/VariableBox";
 
 import { generateData } from "./helper";
@@ -40,13 +41,14 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <Tabs centered textColor="secondary" indicatorColor="secondary" onChange={changeTab}>
+      <Tabs centered onChange={changeTab}>
         <Tab value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
         <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
       </Tabs>
+      {
         (showTrace) ?
           <TraceBox
-            code={dataFrame.code} lines={lines} path={path} counters={counters} curr={curr} counterColours={COUNTER_COLOURS}
+            code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
             lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
             changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
           />
@@ -55,6 +57,7 @@ export default function App() {
             traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
             resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
           />
+      }
 
       {/* <CodeBox
         code={dataFrame.code}
