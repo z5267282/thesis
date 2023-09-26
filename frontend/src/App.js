@@ -60,39 +60,22 @@ export default function App() {
             resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
           />
       }
-
-      {/* <CodeBox
-        code={dataFrame.code}
-        lines={dataFrame.lines}
-        path={dataFrame.path}
-        counters={dataFrame.counters}
-        curr={dataFrame.curr}
-        counterColours={COUNTER_COLOURS}
-        lineHeight={LINE_HEIGHT}
-        fontScaling={FONT_SCALING_FACTOR}
-        graphWidth={TRACE_GRAPH_WIDTH}
-        changeIndex={changeIndex}
-        disablePrev={disablePrev}
-        disableNext={disableNext}
-        setFrames={setFrames}
-        resetIndex={resetIndex}
-        showTrace={showTrace}
-        setShowTrace={setShowTrace}
-      /> */}
-      {showTrace && (
-        <div className={styles.outputs}>
-          {dataFrame.evalbox.length > 0 && (
-            <EvalBox evallines={dataFrame.evalbox} />
-          )}
-          <VariableBox variables={dataFrame.vars} />
-          <OutputBox
-            width={ARROW_WIDTH}
-            height={ARROW_HEIGHT}
-            headLength={ARROW_HEAD_LENGTH}
-            outputs={dataFrame.out}
-          />
-        </div>
-      )}
+      {
+        showTrace && (
+          <div className={styles.outputs}>
+            {dataFrame.evalbox.length > 0 && (
+              <EvalBox evallines={dataFrame.evalbox} />
+            )}
+            <VariableBox variables={dataFrame.vars} />
+            <OutputBox
+              width={ARROW_WIDTH}
+              height={ARROW_HEIGHT}
+              headLength={ARROW_HEAD_LENGTH}
+              outputs={dataFrame.out}
+            />
+          </div>
+        )
+      }
     </div>
   );
 }
