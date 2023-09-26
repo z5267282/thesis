@@ -17,7 +17,7 @@ export default function CodeBox({
   return (
     <div className={styles.codeBox}>
       <div className={styles.tabSelector}>
-        <Tabs centered>
+        <Tabs centered textColor="secondary" indicatorColor="secondary">
           <Tab label="Trace" onClick={() => {setShowTrace(true)}} />
           <Tab label="Upload " onClick={() => {setShowTrace(false)}} />
         </Tabs>
