@@ -6,18 +6,6 @@
     height: 80%;
 }
 
-.customButton {
-    font-size: 10pt;
-    border: solid;
-    border-width: 1pt;
-    border-radius: 0;
-    cursor: pointer;
-}
-
-button.customButton:hover {
-    background-color: beige;
-}
-
 .tabSelector {
     display: flex;
     width: 40%;

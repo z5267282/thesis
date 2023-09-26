@@ -4,6 +4,7 @@ import TraceBox from "./TraceBox";
 import UploadBox from "./UploadBox";
 
 import styles from "./CodeBox.module.css";
+import { Tab, Tabs } from "@mui/material";
 
 export default function CodeBox({
     code, lines, path, counters, curr, counterColours,
@@ -16,8 +17,10 @@ export default function CodeBox({
   return (
     <div className={styles.codeBox}>
       <div className={styles.tabSelector}>
-        <button className={styles.customButton} type="button" onClick={() => {setShowTrace(true)}}>Trace</button>
-        <button className={styles.customButton} type="button" onClick={() => {setShowTrace(false)}}>Upload</button>
+        <Tabs centered>
+          <Tab label="Trace" onClick={() => {setShowTrace(true)}} />
+          <Tab label="Upload " onClick={() => {setShowTrace(false)}} />
+        </Tabs>
       </div>
       {
         (showTrace) ?
