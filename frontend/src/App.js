@@ -65,7 +65,7 @@ export default function App() {
           <UploadBox
             traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
             resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
-            switchToSubmitTab={() => setSelectedTab(TABS.UPLOAD)}
+            switchToSubmitTab={() => setSelectedTab(TABS.TRACE)}
           />
       }
     </div>
