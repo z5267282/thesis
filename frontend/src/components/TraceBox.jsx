@@ -55,8 +55,8 @@ function TracedLinesBox({
   // this must be inline to import config value
   const lineHeightStyle = {
     gridTemplateRows : `repeat(auto-fill, ${addPixels(LINE_HEIGHT)})`,
-    LINE_HEIGHT       : addPixels(LINE_HEIGHT),
-    fontSize         : addPixels(LINE_HEIGHT * fontScaling)
+    lineHeight : addPixels(LINE_HEIGHT),
+    fontSize   : addPixels(LINE_HEIGHT * fontScaling)
   };
 
   return (
