@@ -19,13 +19,13 @@ export default function TraceBox({
       <div className={styles.transitionContainer}>
         <button
           onClick={() => changeIndex(-1)} disabled={disablePrev}
-          className={disablePrev ? styles.disabled : ""}
+          className={disabledClass(disablePrev)}
         >
           ◀
         </button>
         <button
           onClick={() => changeIndex(1)} disabled={disableNext}
-          className={disableNext ? styles.disabled : ""}
+          className={disabledClass(disableNext)}
         >
           ▶
         </button>
@@ -36,13 +36,20 @@ export default function TraceBox({
           <LoadingBox />
         :
           <TracedLinesBox
-            code={code} lines={lines} curr={curr} path={path}
-            counters={counters}
+            code={code} lines={lines} curr={curr} path={path} counters={counters}
           />
       }
     </span>
   );
 } 
+
+/**
+ * generate the classname to disabled a button depending on a flag
+ * @param {*} flag 
+ */
+function disabledClass(flag) {
+  return (flag) ? styles.disabled : "";
+}
 
 function LoadingBox() {
   return <div className={`${styles.traceCode} ${styles.loadingBox}`}>
