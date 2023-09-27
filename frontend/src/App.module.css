@@ -1,13 +1,21 @@
 .App {
-  display: grid;
+  /* display: grid;
   grid-template-rows: 5% 95%;
-  grid-template-columns: 100%;
+  grid-template-columns: 100%; */
   row-gap: 2.5%;
   width: 100vw;
   height: 100vh;
   margin-left: 0;
   margin-right: 0;
-  justify-items: center;
+  /* justify-items: center; */
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.main {
+  background-color: red;
 }
 
 .outputs {
