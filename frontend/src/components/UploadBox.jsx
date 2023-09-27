@@ -7,28 +7,6 @@ import { SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
 
-function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
-  fetch(`${SERVER}/analyse`, {
-    method  : "PUT",
-    headers : { "Content-Type" : "application/json" },
-    mode    : "cors",
-    body    : JSON.stringify(traceCode),
-  })
-    .then(res => res.json())
-    .then(frames => {
-      setFrames(frames);
-      resetIndex();
-      showTraceBox();
-    })
-    .catch(err => alert(`An issue occurred with parsing: ${err}`));
-}
-
-function resetState(setTraceCode, resetIndex, setFrames) {
-  setTraceCode("");
-  resetIndex();
-  setFrames([]);
-}
-
 export default function UploadBox({
   traceCode, setTraceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
 }) {
@@ -40,11 +18,9 @@ export default function UploadBox({
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
         <Editor
-          id="uploadBox"
-          value={traceCode}
+          id="uploadBox" value={traceCode} className={styles.editor}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
           highlight={code => highlight(code, languages.py)}
-          className={styles.editor}
         />
       </div>
       <div className={styles.buttons}>
@@ -66,4 +42,26 @@ export default function UploadBox({
       </div>
     </label>
   );
+}
+
+function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
+  fetch(`${SERVER}/analyse`, {
+    method  : "PUT",
+    headers : { "Content-Type" : "application/json" },
+    mode    : "cors",
+    body    : JSON.stringify(traceCode),
+  })
+    .then(res => res.json())
+    .then(frames => {
+      setFrames(frames);
+      resetIndex();
+      showTraceBox();
+    })
+    .catch(err => alert(`An issue occurred with parsing: ${err}`));
+}
+
+function resetState(setTraceCode, resetIndex, setFrames) {
+  setTraceCode("");
+  resetIndex();
+  setFrames([]);
 }
