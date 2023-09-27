@@ -40,10 +40,10 @@ export default function App() {
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
   return (
-    <div className={styles.App}>
+    <div className={styles.app}>
       <Tabs value={selectedTab} onChange={changeTab}>
-        <Tab className={styles.tab} value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
-        <Tab className={styles.tab} value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
+        <CapitalisedTab value="trace" label="Trace" swapTab={() => setShowTrace(true)} />
+        <CapitalisedTab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
       </Tabs>
       {
         (showTrace) ?
@@ -75,4 +75,13 @@ export default function App() {
       }
     </div>
   );
+}
+
+/**
+ * A custom MUI tab with capitalised labelling.
+ * Done with an sx prop, as class modules were not working.
+ */
+function CapitalisedTab({value, label, swapTab}) {
+  return <Tab
+    value={value} label={label} onClick={swapTab} sx={{textTransform : "none"}} className={styles.tab} />;
 }
