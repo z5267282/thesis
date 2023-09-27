@@ -10,7 +10,7 @@
 }
 
 .editorBox {
-    display: inline-flex;
+    display: flex;
     font-family: Courier;
     line-height: 18pt;
     font-size: 18pt;
@@ -19,7 +19,6 @@
     border-width: 2.5px;
     border-color: black;
     width: 80%;
-    height: 80%;
 }
 
 .editor {
