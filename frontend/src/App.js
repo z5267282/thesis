@@ -8,11 +8,10 @@ import TraceBox from "./components/TraceBox"
 import UploadBox from "./components/UploadBox"
 import VariableBox from "./components/VariableBox";
 
+import { TABS } from "./config";
 import { generateData } from "./helper";
 
 import styles from "./App.module.css";
-
-import { TABS } from "./config";
 
 export default function App() {
   const [selectedTab, setSelectedTab] = React.useState(TABS.UPLOAD);
