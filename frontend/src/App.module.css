@@ -4,9 +4,14 @@
   justify-items: center;
   row-gap: 2.5%;
   width: 100vw;
-  height: 100vh;
+  height: 97.5vh;
+  margin-top: 2.5vh;
   margin-left: 0;
   margin-right: 0;
+}
+
+.tab {
+  text-transform: none;
 }
 
 .traceBox {

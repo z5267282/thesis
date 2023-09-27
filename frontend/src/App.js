@@ -41,9 +41,9 @@ export default function App() {
 
   return (
     <div className={styles.App}>
-      <Tabs value={selectedTab} onChange={changeTab} className={styles.fullWidth}>
-        <Tab value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
-        <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
+      <Tabs value={selectedTab} onChange={changeTab}>
+        <Tab className={styles.tab} value="trace" label="Trace" onClick={() => {setShowTrace(true)}} />
+        <Tab className={styles.tab} value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
       </Tabs>
       {
         (showTrace) ?
