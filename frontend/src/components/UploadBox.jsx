@@ -14,13 +14,19 @@ export default function UploadBox({
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
       <div className={styles.editorBox}>
-        <div className={styles.lineNumbers}>
-          { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
-        </div>
+        {/* <div className={styles.lineNumbers}>
+          { traceCode.split("\n").map((_, i) => <span key={}/>) }
+        </div> */}
         <Editor
           id="uploadBox" value={traceCode} className={styles.editor}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
-          highlight={code => highlight(code, languages.py)}
+          highlight={code =>
+            highlight(code, languages.py)
+              .split("\n")
+              .map((line, i) =>
+                <span className={styles.lineNumber} key={`line-${i}`}>{line}</span>
+              )
+          }
           tabSize={EDITOR_TAB_SPACES}
         />
       </div>

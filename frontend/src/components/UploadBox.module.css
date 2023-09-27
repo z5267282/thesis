@@ -30,21 +30,22 @@
     width: 100%;
 }
 
-.lineNumbers{
-    width: auto;
-    text-align: right;
-}
 
-.lineNumbers span {
+.editor span {
     counter-increment: linenumber;
 }
 
-.lineNumbers span::before {
+.lineNumber {
+    display: block;
     font-size: 16pt;
     margin-right: 30px;
     content: counter(linenumber) ".";
-    display: block;
 }
+
+/* .lineNumbers{
+    width: auto;
+    text-align: right;
+} */
 
 .buttons {
     width: 20%;
