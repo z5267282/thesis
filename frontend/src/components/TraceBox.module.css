@@ -75,7 +75,7 @@
 }
 
 .counterBox {
-    border-left: solid;
+    border-left: dashed;
     padding-left: 10px;
     display: flex;
     justify-content: center;
