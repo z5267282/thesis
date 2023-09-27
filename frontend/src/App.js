@@ -13,18 +13,15 @@ import { generateData } from "./helper";
 import styles from "./App.module.css";
 
 import {
-  ARROW_WIDTH,
-  ARROW_HEIGHT,
-  ARROW_HEAD_LENGTH,
   COUNTER_COLOURS,
   FONT_SCALING_FACTOR,
   LINE_HEIGHT,
+  TABS,
   TRACE_GRAPH_WIDTH
 } from "./config";
 
 export default function App() {
-  const [selectedTab, setSelectedTab] = React.useState("upload");
-  const changeTab = (_, newTab) => setSelectedTab(newTab);
+  const [selectedTab, setSelectedTab] = React.useState(TABS.UPLOAD);
   const [showTrace, setShowTrace] = React.useState(false);
   const [traceCode, setTraceCode] = React.useState("");
 
@@ -43,9 +40,9 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <Tabs value={selectedTab} onChange={changeTab}>
-        <Tab sx={capitalisedTab} value="trace" label="Trace" onClick={() => setShowTrace(true)} />
-        <Tab sx={capitalisedTab} value="upload" label="Upload " onClick={() => setShowTrace(false)} />
+      <Tabs value={selectedTab} onChange={(_, newTab) => setSelectedTab(newTab)}>
+        <Tab sx={capitalisedTab} value={TABS.TRACE} label="Trace" onClick={() => setShowTrace(true)} />
+        <Tab sx={capitalisedTab} value={TABS.UPLOAD} label="Upload " onClick={() => setShowTrace(false)} />
       </Tabs>
       {
         (showTrace) ?
@@ -67,7 +64,7 @@ export default function App() {
           <UploadBox
             traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
             resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
-            switchToSubmitTab={() => setSelectedTab("trace")}
+            switchToSubmitTab={() => setSelectedTab(TABS.UPLOAD)}
           />
       }
     </div>
