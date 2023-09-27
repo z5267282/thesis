@@ -1,6 +1,5 @@
 import Counters from "./Counters";
 import Lines from "./Lines";
-import LoadingBox from "./LoadingBox";
 import Path from "./Path";
 
 import { addPixels } from "../helper";
@@ -44,6 +43,12 @@ export default function TraceBox({
   );
 } 
 
+function LoadingBox() {
+  return <div className={`${styles.traceCode} ${styles.loadingBox}`}>
+    [ upload your code ]
+  </div>;
+}
+
 function TracedLinesBox({
   code, lines, curr, path, lineHeight, fontScaling, graphWidth, counters, counterColours
 }) {
@@ -55,7 +60,7 @@ function TracedLinesBox({
   };
 
   return (
-    <div className={styles.tracedLinesBox}>
+    <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
       <div className={styles.tracedLines} style={lineHeightStyle}>
         <Lines code={code} lines={lines} curr={curr} />
       </div>
