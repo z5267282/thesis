@@ -19,7 +19,7 @@ class DataFrame:
         ]
 
         self.out : list[str] = deepcopy(out)
-        self.out.reverse()
+        # self.out.reverse()
 
         self.path     : list[int] = deepcopy(path)
         self.counters : list[Counter] = deepcopy(counters)

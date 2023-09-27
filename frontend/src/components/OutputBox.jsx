@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { addPixels } from "../helper";
 
 import styles from "./OutputBox.module.css";
@@ -22,7 +23,15 @@ function genArrowPath(width, height, arrowLength) {
   return `${verticalLine} ${left} ${right}`;
 }
 
-export default function OutputBox({width, height, headLength, outputs}) {
+export default function OutputBox({index, width, height, headLength, outputs}) {
+  const textAreaRef = useRef();
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
+    }
+  }, [index]);
+
   return (
     <label className={styles.container} htmlFor="output-box">
       <h2 className={styles.fontSize}>Output</h2>
@@ -35,7 +44,7 @@ export default function OutputBox({width, height, headLength, outputs}) {
         </svg>
         <textarea
           id="output-box" className={`${styles.uploadBox} ${styles.fontSize}`}
-          value={outputs.join("")} spellCheck={false} readOnly
+          ref={textAreaRef} value={outputs.join("")} spellCheck={false} readOnly
         />
       </div>
     </label>

@@ -65,6 +65,7 @@ export default function App() {
                 height={ARROW_HEIGHT}
                 headLength={ARROW_HEAD_LENGTH}
                 outputs={dataFrame.out}
+                index={index}
               />
             </span>
           </div>
