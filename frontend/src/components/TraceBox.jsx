@@ -1,12 +1,14 @@
 import { Fragment } from "react";
 
-import { COUNTER_COLOURS, LINE_HEIGHT } from "../config";
+import {
+  COUNTER_COLOURS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH
+} from "../config";
 import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
 
 export default function TraceBox({
-  code, lines, path, counters, curr, lineHeight, fontScaling, graphWidth,
+  code, lines, path, counters, curr,
   changeIndex, disablePrev, disableNext
 }) {
   return (
@@ -35,8 +37,7 @@ export default function TraceBox({
         :
           <TracedLinesBox
             code={code} lines={lines} curr={curr} path={path}
-            lineHeight={lineHeight} fontScaling={fontScaling}
-            graphWidth={graphWidth} counters={counters}
+            counters={counters}
           />
       }
     </span>
@@ -50,13 +51,13 @@ function LoadingBox() {
 }
 
 function TracedLinesBox({
-  code, lines, curr, path, fontScaling, graphWidth, counters, counterColours
+  code, lines, curr, path, counters
 }) {
   // this must be inline to import config value
   const lineHeightStyle = {
     gridTemplateRows : `repeat(auto-fill, ${addPixels(LINE_HEIGHT)})`,
     lineHeight : addPixels(LINE_HEIGHT),
-    fontSize   : addPixels(LINE_HEIGHT * fontScaling)
+    fontSize   : addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
 
   return (
@@ -66,7 +67,7 @@ function TracedLinesBox({
       </div>
       {
         (path.rest.length !== 0) &&
-          <Path path={path} graphWidth={graphWidth} />
+          <Path path={path} />
       }
       {
         (counters.length !== 0) &&
@@ -76,11 +77,11 @@ function TracedLinesBox({
   );
 }
 
-function Path({path, graphWidth}) {
+function Path({path}) {
   return (
     <svg>
       <path
-        d={`${genSVGPath(path, graphWidth).join(" ")}`} stroke="black" fill="transparent"
+        d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent"
         className={styles.thickPen}
       />
     </svg>
@@ -90,12 +91,12 @@ function Path({path, graphWidth}) {
   * @param {*} coords object with the starting line and all remaining ones
   * @returns list of string of the path commands that can be joined with .join()
   */
-  function genSVGPath(coords, graphWidth) {
+  function genSVGPath(coords) {
     const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
     let prev = coords.start;
     coords.rest.forEach((coord) => {
       const height = (coord - prev) * LINE_HEIGHT;
-      path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
+      path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
       prev = coord;
     });
     return path;

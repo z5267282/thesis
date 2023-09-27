@@ -12,13 +12,7 @@ import { generateData } from "./helper";
 
 import styles from "./App.module.css";
 
-import {
-  COUNTER_COLOURS,
-  FONT_SCALING_FACTOR,
-  LINE_HEIGHT,
-  TABS,
-  TRACE_GRAPH_WIDTH
-} from "./config";
+import { TABS } from "./config";
 
 export default function App() {
   const [selectedTab, setSelectedTab] = React.useState(TABS.UPLOAD);
@@ -49,7 +43,6 @@ export default function App() {
           <div className={styles.traceBox}>
             <TraceBox
               code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr}
-              lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
             />
             <span className={styles.outputs}>
