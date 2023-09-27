@@ -60,13 +60,15 @@ function TracedLinesBox({
     fontSize         : addPixels(lineHeight * fontScaling)
   };
 
+  console.log(path);
+
   return (
     <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
       <div className={styles.tracedLines} style={lineHeightStyle}>
         <Lines code={code} lines={lines} curr={curr} />
       </div>
       {
-        (path !== null) &&
+        (path.rest.length !== 0) &&
           <Path path={path} lineHeight={lineHeight} graphWidth={graphWidth} />
       }
       {
