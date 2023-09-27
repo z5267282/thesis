@@ -1,4 +1,4 @@
-.App {
+.app {
   display: grid;
   grid-template-rows: 5% 95%;
   justify-items: center;
@@ -12,6 +12,7 @@
 
 .tab {
   text-transform: none;
+  background-color: purple;
 }
 
 .traceBox {
