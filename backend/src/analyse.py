@@ -35,7 +35,6 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
 
         i = offset
     
-    print(Line.display_lines(filtered))
     return filtered
 
 def find_region(lines : list[Line], end : int, start : int):
