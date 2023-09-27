@@ -53,9 +53,10 @@ export default function App() {
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
             />
             <span className={styles.outputs}>
-              {dataFrame.evalbox.length > 0 && (
-                <EvalBox evallines={dataFrame.evalbox} />
-              )}
+              {
+                dataFrame.evalbox.length > 0 && 
+                  <EvalBox evallines={dataFrame.evalbox} />
+              }
               <VariableBox variables={dataFrame.vars} />
               <OutputBox index={index} outputs={dataFrame.out} />
             </span>
