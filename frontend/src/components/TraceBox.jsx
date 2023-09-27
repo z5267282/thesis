@@ -1,5 +1,6 @@
+import { Fragment } from "react";
+
 import Counters from "./Counters";
-import Lines from "./Lines";
 
 import { addPixels } from "../helper";
 
@@ -100,4 +101,30 @@ function genSVGPath(coords, lineHeight, graphWidth) {
     prev = coord;
   });
   return path;
+}
+
+function Lines({code, lines, curr}) {
+  return code.map(
+    (line, i) => {
+      const colour = colourLine(i, curr);
+      return (
+        <Fragment key={`line-${i}`}>
+          <span className={`${styles.lineNumber} ${colour}`}>
+            {`${lines[i]}${lines[i] === "" ? "" : "."}`}
+          </span>
+          <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+        </Fragment>
+      );
+    }
+  );
+} 
+
+/**
+ * check whether the ith line should be highlighted.
+ * the current line should be highlighted
+ * @param {*} index
+ * @param {*} code 
+ */
+function colourLine(index, curr) {
+  return (curr !== null && index === curr) ? styles.highlight : "";
 }

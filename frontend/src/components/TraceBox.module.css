@@ -61,3 +61,15 @@
 .thickPen {
     stroke-width: 2;
 }
+
+.lineNumber {
+    padding-left: 45%;
+}
+
+.preserveSpace {
+    white-space: pre;
+}
+
+.highlight {
+    background-color: yellow;
+}
