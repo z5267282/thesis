@@ -11,27 +11,20 @@
 
 .editorBox {
     display: inline-flex;
-    font-family: monospace;
+    font-family: Courier;
     line-height: 18pt;
+    font-size: 18pt;
     border-radius: 2px;
-    gap: 2.5%;
     border: solid;
     border-width: 2.5px;
     border-color: black;
-    padding: 2.5%;
     width: 80%;
+    height: 80%;
 }
 
-.codeInput {
-    line-height: 18pt;
-    font-size: 16pt;
-    padding: 0;
-    border: none;
-    border-width: 1.5pt;
-    border-radius: 1%;
-    resize: none;
-    width: 80%;
-    outline: none;
+.editor {
+    height: 100%;
+    width: 100%;
 }
 
 .lineNumbers{
@@ -45,7 +38,7 @@
 
 .lineNumbers span::before {
     font-size: 16pt;
-    margin-right: 10px;
+    margin-right: 30px;
     content: counter(linenumber) ".";
     display: block;
 }

@@ -40,16 +40,13 @@ export default function UploadBox({
         <div className={styles.lineNumbers}>
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
-        {/* <textarea
-          name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput}
-          value={traceCode} onInput={(event) => setTraceCode(event.target.value)} 
-        /> */}
         <Editor
+          id="uploadBox"
           value={traceCode}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
           highlight={code => highlight(code, languages.js)}
+          className={styles.editor}
         />
-
       </div>
       <div className={styles.buttons}>
         <button
