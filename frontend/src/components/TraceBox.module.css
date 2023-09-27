@@ -28,6 +28,7 @@
     justify-content: flex-start;
     border: solid;
     border-color: black;
+    height: 75%;
 }
 
 .tracedLines {
