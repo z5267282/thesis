@@ -12,8 +12,8 @@ export const ARROW_HEAD_LENGTH = 10;
 
 export const EDITOR_TAB_SPACES = 4;
 
-// export const COUNTER_COLOURS = ["lime", "aqua"];
-export const COUNTER_COLOURS = ["blue", "green"];
+// export const COUNTER_COLOURS = ["#A3B9FF", "#BBA3FF", "#A3E7FF"];
+export const COUNTER_COLOURS = ["#649FFF", "#317FFF"]
 
 const setServer = () => {
   return process.env.REACT_APP_HOST === "REMOTE" ?
