@@ -3,7 +3,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism.css';
 
-import { SERVER } from "../config";
+import { EDITOR_TAB_SPACES, SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
 
@@ -21,7 +21,7 @@ export default function UploadBox({
           id="uploadBox" value={traceCode} className={styles.editor}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
           highlight={code => highlight(code, languages.py)}
-          tabSize={4}
+          tabSize={EDITOR_TAB_SPACES}
         />
       </div>
       <div className={styles.buttons}>
