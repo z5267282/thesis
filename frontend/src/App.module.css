@@ -16,9 +16,11 @@
 }
 
 .outputs {
+  width: 30%;
+  height: 80%;
+  background-color: red;
   display: inline-flex;
   flex-direction: column;
-  width: 30%;
   justify-content: flex-start;
   align-items: center;
   vertical-align: top;

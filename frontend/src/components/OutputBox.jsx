@@ -1,14 +1,7 @@
-import { useEffect, useRef } from "react";
 
 import styles from "./OutputBox.module.css";
 
 export default function OutputBox({index, outputs}) {
-  const textAreaRef = useRef();
-  useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
-    }
-  }, [index]);
 
   return (
     <label className={styles.container} htmlFor="output-box">

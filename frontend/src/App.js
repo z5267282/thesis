@@ -1,23 +1,22 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
-import OutputBox from "./components/OutputBox";
+import TextBox from "./components/TextBox";
 import TraceBox from "./components/TraceBox"
 import UploadBox from "./components/UploadBox"
-import VariableBox from "./components/VariableBox";
 
 import { TABS } from "./config";
 
 import styles from "./App.module.css";
 
 export default function App() {
-  const [selectedTab, setSelectedTab] = React.useState(TABS.UPLOAD);
-  const [showTrace, setShowTrace] = React.useState(false);
-  const [traceCode, setTraceCode] = React.useState("");
+  const [selectedTab, setSelectedTab] = useState(TABS.UPLOAD);
+  const [showTrace, setShowTrace] = useState(false);
+  const [traceCode, setTraceCode] = useState("");
 
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
   const changeIndex = (offset) => {
     const newIndex = index + offset;
     if (newIndex >= 0 && newIndex < frames.length) {
@@ -25,8 +24,10 @@ export default function App() {
     }
   };
   const resetIndex = () => setIndex(0);
-  const [frames, setFrames] = React.useState([]);
+  const [frames, setFrames] = useState([]);
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
+
+  console.log(dataFrame);
 
   const capitalisedTab = {textTransform : "none", fontSize : "14pt"};
 
@@ -49,7 +50,7 @@ export default function App() {
                 dataFrame.evalbox.length > 0 && 
                   <EvalBox evallines={dataFrame.evalbox} />
               }
-              <VariableBox variables={dataFrame.vars} />
+              <VariableBox variables={dataFrame.vars}/>
               <OutputBox index={index} outputs={dataFrame.out} />
             </span>
           </div>
@@ -91,4 +92,21 @@ function generateData(frames, index) {
       evalbox  : []
     }
   }
+}
+
+function VariableBox(variables) {
+  return <TextBox header={"Variables"} text={variables.join("\n")} />;
+}
+
+function OutputBox(index, outputs) {
+  const textAreaRef = useRef();
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
+    }
+  }, [index]);
+
+  return <TextBox
+    header={"Output"} text={outputs.join("")} textAreaRef={textAreaRef}
+  />
 }
