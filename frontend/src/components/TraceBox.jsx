@@ -84,22 +84,23 @@ function Path({path, lineHeight, graphWidth}) {
       />
     </svg>
   );
+
+  /**
+  * @param {*} coords object with the starting line and all remaining ones
+  * @returns list of string of the path commands that can be joined with .join()
+  */
+  function genSVGPath(coords, lineHeight, graphWidth) {
+    const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
+    let prev = coords.start;
+    coords.rest.forEach((coord) => {
+      const height = (coord - prev) * lineHeight;
+      path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
+      prev = coord;
+    });
+    return path;
+  }
 }
 
-/**
- * @param {*} coords object with the starting line and all remaining ones
- * @returns list of string of the path commands that can be joined with .join()
- */
-function genSVGPath(coords, lineHeight, graphWidth) {
-  const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
-  let prev = coords.start;
-  coords.rest.forEach((coord) => {
-    const height = (coord - prev) * lineHeight;
-    path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
-    prev = coord;
-  });
-  return path;
-}
 
 function Lines({code, lines, curr}) {
   return code.map(
