@@ -5,6 +5,9 @@ import {
 } from "../config";
 
 import styles from "./TraceBox.module.css";
+import { IconButton } from "@mui/material";
+import EastIcon from '@mui/icons-material/East';
+import WestIcon from '@mui/icons-material/West';
 
 export default function TraceBox({
   code, lines, path, counters, curr,
@@ -15,19 +18,19 @@ export default function TraceBox({
       <h1 className={styles.largeText}>
         Trace execution
       </h1>
-      <div className={styles.transitionContainer}>
-        <button
+      <div className={styles.transitions}>
+        <IconButton
           onClick={() => changeIndex(-1)} disabled={disablePrev}
           className={disabledClass(disablePrev)}
         >
-          ◀
-        </button>
-        <button
+          <WestIcon />
+        </IconButton>
+        <IconButton
           onClick={() => changeIndex(1)} disabled={disableNext}
           className={disabledClass(disableNext)}
         >
-          ▶
-        </button>
+          <EastIcon />
+        </IconButton>
       </div>
       <div className={styles.buffer}></div>
       {
