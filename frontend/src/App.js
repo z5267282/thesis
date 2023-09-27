@@ -47,36 +47,34 @@ export default function App() {
           <Tab value="upload" label="Upload " onClick={() => {setShowTrace(false)}} />
         </Tabs>
       </div>
-      {
-        (showTrace) ?
-          <TraceBox
-            code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
-            lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
-            changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
-          />
-        :
-          <UploadBox
-            traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
-            resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
-            switchToSubmitTab={() => setSelectedTab("trace")}
-          />
-      }
-      {
-        showTrace && (
-          <span className={styles.outputs}>
-            {dataFrame.evalbox.length > 0 && (
-              <EvalBox evallines={dataFrame.evalbox} />
-            )}
-            <VariableBox variables={dataFrame.vars} />
-            <OutputBox
-              width={ARROW_WIDTH}
-              height={ARROW_HEIGHT}
-              headLength={ARROW_HEAD_LENGTH}
-              outputs={dataFrame.out}
+        {
+          (showTrace) ?
+            <>
+              <TraceBox
+                code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr} counterColours={COUNTER_COLOURS}
+                lineHeight={LINE_HEIGHT} fontScaling={FONT_SCALING_FACTOR} graphWidth={TRACE_GRAPH_WIDTH}
+                changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
+              />
+              <span className={styles.outputs}>
+                {dataFrame.evalbox.length > 0 && (
+                  <EvalBox evallines={dataFrame.evalbox} />
+                )}
+                <VariableBox variables={dataFrame.vars} />
+                <OutputBox
+                  width={ARROW_WIDTH}
+                  height={ARROW_HEIGHT}
+                  headLength={ARROW_HEAD_LENGTH}
+                  outputs={dataFrame.out}
+                />
+              </span>
+            </>
+          :
+            <UploadBox
+              traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
+              resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
+              switchToSubmitTab={() => setSelectedTab("trace")}
             />
-          </span>
-        )
-      }
+        }
       </div>
   );
 }
