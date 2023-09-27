@@ -29,6 +29,7 @@ export default function TraceBox({
           ▶
         </button>
       </div>
+      <div className={styles.buffer}></div>
       {
         (code.length === 0) ?
           <LoadingBox />
