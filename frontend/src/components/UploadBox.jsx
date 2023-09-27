@@ -21,6 +21,7 @@ export default function UploadBox({
           id="uploadBox" value={traceCode} className={styles.editor}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
           highlight={code => highlight(code, languages.py)}
+          tabSize={4}
         />
       </div>
       <div className={styles.buttons}>
