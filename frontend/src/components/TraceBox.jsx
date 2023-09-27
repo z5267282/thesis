@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import {
   COUNTER_COLOURS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH
 } from "../config";
-import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
 
@@ -82,6 +81,10 @@ function TracedLinesBox({
       }
     </div>
   );
+}
+
+export function addPixels(dimension) {
+  return `${dimension}px`;
 }
 
 function Path({path}) {
