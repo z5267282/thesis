@@ -9,7 +9,6 @@ import UploadBox from "./components/UploadBox"
 import VariableBox from "./components/VariableBox";
 
 import { TABS } from "./config";
-import { generateData } from "./helper";
 
 import styles from "./App.module.css";
 
@@ -63,4 +62,33 @@ export default function App() {
       }
     </div>
   );
+}
+
+function generateData(frames, index) {
+  if (frames.length === 0) {
+    return {
+      dataFrame   : generateDefaultData(),
+      disablePrev : true,
+      disableNext : true
+    };
+  }
+
+  return {
+      dataFrame   : frames[index],
+      disablePrev : (index === 0),
+      disableNext : (index === frames.length - 1)
+  }
+
+  function generateDefaultData() {
+    return {
+      code     : [],
+      lines    : [],
+      curr     : null,
+      vars     : [],
+      out      : [],
+      path     : null,
+      counters : [],
+      evalbox  : []
+    }
+  }
 }
