@@ -1,3 +1,9 @@
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css';
+
 import { SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
@@ -34,10 +40,16 @@ export default function UploadBox({
         <div className={styles.lineNumbers}>
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
-        <textarea
+        {/* <textarea
           name="code-upload" spellCheck={false} id="uploadBox" className={styles.codeInput}
           value={traceCode} onInput={(event) => setTraceCode(event.target.value)} 
+        /> */}
+        <Editor
+          value={traceCode}
+          onValueChange={newTraceCode => setTraceCode(newTraceCode)}
+          highlight={code => highlight(code, languages.js)}
         />
+
       </div>
       <div className={styles.buttons}>
         <button
