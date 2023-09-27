@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 
+import { COUNTER_COLOURS, LINE_HEIGHT } from "../config";
 import { addPixels } from "../helper";
 
 import styles from "./TraceBox.module.css";
 
 export default function TraceBox({
-  code, lines, path, counters, curr, counterColours, lineHeight, fontScaling, graphWidth,
+  code, lines, path, counters, curr, lineHeight, fontScaling, graphWidth,
   changeIndex, disablePrev, disableNext
 }) {
   return (
@@ -35,7 +36,7 @@ export default function TraceBox({
           <TracedLinesBox
             code={code} lines={lines} curr={curr} path={path}
             lineHeight={lineHeight} fontScaling={fontScaling}
-            graphWidth={graphWidth} counters={counters} counterColours={counterColours}
+            graphWidth={graphWidth} counters={counters}
           />
       }
     </span>
@@ -49,13 +50,13 @@ function LoadingBox() {
 }
 
 function TracedLinesBox({
-  code, lines, curr, path, lineHeight, fontScaling, graphWidth, counters, counterColours
+  code, lines, curr, path, fontScaling, graphWidth, counters, counterColours
 }) {
   // this must be inline to import config value
   const lineHeightStyle = {
-    gridTemplateRows : `repeat(auto-fill, ${addPixels(lineHeight)})`,
-    lineHeight       : addPixels(lineHeight),
-    fontSize         : addPixels(lineHeight * fontScaling)
+    gridTemplateRows : `repeat(auto-fill, ${addPixels(LINE_HEIGHT)})`,
+    LINE_HEIGHT       : addPixels(LINE_HEIGHT),
+    fontSize         : addPixels(LINE_HEIGHT * fontScaling)
   };
 
   return (
@@ -65,21 +66,21 @@ function TracedLinesBox({
       </div>
       {
         (path.rest.length !== 0) &&
-          <Path path={path} lineHeight={lineHeight} graphWidth={graphWidth} />
+          <Path path={path} graphWidth={graphWidth} />
       }
       {
         (counters.length !== 0) &&
-          <Counters counters={counters} lineHeight={lineHeight} counterColours={counterColours} />
+          <Counters counters={counters} />
       }
     </div>
   );
 }
 
-function Path({path, lineHeight, graphWidth}) {
+function Path({path, graphWidth}) {
   return (
     <svg>
       <path
-        d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent"
+        d={`${genSVGPath(path, graphWidth).join(" ")}`} stroke="black" fill="transparent"
         className={styles.thickPen}
       />
     </svg>
@@ -89,11 +90,11 @@ function Path({path, lineHeight, graphWidth}) {
   * @param {*} coords object with the starting line and all remaining ones
   * @returns list of string of the path commands that can be joined with .join()
   */
-  function genSVGPath(coords, lineHeight, graphWidth) {
-    const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
+  function genSVGPath(coords, graphWidth) {
+    const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
     let prev = coords.start;
     coords.rest.forEach((coord) => {
-      const height = (coord - prev) * lineHeight;
+      const height = (coord - prev) * LINE_HEIGHT;
       path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
       prev = coord;
     });
@@ -128,12 +129,12 @@ function Lines({code, lines, curr}) {
   }
 } 
 
-function Counters({counters, lineHeight, counterColours}) {
+function Counters({counters}) {
   return counters.map(
     (counter, i) => 
       <div
         className={styles.counterBox}  key={`counter-${i}`}
-        style={genCounterStyle(counter.start, counter.end, lineHeight, i, counterColours)}
+        style={genCounterStyle(counter.start, counter.end, LINE_HEIGHT, i)}
       >
         <span className={styles.fraction}>
           <span className={styles.topText}>{counter.numerator}</span>
@@ -147,10 +148,10 @@ function Counters({counters, lineHeight, counterColours}) {
   * @param {*}
   * @returns an inline style object with a top margin and heights for the counter's div
   */
-  function genCounterStyle(start, end, lineHeight, index, colours) {
+  function genCounterStyle(start, end, lineHeight, index) {
     const halfLine = lineHeight / 2;
     return {
-      borderColor: colourCounter(index, colours),
+      borderColor: colourCounter(index, COUNTER_COLOURS),
       marginTop: addPixels((start * lineHeight) + halfLine),
       height: addPixels((end - start) * lineHeight)
     };
