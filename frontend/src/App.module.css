@@ -9,6 +9,10 @@
   margin-right: 0;
 }
 
+.traceBox {
+  width: 100%;
+}
+
 .outputs {
   display: inline-flex;
   flex-direction: column;
