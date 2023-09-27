@@ -30,7 +30,7 @@ function resetState(setTraceCode, resetIndex, setFrames) {
 }
 
 export default function UploadBox({
-  traceCode, setTraceCode, setFrames, resetIndex, showTraceBox
+  traceCode, setTraceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
 }) {
   return (
     <label htmlFor="uploadBox" className={styles.container}>
@@ -50,7 +50,10 @@ export default function UploadBox({
       <div className={styles.buttons}>
         <button
           type="submit" className={styles.clicker}
-          onClick={() => generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox)}
+          onClick={() => {
+            generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox);
+            switchToSubmitTab();
+          }}
         >
           Submit
         </button>
