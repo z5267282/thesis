@@ -1,6 +1,5 @@
 import Counters from "./Counters";
 import Lines from "./Lines";
-import Path from "./Path";
 
 import { addPixels } from "../helper";
 
@@ -60,8 +59,6 @@ function TracedLinesBox({
     fontSize         : addPixels(lineHeight * fontScaling)
   };
 
-  console.log(path);
-
   return (
     <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
       <div className={styles.tracedLines} style={lineHeightStyle}>
@@ -77,4 +74,30 @@ function TracedLinesBox({
       }
     </div>
   );
+}
+
+function Path({path, lineHeight, graphWidth}) {
+  return (
+    <svg>
+      <path
+        d={`${genSVGPath(path, lineHeight, graphWidth).join(" ")}`} stroke="black" fill="transparent"
+        className={styles.thickPen}
+      />
+    </svg>
+  );
+}
+
+/**
+ * @param {*} coords object with the starting line and all remaining ones
+ * @returns list of string of the path commands that can be joined with .join()
+ */
+function genSVGPath(coords, lineHeight, graphWidth) {
+  const path = [`M 0 ${coords.start * lineHeight + (lineHeight / 2)}`];
+  let prev = coords.start;
+  coords.rest.forEach((coord) => {
+    const height = (coord - prev) * lineHeight;
+    path.push(`q ${graphWidth} ${height / 2} 0 ${height}`);
+    prev = coord;
+  });
+  return path;
 }
