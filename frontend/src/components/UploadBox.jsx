@@ -27,7 +27,7 @@ export default function UploadBox({
       <div className={styles.buttons}>
         <button
           type="submit" className={styles.clicker}
-          onClick={() => generateDataFrames(
+          onClick={() => handleSubmit(
             traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
           )}
         >
@@ -41,6 +41,18 @@ export default function UploadBox({
         </button>
       </div>
     </label>
+  );
+}
+
+function handleSubmit(
+  traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
+) {
+  if (traceCode === "") {
+    alert("please enter some code");
+    return;
+  }
+  generateDataFrames(
+    traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
   );
 }
 
