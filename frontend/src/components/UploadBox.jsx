@@ -6,10 +6,13 @@ import 'prismjs/themes/prism.css';
 import { EDITOR_TAB_SPACES, SERVER } from "../config";
 
 import styles from "./UploadBox.module.css";
+import { Button } from "@mui/material";
 
 export default function UploadBox({
   traceCode, setTraceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
 }) {
+  const capitalisedButton = {textTransform : "none"};
+
   return (
     <label htmlFor="uploadBox" className={styles.container}>
       <h1 className={styles.largeText}>Upload code</h1>
@@ -25,20 +28,20 @@ export default function UploadBox({
         />
       </div>
       <div className={styles.buttons}>
-        <button
-          type="submit" className={styles.clicker}
+        <Button
+          variant="outlined" sx={capitalisedButton}
           onClick={() => handleSubmit(
             traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
           )}
         >
           Submit
-        </button>
-        <button
-          type="reset" className={styles.clicker}
+        </Button>
+        <Button
+          variant="outlined" sx={capitalisedButton}
           onClick={() => resetState(setTraceCode, resetIndex, setFrames)}
         >
           Reset
-        </button>
+        </Button>
       </div>
     </label>
   );
