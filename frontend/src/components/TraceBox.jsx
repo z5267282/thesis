@@ -116,17 +116,17 @@ function Lines({code, lines, curr}) {
       );
     }
   );
-} 
 
-/**
- * check whether the ith line should be highlighted.
- * the current line should be highlighted
- * @param {*} index
- * @param {*} code 
- */
-function colourLine(index, curr) {
-  return (curr !== null && index === curr) ? styles.highlight : "";
-}
+  /**
+  * check whether the ith line should be highlighted.
+  * the current line should be highlighted
+  * @param {*} index
+  * @param {*} code 
+  */
+  function colourLine(index, curr) {
+    return (curr !== null && index === curr) ? styles.highlight : "";
+  }
+} 
 
 function Counters({counters, lineHeight, counterColours}) {
   return counters.map(
@@ -142,27 +142,27 @@ function Counters({counters, lineHeight, counterColours}) {
         </span>
       </div>
   );
-}
 
-/**
- * @param {*}
- * @returns an inline style object with a top margin and heights for the counter's div
- */
-function genCounterStyle(start, end, lineHeight, index, colours) {
-  const halfLine = lineHeight / 2;
-  return {
-    borderColor: colourCounter(index, colours),
-    marginTop: addPixels((start * lineHeight) + halfLine),
-    height: addPixels((end - start) * lineHeight)
-  };
-}
+  /**
+  * @param {*}
+  * @returns an inline style object with a top margin and heights for the counter's div
+  */
+  function genCounterStyle(start, end, lineHeight, index, colours) {
+    const halfLine = lineHeight / 2;
+    return {
+      borderColor: colourCounter(index, colours),
+      marginTop: addPixels((start * lineHeight) + halfLine),
+      height: addPixels((end - start) * lineHeight)
+    };
+  }
 
-/**
- * provide a colour for the ith counter
- * @param {*} index of the counter
- * @param {*} colours
- * @returns 
- */
-function colourCounter(index, colours) {
-  return colours[index % colours.length]
+  /**
+  * provide a colour for the ith counter
+  * @param {*} index of the counter
+  * @param {*} colours
+  * @returns 
+  */
+  function colourCounter(index, colours) {
+    return colours[index % colours.length]
+  }
 }
