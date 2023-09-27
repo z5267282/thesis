@@ -27,10 +27,9 @@ export default function UploadBox({
       <div className={styles.buttons}>
         <button
           type="submit" className={styles.clicker}
-          onClick={() => {
-            generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox);
-            switchToSubmitTab();
-          }}
+          onClick={() => generateDataFrames(
+            traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
+          )}
         >
           Submit
         </button>
@@ -45,7 +44,9 @@ export default function UploadBox({
   );
 }
 
-function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
+function generateDataFrames(
+  traceCode, setFrames, resetIndex, showTraceBox, switchToSubmitTab
+) {
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",
     headers : { "Content-Type" : "application/json" },
@@ -57,6 +58,7 @@ function generateDataFrames(traceCode, setFrames, resetIndex, showTraceBox) {
       setFrames(frames);
       resetIndex();
       showTraceBox();
+      switchToSubmitTab();
     })
     .catch(err => alert(`An issue occurred with parsing: ${err}`));
 }
