@@ -1,16 +1,12 @@
 .App {
   display: grid;
   grid-template-rows: 5% 95%;
+  justify-items: center;
   row-gap: 2.5%;
   width: 100vw;
   height: 100vh;
   margin-left: 0;
   margin-right: 0;
-}
-
-.tabs {
-  display: flex;
-  justify-content: center;
 }
 
 .outputs {
