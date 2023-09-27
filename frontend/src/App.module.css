@@ -1,28 +1,19 @@
 .App {
-  /* display: grid;
-  grid-template-rows: 5% 95%;
-  grid-template-columns: 100%; */
   row-gap: 2.5%;
   width: 100vw;
   height: 100vh;
   margin-left: 0;
   margin-right: 0;
-  /* justify-items: center; */
 }
 
 .fullWidth {
   width: 100%;
 }
 
-.main {
-  background-color: red;
-}
-
 .outputs {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   width: 30%;
-  margin-top: 5%;
   justify-content: flex-start;
   align-items: center;
 }

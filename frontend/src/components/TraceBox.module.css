@@ -3,9 +3,9 @@
 }
 
 .traceBox {
-    width: 90%;
+    width: 65%;
     height: 100%;
-    display : flex;
+    display : inline-flex;
     flex-direction : column;
     align-items : center;
 }

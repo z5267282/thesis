@@ -8,7 +8,7 @@ export default function TraceBox({
   changeIndex, disablePrev, disableNext
 }) {
   return (
-    <div className={styles.traceBox}>
+    <span className={styles.traceBox}>
       <h1 className={styles.largeText}>
         Trace execution
       </h1>
@@ -36,6 +36,6 @@ export default function TraceBox({
             graphWidth={graphWidth} counters={counters} counterColours={counterColours}
           />
       }
-    </div>
+    </span>
   );
 } 
