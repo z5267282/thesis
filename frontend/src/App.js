@@ -42,7 +42,8 @@ export default function App() {
         (showTrace) ?
           <div className={styles.traceBox}>
             <TraceBox
-              code={dataFrame.code} lines={dataFrame.lines} path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr}
+              code={dataFrame.code} lines={dataFrame.lines}
+              path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
             />
             <span className={styles.outputs}>
