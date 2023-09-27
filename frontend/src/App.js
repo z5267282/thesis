@@ -50,7 +50,7 @@ export default function App() {
                 dataFrame.evalbox.length > 0 && 
                   <EvalBox evallines={dataFrame.evalbox} />
               }
-              <VariableBox variables={dataFrame.vars}/>
+              <VariableBox variables={dataFrame.vars} />
               <OutputBox index={index} outputs={dataFrame.out} />
             </span>
           </div>
@@ -94,11 +94,11 @@ function generateData(frames, index) {
   }
 }
 
-function VariableBox(variables) {
+function VariableBox({variables}) {
   return <TextBox header={"Variables"} text={variables.join("\n")} />;
 }
 
-function OutputBox(index, outputs) {
+function OutputBox({index, outputs}) {
   const textAreaRef = useRef();
   useEffect(() => {
     if (textAreaRef.current) {
