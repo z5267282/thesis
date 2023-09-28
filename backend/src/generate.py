@@ -72,6 +72,7 @@ def adjust_lines(lines):
 def generate_evalbox(line : str, variables : dict[str, Any]):
     """Given a line with a conditional expression, expand it from a mapping
     of variable values."""
-    raw_line : str = get_stripped_line(line)
-    expression : str = re.sub(r"^[a-z]+\s+", "", raw_line)
+    raw_line   : str = get_stripped_line(line)
+    expression : str = re \
+        .sub(r"^[a-z]+\s+", "", raw_line)
     return evaluate(expression, variables)
