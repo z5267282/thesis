@@ -69,6 +69,7 @@ function generateDataFrames(
   switchToSubmitTab, setDisableSubmit
 ) {
   setDisableSubmit(true);
+  alert("loading!");
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",
     headers : { "Content-Type" : "application/json" },
@@ -83,7 +84,7 @@ function generateDataFrames(
       switchToSubmitTab();
     })
     .catch(err => alert(`An issue occurred with parsing: ${err}`))
-    .finally(setDisableSubmit(false));
+    .finally(() => setDisableSubmit(false));
 }
 
 function resetState(setTraceCode, resetIndex, setFrames) {
