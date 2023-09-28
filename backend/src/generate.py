@@ -66,13 +66,13 @@ def adjust_lines(lines):
     Line numbers should start from 1."""
     return [
         f"{str(line - OFFSET)}" if line is not None else "" \
-        for line in lines
+            for line in lines
     ]
 
 def generate_evalbox(line : str, variables : dict[str, Any]):
     """Given a line with a conditional expression, expand it from a mapping
     of variable values."""
-    raw_line   : str = get_stripped_line(line)
-    expression : str = re \
-        .sub(r"^[a-z]+\s+", "", raw_line)
+    raw_line        : str = get_stripped_line(line)
+    no_control_flow : str = re.sub(r"^[a-z]+\s+", "", raw_line)
+    expression      : str = re.sub(r":[^:]*$", "", no_control_flow)
     return evaluate(expression, variables)
