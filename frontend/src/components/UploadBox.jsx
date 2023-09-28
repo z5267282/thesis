@@ -69,7 +69,6 @@ function generateDataFrames(
   switchToSubmitTab, setDisableSubmit
 ) {
   setDisableSubmit(true);
-  alert("loading!");
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",
     headers : { "Content-Type" : "application/json" },
