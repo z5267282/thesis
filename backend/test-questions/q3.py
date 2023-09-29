@@ -1,5 +1,4 @@
-i = 0
-GRID = 4
+i, GRID = 1, 4
 while i < 3000:
     if i % 17 == 0:
         j = 0
