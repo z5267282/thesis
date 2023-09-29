@@ -14,7 +14,6 @@
     display: flex;
     justify-content: space-evenly;
     width: 30%;
-    margin-top: 2%;
 }
 
 .disabled {
@@ -38,13 +37,14 @@
 }
 
 .tracedLinesBox {
+    width: 95%;
+    height: 80%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
 
 .tracedLines {
-    top: 2.5%;
     width: 100%;
     display: grid;
     grid-template-columns: 15% 85%;
