@@ -10,6 +10,11 @@
     font-size: 16pt;
 }
 
+.restrictionsBox {
+    display: flex;
+    flex-direction: row;    
+}
+
 .editorBox {
     display: flex;
     font-family: Courier;
@@ -52,5 +57,5 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 2%;
 }
