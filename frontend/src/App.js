@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Tab, Tabs } from "@mui/material";
+import { Box, Modal, Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
 import TextBox from "./components/TextBox";
@@ -15,6 +15,7 @@ export default function App() {
   const [selectedTab, setSelectedTab] = useState(TABS.UPLOAD);
   const [showTrace, setShowTrace] = useState(false);
   const [traceCode, setTraceCode] = useState("");
+  const [showRestrictions, setShowRestrictions] = useState(false);
 
   const [index, setIndex] = useState(0);
   const changeIndex = (offset) => {
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <div className={styles.app}>
+      <RestrictionsModal open={showRestrictions} closeModal={() => { alert("yes"); setShowRestrictions(false) }} />
       <Tabs value={selectedTab} onChange={(_, newTab) => setSelectedTab(newTab)}>
         <Tab sx={capitalisedTab} value={TABS.TRACE} label="Trace" onClick={() => setShowTrace(true)} />
         <Tab sx={capitalisedTab} value={TABS.UPLOAD} label="Upload " onClick={() => setShowTrace(false)} />
@@ -57,10 +59,21 @@ export default function App() {
             traceCode={traceCode} setTraceCode={setTraceCode} setFrames={setFrames}
             resetIndex={resetIndex} showTraceBox={() => setShowTrace(true)}
             switchToSubmitTab={() => setSelectedTab(TABS.TRACE)}
+            openRestrictions={() => setShowRestrictions(true)}
           />
       }
     </div>
   );
+}
+
+function RestrictionsModal({open, closeModal}) {
+  return <Modal className={styles.restrictions} open={open} onClose={closeModal}>
+    <Box className={styles.restrictions}>
+      <ol>
+        <li>The only permitted syntax are <code>print</code> statements, conditions</li>
+      </ol>
+    </Box>
+  </Modal>
 }
 
 function generateData(frames, index) {
