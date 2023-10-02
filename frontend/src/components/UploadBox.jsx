@@ -28,7 +28,7 @@ export default function UploadBox({
   });
 
   return (
-    <label htmlFor="uploadBox" className={styles.container}>
+    <label htmlFor="uploadBox" className={styles.uploadBox}>
       <h1 className={styles.largeText}>Upload code</h1>
       <ThemeProvider theme={theme}>
         <Button

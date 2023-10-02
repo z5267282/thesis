@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Dialog, Tab, Tabs } from "@mui/material";
+import { Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
 import TextBox from "./components/TextBox";
@@ -69,27 +69,23 @@ export default function App() {
 }
 
 function RestrictionsModal({open, closeModal}) {
-  // className not working
-  const style = {
-    border: "solid",
-    borderWidth: "2px",
-  };
-
-  return <Dialog open={open} onClose={closeModal} sx={style}>
-    <ol>
-      <li>
-        Programs can only consist of the following syntax:
-        <ol>
-          <li>variable assignments</li>
-          <li><code>print</code> statements</li>
-          <li>conditionals: <code>if</code>, <code>elif</code>, <code>else</code></li>
-          <li><code>while</code> loops</li>
-        </ol>
-      </li>
-      <li>
-        Temp
-      </li>
-    </ol>
+  return <Dialog open={open} onClose={closeModal} fullWidth>
+    <DialogContent>
+      <ol>
+        <li>
+          Programs can only consist of the following syntax:
+          <ol type="i">
+            <li>variable assignments</li>
+            <li><code>print</code> statements</li>
+            <li>conditionals: <code>if</code>, <code>elif</code>, <code>else</code></li>
+            <li><code>while</code> loops</li>
+          </ol>
+        </li>
+        <li>
+          Temp
+        </li>
+      </ol>
+    </DialogContent>
   </Dialog>
 }
 
