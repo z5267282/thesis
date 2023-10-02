@@ -76,11 +76,20 @@ function RestrictionsModal({open, closeModal}) {
   };
 
   return <Dialog open={open} onClose={closeModal} sx={style}>
-    <div style={{width : "50%", height : "50%", backgroundColor : "red"}}>
-      <ol>
-        <li>The only permitted syntax are <code>print</code> statements, conditions</li>
-      </ol>
-    </div>
+    <ol>
+      <li>
+        Programs can only consist of the following syntax:
+        <ol>
+          <li>variable assignments</li>
+          <li><code>print</code> statements</li>
+          <li>conditionals: <code>if</code>, <code>elif</code>, <code>else</code></li>
+          <li><code>while</code> loops</li>
+        </ol>
+      </li>
+      <li>
+        Temp
+      </li>
+    </ol>
   </Dialog>
 }
 
