@@ -81,9 +81,8 @@ function RestrictionsModal({open, closeModal}) {
             <li><code>while</code> loops</li>
           </ol>
         </li>
-        <li>
-          Temp
-        </li>
+        <li>Programs must work and run in under 1 second</li>
+        <li>Variables must be one of the following primitive datatypes: <code>str</code>, <code>int</code>, <code>bool</code></li>
       </ol>
     </DialogContent>
   </Dialog>
