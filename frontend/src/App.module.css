@@ -10,15 +10,6 @@
   font-family: Arial;
 }
 
-.restrictions {
-  position: absolute;
-  background-color: white;
-  transform: translate(-50%, -50%);
-  border: 2px solid #000;
-  box-shadow: 24;
-  padding : 4;
-}
-
 .traceBox {
   width: 100%;
 }

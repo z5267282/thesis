@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Box, Modal, Tab, Tabs } from "@mui/material";
+import { Dialog, Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
 import TextBox from "./components/TextBox";
@@ -32,7 +32,9 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <RestrictionsModal open={showRestrictions} closeModal={() => { alert("yes"); setShowRestrictions(false) }} />
+      <RestrictionsModal
+        open={showRestrictions} closeModal={() => setShowRestrictions(false)}
+      />
       <Tabs value={selectedTab} onChange={(_, newTab) => setSelectedTab(newTab)}>
         <Tab sx={capitalisedTab} value={TABS.TRACE} label="Trace" onClick={() => setShowTrace(true)} />
         <Tab sx={capitalisedTab} value={TABS.UPLOAD} label="Upload " onClick={() => setShowTrace(false)} />
@@ -67,13 +69,19 @@ export default function App() {
 }
 
 function RestrictionsModal({open, closeModal}) {
-  return <Modal className={styles.restrictions} open={open} onClose={closeModal}>
-    <Box className={styles.restrictions}>
+  // className not working
+  const style = {
+    border: "solid",
+    borderWidth: "2px",
+  };
+
+  return <Dialog open={open} onClose={closeModal} sx={style}>
+    <div style={{width : "50%", height : "50%", backgroundColor : "red"}}>
       <ol>
         <li>The only permitted syntax are <code>print</code> statements, conditions</li>
       </ol>
-    </Box>
-  </Modal>
+    </div>
+  </Dialog>
 }
 
 function generateData(frames, index) {
