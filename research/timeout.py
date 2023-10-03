@@ -12,8 +12,9 @@ def main():
         print(res)
 
 def f():
-    time.sleep(1)
-    return "fish"
+    while True:
+        print("yes")
 
 if __name__ == "__main__":
     main()
+

@@ -1,4 +1,4 @@
-from concurrent.futures import Future, ProcessPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
 import os
 import sys
 
@@ -35,9 +35,10 @@ def run_timed_program():
     list of DataFrames.
     Return None if the program timed out."""
     dataframes : None | list[DataFrame] = None
-    with ProcessPoolExecutor(max_workers=1) as pool:
+    with ThreadPoolExecutor(max_workers=1) as pool:
         future : Future = pool.submit(main)
         try:
+            print("here")
             dataframes = future.result(timeout=TIMEOUT) 
         except TimeoutError:
             print("timed out")
