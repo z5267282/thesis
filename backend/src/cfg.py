@@ -1,5 +1,8 @@
 import os
 
+# how many seconds user programs are allowed to run for
+TIMEOUT : int = 1
+
 # how many lines after the actual start, before analysis begins
 OFFSET : int = 1
 
