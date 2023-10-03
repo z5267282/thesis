@@ -1,15 +1,12 @@
-from concurrent.futures import Future, ThreadPoolExecutor
 import os
 import sys
-
-from werkzeug.exceptions import HTTPException
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 sys.path.append("src")
 
-from cfg import LEADING_SPACES, PROGRAM_PATH, TIMEOUT
+from cfg import LEADING_SPACES, PROGRAM_PATH
 from dataframe import DataFrame
 from main import main
 
@@ -18,40 +15,10 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
-    raw_code : str = request.get_json()
+    raw_code   : str = request.get_json()
     wrap_program(raw_code)
-    dataframes : None | list[DataFrame] = run_timed_program()
-    if dataframes is None:
-        raise ProgramTimeoutError()
-
+    dataframes : list[DataFrame] = main()
     return jsonify([ d.to_dict() for d in dataframes ])
-
-class ProgramTimeoutError(HTTPException):
-    code        : int = 400
-    description : str = "User uploaded program took too long to run"
-
-def run_timed_program():
-    """Run the user program for TIMEOUT seconds and return the corresponding
-    list of DataFrames.
-    Return None if the program timed out."""
-    dataframes : None | list[DataFrame] = None
-    with ThreadPoolExecutor(max_workers=1) as pool:
-        future : Future = pool.submit(main)
-        try:
-            print("here")
-            dataframes = future.result(timeout=TIMEOUT) 
-        except TimeoutError:
-            print("timed out")
-            print(f"df is : {dataframes}")
-            pass
-    
-    print(dataframes)
-    print("finish")
-    return dataframes
-
-@app.errorhandler(ProgramTimeoutError)
-def handle_timeout(e : ProgramTimeoutError):
-    return e.description, e.code
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]
