@@ -40,8 +40,12 @@ def run_timed_program():
         try:
             dataframes = future.result(timeout=TIMEOUT) 
         except TimeoutError:
+            print("timed out")
+            print(f"df is : {dataframes}")
             pass
     
+    print(dataframes)
+    print("finish")
     return dataframes
 
 @app.errorhandler(ProgramTimeoutError)
