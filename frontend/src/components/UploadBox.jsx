@@ -1,3 +1,6 @@
+const { spawn } = require("child_process");
+const path = require("path");
+
 import { useState } from "react";
 
 import { Button, ThemeProvider, createTheme } from "@mui/material";
@@ -88,6 +91,9 @@ function generateDataFrames(
   switchToSubmitTab, setDisableSubmit
 ) {
   setDisableSubmit(true);
+  const main = path.join("..", "..", "..", "backend", "src", "main.py")
+  const trace = spawn("python3", main);
+
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",
     headers : { "Content-Type" : "application/json" },
