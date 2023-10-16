@@ -28,12 +28,11 @@ then
     cat $output
     exit $ERR_CLIENT
 fi
-ps -p $pid && exit $TIMEOUT_SECS
+ps -p $pid > /dev/null && exit $TIMEOUT_SECS
 
 # wrap program
-sed -E -e 's/^/    /' -e '1i
-def program():' \ 
-raw.py > program.py
+sed -E -e 's/^/    /' -e '1i\
+def program():' raw.py > program.py
 
 # trace
 cd "$cwd"
