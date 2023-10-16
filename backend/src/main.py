@@ -1,10 +1,15 @@
 from json import dumps
 import importlib
+from os.path import join, sep
+import sys
 
 from dataframe import DataFrame
 from generate import generate_dataframes
 import program
-import sys
+
+sys.path.insert(
+    0, join(sep, "tmp")
+)
 
 def main():
     """Execute a program and generate a list of DataFrames representing
