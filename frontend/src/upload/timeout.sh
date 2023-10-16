@@ -5,7 +5,7 @@ TIMEOUT_SECS=1
 program="$1"
 
 cd /tmp
-python3 raw.py > /dev/null 2>&1 &
+# gracefully handle timeout using a TERM signal handler
 tee raw.py << EOF > /dev/null
 from signal import SIGTERM, signal
 import sys
@@ -15,6 +15,7 @@ signal(
 $program
 EOF
 
+python3 raw.py & > /dev/null
 pid=$!
 sleep $TIMEOUT_SECS
 if ps -p $pid > /dev/null
