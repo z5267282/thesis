@@ -23,12 +23,13 @@ python3 raw.py > $output 2>&1 &
 status=$?
 pid=$!
 sleep $TIMEOUT_SECS
+echo "status: $status"
 if [ $status -ne 0 ]
 then
     cat $output
     exit $ERR_CLIENT
 fi
-ps -p $pid > /dev/null && exit $TIMEOUT_SECS
+ps -p $pid > /dev/null && exit $ERR_TIMEOUT
 
 # wrap program
 sed -E -e 's/^/    /' -e '1i\
@@ -38,4 +39,4 @@ raw.py > program.py
 # trace
 cd "$cwd"
 cd ../../backend/src/
-python3 main.py 
+python3 main.py
