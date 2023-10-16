@@ -37,3 +37,5 @@ raw.py > program.py
 
 # trace
 cd "$cwd"
+cd ../../backend/src/
+python3 main.py 
