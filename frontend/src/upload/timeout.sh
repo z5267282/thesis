@@ -1,5 +1,7 @@
 #!/bin/dash
 
+program="$1"
+
 TIMEOUT_SECS=1
 
 cd /tmp
