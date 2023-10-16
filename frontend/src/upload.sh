@@ -30,4 +30,10 @@ then
 fi
 ps -p $pid && exit $TIMEOUT_SECS
 
-# run trace
+# wrap program
+sed -E -e 's/^/    /' -e '1i
+def program():' \ 
+raw.py > program.py
+
+# trace
+cd "$cwd"
