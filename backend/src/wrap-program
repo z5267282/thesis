@@ -1,0 +1,6 @@
+#!/bin/dash
+
+# wrap the program given in raw.py into a function program()
+
+sed -E -e 's/^/    /' -e "1i\\
+def $func_name():" raw.py > program.py
