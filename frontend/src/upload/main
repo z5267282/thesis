@@ -4,7 +4,7 @@
 # use dash in case there are POSIX issues with bash / zsh has
 
 timeout_file=$1
-timeout_secds=$2
+timeout_secs=$2
 raw_file=$3
 program_func=$4
 err_timeout=$5
