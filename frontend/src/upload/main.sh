@@ -5,12 +5,13 @@
 
 timeout_file=$1
 timeout_secds=$2
-err_timeout=$3
-err_client=$4
+raw_file=$3
+err_timeout=$4
+err_client=$5
 
 dash timeout.sh $timeout_file $timeout_secs || exit $err_timeout
+dash sanity-run.sh $raw_file || exit $err_client
 
-# TODO: wrap program
 
 # trace
 cd "$cwd"
