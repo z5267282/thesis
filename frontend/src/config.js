@@ -11,6 +11,8 @@ export const EDITOR_TAB_SPACES = 4;
 
 export const COUNTER_COLOURS = ["#649FFF", "#317FFF"]
 
+export const TMP_FILES = { timed : "timed.py" };
+
 const setServer = () => {
   return process.env.REACT_APP_HOST === "REMOTE" ?
     "https://z5267282.pythonanywhere.com"

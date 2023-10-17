@@ -1,5 +1,6 @@
 const { spawn } = require("child_process");
 const path = require("path");
+const fs = require("fs");
 
 import { useState } from "react";
 
@@ -10,7 +11,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism.css';
 
-import { EDITOR_TAB_SPACES, SERVER } from "../config";
+import { EDITOR_TAB_SPACES, SERVER, TMP_FILES } from "../config";
 
 import styles from "./UploadBox.module.css";
 
@@ -91,6 +92,8 @@ function generateDataFrames(
   switchToSubmitTab, setDisableSubmit
 ) {
   setDisableSubmit(true);
+  const enableSubmit = () => setDisableSubmit(false);
+
   const main = path.join("..", "..", "..", "backend", "src", "main.py")
   const trace = spawn("python3", main);
 
@@ -109,6 +112,34 @@ function generateDataFrames(
     })
     .catch(err => alert(`An issue occurred with parsing: ${err}`))
     .finally(() => setDisableSubmit(false));
+}
+
+function createdTimedFile(program) {
+  const contents = `from signal import SIGTERM, signal
+import sys
+signal(
+    SIGTERM, timeout=lambda signum, frame: sys.exit(1)
+)
+${program}`;
+  return writeToTmp(TMP_FILES.timed, contents);
+}
+
+/**
+ * Given contents, write to a file in /tmp.
+ * Return whether the file write succeeded
+ * @param {*} fileName in /tmp
+ * @param {*} contents of the file
+ */
+function writeToTmp(fileName, contents) {
+  let success = true;
+  try {
+    const absPath = path.join(path.sep, "tmp", fileName)
+    fs.writeFileSync(absPath, contents)
+  } catch (err) {
+    alert(`an error occurred writing to ${absPath} : ${err}`);
+    success = false;
+  }
+  return success;
 }
 
 function resetState(setTraceCode, resetIndex, setFrames) {
