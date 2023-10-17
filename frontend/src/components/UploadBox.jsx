@@ -114,6 +114,16 @@ function generateDataFrames(
     .finally(() => setDisableSubmit(false));
 }
 
+/**
+ * Create the necessary files in /tmp to run serverless trace.
+ * Return whether all files were successfully written.
+ * @param {*} program 
+ */
+function createFiles(program) {
+  if (!createTimedFile(program)) return false;
+  if (!createRawFile(program)) return false;
+}
+
 function createTimedFile(program) {
   const contents = `from signal import SIGTERM, signal
 import sys
@@ -122,6 +132,10 @@ signal(
 )
 ${program}`;
   return writeToTmp(TMP_FILES.timed, contents);
+}
+
+function createRawFile(program) {
+  return writeToTmp(TMP_FILES.raw, program);
 }
 
 /**
