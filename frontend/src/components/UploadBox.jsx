@@ -114,7 +114,7 @@ function generateDataFrames(
     .finally(() => setDisableSubmit(false));
 }
 
-function createdTimedFile(program) {
+function createTimedFile(program) {
   const contents = `from signal import SIGTERM, signal
 import sys
 signal(
