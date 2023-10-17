@@ -2,9 +2,9 @@
 
 # wrap the program given in raw.py into a function program()
 
-program_name=$1
+program_func=$1
 raw_file=$2
 
 sed -E -e 's/^/    /' -e "1i\\
-def $program_name():" \
-$raw_file > ${program_name}.py
+def $program_func():" \
+$raw_file > ${program_func}.py
