@@ -10,10 +10,7 @@ err_client=$4
 
 dash timeout.sh $timeout_file $timeout_secs || exit $err_timeout
 
-# wrap program
-sed -E -e 's/^/    /' -e '1i\
-def program():' \
-raw.py > program.py
+# TODO: wrap program
 
 # trace
 cd "$cwd"
