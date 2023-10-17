@@ -1,18 +1,14 @@
 #!/bin/dash
 
-# usage : dash upload.sh <program>
 # feed in a user program and trace
 # use dash in case there are POSIX issues with bash / zsh has
 
-ERR_CLIENT=1
-ERR_TIMEOUT=2
+timeout_file=$1
+timeout_secds=$2
+err_timeout=$3
+err_client=$4
 
-program="$1"
-cwd="$(pwd)"
-cd /tmp
-printf "%s" "$program" > raw.py
-
-dash timeout.sh || exit $ERR_TIMEOUT
+dash timeout.sh $timeout_file $timeout_secs || exit $err_timeout
 
 # wrap program
 sed -E -e 's/^/    /' -e '1i\

@@ -16,6 +16,8 @@ export const TMP_FILES = {
   timed : "timed.py",
   raw   : "raw.py"
 };
+export const TIMEOUT_SECS = 1;
+export const TRACE_ERRS = { timeout : 1, client : 2 };
 
 const setServer = () => {
   return process.env.REACT_APP_HOST === "REMOTE" ?

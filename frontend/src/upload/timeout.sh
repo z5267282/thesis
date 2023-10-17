@@ -1,23 +1,12 @@
 #!/bin/dash
 
-TIMEOUT_SECS=1
-
-program="$1"
+file=$1
+timeout_secs=$2
 
 cd /tmp
-# gracefully handle timeout using a TERM signal handler
-tee raw.py << EOF > /dev/null
-from signal import SIGTERM, signal
-import sys
-signal(
-    SIGTERM, timeout=lambda signum, frame: sys.exit(1)
-)
-$program
-EOF
-
-python3 raw.py & > /dev/null
+python3 $file & > /dev/null
 pid=$!
-sleep $TIMEOUT_SECS
+sleep $timeout_secs
 if ps -p $pid > /dev/null
 then
     kill -s TERM $pid

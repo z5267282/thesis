@@ -93,6 +93,14 @@ function generateDataFrames(
 ) {
   setDisableSubmit(true);
   const enableSubmit = () => setDisableSubmit(false);
+  if (!createFiles(traceCode)) {
+    enableSubmit();
+    return;
+  }
+
+  
+
+  enableSubmit();
 
   const main = path.join("..", "..", "..", "backend", "src", "main.py")
   const trace = spawn("python3", main);
@@ -122,6 +130,7 @@ function generateDataFrames(
 function createFiles(program) {
   if (!createTimedFile(program)) return false;
   if (!createRawFile(program)) return false;
+  return true;
 }
 
 function createTimedFile(program) {
