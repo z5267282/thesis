@@ -14,7 +14,5 @@ err_client=$6
 ./sanity-run $raw_file || exit $err_client
 ./wrap-program $program_func $raw_file
 
-# trace
-cd "$cwd"
-cd ../../backend/src/
-python3 main.py
+# the script is run from frontend/src/upload
+python3 ../../backend/src/main.py
