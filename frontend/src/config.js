@@ -12,7 +12,7 @@ export const EDITOR_TAB_SPACES = 4;
 export const COUNTER_COLOURS = ["#649FFF", "#317FFF"]
 
 // for serverless
-export const TMP_FILE = {
+export const TMP_FILES = {
   timed : "timed.py",
   raw   : "raw.py"
 };
