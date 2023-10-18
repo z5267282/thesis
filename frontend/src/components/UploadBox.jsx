@@ -94,20 +94,18 @@ function generateDataFrames(
     mode    : "cors",
     body    : JSON.stringify(traceCode),
   })
-    .then(res =>
-      (res.ok) ? res.json() : Promise.reject(res)
-    )
+    .then(res => {
+      console.log(res.status);
+      if (res.ok) return res.json();
+      alert(`error : ${res}`);
+    })
     .then(frames => {
       setFrames(frames);
       resetIndex();
       showTraceBox();
       switchToSubmitTab();
-    })
-    .catch(err => {
-      console.log("help me!");
-      alert(`An issue occurred with parsing: ${err}`);
-    })
-    .finally(() => setDisableSubmit(false));
+    });
+    setDisableSubmit(false);
 }
 
 function resetState(setTraceCode, resetIndex, setFrames) {
