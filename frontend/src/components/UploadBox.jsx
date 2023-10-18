@@ -1,4 +1,4 @@
-const { spawn, spawnSync } = require("child_process");
+const { spawnSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
@@ -11,7 +11,10 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism.css';
 
-import { EDITOR_TAB_SPACES, PROGRAM_FUNC, SERVER, TIMEOUT_SECS, TMP_FILES, TRACE_ERR } from "../config";
+import {
+  EDITOR_TAB_SPACES,
+  PROGRAM_FUNC, TIMEOUT_SECS, TMP_FILES, TRACE_ERR
+} from "../config";
 
 import styles from "./UploadBox.module.css";
 
@@ -98,8 +101,6 @@ function generateDataFrames(
     return;
   }
 
-  enableSubmit();
-
   const serverPath = path.join("upload", "main");
   const args = [
     TMP_FILES.timed, TIMEOUT_SECS,
@@ -108,23 +109,27 @@ function generateDataFrames(
     TRACE_ERR.timeout, TRACE_ERR.client
   ];
   
-  const trace = spawnSync("dash", [serverPath, ...args], );
-
-  fetch(`${SERVER}/analyse`, {
-    method  : "PUT",
-    headers : { "Content-Type" : "application/json" },
-    mode    : "cors",
-    body    : JSON.stringify(traceCode),
-  })
-    .then(res => res.json())
-    .then(frames => {
+  const trace = spawnSync("dash", [serverPath, ...args]);
+  switch (trace.status) {
+    case TRACE_ERR.timeout:
+      alert(`Your program took longer than ${TIMEOUT_SECS} seconds to run`);
+      break;
+    case TRACE_ERR.client:
+      const msg = `There was an issue running your code:
+${trace.stderr}`
+      alert(msg);
+      break;
+    case 0:
+      const frames = JSON.parse(trace.stdout);
       setFrames(frames);
       resetIndex();
       showTraceBox();
       switchToSubmitTab();
-    })
-    .catch(err => alert(`An issue occurred with parsing: ${err}`))
-    .finally(() => setDisableSubmit(false));
+    default:
+      alert(`parsing failed with exit code ${trace.status}`);
+  }
+
+  enableSubmit();
 }
 
 /**
