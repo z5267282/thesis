@@ -12,12 +12,13 @@ export const EDITOR_TAB_SPACES = 4;
 export const COUNTER_COLOURS = ["#649FFF", "#317FFF"]
 
 // for serverless
-export const TMP_FILES = {
+export const TMP_FILE = {
   timed : "timed.py",
   raw   : "raw.py"
 };
 export const TIMEOUT_SECS = 1;
-export const TRACE_ERRS = { timeout : 1, client : 2 };
+export const PROGRAM_FUNC = "program";
+export const TRACE_ERR = { timeout : 1, client : 2 };
 
 const setServer = () => {
   return process.env.REACT_APP_HOST === "REMOTE" ?

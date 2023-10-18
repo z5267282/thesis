@@ -1,4 +1,4 @@
-const { spawn } = require("child_process");
+const { spawn, spawnSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
@@ -11,7 +11,7 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-python';
 import 'prismjs/themes/prism.css';
 
-import { EDITOR_TAB_SPACES, SERVER, TMP_FILES } from "../config";
+import { EDITOR_TAB_SPACES, PROGRAM_FUNC, SERVER, TIMEOUT_SECS, TMP_FILES, TRACE_ERR } from "../config";
 
 import styles from "./UploadBox.module.css";
 
@@ -98,12 +98,17 @@ function generateDataFrames(
     return;
   }
 
-  
-
   enableSubmit();
 
-  const main = path.join("..", "..", "..", "backend", "src", "main.py")
-  const trace = spawn("python3", main);
+  const serverPath = path.join("upload", "main");
+  const args = [
+    TMP_FILES.timed, TIMEOUT_SECS,
+    TMP_FILES.raw,
+    PROGRAM_FUNC,
+    TRACE_ERR.timeout, TRACE_ERR.client
+  ];
+  
+  const trace = spawnSync("dash", [serverPath, ...args], );
 
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",

@@ -4,10 +4,10 @@ file=$1
 timeout_secs=$2
 
 cd /tmp
-python3 $file & > /dev/null
+python3 $file &
 pid=$!
 sleep $timeout_secs
-if ps -p $pid > /dev/null
+if ps -p $pid
 then
     kill -s TERM $pid
     exit 1
