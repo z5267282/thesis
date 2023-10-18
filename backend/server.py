@@ -36,10 +36,8 @@ def timeout(raw_code : str):
         t.seek(0)
         commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
-    #     timed_out : bool = bool(timeout.returncode)
-    # return timed_out
-
-    return True
+        timed_out : bool = bool(timeout.returncode)
+    return timed_out
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]

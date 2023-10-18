@@ -5,12 +5,10 @@ timeout_secs=$2
 
 python3 $file &
 pid=$!
-echo "the pid is $pid" > /tmp/log.txt
 sleep $timeout_secs
-if ps -p $pid > /tmp/before-kill.txt
+if ps -p $pid
 then
     kill -s TERM $pid
-    ps > /tmp/after-kill.txt
     exit 1
 fi
 exit 0

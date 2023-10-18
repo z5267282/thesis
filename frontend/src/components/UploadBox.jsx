@@ -103,7 +103,10 @@ function generateDataFrames(
       showTraceBox();
       switchToSubmitTab();
     })
-    .catch(err => alert(`An issue occurred with parsing: ${err}`))
+    .catch(err => {
+      console.log("help me!");
+      alert(`An issue occurred with parsing: ${err}`);
+    })
     .finally(() => setDisableSubmit(false));
 }
 
