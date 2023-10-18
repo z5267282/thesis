@@ -20,7 +20,7 @@ def analyse():
     desc : str = "User program ran for more than {} second{}".format(
         TIMEOUT, "" if TIMEOUT == 1 else "s"
     )
-    return desc, 408
+    return desc, HTTPStatus.REQUEST_TIMEOUT.value
 
     # raw_code : str = request.get_json()
     # timed_out : bool = check_timeout(raw_code)
