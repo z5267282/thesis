@@ -33,7 +33,13 @@ def timeout(raw_code : str):
     """Write the given program to a temporary file and time its execution.
     Return whether the program timed out."""
     with NamedTemporaryFile(mode="w") as t:
-        t.write(raw_code)
+        signal_wrapped : str = f"""from signal import SIGTERM, signal
+import sys
+signal(
+    SIGTERM, timeout=lambda signum, frame: sys.exit(1)
+)
+{raw_code}"""
+        t.write(signal_wrapped)
         t.seek(0)
         # commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         # timeout   : CompletedProcess = run(commands)
