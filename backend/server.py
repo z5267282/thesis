@@ -35,9 +35,10 @@ def timeout(raw_code : str):
     with NamedTemporaryFile(mode="w") as t:
         t.write(raw_code)
         t.seek(0)
-        commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
-        timeout   : CompletedProcess = run(commands)
-        timed_out : bool = bool(timeout.returncode)
+        # commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
+        # timeout   : CompletedProcess = run(commands)
+        # timed_out : bool = bool(timeout.returncode)
+        timed_out = True
     return timed_out
 
 def wrap_program(raw_code : str):
