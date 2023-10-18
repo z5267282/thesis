@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from subprocess import call, CompletedProcess
 import sys
-from tempfile import TemporaryFile
+from tempfile import NamedTemporaryFile 
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -27,7 +27,7 @@ def analyse():
 
 def check_timeout(raw_code : str):
     timed_out : bool = False
-    with TemporaryFile(mode="w") as t:
+    with NamedTemporaryFile(mode="w") as t:
         t.write(raw_code)
         commands : list[str] = "dash", PATHS.timeout, TIMEOUT
         timeout : CompletedProcess = call(commands)
