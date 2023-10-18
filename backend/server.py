@@ -17,17 +17,18 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
-    raw_code : str = request.get_json()
-    timed_out : bool = check_timeout(raw_code)
-    if timed_out:
-        desc : str = "User program ran for more than {} second{}".format(
-            TIMEOUT, "" if TIMEOUT == 1 else "s"
-        )
-        return desc, HTTPStatus.REQUEST_TIMEOUT.value
+    return "BADDD", 400
+    # raw_code : str = request.get_json()
+    # timed_out : bool = check_timeout(raw_code)
+    # if timed_out:
+    #     desc : str = "User program ran for more than {} second{}".format(
+    #         TIMEOUT, "" if TIMEOUT == 1 else "s"
+    #     )
+    #     return desc, HTTPStatus.REQUEST_TIMEOUT.value
 
-    wrap_program(raw_code)
-    dataframes : list[DataFrame] = main()
-    return jsonify([ d.to_dict() for d in dataframes ])
+    # wrap_program(raw_code)
+    # dataframes : list[DataFrame] = main()
+    # return jsonify([ d.to_dict() for d in dataframes ])
 
 def check_timeout(raw_code : str):
     """Write the given program to a temporary file and time its execution.
