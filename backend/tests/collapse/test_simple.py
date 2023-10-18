@@ -1,4 +1,4 @@
-from cfg import ELLIPSE
+from config import ELLIPSE
 from collapse import collapse
 from helper import get_code_info
 from line import Line

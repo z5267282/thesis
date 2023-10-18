@@ -3,7 +3,7 @@ import re
 from typing import Any, Callable, Type
 
 from analyse import smart_trace
-from cfg import OFFSET
+from config import OFFSET
 from collapse import collapse
 from dataframe import DataFrame
 from graph import generate_graphs

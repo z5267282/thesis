@@ -2,7 +2,7 @@ from collections import OrderedDict
 import inspect
 from typing import Callable
 
-from cfg import OFFSET
+from config import OFFSET
 
 def get_code_info(program : Callable):
     lines, start = inspect.getsourcelines(program)

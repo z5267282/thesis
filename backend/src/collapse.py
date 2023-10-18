@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from typing import Type
 
-from cfg import ELLIPSE, LEADING_SPACES
+from config import ELLIPSE, LEADING_SPACES
 from helper import uniq
 from line import Line
 from tree import Block, BodyBlock
