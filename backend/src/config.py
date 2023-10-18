@@ -19,10 +19,10 @@ class Paths:
     timeout : list[str] = ["src", "upload", "timeout"]
 
     def __getattribute__(self, path : list[str]):
-        host_path = deepcopy(path)
-        if os.getenv("REACT_APP_HOST") == "REMOTE":
-            host_path.insert(0, "focus-tracker")
-
+        host_path = \
+            ["focus-tracker"] if os.getenv("REACT_APP_HOST") == "REMOTE" \
+            else [] \
+            + path
         return os.path.join(*super().__getattribute__(host_path))
 
 PATHS : Paths = Paths()
