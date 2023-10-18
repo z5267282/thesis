@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 sys.path.append("src")
 
-from cfg import LEADING_SPACES, PROGRAM_PATH
+from config import LEADING_SPACES, PROGRAM_PATH
 from dataframe import DataFrame
 from main import main
 
