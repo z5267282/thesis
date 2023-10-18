@@ -3,7 +3,7 @@ from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
 
-from flask import abort, Flask, jsonify, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 sys.path.append("src")
@@ -18,8 +18,7 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    timed_out : bool = check_timeout(raw_code)
-    if timed_out:
+    if timeout(raw_code):
         desc : str = "User program ran for more than {} second{}".format(
             TIMEOUT, "" if TIMEOUT == 1 else "s"
         )
@@ -29,7 +28,7 @@ def analyse():
     dataframes : list[DataFrame] = main()
     return jsonify([ d.to_dict() for d in dataframes ])
 
-def check_timeout(raw_code : str):
+def timeout(raw_code : str):
     """Write the given program to a temporary file and time its execution.
     Return whether the program timed out."""
     with NamedTemporaryFile(mode="w") as t:
@@ -37,8 +36,10 @@ def check_timeout(raw_code : str):
         t.seek(0)
         commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
-        timed_out : bool = bool(timeout.returncode)
-    return timed_out
+    #     timed_out : bool = bool(timeout.returncode)
+    # return timed_out
+
+    return True
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]
