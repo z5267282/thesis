@@ -17,6 +17,7 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
+    print("origin " + str(request.environ.get("HTTP_ORIGIN", '')))
     raw_code : str = request.get_json()
     if timeout(raw_code):
         desc : str = "User program ran for more than {} second{}".format(
