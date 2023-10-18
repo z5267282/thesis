@@ -1,4 +1,7 @@
+from dataclasses import dataclass
+from copy import deepcopy
 import os
+from typing import Any
 
 # how many seconds user programs are allowed to run for
 TIMEOUT : int = 1
@@ -11,7 +14,18 @@ ELLIPSE : str = "·" * 3
 
 LEADING_SPACES : int = 4
 
-PROGRAM_PATH : list[str] = ["src", "program.py"]
+@dataclass
+class Paths:
+    """A dataclass to store necessary paths.
+    Note that these are relative from the backend folder."""
+    program : list[str] = ["src", "program.py"]
+    timeout : list[str] = ["src", "upload", "timeout"]
 
-if os.getenv("REACT_APP_HOST") == "REMOTE":
-    PROGRAM_PATH.insert(0, "focus-tracker")
+    def __getattribute__(self, path : list[str]):
+        host_path = deepcopy(path)
+        if os.getenv("REACT_APP_HOST") == "REMOTE":
+            host_path.insert(0, "focus-tracker")
+
+        return os.path.join(*super().__getattribute__(host_path))
+
+PATHS : Paths = Paths()

@@ -3,7 +3,6 @@
 file=$1
 timeout_secs=$2
 
-cd /tmp
 python3 $file &
 pid=$!
 sleep $timeout_secs
