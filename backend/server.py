@@ -30,11 +30,12 @@ def check_timeout(raw_code : str):
     with NamedTemporaryFile(mode="w") as t:
         t.write(raw_code)
         t.seek(0)
-        commands : list[str] = ["dash", PATHS.timeout, t.name, TIMEOUT]
+        commands : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout : CompletedProcess = run(commands)
         if timeout.returncode:
             timed_out = True
     if timed_out:
+        print("i timed out in python")
         raise ProgramTimeOutError()
 
 class ProgramTimeOutError(HTTPException):
