@@ -3,9 +3,8 @@ from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
 
-from flask import Flask, jsonify, request
+from flask import abort, Flask, jsonify, request
 from flask_cors import CORS
-from werkzeug.exceptions import HTTPException
 
 sys.path.append("src")
 
@@ -19,34 +18,27 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    check_timeout(raw_code)
+    timed_out : bool = check_timeout(raw_code)
+    if timed_out:
+        desc : str = "User program ran for more than {} second{}".format(
+            TIMEOUT, "" if TIMEOUT == 1 else "s"
+        )
+        return desc, HTTPStatus.REQUEST_TIMEOUT.value
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
     return jsonify([ d.to_dict() for d in dataframes ])
 
 def check_timeout(raw_code : str):
-    timed_out : bool = False
+    """Write the given program to a temporary file and time its execution.
+    Return whether the program timed out."""
     with NamedTemporaryFile(mode="w") as t:
         t.write(raw_code)
         t.seek(0)
-        commands : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
-        timeout : CompletedProcess = run(commands)
-        if timeout.returncode:
-            timed_out = True
-    if timed_out:
-        print("i timed out in python")
-        raise ProgramTimeOutError()
-
-class ProgramTimeOutError(HTTPException):
-    code        : int = HTTPStatus.REQUEST_TIMEOUT.value
-    description : str = "User program ran for more than {} second{}".format(
-        TIMEOUT, "" if TIMEOUT == 1 else "s"
-    )
-
-@app.errorhandler(ProgramTimeOutError)
-def handle_timeout(e : ProgramTimeOutError):
-    return e.description, e.code
+        commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
+        timeout   : CompletedProcess = run(commands)
+        timed_out : bool = bool(timeout.returncode)
+    return timed_out
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]
