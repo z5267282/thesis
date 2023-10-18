@@ -94,7 +94,13 @@ function generateDataFrames(
     mode    : "cors",
     body    : JSON.stringify(traceCode),
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        return Promise.reject(res)
+      }
+    })
     .then(frames => {
       setFrames(frames);
       resetIndex();
