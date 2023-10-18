@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from copy import deepcopy
 import os
 
@@ -13,7 +12,6 @@ ELLIPSE : str = "·" * 3
 
 LEADING_SPACES : int = 4
 
-@dataclass
 class Paths:
     """A dataclass to store necessary paths.
     Note that these are relative from the backend folder."""

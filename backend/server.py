@@ -19,7 +19,7 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    check_timeout()
+    check_timeout(raw_code)
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
@@ -27,9 +27,10 @@ def analyse():
 
 def check_timeout(raw_code : str):
     timed_out : bool = False
-    with TemporaryFile() as t:
+    with TemporaryFile(mode="w") as t:
         t.write(raw_code)
-        timeout : CompletedProcess = call("dash", PATHS.timeout, TIMEOUT)
+        commands : list[str] = "dash", PATHS.timeout, TIMEOUT
+        timeout : CompletedProcess = call(commands)
         if timeout.returncode:
             timed_out = True
     if timed_out:
