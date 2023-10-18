@@ -1,0 +1,19 @@
+#!/bin/dash
+
+# feed in a user program and trace
+# use dash in case there are POSIX issues with bash / zsh has
+
+timeout_file=$1
+timeout_secs=$2
+raw_file=$3
+program_func=$4
+err_timeout=$5
+err_client=$6
+
+./timeout $timeout_file $timeout_secs > /dev/null 2>&1 || exit $err_timeout
+./sanity-run $raw_file 1>&2 || exit $err_client
+./wrap-program $program_func $raw_file
+
+# the script is run from frontend/src/upload
+python3 ../../backend/src/main.py
+exit 0

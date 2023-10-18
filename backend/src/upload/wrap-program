@@ -1,0 +1,11 @@
+#!/bin/dash
+
+# wrap the program given in raw.py into a function program()
+
+program_func=$1
+raw_file=$2
+
+cd /tmp
+sed -E -e 's/^/    /' -e "1i\\
+def $program_func():" \
+$raw_file > ${program_func}.py
