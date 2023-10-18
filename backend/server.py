@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from subprocess import call, CompletedProcess
+from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
 
@@ -29,8 +29,9 @@ def check_timeout(raw_code : str):
     timed_out : bool = False
     with NamedTemporaryFile(mode="w") as t:
         t.write(raw_code)
-        commands : list[str] = "dash", PATHS.timeout, TIMEOUT
-        timeout : CompletedProcess = call(commands)
+        t.seek(0)
+        commands : list[str] = ["dash", PATHS.timeout, t.name, TIMEOUT]
+        timeout : CompletedProcess = run(commands)
         if timeout.returncode:
             timed_out = True
     if timed_out:
