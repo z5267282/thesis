@@ -38,7 +38,7 @@ signal(
     SIGTERM, lambda signum, frame: sys.exit(1)
 )
 {raw_code}"""
-        t.write(signal_wrapped)
+        print(signal_wrapped, file=t, end="", flush=True)
         t.seek(0)
         commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
