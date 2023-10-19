@@ -43,7 +43,6 @@ signal(
         commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
         timed_out : bool = bool(timeout.returncode)
-        timed_out = True
     return timed_out
 
 def wrap_program(raw_code : str):
