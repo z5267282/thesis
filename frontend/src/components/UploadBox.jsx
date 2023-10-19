@@ -95,15 +95,27 @@ function generateDataFrames(
     body    : JSON.stringify(traceCode),
   })
     .then(res =>
-      (res.ok) ? res.json() : Promise.reject(res)
-    )
-    .then(frames => {
+      (res.ok) ?
+        res.json()
+      :
+        res.text().then(errorText =>
+          Promise.reject(new Error(errorText))
+        )
+    ).
+    then(frames => {
       setFrames(frames);
       resetIndex();
       showTraceBox();
       switchToSubmitTab();
     })
-    .catch(err => alert(`an error occurred during parsing ${err}`))
+    .catch(err =>
+      alert(
+        (err instanceof Error) ?
+          err.message
+        :
+          `an error occurred during parsing ${err}`
+      )
+    )
     .finally(() => setDisableSubmit(false));
 }
 
