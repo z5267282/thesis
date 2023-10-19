@@ -4,7 +4,6 @@ file=$1
 timeout_secs=$2
 
 python3 $file &
-cat $file
 pid=$!
 sleep $timeout_secs
 if ps -p $pid > /dev/null
