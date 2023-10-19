@@ -17,13 +17,12 @@ CORS(app)
 
 @app.put("/analyse")
 def analyse():
-    print("origin " + str(request.environ.get("HTTP_ORIGIN", '')))
     raw_code : str = request.get_json()
     if timeout(raw_code):
         desc : str = "User program ran for more than {} second{}".format(
             TIMEOUT, "" if TIMEOUT == 1 else "s"
         )
-        return desc, HTTPStatus.REQUEST_TIMEOUT.value
+        return desc, HTTPStatus.BAD_REQUEST
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
