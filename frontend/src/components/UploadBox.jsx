@@ -88,7 +88,6 @@ function generateDataFrames(
   switchToSubmitTab, setDisableSubmit
 ) {
   setDisableSubmit(true);
-  console.log("call to gen dataframes");
   fetch(`${SERVER}/analyse`, {
     method  : "PUT",
     headers : { "Content-Type" : "application/json" },
@@ -96,15 +95,14 @@ function generateDataFrames(
     body    : JSON.stringify(traceCode),
   })
     .then(res =>
-      // (res.ok) ? res.json() : Promise.reject(res)
-      console.log("ok " + res.ok)
+      (res.ok) ? res.json() : Promise.reject(res)
     )
-    // .then(frames => {
-    //   setFrames(frames);
-    //   resetIndex();
-    //   showTraceBox();
-    //   switchToSubmitTab();
-    // })
+    .then(frames => {
+      setFrames(frames);
+      resetIndex();
+      showTraceBox();
+      switchToSubmitTab();
+    })
     .catch(err => alert(`an error occurred during parsing ${err}`))
     .finally(() => setDisableSubmit(false));
 }
