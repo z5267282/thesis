@@ -1,4 +1,3 @@
-from copy import deepcopy
 import os
 
 # how many seconds user programs are allowed to run for
