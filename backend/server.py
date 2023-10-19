@@ -36,14 +36,14 @@ def timeout(raw_code : str):
         signal_wrapped : str = f"""from signal import SIGTERM, signal
 import sys
 signal(
-    SIGTERM, timeout=lambda signum, frame: sys.exit(1)
+    SIGTERM, lambda signum, frame: sys.exit(1)
 )
 {raw_code}"""
         t.write(signal_wrapped)
         t.seek(0)
-        # commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
-        # timeout   : CompletedProcess = run(commands)
-        # timed_out : bool = bool(timeout.returncode)
+        commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
+        timeout   : CompletedProcess = run(commands)
+        timed_out : bool = bool(timeout.returncode)
         timed_out = True
     return timed_out
 
