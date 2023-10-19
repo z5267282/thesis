@@ -101,8 +101,8 @@ function generateDataFrames(
         res.text().then(errorText =>
           Promise.reject(new Error(errorText))
         )
-    ).
-    then(frames => {
+    )
+    .then(frames => {
       setFrames(frames);
       resetIndex();
       showTraceBox();
