@@ -113,7 +113,7 @@ function generateDataFrames(
         (err instanceof Error) ?
           err.message
         :
-          `an error occurred during parsing ${err}`
+          `an error occurred during analysis ${err}`
       )
     )
     .finally(() => setDisableSubmit(false));
