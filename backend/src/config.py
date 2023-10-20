@@ -20,10 +20,13 @@ class Paths:
 
     def __getattribute__(self, path : str):
         original  : list[str] = super().__getattribute__(path)
-        host_path : list[str] = \
-            ["focus-tracker"] if os.getenv("REACT_APP_HOST") == "REMOTE" \
-            else [] \
-            + original
+        host_path : list[str] = (
+            ["focus-tracker"] if os.getenv("REACT_APP_HOST") == "REMOTE"
+            else []
+        ) \
+        + original
         return os.path.join(*host_path)
 
 PATHS : Paths = Paths()
+
+print(PATHS.program)
