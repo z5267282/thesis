@@ -28,5 +28,3 @@ class Paths:
         return os.path.join(*host_path)
 
 PATHS : Paths = Paths()
-
-print(PATHS.program)
