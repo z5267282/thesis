@@ -18,9 +18,8 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    # TODO : move into function
     if timeout(raw_code):
-        desc : str = "User program ran for more than {} second{}".format(
+        desc : str = "Your program ran for more than {} second{}".format(
             TIMEOUT, "" if TIMEOUT == 1 else "s"
         )
         return desc, HTTPStatus.BAD_REQUEST
@@ -49,19 +48,21 @@ signal(
     SIGTERM, lambda signum, frame: sys.exit(1)
 )
 {raw_code}"""
-        print(signal_wrapped, file=t, end="", flush=True)
-        t.seek(0)
+        temp_print(signal_wrapped, t)
         commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
         timed_out : bool = bool(timeout.returncode)
     return timed_out
 
+def temp_print(data : str, file : NamedTemporaryFile):
+    print(data, file=file, end="", flush=True)
+    file.seek(0)
+
 def sanity(raw_code : str):
     """Check the given program can be run without errors.
     Return a CompletedProcess storing the status of the sanity check."""
     with NamedTemporaryFile(mode="w") as t:
-        print(raw_code, file=t, end="", flush=True)
-        t.seek(0)
+        temp_print(raw_code, t)
         commands : list[str] = ["dash", PATHS.sanity, t.name]
         check    : CompletedProcess = run(
             commands,
