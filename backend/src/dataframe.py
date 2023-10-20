@@ -15,7 +15,7 @@ class DataFrame:
         self.curr  : int = curr
 
         self.vars  : list[str] = [
-            f"{name} = {value}" for name, value in variables.items()
+            f"{name} = {value}" for name, value in sorted(variables.items())
         ]
 
         self.out : list[str] = deepcopy(out)
