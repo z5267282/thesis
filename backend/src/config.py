@@ -16,6 +16,7 @@ class Paths:
     Note that these are relative from the backend folder."""
     program : list[str] = ["src", "program.py"]
     timeout : list[str] = ["src", "upload", "timeout"]
+    sanity  : list[str] = ["src", "upload", "sanity-run"]
 
     def __getattribute__(self, path : str):
         original  : list[str] = super().__getattribute__(path)
