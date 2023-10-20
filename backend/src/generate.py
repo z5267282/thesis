@@ -17,11 +17,11 @@ from tree_parser import parse
 def generate_dataframes(program : Callable):
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
-    root : BodyBlock = parse(program)
+    root         : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines : list[Line] = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, all_lines)
-    line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
+    all_lines    : list[Line] = trace_program(program)
+    filtered     : list[Line] = smart_trace(line_mapping, all_lines)
+    line_graphs  : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
     return \
         [ generate_first_dataframe(program_code, root) ] \
@@ -45,10 +45,10 @@ def generate_dataframe(
     root : BodyBlock, line_mapping : dict[int, Type[Block]]
 ):
     code, lines, path = collapse(line_graph, program_code, root)
-    curr : Line = line_graph[-1]
+    curr      : Line = line_graph[-1]
     variables : dict[str, Any] = curr.vars.curr
 
-    evalbox : list[str] = []
+    evalbox   : list[str] = []
     curr_line : int = curr.line_no
     if line_mapping[curr_line].is_conditional():
         evalbox.append(
