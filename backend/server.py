@@ -18,25 +18,27 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    if timeout(raw_code):
-        desc : str = "Your program ran for more than {} second{}".format(
-            TIMEOUT, "" if TIMEOUT == 1 else "s"
-        )
-        return desc, HTTPStatus.BAD_REQUEST
-    
-    sanity_check : CompletedProcess = sanity(raw_code)
-    if sanity_check.returncode:
-        desc : list[str] = [
-            "Your program could not be run.",
-            "There is likely a syntax error in the code",
-            "More info here :",
-            sanity_check.stderr
-        ]
-        return "\n".join(desc), HTTPStatus.BAD_REQUEST
+    errors : tuple[str, int] | None = program_errors(raw_code)
+    if errors is not None:
+        return errors
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
     return jsonify([ d.to_dict() for d in dataframes ])
+
+def program_errors(raw_code : str):
+    """Check the given raw code for any errors.
+    Return None if there were no errors.
+    Otherwise return a tuple of error desciprtion and status code."""
+    if timeout(raw_code):
+        return gen_timeout_response()
+    
+    sane : CompletedProcess = sanity(raw_code)
+    if sane.returncode:
+        return gen_insane_response(sane)
+    
+    return None
+
 
 def timeout(raw_code : str):
     """Write the given program to a temporary file and time its execution.
@@ -58,17 +60,32 @@ def temp_print(data : str, file : NamedTemporaryFile):
     print(data, file=file, end="", flush=True)
     file.seek(0)
 
+def gen_timeout_response():
+    desc : str = "Your program ran for more than {} second{}".format(
+        TIMEOUT, "" if TIMEOUT == 1 else "s"
+    )
+    return desc, HTTPStatus.BAD_REQUEST
+
 def sanity(raw_code : str):
     """Check the given program can be run without errors.
     Return a CompletedProcess storing the status of the sanity check."""
     with NamedTemporaryFile(mode="w") as t:
         temp_print(raw_code, t)
         commands : list[str] = ["dash", PATHS.sanity, t.name]
-        check    : CompletedProcess = run(
+        sanity   : CompletedProcess = run(
             commands,
             capture_output=True, text=True
         )
-    return check 
+    return sanity 
+
+def gen_insane_response(insane : CompletedProcess):
+    desc : list[str] = [
+        "Your program could not be run.",
+        "There is likely a syntax error in the code",
+        "More info here :",
+        insane.stderr
+    ]
+    return "\n".join(desc), HTTPStatus.BAD_REQUEST
 
 def wrap_program(raw_code : str):
     code : list[str] = ["def program():"]
