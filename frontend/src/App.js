@@ -117,16 +117,3 @@ function generateData(frames, index) {
     }
   }
 }
-
-// function OutputBox({index, outputs}) {
-//   const textAreaRef = useRef();
-//   useEffect(() => {
-//     if (textAreaRef.current) {
-//       textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
-//     }
-//   }, [index]);
-
-//   return <TextBox
-//     header={"Output"} text={outputs.join("")} textAreaRef={textAreaRef}
-//   />
-// }
