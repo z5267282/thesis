@@ -1,0 +1,21 @@
+.variableBox {
+    width : 90%;
+}
+
+.variableBox h2 {
+    font-size: 14pt;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.vars {
+    align-items: normal;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    font-family: monospace;
+    font-size: 12pt;
+    border: solid;
+    border-width: 2px;
+}

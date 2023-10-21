@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
-import TextBox from "./components/TextBox";
 import TraceBox from "./components/TraceBox"
 import UploadBox from "./components/UploadBox"
+import VariableBox from "./components/VariableBox";
 
 import { TABS } from "./config";
 
@@ -115,22 +115,6 @@ function generateData(frames, index) {
       evalbox  : []
     }
   }
-}
-
-function VariableBox({variables}) {
-  return (
-    <div>
-      <h2 stlye={{fontSize : "14pt"}}>Variables</h2>
-      <div style={{display : "grid", gridTemplateColumns : "20% 80%"}}>
-        {
-          variables.map(variable => <>
-            <span>{variable.name}</span>
-            <span>{variable.value}</span>
-          </>)
-        }
-      </div>
-    </div>
-  );
 }
 
 // function OutputBox({index, outputs}) {

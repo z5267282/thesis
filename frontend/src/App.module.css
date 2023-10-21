@@ -19,6 +19,7 @@
 }
 
 .outputs {
+  background-color: green;
   width: 30%;
   height: 80%;
   display: inline-flex;
