@@ -53,7 +53,7 @@ export default function App() {
                   <EvalBox evallines={dataFrame.evalbox} />
               }
               <VariableBox variables={dataFrame.vars} />
-              <OutputBox index={index} outputs={dataFrame.out} />
+              {/* <OutputBox index={index} outputs={dataFrame.out} /> */}
             </span>
           </div>
         :
@@ -118,18 +118,29 @@ function generateData(frames, index) {
 }
 
 function VariableBox({variables}) {
-  return <TextBox header={"Variables"} text={variables.join("\n")} />;
+  return (
+    <div>
+      <h2 stlye={{fontSize : "14pt"}}>Variables</h2>
+      <div>
+
+      </div>
+      <textarea
+        id={generatedID} className={`${styles.variableBox} ${styles.fontSize}`}
+        value={text} spellCheck={false} readOnly ref={textAreaRef}
+      />
+    </div>
+  );
 }
 
-function OutputBox({index, outputs}) {
-  const textAreaRef = useRef();
-  useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
-    }
-  }, [index]);
+// function OutputBox({index, outputs}) {
+//   const textAreaRef = useRef();
+//   useEffect(() => {
+//     if (textAreaRef.current) {
+//       textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
+//     }
+//   }, [index]);
 
-  return <TextBox
-    header={"Output"} text={outputs.join("")} textAreaRef={textAreaRef}
-  />
-}
+//   return <TextBox
+//     header={"Output"} text={outputs.join("")} textAreaRef={textAreaRef}
+//   />
+// }

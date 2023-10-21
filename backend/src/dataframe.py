@@ -29,9 +29,10 @@ class DataFrame:
             "rest"  : self.generate_rest()
         }
 
-        variables : list[dict[str, str]] = [
+        variables : list[dict] = [
             {
-                "display" : f"{name} = {value}",
+                "name"    : name,
+                "value"   : str(value),
                 "changed" : (
                     name not in variables.prev or variables.prev[name] != value
                 )
