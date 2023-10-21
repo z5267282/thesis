@@ -36,10 +36,7 @@ export default function TraceBox({
         (code.length !== 0) &&
           <LinearProgress
             variant="determinate"
-            style={{backgroundColor : "red"}}
-            sx={
-              { flexGrow : 1, transitionDuration : "0s" }
-            }
+            sx={{ width : "80%" }}
             value={calcProgress(index, total)}
           />
       }
@@ -195,6 +192,9 @@ function Counters({counters}) {
 }
 
 function calcProgress(index, total) {
-  const calc = ((index / total) * 100).toFixed(0);
+  // the first frame is a filler one without a curr
+  if (index == 0) return 0;
+
+  const calc = ((index) / (total - 1) * 100).toFixed(0);
   return parseInt(calc);
 }
