@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
+import OutputBox from "./components/OutputBox";
 import TraceBox from "./components/TraceBox"
 import UploadBox from "./components/UploadBox"
 import VariableBox from "./components/VariableBox";
@@ -53,7 +54,7 @@ export default function App() {
                   <EvalBox evallines={dataFrame.evalbox} />
               }
               <VariableBox variables={dataFrame.vars} />
-              {/* <OutputBox index={index} outputs={dataFrame.out} /> */}
+              <OutputBox index={index} outputs={dataFrame.out} />
             </span>
           </div>
         :
