@@ -38,7 +38,8 @@ export default function TraceBox({
           <LoadingBox />
         :
           <TracedLinesBox
-            code={code} lines={lines} curr={curr} path={path} counters={counters}
+            code={code} lines={lines} curr={curr} path={path}
+            counters={counters}
           />
       }
     </span>
