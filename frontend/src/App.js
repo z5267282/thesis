@@ -121,13 +121,14 @@ function VariableBox({variables}) {
   return (
     <div>
       <h2 stlye={{fontSize : "14pt"}}>Variables</h2>
-      <div>
-
+      <div style={{display : "grid", gridTemplateColumns : "20% 80%"}}>
+        {
+          variables.map(variable => <>
+            <span>{variable.name}</span>
+            <span>{variable.value}</span>
+          </>)
+        }
       </div>
-      <textarea
-        id={generatedID} className={`${styles.variableBox} ${styles.fontSize}`}
-        value={text} spellCheck={false} readOnly ref={textAreaRef}
-      />
     </div>
   );
 }
