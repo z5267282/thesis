@@ -9,13 +9,21 @@ export default function VariableBox({variables}) {
       <div className={styles.vars}> {
           variables.map((variable, i) =>
             <Fragment key={`variable-${i}`}>
-              <span className={styles.varName}>{variable.name}</span>
+              <span
+                className={`${styles.varName} ${colourIn(variable)}`}
+              >
+                {variable.name}
+              </span>
               <span className={styles.barrier}>=</span>
-              <span>{variable.value}</span>
+              <span className={colourIn(variable)}>{variable.value}</span>
             </Fragment>
           )
         }
       </div>
     </div>
   );
+}
+
+function colourIn(variable) {
+  return (variable.changed) ? styles.highlight : "";
 }
