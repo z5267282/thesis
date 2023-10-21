@@ -5,12 +5,12 @@ import {
 } from "../config";
 
 import styles from "./TraceBox.module.css";
-import { IconButton } from "@mui/material";
+import { IconButton, LinearProgress } from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
 
 export default function TraceBox({
-  code, lines, path, counters, curr,
+  code, lines, path, counters, curr, index, total,
   changeIndex, disablePrev, disableNext
 }) {
   return (
@@ -31,6 +31,10 @@ export default function TraceBox({
         >
           <EastIcon />
         </IconButton>
+        {
+          (code.length !== 0) &&
+            <LinearProgress value={calcProgress(index ,total)} />
+        }
       </div>
       <div className={styles.buffer}></div>
       {
@@ -181,4 +185,8 @@ function Counters({counters}) {
   function colourCounter(index, colours) {
     return colours[index % colours.length]
   }
+}
+
+function calcProgress(index, total) {
+  return parseInt(index / total);
 }

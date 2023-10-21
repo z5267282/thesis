@@ -46,6 +46,7 @@ export default function App() {
             <TraceBox
               code={dataFrame.code} lines={dataFrame.lines}
               path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr}
+              index={index} total={frames.length}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
             />
             <span className={styles.outputs}>
