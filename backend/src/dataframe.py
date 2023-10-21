@@ -2,21 +2,20 @@ from copy import deepcopy
 from typing import Any
 
 from counter import Counter
+from state import State
 
 class DataFrame:
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int | None,
-        variables : dict[str, Any], out : list[str],
+        variables : State[dict[str, Any]], out : list[str],
         path : list[int], counters : list[Counter], evalbox : list[str]
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
         self.curr  : int = curr
 
-        self.vars  : list[str] = [
-            f"{name} = {value}" for name, value in sorted(variables.items())
-        ]
+        self.variables : State[dict[str, Any]] = variables
 
         self.out : list[str] = deepcopy(out)
 
@@ -30,6 +29,15 @@ class DataFrame:
             "rest"  : self.generate_rest()
         }
 
+        variables : list[dict[str, str]] = [
+            {
+                "display" : f"{name} = {value}",
+                "changed" : (
+                    name not in variables.prev or variables.prev[name] != value
+                )
+            } for name, value in sorted(variables.items())
+        ]
+
         counters = [
             counter.to_dict() for counter in self.counters \
             if counter.has_valid_range()
@@ -39,7 +47,7 @@ class DataFrame:
             "code"     : self.code,
             "lines"    : self.lines,
             "curr"     : self.curr,
-            "vars"     : self.vars,
+            "vars"     : variables,
             "out"      : self.out,
             "path"     : path,
             "counters" : counters,

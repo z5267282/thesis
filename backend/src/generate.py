@@ -11,6 +11,7 @@ from helper import get_code_info, get_stripped_line
 from line import Line
 from evaluate import evaluate
 from execute import trace_program
+from state import State
 from tree import Block, BodyBlock
 from tree_parser import parse
 
@@ -37,7 +38,7 @@ def generate_first_dataframe(
     code, lines, path = collapse([], program_code, root)
     return DataFrame(
         code, adjust_lines(lines), None,
-        {}, [], path, [], [] 
+        State({}, {}), [], path, [], [] 
     )
 
 def generate_dataframe(
@@ -46,18 +47,17 @@ def generate_dataframe(
 ):
     code, lines, path = collapse(line_graph, program_code, root)
     curr      : Line = line_graph[-1]
-    variables : dict[str, Any] = curr.vars.curr
 
     evalbox   : list[str] = []
     curr_line : int = curr.line_no
     if line_mapping[curr_line].is_conditional():
         evalbox.append(
-            generate_evalbox(program_code[curr_line], variables)
+            generate_evalbox(program_code[curr_line], curr.vars.curr)
         )
 
     return DataFrame(
         code, adjust_lines(lines), 0 if not path else path[-1],
-        variables, curr.output, path, curr.counters, evalbox
+        curr.vars, curr.output, path, curr.counters, evalbox
     )
 
 def adjust_lines(lines):
