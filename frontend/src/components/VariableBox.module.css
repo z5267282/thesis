@@ -13,9 +13,15 @@
 .vars {
     align-items: normal;
     display: grid;
+    min-height: 50px;
     grid-template-columns: 25% 75%;
     font-family: monospace;
     font-size: 12pt;
     border: solid;
     border-width: 2px;
+}
+
+.varName {
+    text-align : right;
+    white-space : pre;
 }
