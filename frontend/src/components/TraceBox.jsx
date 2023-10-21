@@ -12,14 +12,9 @@ import WestIcon from '@mui/icons-material/West';
 export default function TraceBox({
   code, lines, path, counters, curr, index, total,
   changeIndex, disablePrev, disableNext
-}) {
-  console.log(`index is : ${index} total is ${total}`);
-  console.log(calcProgress(index ,total));
-
+}) { 
   return (
     <span className={styles.traceBox}>
-      <LinearProgress variant="determinate" value={calcProgress(index ,total)} />
-
       <h1 className={styles.largeText}>
         Trace execution
       </h1>
@@ -36,11 +31,18 @@ export default function TraceBox({
         >
           <EastIcon />
         </IconButton>
-        {/* {
-          (code.length !== 0) &&
-            <LinearProgress value={calcProgress(index ,total)} />
-        } */}
       </div>
+      {
+        (code.length !== 0) &&
+          <LinearProgress
+            variant="determinate"
+            style={{backgroundColor : "red"}}
+            sx={
+              { flexGrow : 1, transitionDuration : "0s" }
+            }
+            value={calcProgress(index, total)}
+          />
+      }
       <div className={styles.buffer}></div>
       {
         (code.length === 0) ?
