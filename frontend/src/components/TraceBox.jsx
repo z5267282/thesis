@@ -74,8 +74,8 @@ function TracedLinesBox({
   // this must be inline to import config value
   const lineHeightStyle = {
     gridTemplateRows : `repeat(auto-fill, ${addPixels(LINE_HEIGHT)})`,
-    lineHeight : addPixels(LINE_HEIGHT),
-    fontSize   : addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
+    lineHeight       : addPixels(LINE_HEIGHT),
+    fontSize         : addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
 
   return (
@@ -193,7 +193,7 @@ function Counters({counters}) {
 
 function calcProgress(index, total) {
   // the first frame is a filler one without a curr
-  if (index == 0) return 0;
+  if (index === 0) return 0;
 
   const calc = ((index) / (total - 1) * 100).toFixed(0);
   return parseInt(calc);
