@@ -13,8 +13,13 @@ export default function TraceBox({
   code, lines, path, counters, curr, index, total,
   changeIndex, disablePrev, disableNext
 }) {
+  console.log(`index is : ${index} total is ${total}`);
+  console.log(calcProgress(index ,total));
+
   return (
     <span className={styles.traceBox}>
+      <LinearProgress variant="determinate" value={calcProgress(index ,total)} />
+
       <h1 className={styles.largeText}>
         Trace execution
       </h1>
@@ -31,10 +36,10 @@ export default function TraceBox({
         >
           <EastIcon />
         </IconButton>
-        {
+        {/* {
           (code.length !== 0) &&
             <LinearProgress value={calcProgress(index ,total)} />
-        }
+        } */}
       </div>
       <div className={styles.buffer}></div>
       {
@@ -188,5 +193,6 @@ function Counters({counters}) {
 }
 
 function calcProgress(index, total) {
-  return parseInt(index / total);
+  const calc = ((index / total) * 100).toFixed(0);
+  return parseInt(calc);
 }
