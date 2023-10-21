@@ -7,7 +7,8 @@ export default function VariableBox({variables}) {
       <div className={styles.vars}> {
           variables.map(variable =>
             <>
-              <span className={styles.varName}>{`${variable.name} = `}</span>
+              <span className={styles.varName}>{variable.name}</span>
+              <span>=</span>
               <span>{variable.value}</span>
             </>
           )
