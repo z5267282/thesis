@@ -34,9 +34,10 @@ class DataFrame:
                 "name"    : name,
                 "value"   : str(value),
                 "changed" : (
-                    name not in variables.prev or variables.prev[name] != value
+                    name not in self.variables.prev
+                    or self.variables.prev[name] != value
                 )
-            } for name, value in sorted(variables.items())
+            } for name, value in sorted(self.variables.curr.items())
         ]
 
         counters = [
