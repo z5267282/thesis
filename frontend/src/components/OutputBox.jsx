@@ -18,7 +18,10 @@ export default function OutputBox({index, outputs}) {
       <h2 className={styles.fontSize}>Output</h2>
       <textarea
         id={generatedID} className={`${styles.variableBox} ${styles.fontSize}`}
-        value={outputs.join("")} spellCheck={false} readOnly ref={textAreaRef}
+        // we remove trailing newline for presentation on frontend
+        value={outputs.join("").trimEnd()}
+        spellCheck={false} readOnly
+        ref={textAreaRef}
       />
     </label>
   );
