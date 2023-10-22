@@ -1,12 +1,10 @@
 j, k = 2, 4
 while j < 100:
     if j % 3 + k % 3 == 3:
-        a, b, rem = j, k, k % j
-        while rem != 0:
-            a = b
-            b = rem
-            rem = a % b
-        print(f"the gcd of {j} and {k} is {b}")
+        a, b, = j, k
+        while b != 0:
+            a, b = b, a % b
+        print(f"the gcd of {j} and {k} is {a}")
     elif j % 5 > (k + 1) % 4:
         i, total = 1, 0
         while i <= k:
