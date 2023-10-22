@@ -1,17 +1,18 @@
 HI = 100_000
 i, j, k = 0, 1, 2
 while i + j + k <= HI:
+    print(i, j, k)
     name = "boat"
     if i % j == 0:
         name = "bubble"
-    elif j + k % 57 == 13:
+    elif (j + k) % 3 == 1:
         name = "fish"
-    elif k - i > 91:
+    elif (k - i) % 7 > j % 4:
         name = "spider"
     
-    if (k * i) % j == 23:
+    if k * i < j * 23:
         entity = "inc"
-    elif k % 42 == 1:
+    elif i % 5 == (j + k) % 5:
         entity = "llc"
     else:
         entity = "pty ltd"
