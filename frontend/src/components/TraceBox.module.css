@@ -50,7 +50,7 @@
     overflow: auto;
     width: 100%;
     display: grid;
-    grid-template-columns: 7.5% auto 1fr;
+    grid-template-columns: 7.5% 92.5%;
     font-family: monospace;
     border: solid;
     border-width: 2px;
@@ -68,6 +68,19 @@
 
 .lineNumber {
     padding-left: 45%;
+}
+
+.codeLine {
+    display: grid;
+    grid-template-columns: auto minmax(40% 0.3fr);
+}
+
+.codeLine :nth-child(1) {
+    background-color: red;
+}
+
+.codeLine :nth-child(2) {
+    background-color: green;
 }
 
 .preserveSpace {

@@ -134,8 +134,14 @@ function Lines({code, lines, curr}) {
           <span className={`${styles.lineNumber} ${colour}`}>
             {`${lines[i]}${lines[i] === "" ? "" : "."}`}
           </span>
-          <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
-          <span className={styles.dotted} />
+          <span
+            style={{
+              display : "grid", gridTemplateColumns : "auto minmax(40%, 0.3fr)", columnGap : "5%"
+            }}
+          >
+            <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+            <span className={styles.dotted} />
+          </span>
         </Fragment>
       );
     }
