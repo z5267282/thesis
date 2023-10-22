@@ -52,6 +52,14 @@ export default function TraceBox({
       }
     </span>
   );
+
+  function calcProgress(index, total) {
+    // the first frame is a filler one without a curr
+    if (index === 0) return 0;
+
+    const calc = ((index) / (total - 1) * 100).toFixed(0);
+    return parseInt(calc);
+  }
 } 
 
 /**
@@ -93,10 +101,10 @@ function TracedLinesBox({
       }
     </div>
   );
-}
 
-function addPixels(dimension) {
-  return `${dimension}px`;
+  function addPixels(dimension) {
+    return `${dimension}px`;
+  }
 }
 
 function Path({path}) {
@@ -197,12 +205,4 @@ function Counters({counters}) {
   function colourCounter(index, colours) {
     return colours[index % colours.length]
   }
-}
-
-function calcProgress(index, total) {
-  // the first frame is a filler one without a curr
-  if (index === 0) return 0;
-
-  const calc = ((index) / (total - 1) * 100).toFixed(0);
-  return parseInt(calc);
 }
