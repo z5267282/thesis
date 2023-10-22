@@ -95,7 +95,7 @@ function TracedLinesBox({
   );
 }
 
-export function addPixels(dimension) {
+function addPixels(dimension) {
   return `${dimension}px`;
 }
 
