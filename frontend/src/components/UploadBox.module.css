@@ -25,15 +25,18 @@
     border: solid;
     border-width: 2px;
     border-color: black;
-    width: 80%;
+    width: 100%;
     height: 75%;
     padding-top: 2.5%;
     padding-left: 2.5%;
+    overflow: auto;
 }
 
 .editor {
-    height: 100%;
+    min-height: 100%;
+    height: max-content;
     width: 100%;
+    background-color: goldenrod;
 }
 
 .lineNumbers{
