@@ -7,7 +7,7 @@
 }
 
 .variableBox h2 {
-    font-size: 14pt;
+    font-size: 16pt;
 }
 
 .vars {
@@ -18,7 +18,7 @@
     grid-template-columns: 25% 5% 70%;
     column-gap: 2%;
     font-family: monospace;
-    font-size: 12pt;
+    font-size: 14pt;
     border: solid;
     border-width: 2px;
 }

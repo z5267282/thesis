@@ -7,11 +7,12 @@
     justify-content: center;
 }
 
-.fontSize {
-    font-size: 14pt;
+.textBox h2 {
+    font-size: 16pt;
 }
 
 .textBox textarea {
+    font-size: 14pt;
     padding: 2.5%;
     resize: none;
     width: 85%;

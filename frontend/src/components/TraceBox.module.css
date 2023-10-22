@@ -9,6 +9,10 @@
     align-items : center;
 }
 
+.traceBox h1 {
+    font-size: 20pt;
+}
+
 .transitions {
     display: flex;
     justify-content: space-evenly;

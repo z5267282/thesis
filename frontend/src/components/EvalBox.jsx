@@ -3,7 +3,7 @@ import styles from "./EvalBox.module.css";
 export default function EvalBox({evallines}) {
   return (
     <>
-      <h2 className={styles.fontSize}>Conditional Evaluation</h2>
+      <h2 className={styles.headingFont}>Conditional Evaluation</h2>
       <div className={styles.evalBox}>
         {
           evallines.map(
