@@ -53,6 +53,14 @@ export default function TraceBox({
     </span>
   );
 
+  /**
+  * generate the classname to disabled a button depending on a flag
+  * @param {*} flag 
+  */
+  function disabledClass(flag) {
+    return (flag) ? styles.disabled : "";
+  }
+
   function calcProgress(index, total) {
     // the first frame is a filler one without a curr
     if (index === 0) return 0;
@@ -61,14 +69,6 @@ export default function TraceBox({
     return parseInt(calc);
   }
 } 
-
-/**
- * generate the classname to disabled a button depending on a flag
- * @param {*} flag 
- */
-function disabledClass(flag) {
-  return (flag) ? styles.disabled : "";
-}
 
 function LoadingBox() {
   return <div className={`${styles.traceCode} ${styles.loadingBox}`}>
