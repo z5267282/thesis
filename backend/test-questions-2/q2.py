@@ -1,4 +1,4 @@
-HI = 10_000
+HI = 100_000
 i, j, k = 0, 1, 2
 while i + j + k <= HI:
     name = "boat"
@@ -9,26 +9,17 @@ while i + j + k <= HI:
     elif k - i > 91:
         name = "spider"
     
-    city = "Sydney"
-    a, b, rem = j, k, k % j
-    while rem != 0:
-        a = b
-        b = rem
-        rem = a % b
-    if rem % 4 == 0:
-        city = "Brisbane"
-    elif rem % 7 == 3:
-        city = "Melbourne"
-    
-    entity = ""
-    if (rem * i) % j == 23:
+    if (k * i) % j == 23:
         entity = "inc"
-    elif rem % 42 == 1:
+    elif k % 42 == 1:
         entity = "llc"
     else:
         entity = "pty ltd"
     
-    print(f"congratulations on founding : {name} {city} {entity}.")
+    company = f"{name} {entity}."
+    print(f"choice : {company}")
     i += j
     j += k
     k = (i + j) + (2 * k) % 14
+
+print("that's all")
