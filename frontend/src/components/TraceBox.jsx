@@ -105,104 +105,104 @@ function TracedLinesBox({
   function addPixels(dimension) {
     return `${dimension}px`;
   }
-}
 
-function Path({path}) {
-  return (
-    <svg>
-      <path
-        d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent"
-        className={styles.thickPen}
-      />
-    </svg>
-  );
+  function Lines({code, lines, curr, path}) {
+    const dotted = new Set([path.start, ...path.rest]);
+    return code.map(
+      (line, i) => {
+        const colour = colourLine(i, curr);
+        return (
+          <Fragment key={`line-${i}`}>
+            <span className={`${styles.lineNumber} ${colour}`}>
+              {`${lines[i]}${lines[i] === "" ? "" : "."}`}
+            </span>
+            <span className={styles.codeLine}>
+              <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+              <span className={dotLine(i)} />
+            </span>
+          </Fragment>
+        );
+      }
+    );
 
-  /**
-  * @param {*} coords object with the starting line and all remaining ones
-  * @returns list of string of the path commands that can be joined with .join()
-  */
-  function genSVGPath(coords) {
-    const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
-    let prev = coords.start;
-    coords.rest.forEach((coord) => {
-      const height = (coord - prev) * LINE_HEIGHT;
-      path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
-      prev = coord;
-    });
-    return path;
-  }
-}
-
-function Lines({code, lines, curr, path}) {
-  const dotted = new Set([path.start, ...path.rest]);
-  return code.map(
-    (line, i) => {
-      const colour = colourLine(i, curr);
-      return (
-        <Fragment key={`line-${i}`}>
-          <span className={`${styles.lineNumber} ${colour}`}>
-            {`${lines[i]}${lines[i] === "" ? "" : "."}`}
-          </span>
-          <span className={styles.codeLine}>
-            <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
-            <span className={dotLine(i)} />
-          </span>
-        </Fragment>
-      );
+    function dotLine(i) {
+      if (dotted.size <= 1) return "";
+      return (dotted.has(i)) ? styles.dotted : "";
     }
-  );
 
-  function dotLine(i) {
-    if (dotted.size <= 1) return "";
-    return (dotted.has(i)) ? styles.dotted : "";
+    /**
+    * check whether the ith line should be highlighted.
+    * the current line should be highlighted
+    * @param {*} index
+    * @param {*} code 
+    */
+    function colourLine(index, curr) {
+      return (curr !== null && index === curr) ? styles.highlight : "";
+    }
+  } 
+
+  function Path({path}) {
+    return (
+      <svg>
+        <path
+          d={`${genSVGPath(path).join(" ")}`} stroke="black" fill="transparent"
+          className={styles.thickPen}
+        />
+      </svg>
+    );
+
+    /**
+    * @param {*} coords object with the starting line and all remaining ones
+    * @returns list of string of the path commands that can be joined with .join()
+    */
+    function genSVGPath(coords) {
+      const path = [`M 0 ${coords.start * LINE_HEIGHT + (LINE_HEIGHT / 2)}`];
+      let prev = coords.start;
+      coords.rest.forEach((coord) => {
+        const height = (coord - prev) * LINE_HEIGHT;
+        path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
+        prev = coord;
+      });
+      return path;
+    }
   }
 
-  /**
-  * check whether the ith line should be highlighted.
-  * the current line should be highlighted
-  * @param {*} index
-  * @param {*} code 
-  */
-  function colourLine(index, curr) {
-    return (curr !== null && index === curr) ? styles.highlight : "";
-  }
-} 
+  function Counters({counters}) {
+    return counters.map(
+      (counter, i) => 
+        <div
+          className={styles.counterBox}  key={`counter-${i}`}
+          style={genCounterStyle(counter.start, counter.end, LINE_HEIGHT, i)}
+        >
+          <span className={styles.fraction}>
+            <span className={styles.topText}>{counter.numerator}</span>
+            /
+            <span className={styles.bottomText}>{counter.denominator}</span>
+          </span>
+        </div>
+    );
 
-function Counters({counters}) {
-  return counters.map(
-    (counter, i) => 
-      <div
-        className={styles.counterBox}  key={`counter-${i}`}
-        style={genCounterStyle(counter.start, counter.end, LINE_HEIGHT, i)}
-      >
-        <span className={styles.fraction}>
-          <span className={styles.topText}>{counter.numerator}</span>
-          /
-          <span className={styles.bottomText}>{counter.denominator}</span>
-        </span>
-      </div>
-  );
+    /**
+    * @param {*}
+    * @returns an inline style object with a top margin and heights for the counter's div
+    */
+    function genCounterStyle(start, end, lineHeight, index) {
+      const halfLine = lineHeight / 2;
+      return {
+        borderColor: colourCounter(index, COUNTER_COLOURS),
+        marginTop: addPixels((start * lineHeight) + halfLine),
+        height: addPixels((end - start) * lineHeight)
+      };
+    }
 
-  /**
-  * @param {*}
-  * @returns an inline style object with a top margin and heights for the counter's div
-  */
-  function genCounterStyle(start, end, lineHeight, index) {
-    const halfLine = lineHeight / 2;
-    return {
-      borderColor: colourCounter(index, COUNTER_COLOURS),
-      marginTop: addPixels((start * lineHeight) + halfLine),
-      height: addPixels((end - start) * lineHeight)
-    };
-  }
-
-  /**
-  * provide a colour for the ith counter
-  * @param {*} index of the counter
-  * @param {*} colours
-  * @returns 
-  */
-  function colourCounter(index, colours) {
-    return colours[index % colours.length]
+    /**
+    * provide a colour for the ith counter
+    * @param {*} index of the counter
+    * @param {*} colours
+    * @returns 
+    */
+    function colourCounter(index, colours) {
+      return colours[index % colours.length]
+    }
   }
 }
