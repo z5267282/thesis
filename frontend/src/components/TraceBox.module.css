@@ -50,7 +50,7 @@
     overflow: auto;
     width: 100%;
     display: grid;
-    grid-template-columns: 7.5% 92.5%;
+    grid-template-columns: 10% 90%;
     font-family: monospace;
     border: solid;
     border-width: 2px;
