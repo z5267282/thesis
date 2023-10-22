@@ -125,7 +125,6 @@ function Path({path}) {
   }
 }
 
-
 function Lines({code, lines, curr}) {
   return code.map(
     (line, i) => {
