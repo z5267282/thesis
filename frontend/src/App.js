@@ -29,7 +29,7 @@ export default function App() {
   const [frames, setFrames] = useState([]);
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
-  const capitalisedTab = {textTransform : "none", fontSize : "14pt"};
+  const capitalisedTab = { textTransform : "none", fontSize : "14pt" };
 
   return (
     <div className={styles.app}>
