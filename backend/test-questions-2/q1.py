@@ -1,7 +1,6 @@
 HI = 100_000
 i, j, k = 0, 1, 2
 while i + j + k <= HI:
-    print(i, j, k)
     name = "boat"
     if i % j == 0:
         name = "bubble"
@@ -22,5 +21,4 @@ while i + j + k <= HI:
     i += j
     j += k
     k = (i + j) + (2 * k) % 14
-
 print("that's all")
