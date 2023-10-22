@@ -1,6 +1,6 @@
 j, k = 2, 4
 while j < 100:
-    if j % 3 == k % 3:
+    if j % 3 + k % 3 == 3:
         a, b, rem = j, k, k % j
         while rem != 0:
             a = b
@@ -13,7 +13,7 @@ while j < 100:
             if i % 2 == 0:
                 total += 1
             i += 1
-        print(f"the sum of all even numbers to {k} is {total}")
+        print(f"sum evens to {k} is {total}")
     elif j * k > k ** 2:
         i = 0
         while i < 5:
