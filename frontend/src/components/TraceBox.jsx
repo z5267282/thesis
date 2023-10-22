@@ -81,7 +81,7 @@ function TracedLinesBox({
   return (
     <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
       <div className={styles.tracedLines} style={lineHeightStyle}>
-        <Lines code={code} lines={lines} curr={curr} />
+        <Lines code={code} lines={lines} curr={curr} path={path} />
       </div>
       {
         (path.rest.length !== 0) &&
@@ -125,7 +125,8 @@ function Path({path}) {
   }
 }
 
-function Lines({code, lines, curr}) {
+function Lines({code, lines, curr, path}) {
+  const dotted = new Set([path.start, ...path.rest]);
   return code.map(
     (line, i) => {
       const colour = colourLine(i, curr);
@@ -136,12 +137,17 @@ function Lines({code, lines, curr}) {
           </span>
           <span className={styles.codeLine}>
             <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
-            <span className={styles.dotted} />
+            <span className={dotLine(i)} />
           </span>
         </Fragment>
       );
     }
   );
+
+  function dotLine(i) {
+    if (dotted.size <= 1) return "";
+    return (dotted.has(i)) ? styles.dotted : "";
+  }
 
   /**
   * check whether the ith line should be highlighted.
