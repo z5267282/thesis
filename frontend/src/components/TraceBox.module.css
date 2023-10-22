@@ -72,15 +72,8 @@
 
 .codeLine {
     display: grid;
-    grid-template-columns: auto minmax(40% 0.3fr);
-}
-
-.codeLine :nth-child(1) {
-    background-color: red;
-}
-
-.codeLine :nth-child(2) {
-    background-color: green;
+    grid-template-columns: auto minmax(40%, 0.3fr);
+    column-gap: 5%;
 }
 
 .preserveSpace {
