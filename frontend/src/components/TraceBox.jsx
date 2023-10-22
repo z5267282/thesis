@@ -135,6 +135,7 @@ function Lines({code, lines, curr}) {
             {`${lines[i]}${lines[i] === "" ? "" : "."}`}
           </span>
           <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+          <span className={styles.dotted} />
         </Fragment>
       );
     }

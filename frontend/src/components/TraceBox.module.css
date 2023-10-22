@@ -50,10 +50,18 @@
     overflow: auto;
     width: 100%;
     display: grid;
-    grid-template-columns: 15% 85%;
-    font-family: monospace; 
+    grid-template-columns: 7.5% auto 1fr;
+    font-family: monospace;
     border: solid;
     border-color: black;
+}
+
+.tracedLines > :nth-child(1) {
+    background-color: green
+}
+
+.tracedLines > :nth-child(2) {
+    background-color: red;
 }
 
 .tracedLinesBox svg {
@@ -71,6 +79,13 @@
 
 .preserveSpace {
     white-space: pre;
+}
+
+.dotted {
+    position: relative;
+    top: 50%;
+    border-top: dashed;
+    border-width: 2px;
 }
 
 .highlight {
