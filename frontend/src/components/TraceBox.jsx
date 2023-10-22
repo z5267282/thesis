@@ -126,7 +126,8 @@ function TracedLinesBox({
     );
 
     function dotLine(i) {
-      if (dotted.size <= 1) return "";
+      // tracing has not started yet
+      if (curr === null) return "";
       return (dotted.has(i)) ? styles.dotted : "";
     }
 
