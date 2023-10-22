@@ -116,8 +116,8 @@ function TracedLinesBox({
             <span className={`${styles.lineNumber} ${colour}`}>
               {`${lines[i]}${lines[i] === "" ? "" : "."}`}
             </span>
-            <span className={styles.codeLine}>
-              <span className={`${styles.preserveSpace} ${colour}`}>{line}</span>
+            <span className={`${styles.codeLine} ${colour}`}>
+              <span className={styles.preserveSpace}>{line}</span>
               <span className={dotLine(i)} />
             </span>
           </Fragment>
