@@ -53,15 +53,8 @@
     grid-template-columns: 7.5% auto 1fr;
     font-family: monospace;
     border: solid;
+    border-width: 2px;
     border-color: black;
-}
-
-.tracedLines > :nth-child(1) {
-    background-color: green
-}
-
-.tracedLines > :nth-child(2) {
-    background-color: red;
 }
 
 .tracedLinesBox svg {
