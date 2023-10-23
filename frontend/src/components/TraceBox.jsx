@@ -40,7 +40,6 @@ export default function TraceBox({
             value={calcProgress(index, total)}
           />
       }
-      <div className={styles.buffer}></div>
       {
         (code.length === 0) ?
           <LoadingBox />
