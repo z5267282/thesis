@@ -12,7 +12,7 @@ from analyse import smart_trace
 from line import Line
 from tree_parser import parse
 
-def test_if_not_taken():
+def test_else_taken():
     root = parse(program)
     line_mapping = root.map_lines()
     execution = [
