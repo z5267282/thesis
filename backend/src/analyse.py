@@ -88,7 +88,7 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     """Filter out a sequence of while iterations into paths.
     Return the paths comprised of a list of lines taken by the while.
     All lines in the path will have a counters added to them."""
-    all_paths : list[Line] = []
+    all_paths : list[list[Line]] = []
     curr      : list[Line] = []
     for line in lines:
         # start of new path
@@ -102,7 +102,7 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     
     # should not filter any lines from a non-taken while
     if not all_paths:
-        return []
+        return all_paths
     
     paths : list[list[Line]] = []
     n     : int = len(all_paths)
