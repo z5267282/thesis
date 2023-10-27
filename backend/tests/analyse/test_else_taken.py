@@ -19,12 +19,9 @@ def test_if_not_taken():
         Line(2, {}),
         # if statement
         # note the else itself does not get directly executed
-        Line(7, {}), Line(8, {}),
+        Line(3, {}), Line(7, {}), Line(8, {}),
         Line(9, {})
     ]
-
-    print(Line.display_lines(smart_trace(line_mapping, execution)))
-
     assert smart_trace(line_mapping, execution) == [
         Line(2, {}),
         # the else should artifically appear in the smart trace
