@@ -99,10 +99,6 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
 
         curr.append(line)
     
-    # should not filter any lines from a non-taken while
-    if not all_paths:
-        return []
-    
     paths: list[list[Line]] = []
     n : int = len(all_paths)
     for i, path in enumerate(all_paths, start=1):
