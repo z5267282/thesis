@@ -10,7 +10,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     filtering.
     Decompose lines into regions of CodeBlocks, IfBlocks or WhileBlocks."""
     filtered : list[Line] = []
-    i : int = 0
+    i        : int = 0
     while i < len(lines):
         # we assume that i is the start of a region
         line  : Line = lines[i]
@@ -40,7 +40,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
 def find_region(lines : list[Line], end : int, start : int):
     """Return a region and the next line in lines to go to"""
     region : list[Line] = []
-    i : int = start
+    i      : int = start
     while i < len(lines) and lines[i].line_no <= end:
         region.append(lines[i])
         i += 1
@@ -58,13 +58,14 @@ def trace_if(lines: list[Line], root : IfBlock):
     If no branch won, return None and an empty list.
     Otherwise, return the won branch and the remaining lines in the region to be
     parsed."""
-    won : Line | None = None
-    MaybeConditional = IfBlock | ElifBlock | ElseBlock | None 
-    last_seen_branch : MaybeConditional = None
+    won              : Line | None = None
+    last_seen_branch : IfBlock | ElifBlock | ElseBlock | None = None
 
     for i, line in enumerate(lines):
         line_no : int = line.line_no
-        branch : MaybeConditional = root.find_branch(line_no)
+        branch  : IfBlock | ElifBlock | ElseBlock | None = root.find_branch(
+            line_no
+        )
         if branch is not None:
             # elses do not have their lines executed;
             # instead make a copy of the last seen branch
@@ -88,7 +89,7 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     Return the paths comprised of a list of lines taken by the while.
     All lines in the path will have a counters added to them."""
     all_paths : list[Line] = []
-    curr : list[Line] = []
+    curr      : list[Line] = []
     for line in lines:
         # start of new path
         # must make sure we're not on the first line of the whole while
@@ -103,8 +104,8 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     if not all_paths:
         return []
     
-    paths: list[list[Line]] = []
-    n : int = len(all_paths)
+    paths : list[list[Line]] = []
+    n     : int = len(all_paths)
     for i, path in enumerate(all_paths, start=1):
         # this relies on Line.__eq__ using the line number only
         if path not in paths:
