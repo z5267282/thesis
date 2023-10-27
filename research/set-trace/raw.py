@@ -3,13 +3,17 @@ import sys
 def trace_function(frame, event, arg):
     print(f"| {event:10} | {str(arg):>4} |", end=' ')
     print(f"{frame.f_lineno:>4} |", end=' ')
-    print(f"{str(frame.f_locals):<35} |")
+    # print(f"{str(frame.f_locals):<35} |")
     return trace_function
 
 def main():
-    pass
-    i = 1
-    i += 1
+    a()
+
+def a():
+    i = 3
+    while i < 3:
+        print(i)
+        i += 1
 
 def b():
     i = 1
