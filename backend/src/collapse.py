@@ -7,7 +7,7 @@ from line import Line
 from tree import Block, BodyBlock
 
 def collapse(
-    line_graph : list[Line], program : dict[int, str], root : BodyBlock
+    line_graph : list[Line], program : OrderedDict[int, str], root : BodyBlock
 ):
     """Collapse a program by showing indentation levels which have been
     executed.
