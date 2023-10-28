@@ -14,13 +14,9 @@ class Line:
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
     
-    def __str__(self):
+    def __repr__(self): # pragma: no cover
+        """Return a simple representation to assist with debugging asserts."""
         return str(self.line_no)
-    
-    def __repr__(self):
-        """Simply return string representation to assist with debugging
-        asserts."""
-        return str(self)
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no
@@ -30,7 +26,7 @@ class Line:
     
     @staticmethod
     def display_lines(lines : list["Line"]):
-        return ", ".join(str(line) for line in lines)
+        return ", ".join(str(line.line_no) for line in lines)
     
     def long_str(self):
         delim = ",\n{}".format(" " * 8)
