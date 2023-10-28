@@ -32,7 +32,7 @@ def test_simple():
 
     curr = 2
     evalbox = []
-    code, lines, path = collapse([l2, l4], program_code, root)
+    code, lines, path = collapse([l4], program_code, root)
     frame = DataFrame(
         code, lines,
         curr, l4.vars, l4.output,
@@ -45,22 +45,22 @@ def test_simple():
             "money = 10",
             "print(f\"{name} has {money} dollars\")"
         ],
-        "lines"    : [1, 2, 3],
+        "lines"    : [2, 3, 4],
         "curr"     : curr,
         "vars"     : [
-            {
-                "name"    : "name",
-                "value"   : "Bob",
-                "changed" : False
-            },
             {
                 "name"    : "money",
                 "value"   : "10",
                 "changed" : False
+            },
+            {
+                "name"    : "name",
+                "value"   : "Bob",
+                "changed" : False
             }
         ],
         "out"      : l4.output,
-        "path"     : path,
+        "path"     : {"rest" : [2], "start" : 0},
         "counters" : [],
         "evalbox"  : evalbox
     }
