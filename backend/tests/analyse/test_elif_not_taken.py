@@ -7,6 +7,8 @@ def program():
         print("a fancy prime number")
     elif i % 23 == 0:
         print("23!")
+    elif i % 29 == 0:
+        print("a twenty-nine")
     print("the end pal")
 
 from analyse import smart_trace
@@ -18,9 +20,11 @@ def test_elif_not_taken():
     execution = [
         Line(2, {}),
         # branches
-        Line(3, {}), Line(6, {}), Line(8, {}),
-        Line(10, {})
+        Line(3, {}), Line(6, {}), Line(8, {}), Line(10, {}),
+        Line(12, {})
     ]
-    assert smart_trace(root.map_lines(), execution) == [
-        Line(2, {}), Line(10, {})
+    filtered = smart_trace(root.map_lines(), execution)
+    assert False
+    assert filtered == [
+        Line(2, {}), Line(12, {})
     ]

@@ -59,9 +59,7 @@ def trace_if(lines: list[Line], root : IfBlock):
     If no branch won, return None and an empty list.
     Otherwise, return the won branch and the remaining lines in the region to be
     parsed."""
-    won              : Line | None = None
-    last_seen_branch : IfBlock | ElifBlock | ElseBlock | None = None
-
+    won : Line | None = None
     for i, line in enumerate(lines):
         line_no : int = line.line_no
         branch  : IfBlock | ElifBlock | ElseBlock | None = root.find_branch(
@@ -76,11 +74,7 @@ def trace_if(lines: list[Line], root : IfBlock):
                 return else_line, lines[i:]
 
             won = line
-            last_seen_branch = branch
-        elif (
-            last_seen_branch is not None
-            and line_no == last_seen_branch.get_top().start
-        ):
+        else: # we have found the body of the winning branch
             return won, lines[i:]
 
     return None, []
