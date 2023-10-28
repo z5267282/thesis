@@ -24,7 +24,6 @@ def test_elif_not_taken():
         Line(12, {})
     ]
     filtered = smart_trace(root.map_lines(), execution)
-    assert False
     assert filtered == [
         Line(2, {}), Line(12, {})
     ]
