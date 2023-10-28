@@ -11,8 +11,4 @@ ELLIPSE : str = "·" * 3
 
 LEADING_SPACES : int = 4
 
-PATHS : Paths = Paths(
-    ["src", "program.py"],
-    ["src", "upload", "timeout"],
-    ["src", "upload", "sanity-run"]
-)
+PATHS : Paths = Paths()
