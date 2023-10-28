@@ -9,7 +9,7 @@ from helper import get_code_info
 from state import State
 from tree_parser import parse
 
-def test_collapsed():
+def test_first_frame():
     root         = parse(program)
     program_code = get_code_info(program)
 
