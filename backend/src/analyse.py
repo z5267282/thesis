@@ -92,8 +92,8 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
         # must make sure we're not on the first line of the whole while
         # this ensures the last check which fails the while is not run
         if line.line_no == while_.start and curr:
-            all_paths.append(curr)
-            curr = []
+            all_paths.append(deepcopy(curr))
+            curr.clear()
 
         curr.append(line)
     
