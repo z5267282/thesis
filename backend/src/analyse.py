@@ -53,7 +53,9 @@ def trace_code_block(lines: list[Line]):
     last : Line = lines[-1]
     return last
 
-def trace_if(lines: list[Line], root : IfBlock):
+def trace_if(
+        lines: list[Line], root : IfBlock
+) -> tuple[None | Line, list[Line]]:
     """Given all lines related to an if statement, filter out the winning
     path.
     If no branch won, return None and an empty list.
@@ -79,7 +81,7 @@ def trace_if(lines: list[Line], root : IfBlock):
 
     return None, []
 
-def trace_while(lines : list[Line], while_ : WhileBlock):
+def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
     """Filter out a sequence of while iterations into paths.
     Return the unique execution paths taken within the loop as a list of Lines.
     All lines in the path will have a counters added to them."""
@@ -97,7 +99,7 @@ def trace_while(lines : list[Line], while_ : WhileBlock):
     
     # should not filter any lines from a non-taken while
     if not all_paths:
-        return all_paths
+        return []
     
     paths : list[list[Line]] = []
     n     : int = len(all_paths)
