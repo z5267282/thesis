@@ -46,7 +46,7 @@ def generate_dataframe(
     root : BodyBlock, line_mapping : dict[int, Type[Block]]
 ):
     code, lines, path = collapse(line_graph, program_code, root)
-    curr      : Line = line_graph[-1]
+    curr : Line = line_graph[-1]
 
     evalbox   : list[str] = []
     curr_line : int = curr.line_no
