@@ -5,11 +5,11 @@ from tree import WhileBlock
 class Counter:
     """A dataclass to store counter information"""
     def __init__(self, iteration : int, total : int, while_ : WhileBlock):
-        self.iteration = iteration
-        self.total = total
-        self.while_ = while_
-        self.start = None
-        self.end = None
+        self.iteration : int = iteration
+        self.total     : int = total
+        self.while_    : WhileBlock = while_
+        self.start     : int | None = None
+        self.end       : int | None = None
     
     def __str__(self):
         return f"({self.iteration}/{self.total}) : {self.while_}"
