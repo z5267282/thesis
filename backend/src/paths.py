@@ -3,7 +3,10 @@ import os
 class Paths:
     """A dataclass to store necessary paths.
     Note that these are relative from the backend folder."""
-    def __init__(self, program, timeout, sanity):
+    def __init__(
+            self,
+            program : list[str], timeout : list[str], sanity : list[str]
+    ):
         self.program : list[str] = program
         self.timeout : list[str] = timeout
         self.sanity  : list[str] = sanity
