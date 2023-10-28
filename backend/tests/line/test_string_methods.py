@@ -1,4 +1,3 @@
-from analyse import smart_trace
 from line import Line
 from tree import WhileBlock
 
