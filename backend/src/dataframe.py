@@ -26,7 +26,8 @@ class DataFrame:
     def to_dict(self):
         path = {
             "start" : 0,
-            "rest"  : self.generate_rest()
+            # this should be already generated properly from collapse()
+            "rest"  : self.path
         }
 
         variables : list[dict] = [
@@ -55,13 +56,3 @@ class DataFrame:
             "counters" : counters,
             "evalbox"  : self.evalbox
         }
-    
-    def generate_rest(self) -> list[int]:
-        """Generate the remaining path ensuring that it does not start with 0"""
-        if not self.path:
-            return []
-        
-        if self.path[0] == 0:
-            return self.path[1:]
-        
-        return self.path
