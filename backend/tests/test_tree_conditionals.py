@@ -5,6 +5,7 @@ def program():
     else:
         print("odd")
 
+from tree import Block
 from tree_parser import parse
 
 def test_tree_conditionals():
@@ -16,3 +17,7 @@ def test_tree_conditionals():
 
     else_ = line_mapping[5]
     assert not else_.is_conditional()
+
+def test_block_basic():
+    block = Block(4, 0)
+    assert not block.is_conditional()
