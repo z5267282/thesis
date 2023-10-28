@@ -17,6 +17,11 @@ class Line:
     def __str__(self):
         return str(self.line_no)
     
+    def __repr__(self):
+        """Simply return string representation to assist with debugging
+        asserts."""
+        return str(self)
+    
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no
 
