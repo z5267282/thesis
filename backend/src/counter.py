@@ -23,6 +23,8 @@ class Counter:
     def find_filtered_range(
         self, filtered : OrderedDict[int, bool], curr_line : int
     ):
+        """Set the start and ending ranges for a counter if it appears in a
+        line filtering."""
         keys = list(filtered)
         try:
             index = keys.index(self.while_.start)
