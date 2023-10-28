@@ -12,9 +12,6 @@ from tree_parser import parse
 def test_simple():
     root         = parse(program)
 
-    l2           = Line(3, {})
-    l2.vars.curr = {"name" : "Bob"}
-
     l4           = Line(4, {"name" : "Bob", "money" : 10})
     l4.vars.curr = l4.vars.prev
     l4.output = ["Bob has 10 dollars"]
