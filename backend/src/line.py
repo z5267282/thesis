@@ -25,7 +25,8 @@ class Line:
         return not self == other
     
     @staticmethod
-    def display_lines(lines : list["Line"]):
+    def display_lines(lines : list["Line"]): # pragma: no cover
+        """A debugging method to format a list of lines for printing"""
         return ", ".join(str(line.line_no) for line in lines)
     
     def long_str(self):
