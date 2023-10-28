@@ -3,19 +3,10 @@ def program():
     money = 10
     print(f"{name} has {money} dollars")
 
-from collections import OrderedDict
-
-from analyse import smart_trace
-from config import OFFSET
 from collapse import collapse
 from dataframe import DataFrame
-from graph import generate_graphs
-from helper import get_code_info, get_stripped_line
+from helper import get_code_info
 from line import Line
-from evaluate import evaluate
-from execute import trace_program
-from state import State
-from tree import Block, BodyBlock
 from tree_parser import parse
 
 def test_simple():
