@@ -23,11 +23,12 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             if won is not None:
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
-        elif isinstance(block, WhileBlock):
+        elif isinstance(block, WhileBlock): # pragma no branch
             raw  : list[list[Line]] = trace_while(region, block)
             seen : list[list[Line]] = []
             for r in raw:
                 rest = smart_trace(line_mapping, r[1:])
+                # use slice rather than r[0] to support list + operator
                 path = r[:1] + rest
                 if path not in seen:
                     filtered.extend(path)
@@ -86,7 +87,7 @@ def trace_if(lines: list[Line], root : IfBlock):
 
 def trace_while(lines : list[Line], while_ : WhileBlock):
     """Filter out a sequence of while iterations into paths.
-    Return the paths comprised of a list of lines taken by the while.
+    Return the unique execution paths taken within the loop as a list of Lines.
     All lines in the path will have a counters added to them."""
     all_paths : list[list[Line]] = []
     curr      : list[Line] = []
