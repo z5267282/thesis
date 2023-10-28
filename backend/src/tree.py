@@ -72,10 +72,6 @@ class BodyBlock(Block):
     def part_of(self, graph : list[int]):
         return self.start in graph and graph[-1] != self.start
 
-    def get_top(self):
-        """Return the top most block in body"""
-        return self.body[0]
-    
     def add_same_level_block(self, block : Type["BodyBlock"] | CodeBlock):
         self.body.append(block)
     
