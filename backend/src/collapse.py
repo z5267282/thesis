@@ -44,7 +44,7 @@ def collapse(
 
 def parse_line(line : int, program : dict[int, str]):
     result = program[line][LEADING_SPACES:]
-    return result[:-1] if result[-1] == '\n' else result
+    return result[:-1] if result and result[-1] == '\n' else result
 
 def parse_blank(
     line : int, program : dict[int, str],
