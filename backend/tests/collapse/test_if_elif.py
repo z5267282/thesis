@@ -5,7 +5,7 @@ from line import Line
 from tree_parser import parse
 
 def program():
-    i = 1
+    i = 0
     if i % 2 == 0:
         print("two")
         twos += 1
@@ -25,7 +25,7 @@ def test_if_elif():
     code, lines, rest = collapse(graph, program_code, root)
 
     assert code == [
-        "i = 1",
+        "i = 0",
         "if i % 2 == 0:",
         "    print(\"two\")",
         "    twos += 1",
