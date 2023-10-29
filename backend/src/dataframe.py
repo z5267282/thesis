@@ -26,8 +26,7 @@ class DataFrame:
     def to_dict(self):
         path = {
             "start" : 0,
-            # this should be already generated properly from collapse()
-            "rest"  : self.path
+            "rest"  : self.generate_rest()
         }
 
         variables : list[dict] = [
@@ -58,7 +57,8 @@ class DataFrame:
         }
 
     def generate_rest(self) -> list[int]:
-        """Generate the remaining path ensuring that it does not start with 0"""
+        """Generate the remaining path ensuring that it does not start with 0.
+        Note, it should have already generated properly from collapse()"""
         if not self.path:
             return []
         
