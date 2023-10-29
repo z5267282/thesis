@@ -15,7 +15,11 @@ check() {
             name="$(basename "$f")"
             [ "$name" = '__init__.py' ] && continue
             base="${name:0:(-3)}"
-            grep -F -q "$base" "$f" || echo "$f"
+            if ! grep -F -q "$base" "$f"
+            then
+                grep -F -q "$f" .funcignore && continue
+                echo "$f"
+            fi
         fi
     done
 }

@@ -1,0 +1,10 @@
+../tests/execute/collapse/test_loop_conditional.py
+../tests/helper/test_string_utils.py
+../tests/helper/test_uniq.py
+../tests/line/test_equals.py
+../tests/line/test_string_methods.py
+../tests/test_evaluate.py
+../tests/test_paths.py
+../tests/test_stack.py
+../tests/test_state.py
+../tests/test_tree_parser_unit.py
