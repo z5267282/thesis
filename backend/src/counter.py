@@ -65,7 +65,6 @@ class Counter:
 
     def has_valid_range(self):
         if self.start is None or self.end is None:
-        # if self.start is None or self.end is None or self.start == self.end:
             return False
         return True
     
