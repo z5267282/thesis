@@ -6,6 +6,8 @@ backend/.coverage
 backend/htmlcov
 backend/.venv
 backend/src/program.py
+# executor in place of execute function
+backend/executor.py
 
 # Local Netlify folder
 .netlify
