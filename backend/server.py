@@ -24,7 +24,7 @@ def analyse():
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
-    return jsonify([ d.to_dict() for d in dataframes ])
+    return jsonify(DataFrame.to_dicts(dataframes))
 
 def program_errors(raw_code : str):
     """Check the given raw code for any errors.

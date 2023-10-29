@@ -68,3 +68,9 @@ class DataFrame:
             return self.path[1:]
         
         return self.path
+    
+    @staticmethod
+    def to_dicts(dataframes : list["DataFrame"]):
+        """Convert each DataFrame in a list to a dictionary and return the
+        list."""
+        return [ d.to_dict() for d in dataframes ] 
