@@ -62,6 +62,8 @@ class DataFrame:
         if not self.path:
             return []
         
+        # possible for the first frame to be also the first line
+        # eg. a code block starting and ending at line 1
         if self.path[0] == 0:
             return self.path[1:]
         
