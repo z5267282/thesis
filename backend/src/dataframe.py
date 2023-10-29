@@ -56,3 +56,13 @@ class DataFrame:
             "counters" : counters,
             "evalbox"  : self.evalbox
         }
+
+    def generate_rest(self) -> list[int]:
+        """Generate the remaining path ensuring that it does not start with 0"""
+        if not self.path:
+            return []
+        
+        if self.path[0] == 0:
+            return self.path[1:]
+        
+        return self.patht
