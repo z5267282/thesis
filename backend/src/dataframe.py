@@ -67,4 +67,4 @@ class DataFrame:
         if self.path[0] == 0:
             return self.path[1:]
         
-        return self.patht
+        return self.path
