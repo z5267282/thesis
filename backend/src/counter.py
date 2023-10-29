@@ -26,17 +26,7 @@ class Counter:
         """Set the start and ending ranges for a counter if it appears in a
         line filtering."""
         keys = list(filtered)
-        try:
-            index = keys.index(self.while_.start)
-        except ValueError:
-            return
-
-        # if the while is last in filtered graph, it is being evaluated
-        # should be impossible for a while to be the last filtered line
-        # a while can only ever be the second last item in the filtered list
-        # where its body should be last
-        if index == len(keys) - 1:
-            return
+        index = keys.index(self.while_.start)
         
         # we are current executing the while the counter is tracking
         # display statistics info
@@ -44,9 +34,6 @@ class Counter:
             self.start = index
             self.end = index + 1
         
-        # while loop might have already been collapsed
-        if not filtered[keys[index + 1]]:
-            return
 
         self.start = index
         # note the lines should be in non-decreasing order
@@ -54,8 +41,7 @@ class Counter:
             if key > self.while_.end:
                 break
 
-            if key <= self.while_.end:
-                self.end = i
+            self.end = i
         # after the loop terminates, i should be the largest index:
         # 1. key[i] <= while end
         # 2. consecutive from index
