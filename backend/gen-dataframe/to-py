@@ -1,0 +1,7 @@
+#!/bin/dash
+
+sed -E \
+    -e 's/null/None/g' \
+    -e 's/true/True/g' \
+    -e 's/false/False/g' \
+gen-dataframe/generated.json > gen-dataframe/generated.py

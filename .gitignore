@@ -8,6 +8,8 @@ backend/.venv
 backend/src/program.py
 # executor in place of execute function
 backend/executor.py
+# generated dataframe files for testing
+backend/gen-dataframe/generated*
 
 # Local Netlify folder
 .netlify

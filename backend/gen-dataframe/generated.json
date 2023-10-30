@@ -1,0 +1,59 @@
+[
+    {
+        "code": [
+            "i = 42",
+            "j = 69",
+            "print(f\"{i} + {j} = {i + j}\")"
+        ],
+        "lines": [
+            "1",
+            "2",
+            "3"
+        ],
+        "curr": null,
+        "vars": [],
+        "out": [],
+        "path": {
+            "start": 0,
+            "rest": []
+        },
+        "counters": [],
+        "evalbox": []
+    },
+    {
+        "code": [
+            "i = 42",
+            "j = 69",
+            "print(f\"{i} + {j} = {i + j}\")"
+        ],
+        "lines": [
+            "1",
+            "2",
+            "3"
+        ],
+        "curr": 2,
+        "vars": [
+            {
+                "name": "i",
+                "value": "42",
+                "changed": false
+            },
+            {
+                "name": "j",
+                "value": "69",
+                "changed": false
+            }
+        ],
+        "out": [
+            "42 + 69 = 111\n"
+        ],
+        "path": {
+            "start": 0,
+            "rest": [
+                2
+            ]
+        },
+        "counters": [],
+        "evalbox": []
+    }
+]
