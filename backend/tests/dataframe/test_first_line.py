@@ -23,8 +23,8 @@ def test_first_line():
     code, lines, path = collapse([Line(2, {}), Line(3, {})], program_code, root)
     frame = DataFrame(
         code, lines,
-        curr, State(variables, curr=variables), output,
-        path, counters, evalbox
+        curr, State(variables, curr=variables), State({}, curr=variables),
+        output, path, counters, evalbox
     )
     assert frame.to_dict() == {
         "code"     : [

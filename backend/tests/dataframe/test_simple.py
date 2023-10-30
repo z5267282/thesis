@@ -23,7 +23,7 @@ def test_simple():
     code, lines, path = collapse([l4], program_code, root)
     frame = DataFrame(
         code, lines,
-        curr, l4.vars, l4.output,
+        curr, l4.vars, l4.vars, l4.output,
         path, l4.counters, evalbox
     )
 

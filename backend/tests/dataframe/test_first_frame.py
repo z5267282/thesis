@@ -18,7 +18,7 @@ def test_first_frame():
     code, lines, path = collapse([], program_code, root)
     frame = DataFrame(
         code, lines,
-        curr, State({}, curr={}), [],
+        curr, State({}, curr={}), State({}, curr={}), [],
         path, [], evalbox
     )
 

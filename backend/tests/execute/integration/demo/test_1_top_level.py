@@ -45,12 +45,12 @@ def test_1_top_level():
                 {
                     "name": "i",
                     "value": "42",
-                    "changed": False
+                    "changed": True 
                 },
                 {
                     "name": "j",
                     "value": "69",
-                    "changed": False
+                    "changed": True 
                 }
             ],
             "out": [
