@@ -107,3 +107,5 @@ def write_dataframes(dataframe_dicts : list[dict]):
     if os.getenv("REACT_APP_HOST") == "LOCAL" and GENERATE_TEST:
         with open(PATHS.generated_frame, "w") as f:
             dump(dataframe_dicts, f, indent=LEADING_SPACES)
+        
+        run(["dash", PATHS.to_python])
