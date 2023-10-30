@@ -9,10 +9,10 @@ def program():
     print("that's all folks")
 
 from dataframe import DataFrame
-from main import main
+from generate import generate_dataframes
 
 def test_2_top_level_conditional():
-    assert DataFrame.to_dicts(main()) == [
+    assert DataFrame.to_dicts(generate_dataframes(program)) == [
         {
             "code": [
                 "i = 0",

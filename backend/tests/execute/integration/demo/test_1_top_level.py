@@ -4,10 +4,10 @@ def program():
     print(f"{i} + {j} = {i + j}")
 
 from dataframe import DataFrame
-from main import main
+from generate import generate_dataframes
 
 def test_1_top_level():
-    assert DataFrame.to_dicts(main()) == [
+    assert DataFrame.to_dicts(generate_dataframes(program)) == [
         {
             "code": [
                 "i = 42",
