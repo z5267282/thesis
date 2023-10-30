@@ -32,15 +32,8 @@ def generate_dataframes(program : Callable):
         dataframe : DataFrame = generate_dataframe(line_graph, program_code, root, line_mapping, prev_vars)
         program_frames.append(dataframe)
         prev_vars = dataframe.variables
-    return [first_frame] + program_frames
 
-    # return \
-    #     [ generate_first_dataframe(program_code, root) ] \
-    #     + [
-    #         generate_dataframe(
-    #             line_graph, program_code, root, line_mapping
-    #         ) for line_graph in line_graphs
-    #     ]
+    return [first_frame] + program_frames
 
 def generate_first_dataframe(
     program_code : OrderedDict[int, str], root : BodyBlock,
