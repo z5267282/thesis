@@ -8,14 +8,16 @@ class DataFrame:
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int | None,
-        variables : State[dict[str, Any]], out : list[str],
-        path : list[int], counters : list[Counter], evalbox : list[str]
+        variables : State[dict[str, Any]], prev_vars : State[dict[str, Any]],
+        out : list[str], path : list[int], counters : list[Counter],
+        evalbox : list[str]
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
         self.curr  : int = curr
 
         self.variables : State[dict[str, Any]] = variables
+        self.prev_vars : State[dict[str, Any]] = prev_vars
 
         self.out : list[str] = deepcopy(out)
 
@@ -31,13 +33,10 @@ class DataFrame:
 
         variables : list[dict] = [
             {
-                "name"    : name,
+                "name"    : variable,
                 "value"   : str(value),
-                "changed" : (
-                    name not in self.variables.prev
-                    or self.variables.prev[name] != value
-                )
-            } for name, value in sorted(self.variables.curr.items())
+                "changed" : self.is_changed(variable) 
+            } for variable, value in sorted(self.variables.curr.items())
         ]
 
         counters = [
@@ -68,6 +67,24 @@ class DataFrame:
             return self.path[1:]
         
         return self.path
+    
+    def is_changed(self, variable : str):
+        """Check if a current variable has changed by the time the current line
+        has run.
+        The change could be from the previous DataFrame, or presently."""
+        if variable not in self.prev_vars.curr:
+            return True
+        
+        if self.prev_vars.curr[variable] != self.variables.curr[variable]:
+            return True
+
+        if variable not in self.variables.prev:
+            return True
+
+        if self.variables.prev[variable] != self.variables.curr[variable]:
+            return True
+        
+        return False
     
     @staticmethod
     def to_dicts(dataframes : list["DataFrame"]):
