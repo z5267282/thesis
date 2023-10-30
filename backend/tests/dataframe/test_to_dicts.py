@@ -10,7 +10,7 @@ from line import Line
 from tree_parser import parse
 
 def test_to_dicts():
-    root         = parse(program)
+    root = parse(program)
 
     l4           = Line(4, {"name" : "Bob", "money" : 10})
     l4.vars.curr = l4.vars.prev
