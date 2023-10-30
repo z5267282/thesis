@@ -1,4 +1,6 @@
 from http import HTTPStatus
+from json import dump
+import os
 from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
@@ -8,7 +10,7 @@ from flask_cors import CORS
 
 sys.path.append("src")
 
-from config import LEADING_SPACES, PATHS, TIMEOUT
+from config import GENERATE_TEST, LEADING_SPACES, PATHS, TIMEOUT
 from dataframe import DataFrame
 from main import main
 
@@ -24,7 +26,9 @@ def analyse():
 
     wrap_program(raw_code)
     dataframes : list[DataFrame] = main()
-    return jsonify(DataFrame.to_dicts(dataframes))
+    as_dicts   : list[dict] = DataFrame.to_dicts(dataframes)
+    write_dataframes(as_dicts)
+    return jsonify(as_dicts)
 
 def program_errors(raw_code : str):
     """Check the given raw code for any errors.
@@ -38,7 +42,6 @@ def program_errors(raw_code : str):
         return gen_insane_response(sane)
     
     return None
-
 
 def timeout(raw_code : str):
     """Write the given program to a temporary file and time its execution.
@@ -96,3 +99,11 @@ def wrap_program(raw_code : str):
     with open(PATHS.program, "w") as f:
         for c in code:
             print(c, file=f)
+
+def write_dataframes(dataframe_dicts : list[dict]):
+    """Write a list of DataFrame-converted dictionaries to
+    PATHS.generated_frame. and prepare them as python files.
+    Only write when locally hosted and per GENERATE_TEST in the config."""
+    if os.getenv("REACT_APP_HOST") == "LOCAL" and GENERATE_TEST:
+        with open(PATHS.generated_frame, "w") as f:
+            dump(dataframe_dicts, f, indent=LEADING_SPACES)

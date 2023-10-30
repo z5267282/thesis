@@ -12,3 +12,6 @@ ELLIPSE : str = "·" * 3
 LEADING_SPACES : int = 4
 
 PATHS : Paths = Paths()
+
+# create testing DataFrames
+GENERATE_TEST : bool = True
