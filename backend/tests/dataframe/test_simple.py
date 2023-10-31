@@ -12,7 +12,7 @@ from tree_parser import parse
 def test_simple():
     root = parse(program)
 
-    l4           = Line(4, {"name" : "Bob", "money" : 10})
+    l4 = Line(4, {"name" : "Bob", "money" : 10})
     l4.vars.curr = l4.vars.prev
     l4.output = ["Bob has 10 dollars"]
 
@@ -23,7 +23,7 @@ def test_simple():
     code, lines, path = collapse([l4], program_code, root)
     frame = DataFrame(
         code, lines,
-        curr, l4.vars, l4.vars, l4.output,
+        curr, l4.vars, l4.output,
         path, l4.counters, evalbox
     )
 

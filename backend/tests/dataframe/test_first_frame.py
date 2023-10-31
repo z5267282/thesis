@@ -10,16 +10,14 @@ from state import State
 from tree_parser import parse
 
 def test_first_frame():
-    root         = parse(program)
+    root = parse(program)
     program_code = get_code_info(program)
 
     curr = None
     evalbox = []
     code, lines, path = collapse([], program_code, root)
     frame = DataFrame(
-        code, lines,
-        curr, State({}, curr={}), State({}, curr={}), [],
-        path, [], evalbox
+        code, lines, curr, State({}, curr={}), [], path, [], evalbox
     )
 
     assert frame.to_dict() == {

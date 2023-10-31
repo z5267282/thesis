@@ -26,12 +26,12 @@ def generate_dataframes(program : Callable):
     program_code : OrderedDict[int, str] = get_code_info(program)
 
     first_frame : DataFrame = generate_first_dataframe(program_code, root)
-    prev_vars : State(dict[str, Any]) = first_frame.variables
+    prev_vars : dict[str, Any] = first_frame.variables.curr
     program_frames : list[DataFrame] = []
     for line_graph in line_graphs:
         dataframe : DataFrame = generate_dataframe(line_graph, program_code, root, line_mapping, prev_vars)
         program_frames.append(dataframe)
-        prev_vars = dataframe.variables
+        prev_vars = dataframe.variables.curr
 
     return [first_frame] + program_frames
 
@@ -41,13 +41,13 @@ def generate_first_dataframe(
     code, lines, path = collapse([], program_code, root)
     return DataFrame(
         code, adjust_lines(lines), None,
-        State({}, curr={}), State({}, curr={}), [], path, [], [] 
+        State({}, curr={}), [], path, [], [] 
     )
 
 def generate_dataframe(
     line_graph : list[Line], program_code : OrderedDict[int, str],
     root : BodyBlock, line_mapping : dict[int, Type[Block]],
-    prev_vars : State[dict[str, Any]]
+    prev_vars : dict[str, Any]
 ):
     code, lines, path = collapse(line_graph, program_code, root)
     curr : Line = line_graph[-1]
@@ -61,7 +61,8 @@ def generate_dataframe(
 
     return DataFrame(
         code, adjust_lines(lines), 0 if not path else path[-1],
-        curr.vars, prev_vars, curr.output, path, curr.counters, evalbox
+        State(prev_vars, curr=curr.vars.curr),
+        curr.output, path, curr.counters, evalbox
     )
 
 def adjust_lines(lines):

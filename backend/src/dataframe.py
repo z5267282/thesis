@@ -8,7 +8,7 @@ class DataFrame:
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int | None,
-        variables : State[dict[str, Any]], prev_vars : State[dict[str, Any]],
+        variables : State[dict[str, Any]],
         out : list[str], path : list[int], counters : list[Counter],
         evalbox : list[str]
     ):
@@ -16,8 +16,8 @@ class DataFrame:
         self.lines : list[str] = deepcopy(lines)
         self.curr  : int = curr
 
+        # variables from the previous and current DataFrame
         self.variables : State[dict[str, Any]] = variables
-        self.prev_vars : State[dict[str, Any]] = prev_vars
 
         self.out : list[str] = deepcopy(out)
 
@@ -72,36 +72,10 @@ class DataFrame:
         """Check if a current variable has changed by the time the current line
         has run.
         The change could be from the previous DataFrame, or presently."""
-        return (
-            self.changed_from_prev_vars(variable)
-            or self.changed_from_running_line(variable)
-        )
-    
-    def changed_from_prev_vars(self, variable : str):
-        """Check to see if a variable has changed from the variables given
-        to the previous DataFrame.
-        Note we only care about the current state in both cases"""
-        if variable not in self.prev_vars.curr:
-            return True
-        
-        if self.prev_vars.curr[variable] != self.variables.curr[variable]:
-            return True
-        
-        # note we do not care about either prevs
-        # it should be impossible to "lose" a variable between conseuctive
-        # frames
-        return False
-    
-    def changed_from_running_line(self, variable : str):
-        """Check to see a variable has changed as a result of running the
-        current line."""
         if variable not in self.variables.prev:
             return True
-
-        if self.variables.prev[variable] != self.variables.curr[variable]:
-            return True
         
-        return False
+        return self.variables.prev[variable] != self.variables.curr[variable]
     
     @staticmethod
     def to_dicts(dataframes : list["DataFrame"]):
