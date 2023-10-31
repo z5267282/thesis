@@ -48,7 +48,7 @@ def trace_line(
         lines[-1].output.extend(output)
 
     if event == "line":
-        lines.append(Line(frame.f_lineno, variables))
+        lines.append(Line(frame.f_lineno, variables=variables))
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:

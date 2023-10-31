@@ -13,7 +13,7 @@ from tree_parser import parse
 def test_simple():
     root = parse(program)
 
-    l4 = Line(4, {"name" : "Bob", "money" : 10})
+    l4 = Line(4, variables={"name" : "Bob", "money" : 10})
     l4.output = ["Bob has 10 dollars"]
 
     program_code = get_code_info(program)

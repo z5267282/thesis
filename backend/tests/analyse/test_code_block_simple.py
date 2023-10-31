@@ -24,7 +24,7 @@ def test_code_block_simple():
     l3.variables = {"city": "Sydney"}
     l3.output = ["hello", "what a wonderful day it is"]
     
-    l4 = Line(9, {"city": "Sydney"})
+    l4 = Line(9, variables={"city": "Sydney"})
     l4.variables = {"city": "Sydney"}
     l4.output = ["hello", "what a wonderful day it is", "in Sydney"]
 

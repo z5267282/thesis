@@ -2,7 +2,7 @@ from line import Line
 from tree import WhileBlock
 
 def test_long_str_no_counters():
-    l = Line(20, {"i": 1})
+    l = Line(20, variables={"i": 1})
     l.output = ["hello", "champion"]
     w = WhileBlock(1, 0)
     w.end = 10
@@ -13,7 +13,7 @@ def test_long_str_no_counters():
     counters : []"""
 
 def test_long_str_one_counter():
-    l = Line(20, {"i": 1})
+    l = Line(20, variables={"i": 1})
     l.output = ["hello", "champion"]
     w = WhileBlock(1, 0)
     w.end = 10
@@ -27,7 +27,7 @@ def test_long_str_one_counter():
     ]"""
 
 def test_long_str_counters():
-    l = Line(20, {"i": 1})
+    l = Line(20, variables={"i": 1})
     l.output = ["hello", "champion"]
     w1 = WhileBlock(1, 0)
     w1.end = 10
