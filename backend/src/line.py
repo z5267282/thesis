@@ -25,7 +25,7 @@ class Line:
         return not self == other
     
     @staticmethod
-    def display_lines(lines : list["Line"]): # pragma: no cover
+    def display_lines(lines : list["Line"]):
         """A debugging method to format a list of lines for printing"""
         return ", ".join(str(line.line_no) for line in lines)
     
@@ -42,9 +42,9 @@ class Line:
         )
 
         return f"""line {self.line_no}:
-    output: [{", ".join(str(o) for o in self.output)}]
-    vars: {{{dict_to_str(self.variables)}}}
-    counters: [{counters}]"""
+    output : [{", ".join(str(o) for o in self.output)}]
+    vars : {{{dict_to_str(self.variables)}}}
+    counters : [{counters}]"""
     
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
         """Add a counter of an increased depth"""
