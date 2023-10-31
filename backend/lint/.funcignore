@@ -1,3 +1,4 @@
+../tests/dataframe/test_changed.py
 ../tests/execute/collapse/test_loop_conditional.py
 ../tests/helper/test_string_utils.py
 ../tests/helper/test_uniq.py
