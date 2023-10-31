@@ -34,19 +34,19 @@ def test_same_counters():
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
 
     assert filtered == [
-        Line(3, {}),
+        Line(3),
 
         # index 1
-        Line(4, {}), Line(12, {}), Line(13, {}), Line(15, {}), Line(17, {}),
+        Line(4), Line(12), Line(13), Line(15), Line(17),
 
         # index 6
-        Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}), Line(13, {}),
-        Line(15, {}), Line(17, {}),
+        Line(4), Line(5), Line(7), Line(12), Line(13),
+        Line(15), Line(17),
 
-        Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}), Line(13, {}),
-        Line(15, {}), Line(17, {}),
+        Line(4), Line(8), Line(10), Line(12), Line(13),
+        Line(15), Line(17),
 
-        Line(19, {})
+        Line(19)
     ]
 
     iter1, iter2 = filtered[1], filtered[6]
@@ -64,47 +64,47 @@ def test_same_counters():
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
 
     assert line_graphs == [
-        [Line(3, {})],
+        [Line(3)],
         # index 1
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(12, {})],
-        [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {})],
-        [Line(3, {}), Line(4, {}), Line(12, {}), Line(13, {}), Line(15, {})],
-        [Line(3, {}), Line(4, {}), Line(12, {}), Line(17, {})],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(12)],
+        [Line(3), Line(4), Line(12), Line(13)],
+        [Line(3), Line(4), Line(12), Line(13), Line(15)],
+        [Line(3), Line(4), Line(12), Line(17)],
         # index 6
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {})],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(5)],
+        [Line(3), Line(4), Line(5), Line(7)],
+        [Line(3), Line(4), Line(5), Line(7), Line(12)],
         [
-            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
-            Line(13, {})
+            Line(3), Line(4), Line(5), Line(7), Line(12),
+            Line(13)
         ],
         [
-            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
-            Line(13, {}), Line(15, {})
+            Line(3), Line(4), Line(5), Line(7), Line(12),
+            Line(13), Line(15)
         ],
         [
-            Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(12, {}),
-            Line(17, {})
+            Line(3), Line(4), Line(5), Line(7), Line(12),
+            Line(17)
         ],
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {})],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(8)],
+        [Line(3), Line(4), Line(8), Line(10)],
+        [Line(3), Line(4), Line(8), Line(10), Line(12)],
         [
-            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
-            Line(13, {})
-        ],
-        [
-            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
-            Line(13, {}), Line(15, {})
+            Line(3), Line(4), Line(8), Line(10), Line(12),
+            Line(13)
         ],
         [
-            Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(12, {}),
-            Line(17, {})
+            Line(3), Line(4), Line(8), Line(10), Line(12),
+            Line(13), Line(15)
         ],
-        [Line(3, {}), Line(19, {})]
+        [
+            Line(3), Line(4), Line(8), Line(10), Line(12),
+            Line(17)
+        ],
+        [Line(3), Line(19)]
     ]
 
     graph1, graph2 = line_graphs[1], line_graphs[6]

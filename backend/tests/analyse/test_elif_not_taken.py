@@ -18,12 +18,12 @@ from tree_parser import parse
 def test_elif_not_taken():
     root = parse(program)
     execution = [
-        Line(2, {}),
+        Line(2),
         # branches
-        Line(3, {}), Line(6, {}), Line(8, {}), Line(10, {}),
-        Line(12, {})
+        Line(3), Line(6), Line(8), Line(10),
+        Line(12)
     ]
     filtered = smart_trace(root.map_lines(), execution)
     assert filtered == [
-        Line(2, {}), Line(12, {})
+        Line(2), Line(12)
     ]

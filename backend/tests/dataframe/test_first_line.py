@@ -20,7 +20,7 @@ def test_first_line():
     curr = 1
     counters = []
     output, evalbox = [], ["while 1 < 3"]
-    code, lines, path = collapse([Line(2, {}), Line(3, {})], program_code, root)
+    code, lines, path = collapse([Line(2), Line(3)], program_code, root)
     frame = DataFrame(
         code, lines,
         curr, State(variables, curr=variables),

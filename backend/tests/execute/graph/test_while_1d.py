@@ -26,31 +26,31 @@ def test_while_1d():
     graphs = generate_graphs(filtered, line_mapping)
 
     assert filtered == [
-        Line(9, {}),
-        Line(10, {}),
-        Line(17, {}),
-        Line(10, {}),
-        Line(11, {}),
-        Line(13, {}),
-        Line(17, {}),
-        Line(10, {}),
-        Line(14, {}),
-        Line(16, {}),
-        Line(17, {}),
-        Line(19, {})
+        Line(9),
+        Line(10),
+        Line(17),
+        Line(10),
+        Line(11),
+        Line(13),
+        Line(17),
+        Line(10),
+        Line(14),
+        Line(16),
+        Line(17),
+        Line(19)
     ]
 
     assert graphs == [
-        [Line(9, {})],
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(17, {})],
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {}), Line(17, {})],
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {}), Line(17, {})],
-        [Line(9, {}), Line(19, {})]
+        [Line(9)],
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(17)],
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(11)],
+        [Line(9), Line(10), Line(11), Line(13)],
+        [Line(9), Line(10), Line(11), Line(13), Line(17)],
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(14)],
+        [Line(9), Line(10), Line(14), Line(16)],
+        [Line(9), Line(10), Line(14), Line(16), Line(17)],
+        [Line(9), Line(19)]
     ]

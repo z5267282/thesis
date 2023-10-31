@@ -22,9 +22,9 @@ def test_while_counter():
     program_code = get_code_info(program)
 
     assert graphs == [
-        [Line(11, {})],
-        [Line(11, {}), Line(12, {})],
-        [Line(11, {}), Line(12, {}), Line(14, {})]
+        [Line(11)],
+        [Line(11), Line(12)],
+        [Line(11), Line(12), Line(14)]
     ]
 
     _, lines, _ = collapse(graphs[1], program_code, root)

@@ -58,12 +58,12 @@ def generate_dataframe(
     curr_line : int = curr.line_no
     if line_mapping[curr_line].is_conditional():
         evalbox.append(
-            generate_evalbox(program_code[curr_line], curr.vars.curr)
+            generate_evalbox(program_code[curr_line], curr.variables)
         )
 
     return DataFrame(
         code, adjust_lines(lines), 0 if not path else path[-1],
-        State(prev_vars, curr=curr.vars.curr),
+        State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
     )
 

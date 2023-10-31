@@ -33,75 +33,75 @@ def test_while_2d_paths():
 
     assert filtered == [
         # outer
-        Line(9, {}),
+        Line(9),
         # i = 1
-        Line(10, {}),
-        Line(18, {}),
-        Line(19, {}),
-        Line(21, {}),
-        Line(23, {}),
+        Line(10),
+        Line(18),
+        Line(19),
+        Line(21),
+        Line(23),
         # i = 2
-        Line(10, {}),
-        Line(11, {}),
-        Line(13, {}),
-        Line(18, {}),
-        Line(19, {}),
-        Line(21, {}),
-        Line(23, {}),
+        Line(10),
+        Line(11),
+        Line(13),
+        Line(18),
+        Line(19),
+        Line(21),
+        Line(23),
         # i = 5
-        Line(10, {}),
-        Line(14, {}),
-        Line(16, {}),
-        Line(18, {}),
-        Line(19, {}),
-        Line(21, {}),
-        Line(23, {}),
+        Line(10),
+        Line(14),
+        Line(16),
+        Line(18),
+        Line(19),
+        Line(21),
+        Line(23),
         # end
-        Line(25, {})
+        Line(25)
     ]
 
     assert graphs == [
-        [Line(9, {})],
+        [Line(9)],
 
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(18, {})],
-        [Line(9, {}), Line(10, {}), Line(18, {}), Line(19, {})],
-        [Line(9, {}), Line(10, {}), Line(18, {}), Line(19, {}), Line(21, {})],
-        [Line(9, {}), Line(10, {}), Line(18, {}), Line(23, {})],
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(18)],
+        [Line(9), Line(10), Line(18), Line(19)],
+        [Line(9), Line(10), Line(18), Line(19), Line(21)],
+        [Line(9), Line(10), Line(18), Line(23)],
 
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {})],
-        [Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {}), Line(18, {})],
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(11)],
+        [Line(9), Line(10), Line(11), Line(13)],
+        [Line(9), Line(10), Line(11), Line(13), Line(18)],
         [
-            Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {}), Line(18, {}),
-            Line(19, {})
+            Line(9), Line(10), Line(11), Line(13), Line(18),
+            Line(19)
         ],
         [
-            Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {}), Line(18, {}),
-            Line(19, {}), Line(21, {})
+            Line(9), Line(10), Line(11), Line(13), Line(18),
+            Line(19), Line(21)
         ],
         [
-            Line(9, {}), Line(10, {}), Line(11, {}), Line(13, {}), Line(18, {}),
-            Line(23, {})
-        ],
-
-        [Line(9, {}), Line(10, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {})],
-        [Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {}), Line(18, {})],
-        [
-            Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {}), Line(18, {}),
-            Line(19, {})
-        ],
-        [
-            Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {}), Line(18, {}),
-            Line(19, {}), Line(21, {})
-        ],
-        [
-            Line(9, {}), Line(10, {}), Line(14, {}), Line(16, {}), Line(18, {}),
-            Line(23, {})
+            Line(9), Line(10), Line(11), Line(13), Line(18),
+            Line(23)
         ],
 
-        [Line(9, {}), Line(25, {})]
+        [Line(9), Line(10)],
+        [Line(9), Line(10), Line(14)],
+        [Line(9), Line(10), Line(14), Line(16)],
+        [Line(9), Line(10), Line(14), Line(16), Line(18)],
+        [
+            Line(9), Line(10), Line(14), Line(16), Line(18),
+            Line(19)
+        ],
+        [
+            Line(9), Line(10), Line(14), Line(16), Line(18),
+            Line(19), Line(21)
+        ],
+        [
+            Line(9), Line(10), Line(14), Line(16), Line(18),
+            Line(23)
+        ],
+
+        [Line(9), Line(25)]
     ]

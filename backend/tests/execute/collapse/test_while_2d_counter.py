@@ -25,12 +25,12 @@ def test_while_2d_counter():
     program_code = get_code_info(program)
 
     assert graphs == [
-        [Line(11, {})],
-        [Line(11, {}), Line(12, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {}), Line(16, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(17, {})],
+        [Line(11)],
+        [Line(11), Line(12)],
+        [Line(11), Line(12), Line(13)],
+        [Line(11), Line(12), Line(13), Line(14)],
+        [Line(11), Line(12), Line(13), Line(14), Line(16)],
+        [Line(11), Line(12), Line(13), Line(17)],
     ]
 
     _, _, _, _, graph, _ = graphs
@@ -58,12 +58,12 @@ def test_nested_loop():
     program_code = get_code_info(program)
 
     assert graphs == [
-        [Line(11, {})],
-        [Line(11, {}), Line(12, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {}), Line(16, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(17, {})],
+        [Line(11)],
+        [Line(11), Line(12)],
+        [Line(11), Line(12), Line(13)],
+        [Line(11), Line(12), Line(13), Line(14)],
+        [Line(11), Line(12), Line(13), Line(14), Line(16)],
+        [Line(11), Line(12), Line(13), Line(17)],
     ]
 
     _, _, _, _, graph, _ = graphs
@@ -91,12 +91,12 @@ def test_collapsed_inner_loop():
     program_code = get_code_info(program)
 
     assert graphs == [
-        [Line(11, {})],
-        [Line(11, {}), Line(12, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(14, {}), Line(16, {})],
-        [Line(11, {}), Line(12, {}), Line(13, {}), Line(17, {})],
+        [Line(11)],
+        [Line(11), Line(12)],
+        [Line(11), Line(12), Line(13)],
+        [Line(11), Line(12), Line(13), Line(14)],
+        [Line(11), Line(12), Line(13), Line(14), Line(16)],
+        [Line(11), Line(12), Line(13), Line(17)],
     ]
 
     _, _, _, _, _, graph = graphs

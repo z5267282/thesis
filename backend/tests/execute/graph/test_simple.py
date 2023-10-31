@@ -17,5 +17,5 @@ def test_simple():
     graphs = generate_graphs(filtered, line_mapping)
 
     assert graphs == [
-        [Line(10, {})]
+        [Line(10)]
     ]

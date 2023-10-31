@@ -12,6 +12,6 @@ from tree_parser import parse
 def test_while_not_taken():
     root = parse(program)
     line_mapping = root.map_lines()
-    execution = [Line(2, {}), Line(3, {}), Line(6, {})]
+    execution = [Line(2), Line(3), Line(6)]
     filtered = smart_trace(line_mapping, execution)
-    assert filtered == [Line(2, {}), Line(6, {})]
+    assert filtered == [Line(2), Line(6)]

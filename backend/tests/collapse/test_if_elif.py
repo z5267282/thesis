@@ -21,7 +21,7 @@ def test_if_elif():
     root = parse(program)
     program_code = get_code_info(program)
 
-    graph = [Line(8, {}), Line(9, {}), Line(11, {}), Line(18, {})]
+    graph = [Line(8), Line(9), Line(11), Line(18)]
     code, lines, rest = collapse(graph, program_code, root)
 
     assert code == [

@@ -21,7 +21,7 @@ def test_else_taken():
     root = parse(program)
     program_code = get_code_info(program)
 
-    graph = [Line(8, {}), Line(15, {}), Line(16, {}), Line(18, {})]
+    graph = [Line(8), Line(15), Line(16), Line(18)]
     code, lines, rest = collapse(graph, program_code, root)
 
     assert code == [

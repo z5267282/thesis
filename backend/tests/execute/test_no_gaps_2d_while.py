@@ -21,11 +21,11 @@ def test_no_gaps_2d_while():
     filtered = smart_trace(line_mapping, lines)
 
     assert filtered == [
-        Line(7, {}),
-        Line(8, {}),
-        Line(9, {}),
-        Line(10, {}),
-        Line(12, {}),
-        Line(14, {}),
-        Line(15, {})
+        Line(7),
+        Line(8),
+        Line(9),
+        Line(10),
+        Line(12),
+        Line(14),
+        Line(15)
     ]

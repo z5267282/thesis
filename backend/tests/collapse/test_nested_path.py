@@ -28,13 +28,13 @@ def test_nested_path():
     root = parse(program)
     program_code = get_code_info(program)
     graph = [
-        Line(9, {}),
-        Line(10, {}),
-        Line(14, {}),
-        Line(16, {}),
-        Line(18, {}),
-        Line(19, {}),
-        Line(21, {})
+        Line(9),
+        Line(10),
+        Line(14),
+        Line(16),
+        Line(18),
+        Line(19),
+        Line(21)
     ]
     code, lines, rest = collapse(graph, program_code, root)
 

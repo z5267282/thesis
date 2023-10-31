@@ -21,15 +21,15 @@ def test_ifs():
     graphs = generate_graphs(filtered, line_mapping)
 
     assert filtered == [
-        Line(8, {}),
-        Line(11, {}),
-        Line(13, {}),
-        Line(14, {})
+        Line(8),
+        Line(11),
+        Line(13),
+        Line(14)
     ]
 
     assert graphs == [
-        [Line(8, {})],
-        [Line(8, {}), Line(11, {})],
-        [Line(8, {}), Line(11, {}), Line(13, {})],
-        [Line(8, {}), Line(11, {}), Line(13, {}), Line(14, {})]
+        [Line(8)],
+        [Line(8), Line(11)],
+        [Line(8), Line(11), Line(13)],
+        [Line(8), Line(11), Line(13), Line(14)]
     ]

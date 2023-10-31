@@ -45,9 +45,7 @@ def trace_line(
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
     if lines:
-        top : Line = lines[-1]
-        top.vars.curr = variables
-        top.output.extend(output)
+        lines[-1].output.extend(output)
 
     if event == "line":
         lines.append(Line(frame.f_lineno, variables))

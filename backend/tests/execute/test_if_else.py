@@ -12,7 +12,7 @@ from tree_parser import parse
 
 def test_if_else():
     all_lines = trace_program(program)
-    assert all_lines == [ Line(2, {}), Line(3, {}), Line(6, {}) ]
+    assert all_lines == [ Line(2), Line(3), Line(6) ]
     root = parse(program)
     lines = smart_trace(root.map_lines(), all_lines)
-    assert lines == [ Line(2, {}), Line(5, {}), Line(6, {}) ]
+    assert lines == [ Line(2), Line(5), Line(6) ]

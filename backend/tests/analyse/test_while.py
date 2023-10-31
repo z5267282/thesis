@@ -12,16 +12,16 @@ def test_while():
     root = parse(program)
     line_mapping = root.map_lines()
     execution = [
-        Line(2, {}),
+        Line(2),
         # loop iterations
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
         # last loop iteration i = 3
-        Line(3, {})
+        Line(3)
     ]
     filtered = smart_trace(line_mapping, execution)
     assert filtered == [
-        Line(2, {}),
-        Line(3, {}), Line(5, {})
+        Line(2),
+        Line(3), Line(5)
     ]

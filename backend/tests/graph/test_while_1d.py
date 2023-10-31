@@ -22,34 +22,34 @@ def test_while_1d():
     line_mapping = root.map_lines()
     execution = [
         # top-level
-        Line(2, {}), Line(3, {}),
+        Line(2), Line(3),
         # loop
-        Line(4, {}), Line(5, {}), Line(8, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(6, {}), Line(7, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(8, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(6, {}), Line(7, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(8, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(6, {}), Line(7, {}), Line(11, {}),
-        Line(4, {}), Line(5, {}), Line(8, {}), Line(9, {}), Line(10, {}),
-            Line(11, {}),
+        Line(4), Line(5), Line(8), Line(11),
+        Line(4), Line(5), Line(6), Line(7), Line(11),
+        Line(4), Line(5), Line(8), Line(11),
+        Line(4), Line(5), Line(6), Line(7), Line(11),
+        Line(4), Line(5), Line(8), Line(11),
+        Line(4), Line(5), Line(6), Line(7), Line(11),
+        Line(4), Line(5), Line(8), Line(9), Line(10),
+            Line(11),
         # breaking the loop
-        Line(4, {}),
+        Line(4),
         # end
-        Line(13, {})
+        Line(13)
     ]
     filtered = smart_trace(line_mapping, execution)
     graphs = generate_graphs(filtered, line_mapping)
     assert graphs == [
-        [Line(3, {})],
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(11, {})],
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {})],
-        [Line(3, {}), Line(4, {}), Line(5, {}), Line(7, {}), Line(11, {})],
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {})],
-        [Line(3, {}), Line(4, {}), Line(8, {}), Line(10, {}), Line(11, {})],
-        [Line(3, {}), Line(13, {})]
+        [Line(3)],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(11)],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(5)],
+        [Line(3), Line(4), Line(5), Line(7)],
+        [Line(3), Line(4), Line(5), Line(7), Line(11)],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(8)],
+        [Line(3), Line(4), Line(8), Line(10)],
+        [Line(3), Line(4), Line(8), Line(10), Line(11)],
+        [Line(3), Line(13)]
     ]

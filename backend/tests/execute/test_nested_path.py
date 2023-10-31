@@ -29,15 +29,15 @@ def test_nested_path():
     filtered : list[Line] = smart_trace(line_mapping, lines)
 
     # check length first
-    first = [Line(11, {})]
-    no_branch = [Line(12, {}), Line(22, {})]
-    first_branch = [Line(12, {}), Line(13, {}), Line(14, {}), Line(22, {})]
+    first = [Line(11)]
+    no_branch = [Line(12), Line(22)]
+    first_branch = [Line(12), Line(13), Line(14), Line(22)]
     second_branch = [
-        Line(12, {}), Line(15, {}), Line(17, {}),
+        Line(12), Line(15), Line(17),
         # while loop
-        Line(18, {}), Line(20, {}),
+        Line(18), Line(20),
         # incrementation
-        Line(22, {})
+        Line(22)
     ]
     assert filtered == first + no_branch + first_branch + second_branch
 

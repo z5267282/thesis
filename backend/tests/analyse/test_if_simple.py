@@ -12,10 +12,10 @@ def test_if_simple():
     root = parse(program)
     line_mapping = root.map_lines()
     execution = [
-        Line(2, {}),
+        Line(2),
         # if statement-related
-        Line(3, {}), Line(4, {}), Line(5, {})
+        Line(3), Line(4), Line(5)
     ]
     assert smart_trace(line_mapping, execution) == [
-        Line(2, {}), Line(3, {}), Line(5, {})
+        Line(2), Line(3), Line(5)
     ]

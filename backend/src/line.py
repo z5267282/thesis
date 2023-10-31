@@ -7,7 +7,7 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, variables : dict[str, Any]):
+    def __init__(self, line_no : int, variables : dict[str, Any]={}):
         self.line_no   : int = line_no
         self.output    : list[str] = []
         self.variables : dict[str, Any] = variables

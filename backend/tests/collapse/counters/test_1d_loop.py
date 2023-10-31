@@ -14,21 +14,21 @@ def test_1d_loop():
     root = parse(program)
     line_mapping = root.map_lines()
     execution = [
-        Line(2, {}),
+        Line(2),
         # loop iterations
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
         # breaking iteration
-        Line(3, {})
+        Line(3)
     ]
     # should update the counters
     filtered = smart_trace(line_mapping, execution)
     assert filtered == [
-        Line(2, {}),
-        Line(3, {}), Line(5, {})
+        Line(2),
+        Line(3), Line(5)
     ]
 
     # no counters should be valid for now

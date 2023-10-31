@@ -39,8 +39,8 @@ def test_on_while_line():
     program_code : OrderedDict[int, str] = get_code_info(program)
 
     assert line_graphs[:2] == [
-        [Line(3, {})],
-        [Line(3, {}), Line(4, {})]
+        [Line(3)],
+        [Line(3), Line(4)]
     ]
 
     _, graph = line_graphs[:2]
@@ -63,9 +63,9 @@ def test_inside_while():
     program_code : OrderedDict[int, str] = get_code_info(program)
 
     assert line_graphs[:3] == [
-        [Line(3, {})],
-        [Line(3, {}), Line(4, {})],
-        [Line(3, {}), Line(4, {}), Line(12, {})]
+        [Line(3)],
+        [Line(3), Line(4)],
+        [Line(3), Line(4), Line(12)]
     ]
 
     _, _, graph = line_graphs[:3]

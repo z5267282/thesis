@@ -15,23 +15,23 @@ def test_code_after():
     root = parse(program)
     line_mapping = root.map_lines()
     execution = [
-        Line(2, {}),
+        Line(2),
         # loop iterations
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
-        Line(3, {}), Line(4, {}), Line(5, {}),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
+        Line(3), Line(4), Line(5),
         # breaking iteration
-        Line(3, {}),
-        Line(6, {})
+        Line(3),
+        Line(6)
     ]
     # should update the counters
     filtered = smart_trace(line_mapping, execution)
     assert filtered == [
-        Line(2, {}),
-        Line(3, {}), Line(5, {}),
-        Line(6, {})
+        Line(2),
+        Line(3), Line(5),
+        Line(6)
     ]
 
     program_code = get_code_info(program)
