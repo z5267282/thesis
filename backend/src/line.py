@@ -7,10 +7,10 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, prev_vars : dict[str, Any]):
+    def __init__(self, line_no : int, variables : dict[str, Any]):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.vars      : State[dict[str, Any]] = State(prev_vars)
+        self.variables : dict[str, Any] = variables
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
     
@@ -43,9 +43,7 @@ class Line:
 
         return f"""line {self.line_no}:
     output: [{", ".join(str(o) for o in self.output)}]
-    vars  :
-        - prev: {{{dict_to_str(self.vars.prev)}}}
-        - curr: {{{dict_to_str(self.vars.curr)}}}
+    vars: {{{dict_to_str(self.variables)}}}
     counters: [{counters}]"""
     
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
