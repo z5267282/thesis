@@ -29,7 +29,9 @@ def generate_dataframes(program : Callable):
     prev_vars : dict[str, Any] = first_frame.variables.curr
     program_frames : list[DataFrame] = []
     for line_graph in line_graphs:
-        dataframe : DataFrame = generate_dataframe(line_graph, program_code, root, line_mapping, prev_vars)
+        dataframe : DataFrame = generate_dataframe(
+            line_graph, program_code, root, line_mapping, prev_vars
+        )
         program_frames.append(dataframe)
         prev_vars = dataframe.variables.curr
 
