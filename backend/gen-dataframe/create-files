@@ -1,0 +1,8 @@
+#!/bin/dash
+
+src='../demo'
+dst='../tests/execute/integration/demo'
+for t in $src/*.py
+do
+    
+done
