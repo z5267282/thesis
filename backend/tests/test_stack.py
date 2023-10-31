@@ -15,8 +15,6 @@ def test_print():
     b2.end = 4
     stack.push(b2)
 
-    print(stack)
-
     assert str(stack) == \
 """1 : BodyBlock(start=4, end=4)
 2 : BodyBlock(start=2, end=3)
