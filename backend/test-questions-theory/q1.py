@@ -1,4 +1,4 @@
-X, Y, Z = 7, 4, 3
+X, Y, Z = 4, 2, 3
 
 i = 0
 while i < X:
@@ -11,9 +11,9 @@ while i < X:
             print("Z", end="")
             k += 1
 
-        j += 2
+        j += 1
 
     print(" ", end="")
-    i += 3
+    i += 1
 
 print("done")
