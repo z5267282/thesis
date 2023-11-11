@@ -8,6 +8,7 @@ from collapse import collapse
 from dataframe import DataFrame
 from graph import generate_graphs
 from helper import get_code_info, get_stripped_line
+from last import Last
 from line import Line
 from evaluate import evaluate
 from execute import trace_program
@@ -18,15 +19,20 @@ from tree_parser import parse
 def generate_dataframes(program : Callable):
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
+    all_lines, last = trace_program(program)
     root         : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines, last = trace_program(program)
     filtered     : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs  : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
+    return construct_dataframes(program_code, line_graphs, root, line_mapping, last)
 
+def construct_dataframes(
+    program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
+    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Last
+):
     first_frame : DataFrame = generate_first_dataframe(program_code, root)
-    prev_vars : dict[str, Any] = first_frame.variables.curr
+    prev_vars   : dict[str, Any] = first_frame.variables.curr
     program_frames : list[DataFrame] = []
     for line_graph in line_graphs:
         dataframe : DataFrame = generate_dataframe(
@@ -34,8 +40,10 @@ def generate_dataframes(program : Callable):
         )
         program_frames.append(dataframe)
         prev_vars = dataframe.variables.curr
+    
+    last_frame : DataFrame = generate_last_dataframe(program_code, root, last)
 
-    return [first_frame] + program_frames
+    return [first_frame] + program_frames + [last_frame]
 
 def generate_first_dataframe(
     program_code : OrderedDict[int, str], root : BodyBlock,
@@ -65,6 +73,15 @@ def generate_dataframe(
         code, adjust_lines(lines), 0 if not path else path[-1],
         State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
+    )
+
+def generate_last_dataframe(
+    program_code : OrderedDict[int, str], root : BodyBlock, last : Last
+):
+    code, lines, path = collapse([], program_code, root)
+    return DataFrame(
+        code, adjust_lines(lines), None,
+        State({}, curr=last.variables), last.output, path, [], [] 
     )
 
 def adjust_lines(lines):
