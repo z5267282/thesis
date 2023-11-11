@@ -1,7 +1,8 @@
-import copy
+from copy import deepcopy
 from io import StringIO
 import sys
 
+from last import Last
 from line import Line
 from state import State
 from types import FrameType
@@ -15,8 +16,9 @@ def trace_program(program : Callable):
     lines   : list[Line] = []
     output  : list[str] = []
     printed : State[str] = State("", curr="")
+    last    : Last = Last()
     def wrapper(frame : FrameType, event : str, arg : Any):
-        trace_line(frame, event, arg, lines, output, buffer, printed)
+        trace_line(frame, event, arg, lines, output, buffer, printed, last)
         return wrapper
 
     sys.stdout = buffer
@@ -24,17 +26,17 @@ def trace_program(program : Callable):
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
-    return lines
+    return lines, last
 
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[Line],
-    output : list[str], buffer : StringIO, printed : State
+    output : list[str], buffer : StringIO, printed : State, last : Last
 ):
     if event != "line" and event != "return":
         return
 
     # state related steps
-    variables : dict[str, Any] = copy.deepcopy(frame.f_locals)
+    variables : dict[str, Any] = deepcopy(frame.f_locals)
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
@@ -46,9 +48,13 @@ def trace_line(
     # note a "previous" state needs to exist (ie. line > starting)
     if lines:
         lines[-1].output.extend(output)
-
-    if event == "line":
-        lines.append(Line(frame.f_lineno, variables=variables))
+    
+    match event:
+        case "line":
+            lines.append(Line(frame.f_lineno, variables=variables))
+        case "return":
+            last.variables.update(frame.f_locals)
+            last.output.extend(output)
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
