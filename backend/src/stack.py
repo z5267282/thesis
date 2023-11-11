@@ -4,7 +4,6 @@ T = TypeVar("T")
 
 class Stack(Generic[T]):
     """A LIFO data structure"""
-
     def __init__(self):
         self.items : list[Type[T]] = []
     
