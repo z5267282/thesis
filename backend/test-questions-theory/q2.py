@@ -1,10 +1,25 @@
-n = 2 ** 3 * 5 ** 12 * 7 ** 8 * 11 ** 3
-print(n)
+n = 14986230724609375000
+p = n
 
-while n % 2 == 0:
-    n //= 2
-while n % 3 == 0:
-    n //= 3
+two = True
+while p % 2 == 0:
+    p //= 2
+    two = not two
 
+if two:
+    while p % 3 == 0:
+        p //= 3
+else:
+    five = False
+    while p % 5 == 0:
+        p //= 5
+        five = not five
 
-print(n)
+    if not five:
+        while p % 7 == 0:
+            p //= 7
+    else:
+        while p % 11:
+            p //= 11
+
+print(p)
