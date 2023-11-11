@@ -27,7 +27,7 @@ def trace_program(program : Callable):
     return lines
 
 def trace_line(
-    frame : FrameType, event : str, arg : Any, lines : list[Line],
+    frame : FrameType, event : str, _ : Any, lines : list[Line],
     output : list[str], buffer : StringIO, printed : State
 ):
     if event != "line" and event != "return":
