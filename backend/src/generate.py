@@ -31,7 +31,9 @@ def construct_dataframes(
     program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
     root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Last
 ):
-    first_frame : DataFrame = generate_first_dataframe(program_code, root)
+    first_frame : DataFrame = generate_edge_dataframe(
+        program_code, root, {}, []
+    )
     prev_vars   : dict[str, Any] = first_frame.variables.curr
     program_frames : list[DataFrame] = []
     for line_graph in line_graphs:
@@ -41,17 +43,23 @@ def construct_dataframes(
         program_frames.append(dataframe)
         prev_vars = dataframe.variables.curr
     
-    last_frame : DataFrame = generate_last_dataframe(program_code, root, last)
+    last_frame : DataFrame = generate_edge_dataframe(
+        program_code, root, last.variables, last.output
+    )
 
     return [first_frame] + program_frames + [last_frame]
 
-def generate_first_dataframe(
+def generate_edge_dataframe(
     program_code : OrderedDict[int, str], root : BodyBlock,
+    variables : dict[str, Any], output : list[str]
 ):
+    """Construct a DataFrame that is either before or after the program's
+    execution.
+    Hence, these frames only have program state and no execution graph."""
     code, lines, path = collapse([], program_code, root)
     return DataFrame(
         code, adjust_lines(lines), None,
-        State({}, curr={}), [], path, [], [] 
+        State(variables, curr=variables), output, path, [], [] 
     )
 
 def generate_dataframe(
@@ -73,15 +81,6 @@ def generate_dataframe(
         code, adjust_lines(lines), 0 if not path else path[-1],
         State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
-    )
-
-def generate_last_dataframe(
-    program_code : OrderedDict[int, str], root : BodyBlock, last : Last
-):
-    code, lines, path = collapse([], program_code, root)
-    return DataFrame(
-        code, adjust_lines(lines), None,
-        State({}, curr=last.variables), last.output, path, [], [] 
     )
 
 def adjust_lines(lines):
