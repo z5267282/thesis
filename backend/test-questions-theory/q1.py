@@ -1,4 +1,4 @@
-X, Y, Z = 2, 2, 3
+X, Y, Z = None, None, None
 
 i = 0
 while i < X:
