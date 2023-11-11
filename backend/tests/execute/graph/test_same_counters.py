@@ -30,7 +30,7 @@ from tree_parser import parse
 def test_same_counters():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines : list[Line] = trace_program(program)
+    all_lines, _ = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
 
     assert filtered == [

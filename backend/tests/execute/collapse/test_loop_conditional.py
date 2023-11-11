@@ -33,7 +33,7 @@ from tree_parser import parse
 def test_on_while_line():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines : list[Line] = trace_program(program)
+    all_lines, _ = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
@@ -57,7 +57,7 @@ def test_on_while_line():
 def test_inside_while():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines : list[Line] = trace_program(program)
+    all_lines, _ = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)

@@ -24,7 +24,7 @@ def program():
 def test_loop_counter():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    lines : list[Line] =  trace_program(program)
+    lines, _ = trace_program(program)
     filtered : list[Line] = smart_trace(line_mapping, lines)
 
     assert len(filtered) == 12
