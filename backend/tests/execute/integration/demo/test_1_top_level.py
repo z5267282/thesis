@@ -45,12 +45,12 @@ def test_1_top_level():
                 {
                     "name": "i",
                     "value": "42",
-                    "changed": True 
+                    "changed": True
                 },
                 {
                     "name": "j",
                     "value": "69",
-                    "changed": True 
+                    "changed": True
                 }
             ],
             "out": [
@@ -61,6 +61,40 @@ def test_1_top_level():
                 "rest": [
                     2
                 ]
+            },
+            "counters": [],
+            "evalbox": []
+        },
+        {
+            "code": [
+                "i = 42",
+                "j = 69",
+                "print(f\"{i} + {j} = {i + j}\")"
+            ],
+            "lines": [
+                "1",
+                "2",
+                "3"
+            ],
+            "curr": None,
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "42",
+                    "changed": False
+                },
+                {
+                    "name": "j",
+                    "value": "69",
+                    "changed": False
+                }
+            ],
+            "out": [
+                "42 + 69 = 111\n"
+            ],
+            "path": {
+                "start": 0,
+                "rest": []
             },
             "counters": [],
             "evalbox": []

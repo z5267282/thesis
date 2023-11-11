@@ -214,5 +214,45 @@ def test_2_top_level_conditional():
             },
             "counters": [],
             "evalbox": []
+        },
+        {
+            "code": [
+                "i = 0",
+                "print(f\"i is {i}\")",
+                "if i % 7 == 0:",
+                "    \u00b7\u00b7\u00b7",
+                "else:",
+                "    \u00b7\u00b7\u00b7",
+                "print(\"that's all folks\")"
+            ],
+            "lines": [
+                "1",
+                "2",
+                "3",
+                "",
+                "6",
+                "",
+                "8"
+            ],
+            "curr": None,
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": False
+                }
+            ],
+            "out": [
+                "i is 0\n",
+                "a special number!\n",
+                ":D\n",
+                "that's all folks\n"
+            ],
+            "path": {
+                "start": 0,
+                "rest": []
+            },
+            "counters": [],
+            "evalbox": []
         }
     ]
