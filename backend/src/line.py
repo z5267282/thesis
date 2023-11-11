@@ -2,7 +2,6 @@ from collections import OrderedDict
 from typing import Any
 
 from counter import Counter
-from state import State
 from tree import WhileBlock
 
 class Line:
