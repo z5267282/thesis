@@ -8,7 +8,7 @@ from execute import trace_program
 from line import Line
 
 def test_line_output():
-    lines = trace_program(program)
+    lines, _ = trace_program(program)
     assert lines == [
         Line(2), Line(3), Line(4), Line(5)
     ]

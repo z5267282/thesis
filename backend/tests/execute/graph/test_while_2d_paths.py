@@ -26,7 +26,7 @@ def program():
 
 def test_while_2d_paths():
     root = parse(program)
-    lines = trace_program(program)
+    lines, _ = trace_program(program)
     line_mapping = root.map_lines()
     filtered = smart_trace(line_mapping, lines)
     graphs = generate_graphs(filtered, line_mapping)

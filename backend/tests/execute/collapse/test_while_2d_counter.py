@@ -19,7 +19,7 @@ def program():
 def test_while_2d_counter():
     root = parse(program)
     line_mapping = root.map_lines()
-    run_lines = trace_program(program)
+    run_lines, _ = trace_program(program)
     filtered = smart_trace(line_mapping, run_lines)
     graphs = generate_graphs(filtered, line_mapping)
     program_code = get_code_info(program)
@@ -52,7 +52,7 @@ def test_while_2d_counter():
 def test_nested_loop():
     root = parse(program)
     line_mapping = root.map_lines()
-    run_lines = trace_program(program)
+    run_lines, _ = trace_program(program)
     filtered = smart_trace(line_mapping, run_lines)
     graphs = generate_graphs(filtered, line_mapping)
     program_code = get_code_info(program)
@@ -85,7 +85,7 @@ def test_nested_loop():
 def test_collapsed_inner_loop():
     root = parse(program)
     line_mapping = root.map_lines()
-    run_lines = trace_program(program)
+    run_lines, _ = trace_program(program)
     filtered = smart_trace(line_mapping, run_lines)
     graphs = generate_graphs(filtered, line_mapping)
     program_code = get_code_info(program)
