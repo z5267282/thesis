@@ -114,11 +114,6 @@ def test_same_counters():
     assert start1.line_no == 4
     assert start2.line_no == 4
 
-    print(repr(iter1))
-    print(repr(iter2))
-    print(repr(start1))
-    print(repr(start2))
-
     # the line graphs should correspond to the same lines above
     assert start1 is iter1
     assert start2 is iter2
