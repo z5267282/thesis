@@ -8,13 +8,13 @@ from types import FrameType
 from typing import Any, Callable
 
 def trace_program(program : Callable):
+    """Get the execution path of a program with state information at each line.
+    Return a list of Line objects representing the program's raw execution
+    path."""
     buffer  : StringIO = StringIO()
     lines   : list[Line] = []
     output  : list[str] = []
     printed : State[str] = State("", curr="")
-    """Get the execution path of a program with state information at each line.
-    Return a list of Line objects representing the program's raw execution
-    path."""
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, output, buffer, printed)
         return wrapper

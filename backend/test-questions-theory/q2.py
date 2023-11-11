@@ -21,5 +21,3 @@ else:
     else:
         while p % 11:
             p //= 11
-
-print(p)
