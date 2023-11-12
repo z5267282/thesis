@@ -20,7 +20,7 @@ CORS(app)
 @app.put("/analyse")
 def analyse():
     raw_code : str = request.get_json()
-    errors : tuple[str, int] | None = program_errors(raw_code)
+    errors   : tuple[str, int] | None = program_errors(raw_code)
     if errors is not None:
         return errors
 
