@@ -36,7 +36,12 @@ export default function TraceBox({
         (code.length !== 0) &&
           <LinearProgress
             variant="determinate"
-            sx={{ width : "80%" }}
+            sx={{
+              width : "80%",
+              "& .MuiLinearProgress-bar": {
+                 transition: "none"
+              }
+            }}
             value={calcProgress(index, total)}
           />
       }
