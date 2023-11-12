@@ -28,3 +28,13 @@
   vertical-align: top;
   margin-top: 5%;
 }
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  white-space: pre;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

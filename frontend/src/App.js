@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Dialog, DialogContent, Tab, Tabs } from "@mui/material";
+import { Button, Dialog, DialogContent, Tab, Tabs, TextField } from "@mui/material";
 
 import EvalBox from "./components/EvalBox";
 import OutputBox from "./components/OutputBox";
@@ -30,6 +30,49 @@ export default function App() {
   const { dataFrame, disablePrev, disableNext } = generateData(frames, index);
 
   const capitalisedTab = { textTransform : "none", fontSize : "14pt" };
+
+  const [zid, setZid] = useState("");
+  const [auth, setAuth] = useState(false);
+  const [control, setControl] = useState(false);
+
+  const error = (zid !== "" && zid !== "super" && !/^z[0-9]{7}$/.test(zid));
+
+  if (!auth) {
+    return (
+      <div className={styles.screen}>
+        <div style={{marginBottom : "2.5%"}}>
+          Enter your zid
+        </div>
+        <TextField
+          id="zid-input" label="zid" variant="outlined"
+          value={zid} onChange={(event) => setZid(event.target.value)}
+          error={error} helperText={error ? "enter a z with 7 digits" : ""}
+        />
+        <Button
+          variant="outlined" style={{marginTop : "2.5%"}}
+          disabled={zid === "" || error}
+          onClick={() => {
+
+          }}
+        >
+          Submit
+        </Button>
+      </div>
+    );
+  }
+
+  if (control) {
+    return (
+      <div className={styles.screen} style={{fontSize : "14pt"}}>
+        <div>
+          You are part of the control group and <b>won't</b> have access to the tool.
+        </div>
+        <div style={{marginTop : "2.5%"}}>
+          You are free to use your local computer to run and experiment with the code snippets.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.app}>
