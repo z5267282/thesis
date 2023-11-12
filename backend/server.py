@@ -110,7 +110,7 @@ def write_dataframes(dataframe_dicts : list[dict]):
         
         run(["dash", PATHS.to_python])
 
-@app.get("auth")
+@app.get("/auth")
 def auth():
     zid     : str = request.args.get("zid")
     control : bool = determine_control(zid)

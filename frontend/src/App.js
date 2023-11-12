@@ -8,7 +8,7 @@ import TraceBox from "./components/TraceBox"
 import UploadBox from "./components/UploadBox"
 import VariableBox from "./components/VariableBox";
 
-import { TABS } from "./config";
+import { SERVER, TABS } from "./config";
 
 import styles from "./App.module.css";
 
@@ -34,6 +34,10 @@ export default function App() {
   const [zid, setZid] = useState("");
   const [auth, setAuth] = useState(false);
   const [control, setControl] = useState(false);
+  const determineControl = (newControl) => {
+    setAuth(true);
+    setControl(newControl);
+  }
 
   const error = (zid !== "" && zid !== "super" && !/^z[0-9]{7}$/.test(zid));
 
@@ -53,10 +57,20 @@ export default function App() {
           disabled={zid === "" || error}
           onClick={() => {
             if (zid === "super") {
-              setAuth(true);
-              setControl(false);
+              determineControl(false);
               return;
             }
+
+            const url = new URL(`${SERVER}/auth`);
+            url.searchParams.append("zid", zid);
+            fetch(url, {
+              method  : "GET",
+              headers : { "Content-Type" : "application/json" },
+              mode    : "cors",
+            })
+              .then(res => res.json())
+              .then(control => determineControl(control))
+              .catch(err => alert(`there was an error during authentication: ${err}`))
           }}
         >
           Submit
