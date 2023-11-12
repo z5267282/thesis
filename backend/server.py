@@ -1,5 +1,6 @@
+from datetime import datetime
 from http import HTTPStatus
-from json import dump
+from json import dump, load
 import os
 from subprocess import CompletedProcess, run
 import sys
@@ -114,7 +115,25 @@ def write_dataframes(dataframe_dicts : list[dict]):
 def auth():
     zid     : str = request.args.get("zid")
     control : bool = determine_control(zid)
+    record(zid, control)
     return jsonify(control)
 
 def determine_control(zid : str):
     return int(zid[-1]) % 2 == 0
+
+def record(zid : str, control : bool):
+    with open(PATHS.theory, "r") as f:
+        data = load(f)
+    
+    now : datetime = datetime.now()
+    ts  : str = now.strftime("%d/%m/%y %H%M")
+    with open(PATHS.theory, "w") as f:
+        if zid not in data:
+            data[zid] = {
+                "last"    : ts,
+                "control" : control
+            }
+        else:
+            data[zid]["last"] = ts
+        
+        dump(data, f, indent=2)
