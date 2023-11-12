@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import {
   COUNTER_COLOURS, FONT_SCALING_FACTOR, LINE_HEIGHT, TRACE_GRAPH_WIDTH
@@ -11,8 +11,26 @@ import WestIcon from '@mui/icons-material/West';
 
 export default function TraceBox({
   code, lines, path, counters, curr, index, total,
-  changeIndex, disablePrev, disableNext
+  changeIndex, disablePrev, disableNext, showTrace
 }) { 
+  const dec = () => changeIndex(-1);
+  const inc = () => changeIndex(1);
+
+  useEffect(() => {
+    const handleArrows = (event) => {
+      switch (event.key) {
+        case "ArrowLeft":
+          dec();
+          break;
+        case "ArrowRight":
+          inc();
+          break;
+      }
+    }
+    document.addEventListener("keydown", handleArrows);
+    return () => document.removeEventListener("keydown", handleArrows);
+  }, [showTrace, index]);
+
   return (
     <span className={styles.traceBox}>
       <h1 className={styles.largeText}>
@@ -20,13 +38,13 @@ export default function TraceBox({
       </h1>
       <div className={styles.transitions}>
         <IconButton
-          onClick={() => changeIndex(-1)} disabled={disablePrev}
+          onClick={dec} disabled={disablePrev}
           className={disabledClass(disablePrev)}
         >
           <WestIcon />
         </IconButton>
         <IconButton
-          onClick={() => changeIndex(1)} disabled={disableNext}
+          onClick={inc} disabled={disableNext}
           className={disabledClass(disableNext)}
         >
           <EastIcon />

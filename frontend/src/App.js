@@ -48,6 +48,7 @@ export default function App() {
               path={dataFrame.path} counters={dataFrame.counters} curr={dataFrame.curr}
               index={index} total={frames.length}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
+              showTrace={showTrace}
             />
             <span className={styles.outputs}>
               <EvalBox evallines={dataFrame.evalbox} />
