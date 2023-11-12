@@ -9,6 +9,7 @@ class Paths:
     timeout : list[str] = ["src", "upload", "timeout"]
     sanity  : list[str] = ["src", "upload", "sanity-run"]
     # survey 3 respondents
+    theory : list[str] = ["theory-respondents.json"]
 
     # relating to generated dataframes for testing
     generated_frame : list[str] = ["gen-dataframe", "generated.json"]
