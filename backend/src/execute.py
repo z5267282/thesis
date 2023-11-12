@@ -33,7 +33,7 @@ def trace_line(
     output : list[str], buffer : StringIO, printed : State, last : Last
 ):
     if event != "line" and event != "return":
-        return
+        return trace_line
 
     # state related steps
     variables : dict[str, Any] = deepcopy(frame.f_locals)
