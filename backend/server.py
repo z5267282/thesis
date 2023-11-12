@@ -109,3 +109,12 @@ def write_dataframes(dataframe_dicts : list[dict]):
             dump(dataframe_dicts, f, indent=LEADING_SPACES)
         
         run(["dash", PATHS.to_python])
+
+@app.get("auth")
+def auth():
+    zid     : str = request.args.get("zid")
+    control : bool = determine_control(zid)
+    return jsonify(control)
+
+def determine_control(zid : str):
+    return int(zid[-1]) % 2 == 0

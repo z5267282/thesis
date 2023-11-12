@@ -52,7 +52,11 @@ export default function App() {
           variant="outlined" style={{marginTop : "2.5%"}}
           disabled={zid === "" || error}
           onClick={() => {
-
+            if (zid === "super") {
+              setAuth(true);
+              setControl(false);
+              return;
+            }
           }}
         >
           Submit
