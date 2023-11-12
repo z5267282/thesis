@@ -27,8 +27,10 @@ export default function UploadBox({
     }
   });
 
+  const generatedID = "uploadBox";
+
   return (
-    <label htmlFor="uploadBox" className={styles.uploadBox}>
+    <label htmlFor={generatedID} className={styles.uploadBox}>
       <h1 className={styles.largeText}>Upload code</h1>
       <ThemeProvider theme={theme}>
         <Button
@@ -42,7 +44,7 @@ export default function UploadBox({
           { traceCode.split("\n").map((_, i) => <span key={`line-${i}`}/>) }
         </div>
         <Editor
-          id="uploadBox" value={traceCode} className={styles.editor}
+          textareaId={generatedID} value={traceCode} className={styles.editor}
           onValueChange={newTraceCode => setTraceCode(newTraceCode)}
           highlight={code => highlight(code, languages.py)}
           tabSize={EDITOR_TAB_SPACES}

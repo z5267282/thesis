@@ -11,7 +11,7 @@ export default function OutputBox({index, outputs}) {
     }
   }, [index]);
 
-  const generatedID = `OutputBox`;
+  const generatedID = "OutputBox";
 
   return (
     <label className={styles.textBox} htmlFor={generatedID}>
