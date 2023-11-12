@@ -9,27 +9,30 @@ import { IconButton, LinearProgress } from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
 
+// for assurance
+const DEC = -1;
+const INC = 1;
+
 export default function TraceBox({
   code, lines, path, counters, curr, index, total,
   changeIndex, disablePrev, disableNext, showTrace
 }) { 
-  const dec = () => changeIndex(-1);
-  const inc = () => changeIndex(1);
-
   useEffect(() => {
     const handleArrows = (event) => {
       switch (event.key) {
         case "ArrowLeft":
-          dec();
+          changeIndex(DEC);
           break;
         case "ArrowRight":
-          inc();
+          changeIndex(INC);
           break;
+        default:
+          ;
       }
     }
     document.addEventListener("keydown", handleArrows);
     return () => document.removeEventListener("keydown", handleArrows);
-  }, [showTrace, index]);
+  }, [showTrace, changeIndex]);
 
   return (
     <span className={styles.traceBox}>
@@ -38,13 +41,13 @@ export default function TraceBox({
       </h1>
       <div className={styles.transitions}>
         <IconButton
-          onClick={dec} disabled={disablePrev}
+          onClick={() => changeIndex(DEC)} disabled={disablePrev}
           className={disabledClass(disablePrev)}
         >
           <WestIcon />
         </IconButton>
         <IconButton
-          onClick={inc} disabled={disableNext}
+          onClick={() => changeIndex(INC)} disabled={disableNext}
           className={disabledClass(disableNext)}
         >
           <EastIcon />
