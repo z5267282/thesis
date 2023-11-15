@@ -48,7 +48,7 @@
     "control": false
   },
   "z5451327": {
-    "last": "12/11/23 1257",
+    "last": "13/11/23 0122",
     "control": false
   },
   "z5472236": {
@@ -101,6 +101,218 @@
   },
   "z5454612": {
     "last": "12/11/23 1446",
+    "control": true
+  },
+  "z5489958": {
+    "last": "12/11/23 1502",
+    "control": true
+  },
+  "z5261727": {
+    "last": "12/11/23 2237",
+    "control": false
+  },
+  "z5437801": {
+    "last": "12/11/23 2308",
+    "control": false
+  },
+  "z5500947": {
+    "last": "12/11/23 2314",
+    "control": false
+  },
+  "z5460683": {
+    "last": "12/11/23 2333",
+    "control": false
+  },
+  "z5490421": {
+    "last": "13/11/23 0034",
+    "control": false
+  },
+  "z5472722": {
+    "last": "12/11/23 2350",
+    "control": true
+  },
+  "z5503689": {
+    "last": "12/11/23 2353",
+    "control": false
+  },
+  "z5457837": {
+    "last": "13/11/23 0002",
+    "control": false
+  },
+  "z5475008": {
+    "last": "13/11/23 0017",
+    "control": true
+  },
+  "z5452789": {
+    "last": "13/11/23 0050",
+    "control": false
+  },
+  "z5505974": {
+    "last": "13/11/23 0042",
+    "control": true
+  },
+  "z5519806": {
+    "last": "13/11/23 0052",
+    "control": true
+  },
+  "z5452361": {
+    "last": "13/11/23 0125",
+    "control": false
+  },
+  "z5454837": {
+    "last": "13/11/23 0154",
+    "control": false
+  },
+  "z5507706": {
+    "last": "13/11/23 0203",
+    "control": true
+  },
+  "z5429609": {
+    "last": "13/11/23 0201",
+    "control": false
+  },
+  "z5381027": {
+    "last": "13/11/23 0229",
+    "control": false
+  },
+  "z5506162": {
+    "last": "13/11/23 0231",
+    "control": true
+  },
+  "z5473663": {
+    "last": "13/11/23 0239",
+    "control": false
+  },
+  "z5501719": {
+    "last": "13/11/23 0244",
+    "control": false
+  },
+  "z5447882": {
+    "last": "13/11/23 0305",
+    "control": true
+  },
+  "z5502597": {
+    "last": "13/11/23 0349",
+    "control": false
+  },
+  "z5435108": {
+    "last": "13/11/23 0403",
+    "control": true
+  },
+  "z5444199": {
+    "last": "13/11/23 0405",
+    "control": false
+  },
+  "z5265559": {
+    "last": "13/11/23 0414",
+    "control": false
+  },
+  "z5464295": {
+    "last": "13/11/23 0435",
+    "control": false
+  },
+  "z5490533": {
+    "last": "13/11/23 0438",
+    "control": false
+  },
+  "z5002622": {
+    "last": "13/11/23 0458",
+    "control": true
+  },
+  "z5496416": {
+    "last": "13/11/23 0522",
+    "control": true
+  },
+  "z5518074": {
+    "last": "13/11/23 0931",
+    "control": true
+  },
+  "z5504083": {
+    "last": "13/11/23 0704",
+    "control": false
+  },
+  "z5510277": {
+    "last": "13/11/23 0741",
+    "control": false
+  },
+  "z5506694": {
+    "last": "13/11/23 0739",
+    "control": true
+  },
+  "z5523322": {
+    "last": "13/11/23 0944",
+    "control": true
+  },
+  "z5468071": {
+    "last": "13/11/23 1051",
+    "control": false
+  },
+  "z5491010": {
+    "last": "13/11/23 1241",
+    "control": true
+  },
+  "z5506695": {
+    "last": "13/11/23 1356",
+    "control": false
+  },
+  "z5475696": {
+    "last": "13/11/23 1532",
+    "control": true
+  },
+  "z5507556": {
+    "last": "13/11/23 2258",
+    "control": true
+  },
+  "z5374019": {
+    "last": "14/11/23 0005",
+    "control": false
+  },
+  "z5484276": {
+    "last": "14/11/23 0059",
+    "control": true
+  },
+  "z5499682": {
+    "last": "14/11/23 0430",
+    "control": true
+  },
+  "z5455382": {
+    "last": "14/11/23 0459",
+    "control": true
+  },
+  "z5473897": {
+    "last": "14/11/23 1050",
+    "control": false
+  },
+  "z5023902": {
+    "last": "14/11/23 1235",
+    "control": true
+  },
+  "z5435808": {
+    "last": "14/11/23 1259",
+    "control": true
+  },
+  "z5404901": {
+    "last": "14/11/23 1300",
+    "control": false
+  },
+  "z5485499": {
+    "last": "14/11/23 1308",
+    "control": false
+  },
+  "z5498070": {
+    "last": "14/11/23 1354",
+    "control": true
+  },
+  "z5484540": {
+    "last": "14/11/23 1833",
+    "control": true
+  },
+  "z5474746": {
+    "last": "14/11/23 2332",
+    "control": true
+  },
+  "z5089022": {
+    "last": "15/11/23 0319",
     "control": true
   }
 }
