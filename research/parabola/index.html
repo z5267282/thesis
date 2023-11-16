@@ -24,30 +24,30 @@
                 }
             }
 
-            const W = 30;
-            const H = 25;
+            const TRACE_GRAPH_WIDTH = 30;
+            const LINE_HEIGHT = 25;
             const D = Math.PI / 6;
 
             const h = 1;
 
-            const m = (4 * W) / (h * H);
+            const m = (4 * TRACE_GRAPH_WIDTH) / (h * LINE_HEIGHT);
 
             const theta = Math.atan(m)
 
-            const up = new Delta(theta - D);
-            const down = new Delta(Math.PI - D - theta);
+            const upArrow = new Delta(theta - D);
+            const downArrow = new Delta(Math.PI - D - theta);
 
             const coords = [
                 "M 0 0",
-                `q ${W * 2} ${(h / 2) * H} 0 ${h * H}`,
+                `q ${TRACE_GRAPH_WIDTH * 2} ${(h / 2) * LINE_HEIGHT} 0 ${h * LINE_HEIGHT}`,
 
-                // up arrow
-                `l ${up.dx} ${-1 * up.dy}`,
-                `m ${-1 * up.dx} ${up.dy}`,
+                // upArrow arrow
+                `l ${upArrow.dx} ${-1 * upArrow.dy}`,
+                `m ${-1 * upArrow.dx} ${upArrow.dy}`,
 
-                // down arrow
-                `l ${down.dx} ${down.dy}`,
-                `m ${-1 * down.dx} ${-1 * down.dy}`
+                // downArrow arrow
+                `l ${downArrow.dx} ${downArrow.dy}`,
+                `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`
             ]
             path.setAttribute("d", coords.join(" "));
             graph.appendChild(path);

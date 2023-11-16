@@ -186,7 +186,36 @@ function TracedLinesBox({
       let prev = coords.start;
       coords.rest.forEach((coord) => {
         const height = (coord - prev) * LINE_HEIGHT;
-        path.push(`q ${TRACE_GRAPH_WIDTH} ${height / 2} 0 ${height}`);
+
+        const D = Math.PI / 6;
+        const L = 15;
+
+        const gradient = (4 * TRACE_GRAPH_WIDTH) / (height);
+
+        const theta = Math.atan(gradient)
+
+        class Delta {
+            constructor(angle) {
+                this.dx = L * Math.sin(angle);
+                this.dy = L * Math.cos(angle);
+            }
+        }
+
+        const upArrow = new Delta(theta - D);
+        const downArrow = new Delta(Math.PI - D - theta);
+
+        const coords = [
+            `q ${TRACE_GRAPH_WIDTH * 2} ${height / 2} 0 ${height}`,
+
+            // upArrow arrow
+            `l ${upArrow.dx} ${-1 * upArrow.dy}`,
+            `m ${-1 * upArrow.dx} ${upArrow.dy}`,
+
+            // downArrow arrow
+            `l ${downArrow.dx} ${downArrow.dy}`,
+            `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`
+        ]
+        path.push(coords.join(" "));
         prev = coord;
       });
       return path;
