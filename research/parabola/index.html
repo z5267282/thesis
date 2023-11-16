@@ -15,16 +15,17 @@
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.classList.add("pen");
 
+            const L = 15;
+
             class Delta {
-                constructor(dx, dy) {
-                    this.dx = dx;
-                    this.dy = dy;
+                constructor(angle) {
+                    this.dx = L * Math.sin(angle);
+                    this.dy = L * Math.cos(angle);
                 }
             }
 
             const W = 30;
             const H = 25;
-            const L = 15;
             const D = Math.PI / 6;
 
             const h = 1;
@@ -33,14 +34,8 @@
 
             const theta = Math.atan(m)
 
-            const beta = theta - D;
-            const dUp = new Delta(Math.sin(beta), Math.cos(beta));
-            const up = new Delta(L * dUp.dx, L * dUp.dy);
-            console.log(up);
-
-            const alpha = Math.PI - D - theta;
-            const dDown = new Delta(Math.sin(alpha), Math.cos(alpha));
-            const down = new Delta(L * dDown.dx, L * dDown.dy);
+            const up = new Delta(theta - D);
+            const down = new Delta(Math.PI - D - theta);
 
             const coords = [
                 "M 0 0",
