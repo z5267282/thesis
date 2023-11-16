@@ -5,7 +5,12 @@ export const FONT_SCALING_FACTOR = 0.8;
 
 export const TABS = { TRACE : "trace", UPLOAD : "upload" };
 
-export const TRACE_GRAPH_WIDTH = 50;
+export const TRACE_GRAPH = {
+  width  : 30,
+  degree : Math.PI / 6,
+  // of arrow head
+  length : 15
+};
 
 export const EDITOR_TAB_SPACES = 4;
 
