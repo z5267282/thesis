@@ -22,29 +22,22 @@
                 }
             }
 
-            const W = 30;
-            const H = 25;
-            const L = 15;
-            const D = Math.PI / 6;
+            const length = 15;
+            const deg = Math.PI / 6;
+            const theta = Math.atan(4.8)
 
-            const h = 1;
-
-            const m = (4 * W) / (h * H);
-
-            const theta = Math.atan(m)
-
-            const beta = theta - D;
+            const beta = theta - deg;
             const dUp = new Delta(Math.sin(beta), Math.cos(beta));
-            const up = new Delta(L * dUp.dx, L * dUp.dy);
+            const up = new Delta(length * dUp.dx, length * dUp.dy);
             console.log(up);
 
-            const alpha = Math.PI - D - theta;
+            const alpha = Math.PI - deg - theta;
             const dDown = new Delta(Math.sin(alpha), Math.cos(alpha));
-            const down = new Delta(L * dDown.dx, L * dDown.dy);
+            const down = new Delta(length * dDown.dx, length * dDown.dy);
 
             const coords = [
                 "M 0 0",
-                `q ${W * 2} ${(h / 2) * H} 0 ${h * H}`,
+                "q 60 12.5 0 25",
 
                 // up arrow
                 `l ${up.dx} ${-1 * up.dy}`,
