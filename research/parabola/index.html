@@ -9,19 +9,21 @@
         </style>
     </head>
     <body>
-        <svg>
-            <path
-                class="pen"
-                d="
-                    M 0 0
-                    q 30 12.5 0 25
-                    l 16 -15
-                    m -16 15
-                    l 21 7
-                    m -21 7
-                " 
-            >
-            </path>
-        </svg>
+        <svg id="graph"></svg>
+        <script>
+            const graph = document.getElementById("graph");
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.classList.add("pen");
+            const coords = [
+                "M 0 0",
+                "q 30 12.5 0 25",
+                "l 16 -15",
+                "m -16 15",
+                "l 21 7",
+                "m -21 7"
+            ]
+            path.setAttribute("d", coords.join(" "));
+            graph.appendChild(path);
+        </script>
     </body>
 </html>
