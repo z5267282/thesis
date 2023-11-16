@@ -14,13 +14,38 @@
             const graph = document.getElementById("graph");
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.classList.add("pen");
+
+            class Delta {
+                constructor(dx, dy) {
+                    this.dx = dx;
+                    this.dy = dy;
+                }
+            }
+
+            const length = 22;
+            const deg = Math.PI / 6;
+            const theta = Math.atan(4.8)
+
+            const beta = theta - deg;
+            const dUp = new Delta(Math.sin(beta), Math.cos(beta));
+            const up = new Delta(length * dUp.dx, length * dUp.dy);
+            console.log(up);
+
+            const alpha = Math.PI - deg - theta;
+            const dDown = new Delta(Math.sin(alpha), Math.cos(alpha));
+            const down = new Delta(length * dDown.dx, length * dDown.dy);
+
             const coords = [
                 "M 0 0",
-                "q 30 12.5 0 25",
-                "l 16 -15",
-                "m -16 15",
-                "l 21 7",
-                "m -21 7"
+                "q 60 12.5 0 25",
+
+                // up arrow
+                `l ${up.dx} ${-1 * up.dy}`,
+                `m ${-1 * up.dx} ${up.dy}`,
+
+                // down arrow
+                `l ${down.dx} ${down.dy}`,
+                `m ${-1 * down.dx} ${-1 * down.dy}`
             ]
             path.setAttribute("d", coords.join(" "));
             graph.appendChild(path);
