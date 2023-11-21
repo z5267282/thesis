@@ -113,10 +113,12 @@ def write_dataframes(dataframe_dicts : list[dict]):
 
 @app.get("/auth")
 def auth():
-    zid     : str = request.args.get("zid")
-    control : bool = determine_control(zid)
-    record(zid, control)
-    return jsonify(control)
+    return jsonify(False)
+
+    # zid     : str = request.args.get("zid")
+    # control : bool = determine_control(zid)
+    # record(zid, control)
+    # return jsonify(control)
 
 def determine_control(zid : str):
     return int(zid[-1]) % 2 == 0
