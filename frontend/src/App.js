@@ -61,16 +61,18 @@ export default function App() {
               return;
             }
 
-            const url = new URL(`${SERVER}/auth`);
-            url.searchParams.append("zid", zid);
-            fetch(url, {
-              method  : "GET",
-              headers : { "Content-Type" : "application/json" },
-              mode    : "cors",
-            })
-              .then(res => res.json())
-              .then(control => determineControl(control))
-              .catch(err => alert(`there was an error during authentication: ${err}`))
+            determineControl(true);
+
+            // const url = new URL(`${SERVER}/auth`);
+            // url.searchParams.append("zid", zid);
+            // fetch(url, {
+            //   method  : "GET",
+            //   headers : { "Content-Type" : "application/json" },
+            //   mode    : "cors",
+            // })
+            //   .then(res => res.json())
+            //   .then(control => determineControl(control))
+            //   .catch(err => alert(`there was an error during authentication: ${err}`))
           }}
         >
           Submit
@@ -83,10 +85,10 @@ export default function App() {
     return (
       <div className={styles.screen} style={{fontSize : "14pt"}}>
         <div>
-          You are part of the control group and <b>won't</b> have access to the tool.
+          Testing for focus tracker is now closed.
         </div>
         <div style={{marginTop : "2.5%"}}>
-          You are free to use your local computer to run and experiment with the code snippets.
+          You will only be able to use the tool if you are doing the second chance quiz.
         </div>
       </div>
     );
