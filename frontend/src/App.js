@@ -61,18 +61,16 @@ export default function App() {
               return;
             }
 
-            determineControl(true);
-
-            // const url = new URL(`${SERVER}/auth`);
-            // url.searchParams.append("zid", zid);
-            // fetch(url, {
-            //   method  : "GET",
-            //   headers : { "Content-Type" : "application/json" },
-            //   mode    : "cors",
-            // })
-            //   .then(res => res.json())
-            //   .then(control => determineControl(control))
-            //   .catch(err => alert(`there was an error during authentication: ${err}`))
+            const url = new URL(`${SERVER}/auth`);
+            url.searchParams.append("zid", zid);
+            fetch(url, {
+              method  : "GET",
+              headers : { "Content-Type" : "application/json" },
+              mode    : "cors",
+            })
+              .then(res => res.json())
+              .then(control => determineControl(control))
+              .catch(err => alert(`there was an error during authentication: ${err}`))
           }}
         >
           Submit
