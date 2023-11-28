@@ -9,7 +9,7 @@ def program():
     print("start")
     a()
 
-from tree_parse import parse
+from tree_parser import parse
 
 def test_nested():
     root = parse(program)
