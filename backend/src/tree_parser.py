@@ -70,7 +70,7 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     if line.startswith("def"):
-        return FunctionBlock
+        return FunctionBlock(line_no, indent_level)
     return CodeBlock(line_no, indent_level)
 
 def is_skipable(line : str):
@@ -128,7 +128,7 @@ def parse_unindented_block(
             top = end_conditional(top, top_is_branch, prev, stack)
         # this is the only other choice
         # we write the condition for clarity
-        elif isinstance(top, WhileBlock): # pragma: no cover
+        elif isinstance(top, (WhileBlock, FunctionBlock)): # pragma: no cover
             top.end = prev
             top = stack.pop_peek()
         handle_stack_indentation_change(block, top, stack)
