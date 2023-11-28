@@ -13,24 +13,35 @@ from tree_parser import parse
 
 def test_nested():
     root = parse(program)
+    root.pretty_print()
     assert root.to_dict() == {
         "BodyBlock": {
-            "start": 2, "end": 10, "body": [
+            "start": 2,
+            "end": 10,
+            "body": [
                 {
                     "FunctionBlock": {
-                        "start": 2, "end": 9, "body": [
+                        "start": 2,
+                        "end": 8,
+                        "body": [
                             {
                                 "FunctionBlock": {
-                                    "start": 3, "end": 5, "body": [
+                                    "start": 3,
+                                    "end": 5,
+                                    "body": [
                                         {
                                             "CodeBlock": {
-                                                "start": 4, "end": 5
+                                                "start": 4,
+                                                "end": 5
                                             }
                                         }
                                     ]
                                 },
+                            },
+                            {
                                 "CodeBlock": {
-                                    "start": 6, "end": 7,
+                                    "start": 6,
+                                    "end": 8,
                                 }
                             }
                         ]
@@ -38,7 +49,8 @@ def test_nested():
                 },
                 {
                     "CodeBlock": {
-                        "start": 9, "end": 10
+                        "start": 9,
+                        "end": 10
                     }
                 }
             ]
