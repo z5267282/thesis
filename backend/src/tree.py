@@ -170,3 +170,6 @@ class IfBlock(ConditionalBlock):
             and line_no <= self.else_.end
         )
         return self.else_ if bounded else None
+    
+class FunctionBlock(BodyBlock):
+    pass

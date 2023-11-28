@@ -4,7 +4,8 @@ from typing import Callable, Type
 import helper
 from stack import Stack
 from tree import \
-    Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
+    Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock, \
+    FunctionBlock
 
 def parse(program : Callable):
     code : dict[int, str] = helper.get_code_info(program)
@@ -51,7 +52,7 @@ def parse_first_line(
     first_block : Type[Block] = parse_line(line, line_no, indent_level)
     root = BodyBlock(line_no, indent_level)
     stack.push(root)
-    if isinstance(first_block, (IfBlock, WhileBlock)):
+    if isinstance(first_block, (IfBlock, WhileBlock, FunctionBlock)):
         stack.push(first_block)
     elif isinstance(first_block, CodeBlock): # pragma: no branch
         root.code_block = first_block
@@ -68,6 +69,8 @@ def parse_line(line : str, line_no : int, indent_level : int):
         return ElifBlock(line_no, indent_level)
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
+    if line.startswith("def"):
+        return FunctionBlock
     return CodeBlock(line_no, indent_level)
 
 def is_skipable(line : str):
@@ -83,7 +86,9 @@ def parse_same_level_block(
 
     # this is the only other option
     # but for clarity we define the condition
-    if isinstance(block, (IfBlock, WhileBlock)): # pragma: no cover
+    if isinstance(
+        block, (IfBlock, WhileBlock, FunctionBlock)
+    ): # pragma: no cover
         top.end_code_block(line_no - 1)
         top.add_same_level_block(block)
         stack.push(block)
