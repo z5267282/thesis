@@ -20,10 +20,9 @@ def trace_program(program : Callable):
     code    : OrderedDict[int, str] = get_code_info(program)
     output  : list[str] = []
     printed : State[str] = State("", curr="")
-    last    : Last = Last()
 
     def wrapper(frame : FrameType, event : str, arg : Any):
-        trace_line(frame, event, arg, lines, curr, code, output, buffer, printed, last)
+        trace_line(frame, event, arg, lines, curr, code, output, buffer, printed)
         return wrapper
 
     sys.stdout = buffer
@@ -31,12 +30,12 @@ def trace_program(program : Callable):
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
-    return lines, last
+    return lines
 
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
     curr : list[Line], code : OrderedDict[int, str],
-    output : list[str], buffer : StringIO, printed : State, last : Last
+    output : list[str], buffer : StringIO, printed : State
 ):
     if not event in set("call", "line", "return"):
         return
