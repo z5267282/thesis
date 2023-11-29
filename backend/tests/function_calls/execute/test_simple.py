@@ -8,10 +8,8 @@ def program():
 
 from execute import trace_program
 from line import Line
-from tree_parser import parse
 
 def test_simple():
-    root = parse(program)
     lines = trace_program(program)
     assert lines == [
         [Line(1, "call"), Line(6, "line"), Line(7, "line")],

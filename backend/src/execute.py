@@ -37,12 +37,20 @@ def trace_line(
     curr : list[Line], code : OrderedDict[int, str],
     output : list[str], buffer : StringIO, printed : State
 ):
-    if not event in set("call", "line", "return"):
-        return
-    
-    # skip over the running of function definitions
-    if event == "line" and get_stripped_line(code[frame.f_lineno]).startswith("def"):
-        return
+    # when we call a function that indicates we should start a new subsection in tracing
+    match event:
+        case "line":
+            if get_stripped_line(code[frame.f_lineno]).startswith("def"):
+                return
+        case "call":
+            # the exception to this is if we have no traced lines
+            if lines:
+                lines.append(deepcopy(curr))
+                # curr.clear()
+        case "return":
+            pass
+        case _:
+            return
 
     # state related steps
     variables : dict[str, Any] = deepcopy(frame.f_locals)
@@ -62,8 +70,6 @@ def trace_line(
     curr.append(line)
     if event == "return":
         line.output.extend(output)
-        lines.append(deepcopy(curr))
-        curr.clear()
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
