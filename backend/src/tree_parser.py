@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import re
 from typing import Callable, Type
 
 import helper
@@ -70,8 +71,11 @@ def parse_line(line : str, line_no : int, indent_level : int):
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
     if line.startswith("def"):
-        return FunctionBlock(line_no, indent_level)
+        return FunctionBlock(line_no, indent_level, extract_function_name(line))
     return CodeBlock(line_no, indent_level)
+
+def extract_function_name(line : str):
+    return re.search(r"def\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\(", line).group(1)
 
 def is_skipable(line : str):
     """check whether a line stripped of leading spaces is a comment or blank."""

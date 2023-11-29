@@ -29,11 +29,12 @@ def trace_program(program : Callable):
     return lines, last
 
 def trace_line(
-    frame : FrameType, event : str, _ : Any, lines : list[Line],
+    frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
+    curr : list[Line],
     output : list[str], buffer : StringIO, printed : State, last : Last
 ):
-    if event != "line" and event != "return":
-        return trace_line
+    if not event in set("call", "line", "return"):
+        return
 
     # state related steps
     variables : dict[str, Any] = deepcopy(frame.f_locals)
@@ -49,9 +50,12 @@ def trace_line(
     if lines:
         lines[-1].output.extend(output)
     
+    curr.append(
+        Line(frame.f_lineno, event, variables=variables)
+    )
     match event:
         case "line":
-            lines.append(Line(frame.f_lineno, variables=variables))
+            lines.append(Line())
         case "return":
             last.variables.update(frame.f_locals)
             last.output.extend(output)

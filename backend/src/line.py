@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from enum import Enum
 from typing import Any
 
 from counter import Counter
@@ -6,12 +7,13 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, variables : dict[str, Any]={}):
+    def __init__(self, line_no : int, event : str, variables : dict[str, Any]={}):
         self.line_no   : int = line_no
         self.output    : list[str] = []
         self.variables : dict[str, Any] = variables
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
+        self.event     : str = event
     
     def __repr__(self): # pragma: no cover
         """Return a simple representation to assist with debugging asserts."""

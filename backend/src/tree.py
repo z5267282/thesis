@@ -172,4 +172,6 @@ class IfBlock(ConditionalBlock):
         return self.else_ if bounded else None
     
 class FunctionBlock(BodyBlock):
-    pass
+    def __init__(self, start: int, indent_level : int, name : str):
+        super().__init__(start, indent_level)
+        self.name : str = name
