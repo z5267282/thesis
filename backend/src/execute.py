@@ -3,6 +3,11 @@ from copy import deepcopy
 from io import StringIO
 import sys
 
+import logging
+LOGGER = logging.getLogger(__name__)
+LOGGER.addHandler(logging.StreamHandler(sys.stderr))
+LOGGER.setLevel(logging.DEBUG)
+
 from helper import get_code_info, get_stripped_line
 from last import Last
 from line import Line
@@ -11,6 +16,7 @@ from types import FrameType
 from typing import Any, Callable
 
 def trace_program(program : Callable):
+
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
@@ -21,15 +27,18 @@ def trace_program(program : Callable):
     output  : list[str] = []
     printed : State[str] = State("", curr="")
 
+    print(LOGGER)
+    logging.debug("joe")
+
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, curr, code, output, buffer, printed)
         return wrapper
 
-    sys.stdout = buffer
+    # sys.stdout = buffer
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
-    sys.stdout = sys.__stdout__
+    # sys.stdout = sys.__stdout__
     return lines, curr
 
 def trace_line(
@@ -37,8 +46,6 @@ def trace_line(
     curr : list[Line], code : OrderedDict[int, str],
     output : list[str], buffer : StringIO, printed : State
 ):
-    print(f"'{frame.f_lineno}'")
-
     # when we call a function that indicates we should start a new subsection in tracing
     match event:
         case "line":
