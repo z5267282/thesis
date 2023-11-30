@@ -22,6 +22,9 @@ def trace_program(program : Callable):
     output  : list[str] = []
     printed : State[str] = State("", curr="")
 
+    with open("/tmp/log.txt", "w") as _:
+        pass
+
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, curr, code, output, buffer, printed)
         return wrapper
@@ -31,23 +34,28 @@ def trace_program(program : Callable):
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
-    return lines, curr
+    return lines
 
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
     curr : list[Line], code : OrderedDict[int, str],
     output : list[str], buffer : StringIO, printed : State
 ):
+    with open("/tmp/log.txt", "a") as f:
+        f.write(f"{Line.display_lines(curr)}\n")
+
     # when we call a function that indicates we should start a new subsection in tracing
     match event:
         case "line":
+            # ignore the execution of function definitions as statements
             if get_stripped_line(code[frame.f_lineno]).startswith("def"):
                 return
         case "call":
-            # the exception to this is if we have no traced lines
-            if lines:
+            # we should ignore the first run line - this is the call to program()
+            if frame.f_lineno != 1:
                 lines.append(deepcopy(curr))
-                # curr.clear()
+                curr.clear()
+            # need to do stuff for return, but it happens after the line has been registered
         case "return":
             pass
         case _:
@@ -71,6 +79,8 @@ def trace_line(
     curr.append(line)
     if event == "return":
         line.output.extend(output)
+        lines.append(deepcopy(curr))
+        curr.clear()
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
