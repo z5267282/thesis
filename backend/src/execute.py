@@ -3,11 +3,6 @@ from copy import deepcopy
 from io import StringIO
 import sys
 
-import logging
-LOGGER = logging.getLogger(__name__)
-LOGGER.addHandler(logging.StreamHandler(sys.stderr))
-LOGGER.setLevel(logging.DEBUG)
-
 from helper import get_code_info, get_stripped_line
 from last import Last
 from line import Line
@@ -27,18 +22,15 @@ def trace_program(program : Callable):
     output  : list[str] = []
     printed : State[str] = State("", curr="")
 
-    print(LOGGER)
-    logging.debug("joe")
-
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, curr, code, output, buffer, printed)
         return wrapper
 
-    # sys.stdout = buffer
+    sys.stdout = buffer
     sys.settrace(wrapper)
     program()
     sys.settrace(None)
-    # sys.stdout = sys.__stdout__
+    sys.stdout = sys.__stdout__
     return lines, curr
 
 def trace_line(
