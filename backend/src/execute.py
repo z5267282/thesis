@@ -30,13 +30,15 @@ def trace_program(program : Callable):
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
-    return lines
+    return lines, curr
 
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
     curr : list[Line], code : OrderedDict[int, str],
     output : list[str], buffer : StringIO, printed : State
 ):
+    print(f"'{frame.f_lineno}'")
+
     # when we call a function that indicates we should start a new subsection in tracing
     match event:
         case "line":
