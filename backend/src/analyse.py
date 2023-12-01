@@ -9,11 +9,11 @@ def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Lin
     """Run smart trace on all contiguous function sections"""
     filtered : list[list[Line]] = []
     for curr in lines:
-        last          : Line = curr[-1]
-        # manually take out returns as they will be hard to find recursively in smart_trace
-        filtered.append(
-            smart_trace(curr[:-1]) + [last] if last.event == "return" else smart_trace(curr)
-        )
+        last : Line = curr[-1]
+        region, return_ = curr, []
+        if last.event == "return":
+            region, return_ = curr[:-1], [last]
+        filtered.append(smart_trace(line_mapping, region) + return_)
     return filtered
 
 def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
