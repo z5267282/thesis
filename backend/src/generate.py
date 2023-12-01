@@ -19,28 +19,34 @@ from tree_parser import parse
 def generate_dataframes(program : Callable):
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
-    all_lines    : list[list[Line]]= trace_program(program)
+    all_lines    : list[list[Line]] = trace_program(program)
+
     root         : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     filtered     : list[list[Line]] = smart_trace_all(line_mapping, all_lines)
     program_code : OrderedDict[int, str] = get_code_info(program)
 
-    result : list[DataFrame] = []
+    # we manually take out the pre dataframe (ie. the call to program())
+    # so manually genertate it here
+    frames = [generate_dataframe(
+        [], [], program_code, root, line_mapping, {}
+    )]
 
     # we manage the current function call we are up to with a stack
     calls : Stack[list[Line]] = Stack()
+    calls.push([])
     # graph of the previous function call
-    prev_context : list[Line] = []
     for region in filtered:
-        calls.push(region)
+        prev_context : list[Line] = calls.pop()
         line_graphs : list[list[Line]] = generate_graphs(region, line_mapping)
-        result.extent(
+        frames.extend(
             construct_dataframes(
                 program_code, line_graphs, prev_context, root, line_mapping
             )
         )
+        calls.push(line_graphs[-1])
 
-        prev_context = line_graphs[-1]
+    return frames 
         
 def construct_dataframes(
     program_code : OrderedDict[int, str],
@@ -65,7 +71,7 @@ def generate_dataframe(
     root : BodyBlock, line_mapping : dict[int, Type[Block]],
     prev_vars : dict[str, Any]
 ):
-    code, lines, path = collapse(line_graph, prev_context, program_code, root)
+    code, lines, path, indexed = collapse(line_graph, prev_context, program_code, root)
     curr : Line = line_graph[-1]
 
     evalbox   : list[str] = []

@@ -8,11 +8,12 @@ from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock, Fu
 def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Line]]):
     """Run smart trace on all contiguous function sections"""
     filtered : list[list[Line]] = []
-    for curr in lines:
+    for i, curr in enumerate(lines):
         # remove the call to program()
         # we don't do this in execute() in case it is needed later
-        if curr[0].line_no == 1:
-            curr.pop(0)
+        if i == 0:
+            # do this rather than .pop() to preserve the original first line
+            curr = curr[1:]
 
         last : Line = curr[-1]
         region, return_ = curr, []
