@@ -33,7 +33,7 @@ def collapse(
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     code : list[int] = [
         parse_line(line, program) if shown \
-        else parse_blank(line, program, line_mapping) \
+        else parse_blank(line, line_mapping) \
         for line, shown in filtered.items()
     ]
     lines : list[int | None] = [
@@ -42,13 +42,10 @@ def collapse(
 
     return code, lines, [ indexed_lines[g] for g in graph ]
 
-def parse_line(line : int, program : dict[int, str]):
+def parse_line(line : int, program : OrderedDict[int, str]):
     result = program[line][LEADING_SPACES:]
     return result[:-1] if result and result[-1] == '\n' else result
 
-def parse_blank(
-    line : int, program : dict[int, str],
-    line_mapping : dict[int, Type["Block"]]
-):
+def parse_blank(line : int, line_mapping : dict[int, Type["Block"]]):
     indent_level : int = line_mapping[line].indent_level
     return "{}{}".format(" " * (indent_level - LEADING_SPACES), ELLIPSE)
