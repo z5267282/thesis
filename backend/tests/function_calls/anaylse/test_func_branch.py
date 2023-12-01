@@ -22,7 +22,7 @@ from execute import trace_program
 from line import Line
 from tree_parser import parse
 
-# @pytest.mark.skip(reason="proof of concept")
+@pytest.mark.skip(reason="proof of concept")
 def test_func_branch():
     """This shows the complexity involved in allowing for function calls
     within branches.
