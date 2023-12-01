@@ -6,10 +6,10 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, variables : dict[str, Any]={}):
+    def __init__(self, line_no : int, variables : dict[str, Any]=None):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.variables : dict[str, Any] = variables
+        self.variables : dict[str, Any] = {} if variables is None else variables
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
     
