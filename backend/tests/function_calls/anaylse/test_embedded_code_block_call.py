@@ -11,7 +11,7 @@ from execute import trace_program
 from line import Line
 from tree_parser import parse
 
-def test_imbedded_code_block_call():
+def test_embedded_code_block_call():
     root = parse(program)
     line_mapping = root.map_lines()
     lines = trace_program(program)
