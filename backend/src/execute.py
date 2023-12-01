@@ -2,7 +2,6 @@ from copy import deepcopy
 from io import StringIO
 import sys
 
-from last import Last
 from line import Line
 from state import State
 from types import FrameType
