@@ -13,6 +13,9 @@ class Block():
         return "{}(start={}, end={})".format(
             self.__class__.__name__, self.start, self.end
         )
+    
+    def __repr__(self):
+        return str(self)
 
     def to_dict(self):
         return {
