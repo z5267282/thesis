@@ -2,16 +2,16 @@ from collections import OrderedDict
 import re
 from typing import Any, Callable, Type
 
-from analyse import smart_trace
+from analyse import smart_trace_all
 from config import OFFSET
 from collapse import collapse
 from dataframe import DataFrame
-from graph import generate_graphs
-from helper import get_code_info, get_stripped_line
-from last import Last
-from line import Line
 from evaluate import evaluate
 from execute import trace_program
+from graph import generate_graphs
+from helper import get_code_info, get_stripped_line
+from line import Line
+from stack import Stack
 from state import State
 from tree import Block, BodyBlock
 from tree_parser import parse
@@ -19,55 +19,53 @@ from tree_parser import parse
 def generate_dataframes(program : Callable):
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
-    all_lines, last = trace_program(program)
+    all_lines    : list[list[Line]]= trace_program(program)
     root         : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    filtered     : list[Line] = smart_trace(line_mapping, all_lines)
-    line_graphs  : list[list[Line]] = generate_graphs(filtered, line_mapping)
+    filtered     : list[list[Line]] = smart_trace_all(line_mapping, all_lines)
     program_code : OrderedDict[int, str] = get_code_info(program)
-    return construct_dataframes(program_code, line_graphs, root, line_mapping, last)
 
+    result : list[DataFrame] = []
+
+    # we manage the current function call we are up to with a stack
+    calls : Stack[list[Line]] = Stack()
+    # graph of the previous function call
+    prev_context : list[Line] = []
+    for region in filtered:
+        calls.push(region)
+        line_graphs : list[list[Line]] = generate_graphs(region, line_mapping)
+        result.extent(
+            construct_dataframes(
+                program_code, line_graphs, prev_context, root, line_mapping
+            )
+        )
+
+        prev_context = line_graphs[-1]
+        
 def construct_dataframes(
-    program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Last
+    program_code : OrderedDict[int, str],
+    line_graphs : list[list[Line]], prev_context : list[Line],
+    root : BodyBlock, line_mapping : dict[int, Type[Block]]
 ):
-    first_frame : DataFrame = generate_edge_dataframe(
-        program_code, root, {}, []
-    )
-    prev_vars   : dict[str, Any] = first_frame.variables.curr
-    program_frames : list[DataFrame] = []
+    prev_vars : dict[str, Any] = {}
+    frames    : list[DataFrame] = []
     for line_graph in line_graphs:
         dataframe : DataFrame = generate_dataframe(
-            line_graph, program_code, root, line_mapping, prev_vars
+            line_graph, prev_context,
+            program_code, root, line_mapping, prev_vars
         )
-        program_frames.append(dataframe)
+        frames.append(dataframe)
         prev_vars = dataframe.variables.curr
-    
-    last_frame : DataFrame = generate_edge_dataframe(
-        program_code, root, last.variables, last.output
-    )
 
-    return [first_frame] + program_frames + [last_frame]
-
-def generate_edge_dataframe(
-    program_code : OrderedDict[int, str], root : BodyBlock,
-    variables : dict[str, Any], output : list[str]
-):
-    """Construct a DataFrame that is either before or after the program's
-    execution.
-    Hence, these frames only have program state and no execution graph."""
-    code, lines, path = collapse([], program_code, root)
-    return DataFrame(
-        code, adjust_lines(lines), None,
-        State(variables, curr=variables), output, path, [], [] 
-    )
+    return frames
 
 def generate_dataframe(
-    line_graph : list[Line], program_code : OrderedDict[int, str],
+    line_graph : list[Line], prev_context : list[Line],
+    program_code : OrderedDict[int, str],
     root : BodyBlock, line_mapping : dict[int, Type[Block]],
     prev_vars : dict[str, Any]
 ):
-    code, lines, path = collapse(line_graph, program_code, root)
+    code, lines, path = collapse(line_graph, prev_context, program_code, root)
     curr : Line = line_graph[-1]
 
     evalbox   : list[str] = []
