@@ -7,7 +7,14 @@ from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock, Fu
 
 def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Line]]):
     """Run smart trace on all contiguous function sections"""
-    return [smart_trace(line_mapping, curr) for curr in lines]
+    filtered : list[list[Line]] = []
+    for curr in lines:
+        last          : Line = curr[-1]
+        # manually take out returns as they will be hard to find recursively in smart_trace
+        filtered.append(
+            smart_trace(curr[:-1]) + [last] if last.event == "return" else smart_trace(curr)
+        )
+    return filtered
 
 def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     """From a list of raw Lines of execution, generate an intelligent
