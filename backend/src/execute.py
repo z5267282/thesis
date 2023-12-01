@@ -4,13 +4,12 @@ from io import StringIO
 import sys
 
 from helper import get_code_info, get_stripped_line
-from last import Last
 from line import Line
 from state import State
 from types import FrameType
 from typing import Any, Callable
 
-def trace_program(program : Callable):
+def trace_program(program : Callable, ):
 
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
@@ -18,6 +17,7 @@ def trace_program(program : Callable):
     buffer  : StringIO = StringIO()
     lines   : list[list[Line]] = []
     curr    : list[Line] = []
+    # this should have been an argument but not good to change function parameters now
     code    : OrderedDict[int, str] = get_code_info(program)
     output  : list[str] = []
     printed : State[str] = State("", curr="")
