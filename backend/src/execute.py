@@ -16,7 +16,8 @@ def trace_program(program : Callable):
     lines   : list[Line] = []
     output  : list[str] = []
     printed : State[str] = State("", curr="")
-    last    : Last = Last()
+    # this is meant to be updated when the last line is found
+    last    : Line = Line(-1)
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, output, buffer, printed, last)
         return wrapper
@@ -30,7 +31,7 @@ def trace_program(program : Callable):
 
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[Line],
-    output : list[str], buffer : StringIO, printed : State, last : Last
+    output : list[str], buffer : StringIO, printed : State, last : Line
 ):
     if event != "line" and event != "return":
         return
@@ -53,6 +54,7 @@ def trace_line(
         case "line":
             lines.append(Line(frame.f_lineno, variables=variables))
         case "return":
+            last.line_no = frame.f_lineno
             last.variables.update(frame.f_locals)
             last.output.extend(output)
 

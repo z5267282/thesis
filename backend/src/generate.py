@@ -8,7 +8,6 @@ from collapse import collapse
 from dataframe import DataFrame
 from graph import generate_graphs
 from helper import get_code_info, get_stripped_line
-from last import Last
 from line import Line
 from evaluate import evaluate
 from execute import trace_program
@@ -25,11 +24,13 @@ def generate_dataframes(program : Callable):
     filtered     : list[Line] = smart_trace(line_mapping, all_lines)
     line_graphs  : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
-    return construct_dataframes(program_code, line_graphs, root, line_mapping, last)
+    return construct_dataframes(
+        program_code, line_graphs, root, line_mapping, last
+    )
 
 def construct_dataframes(
     program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Last
+    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Line
 ):
     first_frame : DataFrame = generate_edge_dataframe(
         program_code, root, {}, []
