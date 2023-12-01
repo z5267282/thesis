@@ -29,19 +29,19 @@ def generate_dataframes(program : Callable):
     # we manually take out the pre dataframe (ie. the call to program())
     # so manually genertate it here
     frames = [generate_dataframe(
-        [], [], program_code, root, line_mapping, {}
+        [], [], program_code, root, line_mapping, {}, True
     )]
 
     # we manage the current function call we are up to with a stack
     calls : Stack[list[Line]] = Stack()
     calls.push([])
     # graph of the previous function call
-    for region in filtered:
+    for i, region in enumerate(filtered):
         prev_context : list[Line] = calls.pop()
         line_graphs : list[list[Line]] = generate_graphs(region, line_mapping)
         frames.extend(
             construct_dataframes(
-                program_code, line_graphs, prev_context, root, line_mapping
+                program_code, line_graphs, prev_context, root, line_mapping, i == len(filtered) - 1 
             )
         )
         calls.push(line_graphs[-1])
@@ -51,14 +51,14 @@ def generate_dataframes(program : Callable):
 def construct_dataframes(
     program_code : OrderedDict[int, str],
     line_graphs : list[list[Line]], prev_context : list[Line],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]]
+    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : bool
 ):
     prev_vars : dict[str, Any] = {}
     frames    : list[DataFrame] = []
     for line_graph in line_graphs:
         dataframe : DataFrame = generate_dataframe(
             line_graph, prev_context,
-            program_code, root, line_mapping, prev_vars
+            program_code, root, line_mapping, prev_vars, last
         )
         frames.append(dataframe)
         prev_vars = dataframe.variables.curr
@@ -69,7 +69,7 @@ def generate_dataframe(
     line_graph : list[Line], prev_context : list[Line],
     program_code : OrderedDict[int, str],
     root : BodyBlock, line_mapping : dict[int, Type[Block]],
-    prev_vars : dict[str, Any]
+    prev_vars : dict[str, Any], pre : bool
 ):
     code, lines, path, indexed = collapse(line_graph, prev_context, program_code, root)
     curr : Line = line_graph[-1]
@@ -80,9 +80,12 @@ def generate_dataframe(
         evalbox.append(
             generate_evalbox(program_code[curr_line], curr.variables)
         )
+    
+    # COMPUTE CURR
+    # COMPUTE START
 
     return DataFrame(
-        code, adjust_lines(lines), 0 if not path else path[-1],
+        code, adjust_lines(lines), path[-1],
         State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
     )
@@ -103,3 +106,20 @@ def generate_evalbox(line : str, variables : dict[str, Any]):
     no_control_flow : str = re.sub(r"^[a-z]+\s+", "", raw_line)
     expression      : str = re.sub(r":[^:]*$", "", no_control_flow)
     return evaluate(expression, variables)
+
+def determine_curr(pre : bool, path : list[int], graph : list[Line]):
+    """For most lines the current one is the last one in the graph.
+    For return lines in functions, there should be no curr.
+    The path parameter is the same as the graph except it is correctly mapped
+    to the collapsed range (ie. has same number of elements).
+    We need the actual Line object to determine whether the line was a
+    return."""
+
+    # when we call program() there should be no current line
+    if pre:
+        return None
+
+    if graph[-1].event == "return":
+        return None
+    
+    return path[-1]
