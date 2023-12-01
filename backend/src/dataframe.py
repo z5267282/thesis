@@ -8,9 +8,9 @@ class DataFrame:
     def __init__(
         self,
         code : list[str], lines : list[str], curr : int | None,
-        variables : State[dict[str, Any]],
-        out : list[str], path : list[int], counters : list[Counter],
-        evalbox : list[str]
+        variables : State[dict[str, Any]], out : list[str],
+        path : list[int], start : int,
+        counters : list[Counter], evalbox : list[str]
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
@@ -21,6 +21,7 @@ class DataFrame:
 
         self.out : list[str] = deepcopy(out)
 
+        self.start    : int = start
         self.path     : list[int] = deepcopy(path)
         self.counters : list[Counter] = deepcopy(counters)
         self.evalbox  : list[str] = deepcopy(evalbox)

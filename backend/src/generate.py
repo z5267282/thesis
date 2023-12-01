@@ -58,7 +58,7 @@ def construct_dataframes(
     for line_graph in line_graphs:
         dataframe : DataFrame = generate_dataframe(
             line_graph, prev_context,
-            program_code, root, line_mapping, prev_vars, last
+            program_code, root, line_mapping, prev_vars, False
         )
         frames.append(dataframe)
         prev_vars = dataframe.variables.curr
@@ -81,11 +81,10 @@ def generate_dataframe(
             generate_evalbox(program_code[curr_line], curr.variables)
         )
     
-    # COMPUTE CURR
     # COMPUTE START
 
     return DataFrame(
-        code, adjust_lines(lines), path[-1],
+        code, adjust_lines(lines), determine_curr(pre, path, line_graph),
         State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
     )
