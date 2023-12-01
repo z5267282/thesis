@@ -13,7 +13,7 @@ def collapse(
     """Collapse a program by showing indentation levels which have been
     executed.
     Return the lines of code, line numbers and rest of path indices as 
-    per the data frame specification."""
+    per the data frame specification and a dictionary containing a mapping for where a raw line maps to in the filtered set"""
     show : OrderedDict[int, bool] = OrderedDict(
         (line, False) for line in range(root.start, root.end + 1)
     )
@@ -42,7 +42,7 @@ def collapse(
         line if shown else None for line, shown in filtered.items()
     ]
 
-    return code, lines, [ indexed_lines[g] for g in graph ]
+    return code, lines, [ indexed_lines[g] for g in graph ], indexed_lines
 
 def parse_line(line : int, program : dict[int, str]):
     result = program[line][LEADING_SPACES:]
