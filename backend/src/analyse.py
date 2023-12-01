@@ -13,6 +13,7 @@ def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Lin
         # we don't do this in execute() in case it is needed later
         if curr[0].line_no == 1:
             curr.pop(0)
+
         last : Line = curr[-1]
         region, return_ = curr, []
         if last.event == "return":
