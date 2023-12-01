@@ -79,7 +79,7 @@ def generate_dataframe(
         )
 
     return DataFrame(
-        code, adjust_lines(lines), 0 if not path else path[-1],
+        code, adjust_lines(lines), path[-1],
         State(prev_vars, curr=curr.variables),
         curr.output, path, curr.counters, evalbox
     )
