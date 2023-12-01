@@ -3,7 +3,11 @@ from copy import deepcopy
 from typing import Type
 
 from line import Line
-from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
+from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock, FunctionBlock
+
+def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Line]]):
+    """Run smart trace on all contiguous function sections"""
+    return [smart_trace(line_mapping, curr) for curr in lines]
 
 def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     """From a list of raw Lines of execution, generate an intelligent
@@ -23,7 +27,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
             if won is not None:
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
-        elif isinstance(block, WhileBlock): # pragma no branch
+        elif isinstance(block, WhileBlock):
             top_level_unique : list[list[Line]] = trace_while(region, block)
             seen             : list[list[Line]] = []
             for top_level_path in top_level_unique:
@@ -33,6 +37,11 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 if path not in seen:
                     filtered.extend(path)
                     seen.append(path)
+        elif isinstance(block, FunctionBlock): # pragma no branch
+            # this will only be on the call line
+            call, rest = trace_function_call(region)
+            filtered.append(call)
+            filtered.extent(smart_trace(line_mapping, rest))
 
         i = offset
     
@@ -112,3 +121,6 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
             paths.append(path)
     
     return paths
+
+def trace_function_call(lines : list[Line]):
+    return lines[0], lines[1:]
