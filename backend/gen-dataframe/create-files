@@ -1,7 +1,7 @@
 #!/bin/dash
 
-src='../test-questions-theory'
-dst='../tests/execute/integration/theory'
+src='../test-questions-2'
+dst='../tests/execute/integration/ui_2'
 for t in $src/*.py
 do
     tname="test_$(basename "$t" | tr - _ | sed -E 's/\.py$//')"
