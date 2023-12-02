@@ -121,7 +121,7 @@ def generate_dataframe(
         }
 
     return DataFrame(
-        code, adjust_lines(lines), curr_line,
+        code, adjust_lines(lines), indexed[curr_line],
         State(prev_vars, curr=curr.variables),
         curr.output, path, indexed[start], curr.counters, evalbox, call
     )
