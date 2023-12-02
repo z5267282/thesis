@@ -13,6 +13,13 @@ import WestIcon from '@mui/icons-material/West';
 const DEC = -1;
 const INC = 1;
 
+class Delta {
+    constructor(angle) {
+        this.dx = TRACE_GRAPH.length * Math.sin(angle);
+        this.dy = TRACE_GRAPH.length * Math.cos(angle);
+    }
+}
+
 export default function TraceBox({
   code, lines, path, counters, curr, index, total,
   changeIndex, disablePrev, disableNext, showTrace, call
@@ -147,41 +154,27 @@ function TracedLinesBox({
     */
     function genSVGPath(call) {
       const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
+      const gradient = (-4 * TRACE_GRAPH.width) / (height);
+      const theta = Math.atan(gradient)
+
+      const upArrow = new Delta(theta - TRACE_GRAPH.degree);
+      const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
+
       const path = [
         // leeway needed otherwise does not fit properly
-        `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+        `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+
+        // parabola
         `q ${TRACE_GRAPH.width * -2} ${height / 2} 0 ${height}`,
+
+        // downArrow arrow
+        `l ${downArrow.dx} ${downArrow.dy}`,
+        `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`,
+
+        // upArrow arrow
+        `l ${upArrow.dx} ${-1 * upArrow.dy}`,
+        `m ${-1 * upArrow.dx} ${upArrow.dy}`
       ];
-      // let prev = coords.start;
-      // coords.rest.forEach((coord) => {
-      //   const height = (coord - prev) * LINE_HEIGHT;
-      //   const gradient = (4 * TRACE_GRAPH.width) / (height);
-      //   const theta = Math.atan(gradient)
-
-      //   class Delta {
-      //       constructor(angle) {
-      //           this.dx = TRACE_GRAPH.length * Math.sin(angle);
-      //           this.dy = TRACE_GRAPH.length * Math.cos(angle);
-      //       }
-      //   }
-
-      //   const upArrow = new Delta(theta - TRACE_GRAPH.degree);
-      //   const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
-
-      //   const coords = [
-      //       `q ${TRACE_GRAPH.width * 2} ${height / 2} 0 ${height}`,
-
-      //       // upArrow arrow
-      //       `l ${upArrow.dx} ${-1 * upArrow.dy}`,
-      //       `m ${-1 * upArrow.dx} ${upArrow.dy}`,
-
-      //       // downArrow arrow
-      //       `l ${downArrow.dx} ${downArrow.dy}`,
-      //       `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`
-      //   ]
-      //   path.push(coords.join(" "));
-      //   prev = coord;
-      // });
       return path;
     }
   }
@@ -247,13 +240,6 @@ function TracedLinesBox({
         const height = (coord - prev) * LINE_HEIGHT;
         const gradient = (4 * TRACE_GRAPH.width) / (height);
         const theta = Math.atan(gradient)
-
-        class Delta {
-            constructor(angle) {
-                this.dx = TRACE_GRAPH.length * Math.sin(angle);
-                this.dy = TRACE_GRAPH.length * Math.cos(angle);
-            }
-        }
 
         const upArrow = new Delta(theta - TRACE_GRAPH.degree);
         const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
