@@ -160,7 +160,43 @@ function TracedLinesBox({
       const upArrow = new Delta(theta - TRACE_GRAPH.degree);
       const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
 
-      const path = [
+      // return topArrowPath(upArrow, downArrow, call, height);
+      return bottomArrowPath(upArrow, downArrow, call, height);
+    }
+
+    /**
+     * Make an arrowhead pointing to the top line in the function graph
+     * @param {*} upArrow 
+     * @param {*} downArrow 
+     * @param {*} call 
+     */
+    function topArrowPath(upArrow, downArrow, call, height) {
+      return [
+        // leeway needed otherwise does not fit properly
+        `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+
+
+        // upArrow arrow
+        `l ${upArrow.dx} ${-1 * upArrow.dy}`,
+        `m ${-1 * upArrow.dx} ${upArrow.dy}`,
+
+        // downArrow arrow
+        `l ${downArrow.dx} ${-1 * downArrow.dy}`,
+        `m ${-1 * downArrow.dx} ${downArrow.dy}`,
+
+        // parabola
+        `q ${TRACE_GRAPH.width * -2} ${height / 2} 0 ${height}`
+      ];
+    }
+
+    /**
+     * Make an arrowhead pointing to the bottom line in the function graph
+     * @param {*} upArrow 
+     * @param {*} downArrow 
+     * @param {*} call 
+     */
+    function bottomArrowPath(upArrow, downArrow, call, height) {
+      return [
         // leeway needed otherwise does not fit properly
         `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
@@ -175,7 +211,6 @@ function TracedLinesBox({
         `l ${upArrow.dx} ${-1 * upArrow.dy}`,
         `m ${-1 * upArrow.dx} ${upArrow.dy}`
       ];
-      return path;
     }
   }
 
