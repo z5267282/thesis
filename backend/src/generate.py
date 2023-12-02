@@ -65,7 +65,7 @@ def generate_dataframes(program : Callable):
     # easier to manually make it
     frames.pop()
     frames.append(
-        generate_last(program_code, root, frames[-1].variables.curr, all_lines[-1][-1])
+        generate_last(program_code, root, all_lines[-1][-1])
     )
 
     return frames 
@@ -163,10 +163,12 @@ def determine_start(call_stack_size : int, top_level_start : int, line_graph : l
 
 def generate_last(
     program_code : OrderedDict[int, str], root : BodyBlock,
-    prev_vars : dict[str, Any], last : Line
+    last : Line
 ):
     code, lines, path, _ = collapse([], [], program_code, root)
     return DataFrame(
         code, adjust_lines(lines), None,
-        State(prev_vars, curr=last.variables), last.output, path, None, [], [], None
+        # last frame should have no changed variables
+        State(last.variables, curr=last.variables),
+        last.output, path, None, [], [], None
     )
