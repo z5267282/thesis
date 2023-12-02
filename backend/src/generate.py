@@ -31,9 +31,7 @@ def generate_dataframes(program : Callable):
 
     # we manually take out the pre dataframe (ie. the call to program())
     # so manually genertate it here
-    frames = [generate_dataframe(
-        [], [], program_code, root, line_mapping, {}, True, None
-    )]
+    frames = [ generate_pre_dataframe(program_code, root) ]
 
     # we manage the current function call we are up to with a stack
     calls : Stack[list[Line]] = Stack()
@@ -58,7 +56,7 @@ def generate_dataframes(program : Callable):
         )
 
         # the last line graph should be joined onto the current function call context
-        curr_context.extend[line_graphs[-1]]
+        curr_context.extend(line_graphs[-1])
 
         if region[-1].event == "return":
             calls.pop()
@@ -84,6 +82,14 @@ def construct_dataframes(
         prev_vars = dataframe.variables.curr
 
     return frames
+
+def generate_pre_dataframe(
+    program_code : OrderedDict[int, str], root : BodyBlock,
+):
+    code, lines, path, _ = collapse([], [], program_code, root)
+    return DataFrame(
+        code, adjust_lines(lines), None, State({}, curr={}), [], path, None, [], [] 
+    )
 
 def generate_dataframe(
     line_graph : list[Line], prev_context : list[Line],

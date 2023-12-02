@@ -9,7 +9,7 @@ class DataFrame:
         self,
         code : list[str], lines : list[str], curr : int | None,
         variables : State[dict[str, Any]], out : list[str],
-        path : list[int], start : int,
+        path : list[int], start : int | None,
         counters : list[Counter], evalbox : list[str]
     ):
         self.code  : list[str] = deepcopy(code)
@@ -21,16 +21,17 @@ class DataFrame:
 
         self.out : list[str] = deepcopy(out)
 
-        self.start    : int = start
+        self.start    : int | None = start
         self.path     : list[int] = deepcopy(path)
         self.counters : list[Counter] = deepcopy(counters)
         self.evalbox  : list[str] = deepcopy(evalbox)
     
     def to_dict(self):
-        path = {
-            "start" : self.start,
-            "rest"  : self.generate_rest()
-        }
+        path = None if self.start is None else \
+            {
+                "start" : self.start,
+                "rest"  : self.generate_rest()
+            }
 
         variables : list[dict] = [
             {
