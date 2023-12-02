@@ -31,7 +31,7 @@ def collapse(
     }
 
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    code : list[int] = [
+    code         : list[str] = [
         parse_line(line, program) if shown \
         else parse_blank(line, line_mapping) \
         for line, shown in filtered.items()
