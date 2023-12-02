@@ -115,8 +115,8 @@ def generate_dataframe(
         # the start of the function is 
         dst : int = indexed[line_graph[0].line_no]
         call = {
-            "start"  : src,
-            "end"    : dst,
+            "entry"  : src,
+            "target" : dst,
             "return" : curr.event == "return"
         }
 
