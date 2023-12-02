@@ -28,7 +28,7 @@ class DataFrame:
     
     def to_dict(self):
         path = {
-            "start" : 0,
+            "start" : self.start,
             "rest"  : self.generate_rest()
         }
 
@@ -64,7 +64,7 @@ class DataFrame:
         
         # possible for the first frame to be also the first line
         # eg. a code block starting and ending at line 1
-        if self.path[0] == 0:
+        if self.path[0] == self.start:
             return self.path[1:]
         
         return self.path
