@@ -160,8 +160,17 @@ function TracedLinesBox({
       const upArrow = new Delta(theta - TRACE_GRAPH.degree);
       const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
 
-      // return topArrowPath(upArrow, downArrow, call, height);
-      return bottomArrowPath(upArrow, downArrow, call, height);
+      const targetOnTop = call.target < call.entry;
+      const top = topArrowPath(upArrow, downArrow, call, height);
+      const bottom = bottomArrowPath(upArrow, downArrow, call, height);
+
+      // return: arrow attached to from
+      if (call.return) {
+        return targetOnTop ? bottom : top;
+      }
+      
+      // non-return: arrow attatched to target
+      return targetOnTop ? top : bottom;
     }
 
     /**
