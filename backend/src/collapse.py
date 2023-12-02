@@ -19,9 +19,11 @@ def collapse(
     )
 
     graph : list[int] = [ line.line_no for line in line_graph ]
+    prev  : list[int] = [ line.line_no for line in prev_context ]
 
     root.show_lines(graph, show)
-    root.show_lines(prev_context)
+    root.show_lines(prev, show)
+
     filtered : OrderedDict[int, bool] = uniq(show)
 
     for line in line_graph:
@@ -33,9 +35,9 @@ def collapse(
     }
 
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    code : list[int] = [
+    code : list[str] = [
         parse_line(line, program) if shown \
-        else parse_blank(line, program, line_mapping) \
+        else parse_blank(line, line_mapping) \
         for line, shown in filtered.items()
     ]
     lines : list[int | None] = [
@@ -48,9 +50,6 @@ def parse_line(line : int, program : dict[int, str]):
     result = program[line][LEADING_SPACES:]
     return result[:-1] if result and result[-1] == '\n' else result
 
-def parse_blank(
-    line : int, program : dict[int, str],
-    line_mapping : dict[int, Type["Block"]]
-):
+def parse_blank(line : int, line_mapping : dict[int, Type["Block"]]):
     indent_level : int = line_mapping[line].indent_level
     return "{}{}".format(" " * (indent_level - LEADING_SPACES), ELLIPSE)

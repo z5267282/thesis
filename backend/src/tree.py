@@ -178,3 +178,8 @@ class FunctionBlock(BodyBlock):
     def __init__(self, start: int, indent_level : int, name : str):
         super().__init__(start, indent_level)
         self.name : str = name
+    
+    def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
+        show[self.start] = True
+        if self.part_of(graph):
+            super().show_lines(graph, show)
