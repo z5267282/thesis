@@ -18,8 +18,8 @@ def collapse(
         (line, False) for line in range(root.start, root.end + 1)
     )
 
-    graph : list[int] = [ line.line_no for line in line_graph ]
-    prev  : list[int] = [ line.line_no for line in prev_context ]
+    graph : list[int] = Line.to_ints(line_graph)
+    prev  : list[int] = Line.to_ints(prev_context)
 
     root.show_lines(graph, show)
     root.show_lines(prev, show)

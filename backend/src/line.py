@@ -46,6 +46,11 @@ class Line:
     output : [{", ".join(str(o) for o in self.output)}]
     vars : {{{dict_to_str(self.variables)}}}
     counters : [{counters}]"""
+
+    @staticmethod
+    def to_ints(lines : list["Line"]):
+        """Extract the line numbers from a list of lines"""
+        return [ line.line_no for line in lines ]
     
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
         """Add a counter of an increased depth"""
