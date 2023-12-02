@@ -61,6 +61,13 @@ def generate_dataframes(program : Callable):
         if region[-1].event == "return":
             calls.pop()
 
+    # the last dataframe should have no path
+    # easier to manually make it
+    frames.pop()
+    frames.append(
+        generate_last(program_code, root, frames[-1].variables.curr, all_lines[-1][-1])
+    )
+
     return frames 
 
 def generate_pre_dataframe(
@@ -153,3 +160,13 @@ def determine_start(call_stack_size : int, top_level_start : int, line_graph : l
         return top_level_start
 
     return line_graph[0].line_no
+
+def generate_last(
+    program_code : OrderedDict[int, str], root : BodyBlock,
+    prev_vars : dict[str, Any], last : Line
+):
+    code, lines, path, _ = collapse([], [], program_code, root)
+    return DataFrame(
+        code, adjust_lines(lines), None,
+        State(prev_vars, curr=last.variables), last.output, path, None, [], [], None
+    )
