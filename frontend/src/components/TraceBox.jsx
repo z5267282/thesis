@@ -118,7 +118,13 @@ function TracedLinesBox({
     fontSize         : addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
 
-  return (
+  const currIsReturn = call !== null && call.return
+
+  return <>
+    {
+      (currIsReturn) &&
+        <div className={styles.returnBox}>return</div>
+    }
     <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
       {
         (call !== null) &&
@@ -127,7 +133,7 @@ function TracedLinesBox({
       <div className={styles.tracedLines} style={lineHeightStyle}>
         <Lines
           code={code} lines={lines} curr={curr} path={path}
-          currIsReturn={call !== null && call.return} 
+          currIsReturn={currIsReturn} 
         />
       </div>
       {
@@ -139,7 +145,7 @@ function TracedLinesBox({
           <Counters counters={counters} />
       }
     </div>
-  );
+  </>;
 
   function FunctionArrow({call}) {
     return (

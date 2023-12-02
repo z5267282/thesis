@@ -41,6 +41,14 @@
     border-color: black;
 }
 
+.returnBox {
+    font-size: 16pt;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
 .tracedLinesBox {
     width: 85%;
     display: flex;
