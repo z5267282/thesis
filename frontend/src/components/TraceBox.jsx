@@ -117,7 +117,7 @@ function TracedLinesBox({
         <Lines code={code} lines={lines} curr={curr} path={path} />
       </div>
       {
-        (path.rest.length !== 0) &&
+        (path !== null && path.rest.length !== 0) &&
           <Path path={path} />
       }
       {
@@ -132,7 +132,7 @@ function TracedLinesBox({
   }
 
   function Lines({code, lines, curr, path}) {
-    const dotted = new Set([path.start, ...path.rest]);
+    const dotted = new Set((path === null) ? [] : [path.start, ...path.rest]);
     return code.map(
       (line, i) => {
         const colour = colourLine(i, curr);
