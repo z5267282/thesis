@@ -93,6 +93,10 @@
     background-color: yellow;
 }
 
+.highlightReturn {
+    background-color: lightskyblue;
+}
+
 .counterBox {
     border-left: dashed;
     padding-left: 10px;

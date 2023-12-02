@@ -125,7 +125,10 @@ function TracedLinesBox({
           <FunctionArrow call={call}/>
       }
       <div className={styles.tracedLines} style={lineHeightStyle}>
-        <Lines code={code} lines={lines} curr={curr} path={path} />
+        <Lines
+          code={code} lines={lines} curr={curr} path={path}
+          currIsReturn={call !== null && call.return} 
+        />
       </div>
       {
         (path !== null && path.rest.length !== 0) &&
@@ -227,11 +230,11 @@ function TracedLinesBox({
     return `${dimension}px`;
   }
 
-  function Lines({code, lines, curr, path}) {
+  function Lines({code, lines, curr, path, currIsReturn}) {
     const dotted = new Set((path === null) ? [] : [path.start, ...path.rest]);
     return code.map(
       (line, i) => {
-        const colour = colourLine(i, curr);
+        const colour = colourLine(i, curr, currIsReturn);
         return (
           <Fragment key={`line-${i}`}>
             <span className={`${styles.lineNumber} ${colour}`}>
@@ -258,8 +261,12 @@ function TracedLinesBox({
     * @param {*} index
     * @param {*} code 
     */
-    function colourLine(index, curr) {
-      return (curr !== null && index === curr) ? styles.highlight : "";
+    function colourLine(index, curr, currIsReturn) {
+      if (curr !== null && index === curr) {
+        return currIsReturn ? styles.highlightReturn : styles.highlight;
+      }
+
+      return "";
     }
   } 
 
