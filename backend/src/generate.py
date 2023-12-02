@@ -63,6 +63,14 @@ def generate_dataframes(program : Callable):
 
     return frames 
 
+def generate_pre_dataframe(
+    program_code : OrderedDict[int, str], root : BodyBlock,
+):
+    code, lines, path, _ = collapse([], [], program_code, root)
+    return DataFrame(
+        code, adjust_lines(lines), None, State({}, curr={}), [], path, None, [], [], None
+    )
+
 def construct_dataframes(
     program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
     prev_context : list[Line], curr_context : list[Line],
@@ -83,14 +91,6 @@ def construct_dataframes(
 
     return frames
 
-def generate_pre_dataframe(
-    program_code : OrderedDict[int, str], root : BodyBlock,
-):
-    code, lines, path, _ = collapse([], [], program_code, root)
-    return DataFrame(
-        code, adjust_lines(lines), None, State({}, curr={}), [], path, None, [], [] 
-    )
-
 def generate_dataframe(
     line_graph : list[Line], prev_context : list[Line],
     program_code : OrderedDict[int, str],
@@ -107,10 +107,23 @@ def generate_dataframe(
             generate_evalbox(program_code[curr_line], curr.variables)
         )
     
+    # where the last function call was
+    call : None | dict = None
+    if prev_context:
+        # the call line is the last one in the previous context
+        src : int = indexed[prev_context[-1].line_no]
+        # the start of the function is 
+        dst : int = indexed[line_graph[0].line_no]
+        call = {
+            "start"  : src,
+            "end"    : dst,
+            "return" : curr.event == "return"
+        }
+
     return DataFrame(
-        code, adjust_lines(lines), determine_curr(pre, path, line_graph),
+        code, adjust_lines(lines), curr_line,
         State(prev_vars, curr=curr.variables),
-        curr.output, path, indexed[start], curr.counters, evalbox
+        curr.output, path, indexed[start], curr.counters, evalbox, call
     )
 
 def adjust_lines(lines):
@@ -138,20 +151,3 @@ def determine_start(call_stack_size : int, top_level_start : int, line_graph : l
         return top_level_start
 
     return line_graph[0].line_no
-
-def determine_curr(pre : bool, path : list[int], graph : list[Line]):
-    """For most lines the current one is the last one in the graph.
-    For return lines in functions, there should be no curr.
-    The path parameter is the same as the graph except it is correctly mapped
-    to the collapsed range (ie. has same number of elements).
-    We need the actual Line object to determine whether the line was a
-    return."""
-
-    # when we call program() there should be no current line
-    if pre:
-        return None
-
-    if graph[-1].event == "return":
-        return None
-    
-    return path[-1]

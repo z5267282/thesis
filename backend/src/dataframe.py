@@ -10,7 +10,7 @@ class DataFrame:
         code : list[str], lines : list[str], curr : int | None,
         variables : State[dict[str, Any]], out : list[str],
         path : list[int], start : int | None,
-        counters : list[Counter], evalbox : list[str]
+        counters : list[Counter], evalbox : list[str], call : dict | None
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
@@ -25,6 +25,8 @@ class DataFrame:
         self.path     : list[int] = deepcopy(path)
         self.counters : list[Counter] = deepcopy(counters)
         self.evalbox  : list[str] = deepcopy(evalbox)
+
+        self.call : dict | None = call
     
     def to_dict(self):
         path = None if self.start is None else \
@@ -54,7 +56,8 @@ class DataFrame:
             "out"      : self.out,
             "path"     : path,
             "counters" : counters,
-            "evalbox"  : self.evalbox
+            "evalbox"  : self.evalbox,
+            "call"     : self.call
         }
 
     def generate_rest(self) -> list[int]:
