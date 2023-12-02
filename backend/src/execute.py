@@ -2,6 +2,7 @@ from collections import OrderedDict
 from copy import deepcopy
 from io import StringIO
 import sys
+from types import FunctionType
 
 from helper import get_code_info, get_stripped_line
 from line import Line
@@ -10,7 +11,6 @@ from types import FrameType
 from typing import Any, Callable
 
 def trace_program(program : Callable, ):
-
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
@@ -55,7 +55,12 @@ def trace_line(
             return
 
     # state related steps
-    variables : dict[str, Any] = deepcopy(frame.f_locals)
+    raw_variables : dict[str, Any] = deepcopy(frame.f_locals)
+    variables     : dict[str, Any] = {
+        var : value for var, value in raw_variables.items() \
+            if not isinstance(value, FunctionType) 
+    }
+
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
