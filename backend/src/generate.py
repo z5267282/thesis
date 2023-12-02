@@ -50,7 +50,7 @@ def generate_dataframes(program : Callable):
         frames.extend(
             construct_dataframes(
                 program_code, line_graphs,
-                curr_context, prev_context,
+                prev_context, curr_context,
                 root, line_mapping, len(calls), top_level_start
             )
         )
@@ -83,7 +83,7 @@ def construct_dataframes(
         line_graph = curr_context + graph 
         dataframe : DataFrame = generate_dataframe(
             line_graph, prev_context,
-            program_code, root, line_mapping, prev_vars, False,
+            program_code, root, line_mapping, prev_vars,
             determine_start(call_stack_size, top_level_start, line_graph)
         )
         frames.append(dataframe)
@@ -95,7 +95,7 @@ def generate_dataframe(
     line_graph : list[Line], prev_context : list[Line],
     program_code : OrderedDict[int, str],
     root : BodyBlock, line_mapping : dict[int, Type[Block]],
-    prev_vars : dict[str, Any], pre : bool, start : int | None
+    prev_vars : dict[str, Any], start : int | None
 ):
     code, lines, path, indexed = collapse(line_graph, prev_context, program_code, root)
     curr : Line = line_graph[-1]
