@@ -22,8 +22,8 @@ def test_conditional():
         [Line(10, "return")]
     ]
 
-    call = lines[0][3]
-    assert call.line_no == 9
+    call = lines[0][4]
+    assert call.line_no == 10
     assert call.output == ["hi\n"]
 
     root = parse(program)
