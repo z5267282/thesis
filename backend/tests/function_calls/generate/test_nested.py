@@ -63,7 +63,9 @@ def test_nested():
             ],
             "curr": 5,
             "vars": [],
-            "out": [],
+            "out": [
+                "start\n"
+            ],
             "path": {
                 "start": 4,
                 "rest": [
@@ -135,7 +137,10 @@ def test_nested():
             ],
             "curr": 2,
             "vars": [],
-            "out": [],
+            "out": [
+                "start\n",
+                "a\n"
+            ],
             "path": {
                 "start": 0,
                 "rest": [
@@ -387,10 +392,7 @@ def test_nested():
             "curr": None,
             "vars": [],
             "out": [
-                "start\n",
-                "a\n",
-                "b\n",
-                "end\n"
+                "start\na\nb\nend\n"
             ],
             "path": None,
             "counters": [],

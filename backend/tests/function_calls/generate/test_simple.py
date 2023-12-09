@@ -47,7 +47,9 @@ def test_simple():
             ],
             "curr": 3,
             "vars": [],
-            "out": [],
+            "out": [
+                "start\n"
+            ],
             "path": {
                 "start": 2,
                 "rest": [
@@ -174,8 +176,7 @@ def test_simple():
             "curr": None,
             "vars": [],
             "out": [
-                "start\n",
-                "hi\n"
+                "start\nhi\n"
             ],
             "path": None,
             "counters": [],

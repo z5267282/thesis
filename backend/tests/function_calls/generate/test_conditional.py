@@ -138,7 +138,9 @@ def test_conditional():
                     "changed": False
                 }
             ],
-            "out": [],
+            "out": [
+                "hi\n"
+            ],
             "path": {
                 "start": 2,
                 "rest": [
@@ -302,8 +304,7 @@ def test_conditional():
                 }
             ],
             "out": [
-                "hi\n",
-                "a\n"
+                "hi\na\n"
             ],
             "path": None,
             "counters": [],
