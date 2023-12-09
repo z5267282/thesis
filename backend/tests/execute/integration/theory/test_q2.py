@@ -84,6 +84,11 @@ def test_q2():
                     "name": "p",
                     "value": "14986230724609375000",
                     "changed": True
+                },
+                {
+                    "name": "two",
+                    "value": "True",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -127,7 +132,7 @@ def test_q2():
                 {
                     "name": "two",
                     "value": "True",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -184,8 +189,8 @@ def test_q2():
                 },
                 {
                     "name": "two",
-                    "value": "True",
-                    "changed": False
+                    "value": "False",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -238,7 +243,7 @@ def test_q2():
                 {
                     "name": "two",
                     "value": "False",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -287,6 +292,11 @@ def test_q2():
             ],
             "curr": 7,
             "vars": [
+                {
+                    "name": "five",
+                    "value": "False",
+                    "changed": True
+                },
                 {
                     "name": "p",
                     "value": "1873278840576171875",
@@ -348,7 +358,7 @@ def test_q2():
                 {
                     "name": "five",
                     "value": "False",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "p",
@@ -424,8 +434,8 @@ def test_q2():
             "vars": [
                 {
                     "name": "five",
-                    "value": "False",
-                    "changed": False
+                    "value": "True",
+                    "changed": True
                 },
                 {
                     "name": "p",
@@ -497,7 +507,7 @@ def test_q2():
                 {
                     "name": "five",
                     "value": "False",
-                    "changed": False
+                    "changed": True
                 },
                 {
                     "name": "p",
@@ -645,8 +655,8 @@ def test_q2():
                 },
                 {
                     "name": "p",
-                    "value": "7672950131",
-                    "changed": False
+                    "value": "1096135733",
+                    "changed": True
                 },
                 {
                     "name": "two",

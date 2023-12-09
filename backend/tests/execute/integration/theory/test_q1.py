@@ -84,6 +84,11 @@ def test_q1():
                     "name": "Z",
                     "value": "3",
                     "changed": True
+                },
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -133,7 +138,7 @@ def test_q1():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -206,6 +211,11 @@ def test_q1():
                     "name": "i",
                     "value": "0",
                     "changed": False
+                },
+                {
+                    "name": "j",
+                    "value": "0",
+                    "changed": True
                 }
             ],
             "out": [
@@ -283,7 +293,7 @@ def test_q1():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -381,6 +391,11 @@ def test_q1():
                     "name": "j",
                     "value": "0",
                     "changed": False
+                },
+                {
+                    "name": "k",
+                    "value": "0",
+                    "changed": True
                 }
             ],
             "out": [
@@ -482,7 +497,7 @@ def test_q1():
                 {
                     "name": "k",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -596,8 +611,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 }
             ],
             "out": [
@@ -702,8 +717,8 @@ def test_q1():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "k",
@@ -793,8 +808,8 @@ def test_q1():
                 },
                 {
                     "name": "i",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -1001,4 +1016,4 @@ def test_q1():
             "counters": [],
             "evalbox": []
         }
-    ]
+        ]
