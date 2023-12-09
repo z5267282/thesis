@@ -19,6 +19,7 @@ def program():
         i += 1
         
     print(f"2s: {twos}, 5s: {fives}")
+
 from dataframe import DataFrame
 from generate import generate_dataframes
 
@@ -67,8 +68,18 @@ def test_6_loop_conditional_loop():
             "curr": 1,
             "vars": [
                 {
+                    "name": "fives",
+                    "value": "0",
+                    "changed": True
+                },
+                {
                     "name": "i",
                     "value": "1",
+                    "changed": True
+                },
+                {
+                    "name": "twos",
+                    "value": "0",
                     "changed": True
                 }
             ],
@@ -102,7 +113,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "fives",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -112,7 +123,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "twos",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -181,6 +192,11 @@ def test_6_loop_conditional_loop():
                     "name": "i",
                     "value": "1",
                     "changed": False
+                },
+                {
+                    "name": "j",
+                    "value": "0",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -262,7 +278,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "total",
@@ -356,8 +372,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -441,8 +457,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "i",
-                    "value": "1",
-                    "changed": False
+                    "value": "2",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -507,7 +523,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "i",
                     "value": "2",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "j",
@@ -694,8 +710,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "twos",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 }
             ],
             "out": [
@@ -772,8 +788,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "j",
-                    "value": "2",
-                    "changed": False
+                    "value": "0",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -783,7 +799,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "twos",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -862,7 +878,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "total",
@@ -963,8 +979,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -1055,8 +1071,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "i",
-                    "value": "2",
-                    "changed": False
+                    "value": "3",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -1304,8 +1320,8 @@ def test_6_loop_conditional_loop():
             "vars": [
                 {
                     "name": "fives",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "i",
@@ -1400,7 +1416,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "fives",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -1409,8 +1425,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "j",
-                    "value": "5",
-                    "changed": False
+                    "value": "0",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -1506,7 +1522,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "total",
@@ -1614,8 +1630,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "total",
@@ -1713,8 +1729,8 @@ def test_6_loop_conditional_loop():
                 },
                 {
                     "name": "i",
-                    "value": "5",
-                    "changed": False
+                    "value": "6",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -1788,7 +1804,7 @@ def test_6_loop_conditional_loop():
                 {
                     "name": "i",
                     "value": "6",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "j",

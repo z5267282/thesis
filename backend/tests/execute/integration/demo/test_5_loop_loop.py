@@ -10,6 +10,7 @@ def program():
         print(row)
         i += 1
     print("end!")
+
 from dataframe import DataFrame
 from generate import generate_dataframes
 
@@ -52,7 +53,13 @@ def test_5_loop_loop():
                 "11"
             ],
             "curr": 0,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                }
+            ],
             "out": [],
             "path": {
                 "start": 0,
@@ -79,7 +86,7 @@ def test_5_loop_loop():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -130,6 +137,11 @@ def test_5_loop_loop():
                     "name": "i",
                     "value": "0",
                     "changed": False
+                },
+                {
+                    "name": "j",
+                    "value": "0",
+                    "changed": True
                 },
                 {
                     "name": "row",
@@ -188,7 +200,7 @@ def test_5_loop_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "row",
@@ -259,8 +271,8 @@ def test_5_loop_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "row",
@@ -321,13 +333,13 @@ def test_5_loop_loop():
             "vars": [
                 {
                     "name": "i",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "j",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "row",

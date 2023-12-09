@@ -17,6 +17,7 @@ def program():
             print(row)
         i += 1
     print("the end!")
+
 from dataframe import DataFrame
 from generate import generate_dataframes
 
@@ -59,7 +60,13 @@ def test_7_conditional_loop_loop():
                 "18"
             ],
             "curr": 0,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                }
+            ],
             "out": [],
             "path": {
                 "start": 0,
@@ -86,7 +93,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -194,6 +201,11 @@ def test_7_conditional_loop_loop():
                     "changed": False
                 },
                 {
+                    "name": "j",
+                    "value": "0",
+                    "changed": True
+                },
+                {
                     "name": "row",
                     "value": "",
                     "changed": True
@@ -257,7 +269,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "row",
@@ -333,8 +345,8 @@ def test_7_conditional_loop_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "-1",
+                    "changed": True
                 },
                 {
                     "name": "row",
@@ -408,7 +420,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "j",
                     "value": "-1",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "row",
@@ -471,8 +483,8 @@ def test_7_conditional_loop_loop():
             "vars": [
                 {
                     "name": "i",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -526,7 +538,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "i",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "j",
@@ -585,8 +597,8 @@ def test_7_conditional_loop_loop():
             "vars": [
                 {
                     "name": "i",
-                    "value": "1",
-                    "changed": False
+                    "value": "2",
+                    "changed": True
                 },
                 {
                     "name": "j",
@@ -637,7 +649,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "i",
                     "value": "2",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "j",
@@ -770,8 +782,8 @@ def test_7_conditional_loop_loop():
                 },
                 {
                     "name": "j",
-                    "value": "-1",
-                    "changed": False
+                    "value": "0",
+                    "changed": True
                 },
                 {
                     "name": "row",
@@ -839,7 +851,7 @@ def test_7_conditional_loop_loop():
                 {
                     "name": "j",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "row",
@@ -917,8 +929,8 @@ def test_7_conditional_loop_loop():
                 },
                 {
                     "name": "j",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 },
                 {
                     "name": "row",
@@ -1058,8 +1070,8 @@ def test_7_conditional_loop_loop():
             "vars": [
                 {
                     "name": "i",
-                    "value": "2",
-                    "changed": False
+                    "value": "3",
+                    "changed": True
                 },
                 {
                     "name": "j",

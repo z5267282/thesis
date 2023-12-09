@@ -47,7 +47,13 @@ def test_3_loop():
                 "5"
             ],
             "curr": 0,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                }
+            ],
             "out": [],
             "path": {
                 "start": 0,
@@ -74,7 +80,7 @@ def test_3_loop():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -115,8 +121,8 @@ def test_3_loop():
             "vars": [
                 {
                     "name": "i",
-                    "value": "0",
-                    "changed": False
+                    "value": "1",
+                    "changed": True
                 }
             ],
             "out": [
