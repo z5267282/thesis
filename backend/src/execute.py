@@ -6,6 +6,7 @@ from types import FunctionType
 
 from helper import get_code_info, get_stripped_line
 from line import Line
+from stack import Stack
 from state import State
 from types import FrameType
 from typing import Any, Callable
@@ -77,9 +78,8 @@ def trace_line(
     # note a "previous" state needs to exist (ie. line > starting)
     if last[0]:
         last[0].output.extend(output)
-        last[0].variables.update(variables)
 
-    line : Line = Line(frame.f_lineno, event)
+    line : Line = Line(frame.f_lineno, event, variables)
     curr.append(line)
     if event == "return":
         add_func_subsection(lines, curr)
@@ -100,3 +100,33 @@ def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
     curr - prev"""
     return curr[len(prev):]
+
+def fix_states(lines : list[list[Line]]):
+    """Fix the program state recorded in each Line object.
+    sys.settrace runs when a line is entered, not left so state lags behind.
+    Account for this between function call regions as well."""
+    # the last run line in the current function region
+    # want to be able to modify by reference so use singleton lists
+    calls : Stack[list[Line]] = Stack()
+    for region in lines:
+        for curr in region:
+            match curr.event:
+                case "call":
+                    calls.push([])
+                case "return":
+                    calls.pop()
+                case _:
+                    fix_line(curr, calls)
+
+def fix_line(curr : Line, calls : Stack[list[Line]]):
+    """Give the state of the current line to the one before"""
+    # if there is something inside the singleton list, it is the last run line
+    top : list[Line] = calls.peek()
+    # we are on the line just after the call
+    # no state has been updated so we can't fix anything yet
+    if not top:
+        top.append(curr)
+        return
+
+    top[0].variables = curr.variables
+    top[0] = curr
