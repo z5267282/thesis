@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from copy import deepcopy
+from copy import copy
 from io import StringIO
 import sys
 from types import FunctionType
@@ -22,7 +22,7 @@ def trace_program(program : Callable):
     output  : list[str] = []
     printed : State[str] = State("", curr="")
     # singleton if a last line exists
-    last    : list[Line] = []
+    last    : list[Line] = [None]
 
     def wrapper(frame : FrameType, event : str, arg : Any):
         trace_line(frame, event, arg, lines, curr, code, output, buffer, printed, last)
@@ -57,7 +57,7 @@ def trace_line(
             return
 
     # state related steps
-    raw_variables : dict[str, Any] = deepcopy(frame.f_locals)
+    raw_variables : dict[str, Any] = frame.f_locals
     variables     : dict[str, Any] = {
         var : value for var, value in raw_variables.items() \
             if not isinstance(value, FunctionType) 
@@ -72,19 +72,16 @@ def trace_line(
     
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
-    if last:
+    if last[0]:
         last[0].output.extend(output)
-    
+
     line : Line = Line(frame.f_lineno, event, variables=variables)
     curr.append(line)
     if event == "return":
         line.output.extend(output)
         add_func_subsection(lines, curr)
-
-    if not last:
-        last.append(line)
-    else:
-        last[0] = line
+    
+    last[0] = line
     
 def add_func_subsection(lines : list[list[Line]], curr : list[Line]):
     """Add a contiguous subsection of a execution within a function.
@@ -93,7 +90,7 @@ def add_func_subsection(lines : list[list[Line]], curr : list[Line]):
         - [..., return], [...]
         - [...], [call, ...]
     """
-    lines.append(deepcopy(curr))
+    lines.append(copy(curr))
     curr.clear()
 
 def string_diff(prev : str, curr : str):
