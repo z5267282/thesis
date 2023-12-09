@@ -10,7 +10,7 @@ class Line:
     def __init__(self, line_no : int, event : str, variables : dict[str, Any]=None):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.variables : dict[str, Any] = variables
+        self.variables : dict[str, Any] = variables if variables is not None else {}
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
         self.event     : str = event
