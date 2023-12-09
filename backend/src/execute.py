@@ -35,6 +35,7 @@ def trace_program(program : Callable):
     sys.settrace(None)
     sys.stdout = sys.__stdout__
 
+    fix_states(lines)
     # the last line needs the output after the program ends
     lines[-1][-1].output = [buffer.getvalue()]
     return lines
