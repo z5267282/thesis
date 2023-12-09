@@ -77,8 +77,9 @@ def trace_line(
     # note a "previous" state needs to exist (ie. line > starting)
     if last[0]:
         last[0].output.extend(output)
+        last[0].variables.update(variables)
 
-    line : Line = Line(frame.f_lineno, event, variables=variables)
+    line : Line = Line(frame.f_lineno, event)
     curr.append(line)
     if event == "return":
         add_func_subsection(lines, curr)

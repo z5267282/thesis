@@ -61,7 +61,13 @@ def test_conditional():
                 ""
             ],
             "curr": 2,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                }
+            ],
             "out": [],
             "path": {
                 "start": 2,
@@ -95,7 +101,7 @@ def test_conditional():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -131,13 +137,7 @@ def test_conditional():
                 "9"
             ],
             "curr": 7,
-            "vars": [
-                {
-                    "name": "i",
-                    "value": "0",
-                    "changed": False
-                }
-            ],
+            "vars": [],
             "out": [
                 "hi\n"
             ],
@@ -257,7 +257,13 @@ def test_conditional():
                 "9"
             ],
             "curr": 1,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                }
+            ],
             "out": [
                 "hi\n",
                 "a\n"
@@ -296,13 +302,7 @@ def test_conditional():
                 ""
             ],
             "curr": None,
-            "vars": [
-                {
-                    "name": "i",
-                    "value": "0",
-                    "changed": False
-                }
-            ],
+            "vars": [],
             "out": [
                 "hi\na\n"
             ],
