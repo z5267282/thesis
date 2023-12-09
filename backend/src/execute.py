@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from copy import copy
+from copy import copy, deepcopy
 from io import StringIO
 import sys
 from types import FunctionType
@@ -60,7 +60,7 @@ def trace_line(
             return
 
     # state related steps
-    raw_variables : dict[str, Any] = frame.f_locals
+    raw_variables : dict[str, Any] = deepcopy(frame.f_locals)
     variables     : dict[str, Any] = {
         var : value for var, value in raw_variables.items() \
             if not isinstance(value, FunctionType) 

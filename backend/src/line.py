@@ -7,7 +7,7 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, event : str, variables : dict[str, Any]={}):
+    def __init__(self, line_no : int, event : str, variables : dict[str, Any]=None):
         self.line_no   : int = line_no
         self.output    : list[str] = []
         self.variables : dict[str, Any] = variables
@@ -15,9 +15,9 @@ class Line:
         self.counters  : list[Counter] = []
         self.event     : str = event
     
-    # def __repr__(self): # pragma: no cover
-    #     """Return a simple representation to assist with debugging asserts."""
-    #     return str(self.line_no)
+    def __repr__(self): # pragma: no cover
+        """Return a simple representation to assist with debugging asserts."""
+        return str(self.line_no)
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no and self.event == other.event
