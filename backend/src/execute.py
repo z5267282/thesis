@@ -44,18 +44,19 @@ def trace_line(
     if diff:
         output.append(diff)
 
-    curr : Line = Line(frame.f_lineno, variables=variables)
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
     if lines:
-        lines[-1].fix_lag(curr)
+        lines[-1].fix_lag(output, variables)
     
     match event:
         case "line":
-            lines.append(curr)
+            lines.append(
+                Line(frame.f_lineno, variables=variables)
+            )
         case "return":
             last.line_no = frame.f_lineno
-            last.fix_lag(curr)
+            last.fix_lag(output, variables)
 
 def string_diff(prev : str, curr : str):
     """Given that prev is a prefix of curr, obtain the difference:
