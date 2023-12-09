@@ -75,6 +75,21 @@ def test_q1():
                     "name": "HI",
                     "value": "100000",
                     "changed": True
+                },
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": True
+                },
+                {
+                    "name": "j",
+                    "value": "1",
+                    "changed": True
+                },
+                {
+                    "name": "k",
+                    "value": "2",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -112,17 +127,17 @@ def test_q1():
                 {
                     "name": "i",
                     "value": "0",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "j",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "k",
                     "value": "2",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -215,6 +230,11 @@ def test_q1():
                     "name": "k",
                     "value": "2",
                     "changed": False
+                },
+                {
+                    "name": "name",
+                    "value": "boat",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -310,7 +330,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "boat",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -408,8 +428,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "boat",
-                    "changed": False
+                    "value": "bubble",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -507,7 +527,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "bubble",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -589,6 +609,11 @@ def test_q1():
                     "name": "HI",
                     "value": "100000",
                     "changed": False
+                },
+                {
+                    "name": "entity",
+                    "value": "inc",
+                    "changed": True
                 },
                 {
                     "name": "i",
@@ -698,7 +723,7 @@ def test_q1():
                 {
                     "name": "entity",
                     "value": "inc",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -712,8 +737,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "2",
-                    "changed": False
+                    "value": "8",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -792,7 +817,7 @@ def test_q1():
                 {
                     "name": "k",
                     "value": "8",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "name",
@@ -905,8 +930,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "bubble",
-                    "changed": False
+                    "value": "boat",
+                    "changed": True
                 }
             ],
             "out": [
@@ -1014,7 +1039,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "boat",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -1229,8 +1254,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "8",
-                    "changed": False
+                    "value": "17",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -1308,7 +1333,7 @@ def test_q1():
                 {
                     "name": "k",
                     "value": "17",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "name",
@@ -1643,8 +1668,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "boat",
-                    "changed": False
+                    "value": "fish",
+                    "changed": True
                 }
             ],
             "out": [
@@ -1755,7 +1780,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "fish",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -1976,8 +2001,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "17",
-                    "changed": False
+                    "value": "49",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -2058,7 +2083,7 @@ def test_q1():
                 {
                     "name": "k",
                     "value": "49",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "name",
@@ -2173,8 +2198,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "fish",
-                    "changed": False
+                    "value": "boat",
+                    "changed": True
                 }
             ],
             "out": [
@@ -2284,7 +2309,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "boat",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -2398,8 +2423,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "boat",
-                    "changed": False
+                    "value": "spider",
+                    "changed": True
                 }
             ],
             "out": [
@@ -2513,7 +2538,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "spider",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -2609,8 +2634,8 @@ def test_q1():
                 },
                 {
                     "name": "entity",
-                    "value": "inc",
-                    "changed": False
+                    "value": "pty ltd",
+                    "changed": True
                 },
                 {
                     "name": "i",
@@ -2728,7 +2753,7 @@ def test_q1():
                 {
                     "name": "entity",
                     "value": "pty ltd",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -2742,8 +2767,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "49",
-                    "changed": False
+                    "value": "120",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -2825,7 +2850,7 @@ def test_q1():
                 {
                     "name": "k",
                     "value": "120",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "name",
@@ -2941,8 +2966,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "spider",
-                    "changed": False
+                    "value": "boat",
+                    "changed": True
                 }
             ],
             "out": [
@@ -3053,7 +3078,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "boat",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -3276,8 +3301,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "120",
-                    "changed": False
+                    "value": "319",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -3476,8 +3501,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "spider",
-                    "changed": False
+                    "value": "boat",
+                    "changed": True
                 }
             ],
             "out": [
@@ -3590,7 +3615,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "boat",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -3705,8 +3730,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "boat",
-                    "changed": False
+                    "value": "fish",
+                    "changed": True
                 }
             ],
             "out": [
@@ -3821,7 +3846,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "fish",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -3918,8 +3943,8 @@ def test_q1():
                 },
                 {
                     "name": "entity",
-                    "value": "pty ltd",
-                    "changed": False
+                    "value": "llc",
+                    "changed": True
                 },
                 {
                     "name": "i",
@@ -4036,7 +4061,7 @@ def test_q1():
                 {
                     "name": "entity",
                     "value": "llc",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -4050,8 +4075,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "841",
-                    "changed": False
+                    "value": "2192",
+                    "changed": True
                 },
                 {
                     "name": "name",
@@ -4491,8 +4516,8 @@ def test_q1():
                 },
                 {
                     "name": "name",
-                    "value": "boat",
-                    "changed": False
+                    "value": "spider",
+                    "changed": True
                 }
             ],
             "out": [
@@ -4611,7 +4636,7 @@ def test_q1():
                 {
                     "name": "name",
                     "value": "spider",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [
@@ -4712,8 +4737,8 @@ def test_q1():
                 },
                 {
                     "name": "entity",
-                    "value": "pty ltd",
-                    "changed": False
+                    "value": "llc",
+                    "changed": True
                 },
                 {
                     "name": "i",
@@ -4834,7 +4859,7 @@ def test_q1():
                 {
                     "name": "entity",
                     "value": "llc",
-                    "changed": True
+                    "changed": False
                 },
                 {
                     "name": "i",
@@ -4848,8 +4873,8 @@ def test_q1():
                 },
                 {
                     "name": "k",
-                    "value": "5741",
-                    "changed": False
+                    "value": "15031",
+                    "changed": True
                 },
                 {
                     "name": "name",

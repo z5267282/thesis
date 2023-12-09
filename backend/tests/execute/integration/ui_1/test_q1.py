@@ -51,7 +51,13 @@ def test_q1():
                 "9"
             ],
             "curr": 0,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "1",
+                    "changed": True
+                }
+            ],
             "out": [],
             "path": {
                 "start": 0,
@@ -78,7 +84,7 @@ def test_q1():
                 {
                     "name": "i",
                     "value": "1",
-                    "changed": True
+                    "changed": False
                 }
             ],
             "out": [],
@@ -176,8 +182,8 @@ def test_q1():
             "vars": [
                 {
                     "name": "i",
-                    "value": "1",
-                    "changed": False
+                    "value": "44",
+                    "changed": True
                 }
             ],
             "out": [],
@@ -317,8 +323,8 @@ def test_q1():
             "vars": [
                 {
                     "name": "i",
-                    "value": "3011",
-                    "changed": False
+                    "value": "3013",
+                    "changed": True
                 }
             ],
             "out": [],
