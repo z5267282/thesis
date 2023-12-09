@@ -44,6 +44,13 @@ class Line:
     output : [{", ".join(str(o) for o in self.output)}]
     vars : {{{dict_to_str(self.variables)}}}
     counters : [{counters}]"""
+
+    def fix_lag(self, after : "Line"):
+        """Fix a line so that it has the right state.
+        This is based on the limitaton of sys.settrace which runs lines
+        as they are entered, not as they are left."""
+        self.output.extend(after.output)
+        self.variables.update(after.variables)
     
     def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
         """Add a counter of an increased depth"""
