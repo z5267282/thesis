@@ -1,6 +1,10 @@
 def program():
     def a():
         print("a")
+        b()
+    
+    def b():
+        print("b")
 
     i = 0
     if i == 1:
@@ -18,6 +22,8 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    \u00b7\u00b7\u00b7",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -27,10 +33,12 @@ def test_conditional():
             "lines": [
                 "1",
                 "",
-                "4",
                 "5",
                 "",
-                "7",
+                "8",
+                "9",
+                "",
+                "11",
                 ""
             ],
             "curr": None,
@@ -45,6 +53,8 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    \u00b7\u00b7\u00b7",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -54,13 +64,15 @@ def test_conditional():
             "lines": [
                 "1",
                 "",
-                "4",
                 "5",
                 "",
-                "7",
+                "8",
+                "9",
+                "",
+                "11",
                 ""
             ],
-            "curr": 2,
+            "curr": 4,
             "vars": [
                 {
                     "name": "i",
@@ -70,7 +82,7 @@ def test_conditional():
             ],
             "out": [],
             "path": {
-                "start": 2,
+                "start": 4,
                 "rest": []
             },
             "counters": [],
@@ -81,6 +93,8 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    \u00b7\u00b7\u00b7",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -90,13 +104,15 @@ def test_conditional():
             "lines": [
                 "1",
                 "",
-                "4",
                 "5",
                 "",
-                "7",
+                "8",
+                "9",
+                "",
+                "11",
                 ""
             ],
-            "curr": 5,
+            "curr": 7,
             "vars": [
                 {
                     "name": "i",
@@ -106,45 +122,8 @@ def test_conditional():
             ],
             "out": [],
             "path": {
-                "start": 2,
+                "start": 4,
                 "rest": [
-                    5
-                ]
-            },
-            "counters": [],
-            "evalbox": [],
-            "call": None
-        },
-        {
-            "code": [
-                "def a():",
-                "    \u00b7\u00b7\u00b7",
-                "i = 0",
-                "if i == 1:",
-                "    \u00b7\u00b7\u00b7",
-                "else:",
-                "    print(\"hi\")",
-                "    a()"
-            ],
-            "lines": [
-                "1",
-                "",
-                "4",
-                "5",
-                "",
-                "7",
-                "8",
-                "9"
-            ],
-            "curr": 7,
-            "vars": [],
-            "out": [
-                "hi\n"
-            ],
-            "path": {
-                "start": 2,
-                "rest": [
-                    5,
                     7
                 ]
             },
@@ -156,6 +135,8 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    \u00b7\u00b7\u00b7",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -166,12 +147,61 @@ def test_conditional():
             "lines": [
                 "1",
                 "",
-                "4",
                 "5",
                 "",
-                "7",
                 "8",
-                "9"
+                "9",
+                "",
+                "11",
+                "12",
+                "13"
+            ],
+            "curr": 9,
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": False
+                }
+            ],
+            "out": [
+                "hi\n"
+            ],
+            "path": {
+                "start": 4,
+                "rest": [
+                    7,
+                    9
+                ]
+            },
+            "counters": [],
+            "evalbox": [],
+            "call": None
+        },
+        {
+            "code": [
+                "def a():",
+                "    \u00b7\u00b7\u00b7",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
+                "i = 0",
+                "if i == 1:",
+                "    \u00b7\u00b7\u00b7",
+                "else:",
+                "    print(\"hi\")",
+                "    a()"
+            ],
+            "lines": [
+                "1",
+                "",
+                "5",
+                "",
+                "8",
+                "9",
+                "",
+                "11",
+                "12",
+                "13"
             ],
             "curr": 0,
             "vars": [],
@@ -185,7 +215,7 @@ def test_conditional():
             "counters": [],
             "evalbox": [],
             "call": {
-                "entry": 7,
+                "entry": 9,
                 "target": 0,
                 "return": False
             }
@@ -194,7 +224,10 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    print(\"a\")",
+                "    b()",
                 "",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -209,11 +242,14 @@ def test_conditional():
                 "4",
                 "5",
                 "",
-                "7",
                 "8",
-                "9"
+                "9",
+                "",
+                "11",
+                "12",
+                "13"
             ],
-            "curr": 1,
+            "curr": 2,
             "vars": [],
             "out": [
                 "hi\n",
@@ -222,13 +258,13 @@ def test_conditional():
             "path": {
                 "start": 0,
                 "rest": [
-                    1
+                    2
                 ]
             },
             "counters": [],
             "evalbox": [],
             "call": {
-                "entry": 8,
+                "entry": 11,
                 "target": 0,
                 "return": False
             }
@@ -237,7 +273,155 @@ def test_conditional():
             "code": [
                 "def a():",
                 "    print(\"a\")",
+                "    b()",
                 "",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
+                "i = 0",
+                "if i == 1:",
+                "    \u00b7\u00b7\u00b7",
+                "else:",
+                "    \u00b7\u00b7\u00b7"
+            ],
+            "lines": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "",
+                "8",
+                "9",
+                "",
+                "11",
+                ""
+            ],
+            "curr": 4,
+            "vars": [],
+            "out": [
+                "hi\n",
+                "a\n"
+            ],
+            "path": {
+                "start": 4,
+                "rest": []
+            },
+            "counters": [],
+            "evalbox": [],
+            "call": {
+                "entry": 2,
+                "target": 4,
+                "return": False
+            }
+        },
+        {
+            "code": [
+                "def a():",
+                "    print(\"a\")",
+                "    b()",
+                "",
+                "def b():",
+                "    print(\"b\")",
+                "",
+                "i = 0",
+                "if i == 1:",
+                "    \u00b7\u00b7\u00b7",
+                "else:",
+                "    \u00b7\u00b7\u00b7"
+            ],
+            "lines": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "",
+                "11",
+                ""
+            ],
+            "curr": 5,
+            "vars": [],
+            "out": [
+                "hi\n",
+                "a\n",
+                "b\n"
+            ],
+            "path": {
+                "start": 4,
+                "rest": [
+                    5
+                ]
+            },
+            "counters": [],
+            "evalbox": [],
+            "call": {
+                "entry": 2,
+                "target": 4,
+                "return": False
+            }
+        },
+        {
+            "code": [
+                "def a():",
+                "    print(\"a\")",
+                "    b()",
+                "",
+                "def b():",
+                "    print(\"b\")",
+                "",
+                "i = 0",
+                "if i == 1:",
+                "    \u00b7\u00b7\u00b7",
+                "else:",
+                "    \u00b7\u00b7\u00b7"
+            ],
+            "lines": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "",
+                "11",
+                ""
+            ],
+            "curr": 5,
+            "vars": [],
+            "out": [
+                "hi\n",
+                "a\n",
+                "b\n"
+            ],
+            "path": {
+                "start": 4,
+                "rest": [
+                    5
+                ]
+            },
+            "counters": [],
+            "evalbox": [],
+            "call": {
+                "entry": 2,
+                "target": 4,
+                "return": True
+            }
+        },
+        {
+            "code": [
+                "def a():",
+                "    print(\"a\")",
+                "    b()",
+                "",
+                "def b():",
+                "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
                 "    \u00b7\u00b7\u00b7",
@@ -252,32 +436,30 @@ def test_conditional():
                 "4",
                 "5",
                 "",
-                "7",
                 "8",
-                "9"
+                "9",
+                "",
+                "11",
+                "12",
+                "13"
             ],
-            "curr": 1,
-            "vars": [
-                {
-                    "name": "i",
-                    "value": "0",
-                    "changed": True
-                }
-            ],
+            "curr": 2,
+            "vars": [],
             "out": [
                 "hi\n",
-                "a\n"
+                "a\n",
+                "b\n"
             ],
             "path": {
                 "start": 0,
                 "rest": [
-                    1
+                    2
                 ]
             },
             "counters": [],
             "evalbox": [],
             "call": {
-                "entry": 8,
+                "entry": 11,
                 "target": 0,
                 "return": True
             }
@@ -285,6 +467,8 @@ def test_conditional():
         {
             "code": [
                 "def a():",
+                "    \u00b7\u00b7\u00b7",
+                "def b():",
                 "    \u00b7\u00b7\u00b7",
                 "i = 0",
                 "if i == 1:",
@@ -295,20 +479,28 @@ def test_conditional():
             "lines": [
                 "1",
                 "",
-                "4",
                 "5",
                 "",
-                "7",
+                "8",
+                "9",
+                "",
+                "11",
                 ""
             ],
             "curr": None,
-            "vars": [],
+            "vars": [
+                {
+                    "name": "i",
+                    "value": "0",
+                    "changed": False
+                }
+            ],
             "out": [
-                "hi\na\n"
+                "hi\na\nb\n"
             ],
             "path": None,
             "counters": [],
             "evalbox": [],
             "call": None
         }
-    ]
+    ] 
