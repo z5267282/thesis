@@ -10,7 +10,7 @@ from state import State
 from types import FrameType
 from typing import Any, Callable
 
-def trace_program(program : Callable, ):
+def trace_program(program : Callable):
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
@@ -21,9 +21,11 @@ def trace_program(program : Callable, ):
     code    : OrderedDict[int, str] = get_code_info(program)
     output  : list[str] = []
     printed : State[str] = State("", curr="")
+    # singleton if a last line exists
+    last    : list[Line] = []
 
     def wrapper(frame : FrameType, event : str, arg : Any):
-        trace_line(frame, event, arg, lines, curr, code, output, buffer, printed)
+        trace_line(frame, event, arg, lines, curr, code, output, buffer, printed, last)
         return wrapper
 
     sys.stdout = buffer
@@ -36,7 +38,7 @@ def trace_program(program : Callable, ):
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
     curr : list[Line], code : OrderedDict[int, str],
-    output : list[str], buffer : StringIO, printed : State
+    output : list[str], buffer : StringIO, printed : State, last : list[Line]
 ):
     # when we call a function that indicates we should start a new subsection in tracing
     match event:
@@ -67,11 +69,11 @@ def trace_line(
 
     if diff:
         output.append(diff)
-
+    
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
-    if curr:
-        curr[-1].output.extend(output)
+    if last:
+        last[0].output.extend(output)
     
     line : Line = Line(frame.f_lineno, event, variables=variables)
     curr.append(line)
@@ -79,6 +81,11 @@ def trace_line(
         line.output.extend(output)
         add_func_subsection(lines, curr)
 
+    if not last:
+        last.append(line)
+    else:
+        last[0] = line
+    
 def add_func_subsection(lines : list[list[Line]], curr : list[Line]):
     """Add a contiguous subsection of a execution within a function.
     This could be:
