@@ -33,6 +33,9 @@ def trace_program(program : Callable):
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
+
+    # the last line needs the output after the program ends
+    lines[-1][-1].output = [buffer.getvalue()]
     return lines
 
 def trace_line(
@@ -78,7 +81,6 @@ def trace_line(
     line : Line = Line(frame.f_lineno, event, variables=variables)
     curr.append(line)
     if event == "return":
-        line.output.extend(output)
         add_func_subsection(lines, curr)
     
     last[0] = line
