@@ -14,7 +14,7 @@ class DataFrame:
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
-        self.curr  : int = curr
+        self.curr  : int | None = curr
 
         # variables from the previous and current DataFrame
         self.variables : State[dict[str, Any]] = variables
