@@ -149,7 +149,7 @@ function TracedLinesBox({
 
   function FunctionArrow({call}) {
     return (
-      <svg>
+      <svg style={{width : TRACE_GRAPH.width * 2.5}}>
         <path
           d={`${genSVGPath(call).join(" ")}`} stroke="green" fill="transparent"
           className={styles.thickPen}
@@ -166,6 +166,12 @@ function TracedLinesBox({
       const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
       const top = topArrowPath(call, height);
       const bottom = bottomArrowPath(call, height);
+      
+      console.log("top:")
+      console.log(top.join(" "));
+
+      console.log("bottom:")
+      console.log(bottom.join(" "));
 
       // return: arrow attached to from
       if (call.return) {
