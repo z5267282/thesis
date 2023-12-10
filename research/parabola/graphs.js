@@ -1,20 +1,19 @@
 const func = () => {
     const graph = document.getElementById("func");
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.classList.add("pen");
 
-    const coords = [
-        "M 30 30",
-        "q -60 12.5 0 25"
-    ]
-    path.setAttribute("d", coords.join(" "));
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.style.setProperty("d", "M 37.5 112.5 q -60 25 0 50 l -14.875736360092228 1.92677651662824 m 14.875736360092228 -1.92677651662824 l -9.10650559086146 -11.919377329525606 m 9.10650559086146 11.919377329525606");
+    path.classList.add("pen")
+    // path.style.setProperty("stroke", "black");
+    // path.style.setProperty("fill", "transparent");
+    // path.style.setProperty("stroke-width", "5");
+
     graph.appendChild(path);
 }
 
 const good = () => {
     const graph = document.getElementById("graph");
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.classList.add("pen");
 
     const L = 15;
 
@@ -58,4 +57,4 @@ const good = () => {
 }
 
 func();
-good();
+// good();
