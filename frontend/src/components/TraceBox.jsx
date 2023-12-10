@@ -209,6 +209,12 @@ function TracedLinesBox({
 
     /**
      * Make an arrowhead pointing to the bottom line in the function graph
+     * 
+     * There is an anomoly when drawing the arrowheads after the parabola
+     * The arrow tips become missized even though the calculations remain correct
+     * 
+     * The fix to this is to draw the parabola and then draw the arrow head as a separate
+     * <path>
      */
     function BottomArrow({call, height}) {
       const gradient = (4 * TRACE_GRAPH.width) / (height);
