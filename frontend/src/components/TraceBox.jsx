@@ -162,15 +162,8 @@ function TracedLinesBox({
     * @returns list of string of the path commands that can be joined with .join()
     */
     function genSVGPath(call) {
-      const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
-      const gradient = (-4 * TRACE_GRAPH.width) / (height);
-      const theta = Math.atan(gradient)
-
-      const upArrow = new Delta(theta - TRACE_GRAPH.degree);
-      const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
-
       const targetOnTop = call.target < call.entry;
-      const top = topArrowPath(upArrow, downArrow, call, height);
+      const top = topArrowPath(call, height);
       const bottom = bottomArrowPath(upArrow, downArrow, call, height);
 
       // return: arrow attached to from
@@ -188,21 +181,28 @@ function TracedLinesBox({
      * @param {*} downArrow 
      * @param {*} call 
      */
-    function topArrowPath(upArrow, downArrow, call, height) {
+    function topArrowPath(call, height) {
+      const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
+      const gradient = (-4 * TRACE_GRAPH.width) / (height);
+      const theta = Math.abs(Math.atan(gradient));
+
+      const top = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
+      const bottom = new Delta(theta - TRACE_GRAPH.degree);
+
       return [
         // leeway needed otherwise does not fit properly
-        `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+        `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
-        // upArrow arrow
-        `l ${upArrow.dx} ${-1 * upArrow.dy}`,
-        `m ${-1 * upArrow.dx} ${upArrow.dy}`,
+        // top arrow head
+        `l ${top.dx} ${-1 * top.dy}`,
+        `m ${-1 * top.dx} ${top.dy}`,
 
-        // downArrow arrow
-        `l ${downArrow.dx} ${-1 * downArrow.dy}`,
-        `m ${-1 * downArrow.dx} ${downArrow.dy}`,
+        // bottom arrow head
+        `l ${bottom.dx} ${bottom.dy}`,
+        `m ${-1 * bottom.dx} ${-1 * bottom.dy}`,
 
         // parabola
-        `q ${TRACE_GRAPH.width * -2} ${height / 2} 0 ${height}`
+        `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`
       ];
     }
 
