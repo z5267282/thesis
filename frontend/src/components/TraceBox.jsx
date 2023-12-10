@@ -193,7 +193,6 @@ function TracedLinesBox({
         // leeway needed otherwise does not fit properly
         `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
-
         // upArrow arrow
         `l ${upArrow.dx} ${-1 * upArrow.dy}`,
         `m ${-1 * upArrow.dx} ${upArrow.dy}`,
