@@ -148,54 +148,41 @@ function TracedLinesBox({
   </>;
 
   function FunctionArrow({call}) {
-    return (
-      <svg style={{width : TRACE_GRAPH.width * 2.5}}>
-        <path
-          d={`${genSVGPath(call).join(" ")}`} stroke="green" fill="transparent"
-          className={styles.thickPen}
-        />
-      </svg>
-    );
+    const targetOnTop = call.target < call.entry;
+    const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
 
-    /**
-    * @param {*} coords object with the starting line and all remaining ones
-    * @returns list of string of the path commands that can be joined with .join()
-    */
-    function genSVGPath(call) {
-      const targetOnTop = call.target < call.entry;
-      const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
-      const top = topArrowPath(call, height);
-      const bottom = bottomArrowPath(call, height);
-      
-      console.log("top:")
-      console.log(top.join(" "));
-
-      console.log("bottom:")
-      console.log(bottom.join(" "));
-
-      // return: arrow attached to from
-      if (call.return) {
-        return targetOnTop ? bottom : top;
-      }
-      
-      // non-return: arrow attatched to target
-      return targetOnTop ? top : bottom;
+    // return: arrow attached to from
+    if (call.return) {
+      return (<>
+        {
+          (targetOnTop) ?
+            <BottomArrow call={call} height={height} />
+          :
+            <TopArrow call={call} height={height} />
+        }
+      </>);
     }
 
+    return (<>
+      {
+        (targetOnTop) ?
+          <TopArrow call={call} height={height} />
+        :
+          <BottomArrow call={call} height={height} />
+      }
+    </>);
+      
     /**
      * Make an arrowhead pointing to the top line in the function graph
-     * @param {*} upArrow 
-     * @param {*} downArrow 
-     * @param {*} call 
      */
-    function topArrowPath(call, height) {
+    function TopArrow({call, height}) {
       const gradient = (-4 * TRACE_GRAPH.width) / (height);
       const theta = Math.abs(Math.atan(gradient));
 
       const top = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
       const bottom = new Delta(theta - TRACE_GRAPH.degree);
 
-      return [
+      const path = [
         `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // top arrow head
@@ -209,15 +196,21 @@ function TracedLinesBox({
         // parabola
         `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`
       ];
+
+      return (
+        <svg style={{width : TRACE_GRAPH.width * 2.5}}>
+          <path
+            d={path.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+        </svg>
+      );
     }
 
     /**
      * Make an arrowhead pointing to the bottom line in the function graph
-     * @param {*} upArrow 
-     * @param {*} downArrow 
-     * @param {*} call 
      */
-    function bottomArrowPath(call, height) {
+    function BottomArrow({call, height}) {
       const gradient = (4 * TRACE_GRAPH.width) / (height);
       const theta = Math.atan(gradient);
 
@@ -227,11 +220,15 @@ function TracedLinesBox({
       const beta = theta - TRACE_GRAPH.degree;
       const top = new Delta(beta);
       
-      return [
+      const parabola = [
         `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // parabola
         `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`,
+      ];
+
+      const arrowHead = [
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2) + height}`,
 
         // bottom
         `l ${-1 * bottom.dx} ${bottom.dy}`,
@@ -241,6 +238,19 @@ function TracedLinesBox({
         `l ${-1 * top.dx} ${-1 * top.dy}`,
         `m ${top.dx} ${top.dy}`
       ];
+
+      return (
+        <svg style={{width : TRACE_GRAPH.width * 2.5}}>
+          <path
+            d={parabola.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+          <path
+            d={arrowHead.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+        </svg>
+      );
     }
   }
 
