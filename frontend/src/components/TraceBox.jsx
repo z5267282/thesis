@@ -190,15 +190,15 @@ function TracedLinesBox({
       const bottom = new Delta(theta - TRACE_GRAPH.degree);
 
       return [
-        `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // top arrow head
-        `l ${top.dx} ${-1 * top.dy}`,
-        `m ${-1 * top.dx} ${top.dy}`,
+        `l ${-1 * top.dx} ${-1 * top.dy}`,
+        `m ${top.dx} ${top.dy}`,
 
         // bottom arrow head
-        `l ${bottom.dx} ${bottom.dy}`,
-        `m ${-1 * bottom.dx} ${-1 * bottom.dy}`,
+        `l ${-1 * bottom.dx} ${bottom.dy}`,
+        `m ${bottom.dx} ${-1 * bottom.dy}`,
 
         // parabola
         `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`
@@ -215,22 +215,25 @@ function TracedLinesBox({
       const gradient = (4 * TRACE_GRAPH.width) / (height);
       const theta = Math.atan(gradient);
 
-      const top = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
-      const bottom = new Delta(theta - TRACE_GRAPH.degree);
+      const alpha = Math.PI - TRACE_GRAPH.degree - theta;
+      const bottom = new Delta(alpha);
 
+      const beta = theta - TRACE_GRAPH.degree;
+      const top = new Delta(beta);
+      
       return [
-        `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // parabola
         `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`,
 
         // bottom
-        `l ${bottom.dx} ${bottom.dy}`,
-        `m ${-1 * bottom.dx} ${-1 * bottom.dy}`,
+        `l ${-1 * bottom.dx} ${bottom.dy}`,
+        `m ${bottom.dx} ${-1 * bottom.dy}`,
 
-        // upArrow arrow
-        `l ${top.dx} ${-1 * top.dy}`,
-        `m ${-1 * top.dx} ${top.dy}`
+        // top
+        `l ${-1 * top.dx} ${-1 * top.dy}`,
+        `m ${top.dx} ${top.dy}`
       ];
     }
   }
