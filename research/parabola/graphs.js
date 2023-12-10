@@ -4,7 +4,7 @@ const func = () => {
     path.classList.add("pen");
 
     const coords = [
-        "M 30 0",
+        "M 30 30",
         "q -60 12.5 0 25"
     ]
     path.setAttribute("d", coords.join(" "));
