@@ -163,8 +163,9 @@ function TracedLinesBox({
     */
     function genSVGPath(call) {
       const targetOnTop = call.target < call.entry;
+      const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
       const top = topArrowPath(call, height);
-      const bottom = bottomArrowPath(upArrow, downArrow, call, height);
+      const bottom = bottomArrowPath(call, height);
 
       // return: arrow attached to from
       if (call.return) {
@@ -182,7 +183,6 @@ function TracedLinesBox({
      * @param {*} call 
      */
     function topArrowPath(call, height) {
-      const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
       const gradient = (-4 * TRACE_GRAPH.width) / (height);
       const theta = Math.abs(Math.atan(gradient));
 
@@ -190,7 +190,6 @@ function TracedLinesBox({
       const bottom = new Delta(theta - TRACE_GRAPH.degree);
 
       return [
-        // leeway needed otherwise does not fit properly
         `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // top arrow head
@@ -212,21 +211,26 @@ function TracedLinesBox({
      * @param {*} downArrow 
      * @param {*} call 
      */
-    function bottomArrowPath(upArrow, downArrow, call, height) {
+    function bottomArrowPath(call, height) {
+      const gradient = (4 * TRACE_GRAPH.width) / (height);
+      const theta = Math.atan(gradient);
+
+      const top = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
+      const bottom = new Delta(theta - TRACE_GRAPH.degree);
+
       return [
-        // leeway needed otherwise does not fit properly
-        `M ${TRACE_GRAPH.width + 10} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+        `M ${TRACE_GRAPH.width} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
 
         // parabola
-        `q ${TRACE_GRAPH.width * -2} ${height / 2} 0 ${height}`,
+        `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`,
 
-        // downArrow arrow
-        `l ${downArrow.dx} ${downArrow.dy}`,
-        `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`,
+        // bottom
+        `l ${bottom.dx} ${bottom.dy}`,
+        `m ${-1 * bottom.dx} ${-1 * bottom.dy}`,
 
         // upArrow arrow
-        `l ${upArrow.dx} ${-1 * upArrow.dy}`,
-        `m ${-1 * upArrow.dx} ${upArrow.dy}`
+        `l ${top.dx} ${-1 * top.dy}`,
+        `m ${-1 * top.dx} ${top.dy}`
       ];
     }
   }
