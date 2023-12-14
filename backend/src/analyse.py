@@ -83,9 +83,9 @@ def trace_if(
     return None, []
 
 def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
-    """Filter out a sequence of while iterations into paths.
-    Return the unique execution paths taken within the loop as a list of Lines.
-    All lines in the path will have a counters added to them."""
+    """Split a while loop region into separate iterations.
+    Attach an appropriate Counter object to each Line object with its
+    iteration information."""
     all_paths : list[list[Line]] = []
     curr      : list[Line] = []
     for line in lines:
