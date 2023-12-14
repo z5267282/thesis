@@ -30,6 +30,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 rest = smart_trace(line_mapping, top_level_path[1:])
                 # use slice rather than index 0 to support list + operator
                 path = top_level_path[:1] + rest
+                # this relies on Line.__eq__ using the line number only
                 if path not in seen:
                     filtered.extend(path)
                     seen.append(path)
@@ -104,11 +105,9 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
     paths : list[list[Line]] = []
     n     : int = len(all_paths)
     for i, path in enumerate(all_paths, start=1):
-        # this relies on Line.__eq__ using the line number only
-        if path not in paths:
-            for line in path:
-                line.add_counter(i, n, while_)
+        for line in path:
+            line.add_counter(i, n, while_)
 
-            paths.append(path)
+        paths.append(path)
     
     return paths
