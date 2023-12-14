@@ -24,9 +24,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 filtered.append(won)
                 filtered.extend(smart_trace(line_mapping, rest))
         elif isinstance(block, WhileBlock): # pragma no branch
-            top_level_unique : list[list[Line]] = trace_while(region, block)
-            seen             : list[list[Line]] = []
-            for top_level_path in top_level_unique:
+            top_level_paths : list[list[Line]] = trace_while(region, block)
+            seen            : list[list[Line]] = []
+            for top_level_path in top_level_paths:
                 rest = smart_trace(line_mapping, top_level_path[1:])
                 # use slice rather than index 0 to support list + operator
                 path = top_level_path[:1] + rest
