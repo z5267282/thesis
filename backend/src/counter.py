@@ -33,7 +33,6 @@ class Counter:
         if self.while_.start == curr_line:
             self.start = index
             self.end = index + 1
-        
 
         self.start = index
         # note the lines should be in non-decreasing order
