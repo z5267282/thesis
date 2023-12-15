@@ -83,7 +83,7 @@ def parse_same_level_block(
 
     # this is the only other option
     # but for clarity we define the condition
-    if isinstance(block, (IfBlock, WhileBlock)): # pragma: no cover
+    if isinstance(block, (IfBlock, WhileBlock)): # pragma: no branch
         top.end_code_block(line_no - 1)
         top.add_same_level_block(block)
         stack.push(block)

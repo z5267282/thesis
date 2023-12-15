@@ -24,7 +24,7 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
                 if won is not None:
                     filtered.append(won)
                     filtered.extend(smart_trace(line_mapping, rest))
-            case WhileBlock():
+            case WhileBlock(): # pragma no branch
                 top_level_paths : list[list[Line]] = trace_while(region, block)
                 seen            : list[list[Line]] = []
                 for top_level_path in top_level_paths:
