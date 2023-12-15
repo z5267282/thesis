@@ -16,24 +16,25 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         line  : Line = lines[i]
         block : Type[Block] = line_mapping[line.line_no]
         region, offset = find_region(lines, block.end, i)
-        if isinstance(block, CodeBlock):
-            filtered.append(trace_code_block(region))
-        elif isinstance(block, IfBlock):
-            won, rest = trace_if(region, block)
-            if won is not None:
-                filtered.append(won)
-                filtered.extend(smart_trace(line_mapping, rest))
-        elif isinstance(block, WhileBlock): # pragma no branch
-            top_level_paths : list[list[Line]] = trace_while(region, block)
-            seen            : list[list[Line]] = []
-            for top_level_path in top_level_paths:
-                rest = smart_trace(line_mapping, top_level_path[1:])
-                # use slice rather than index 0 to support list + operator
-                path = top_level_path[:1] + rest
-                # this relies on Line.__eq__ using the line number only
-                if path not in seen:
-                    filtered.extend(path)
-                    seen.append(path)
+        match block:
+            case CodeBlock():
+                filtered.append(trace_code_block(region))
+            case IfBlock():
+                won, rest = trace_if(region, block)
+                if won is not None:
+                    filtered.append(won)
+                    filtered.extend(smart_trace(line_mapping, rest))
+            case WhileBlock():
+                top_level_paths : list[list[Line]] = trace_while(region, block)
+                seen            : list[list[Line]] = []
+                for top_level_path in top_level_paths:
+                    rest = smart_trace(line_mapping, top_level_path[1:])
+                    # use slice rather than index 0 to support list + operator
+                    path = top_level_path[:1] + rest
+                    # this relies on Line.__eq__ using the line number only
+                    if path not in seen:
+                        filtered.extend(path)
+                        seen.append(path)
 
         i = offset
     
