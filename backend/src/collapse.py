@@ -6,9 +6,10 @@ from helper import uniq
 from line import Line
 from tree import Block, BodyBlock
 
+
 def collapse(
     line_graph : list[Line], program : OrderedDict[int, str], root : BodyBlock
-):
+) -> tuple[list[str], list[int | None], list[int]]:
     """Collapse a program by showing indentation levels which have been
     executed.
     Return the lines of code, line numbers and rest of path indices as 
@@ -42,10 +43,10 @@ def collapse(
 
     return code, lines, [ indexed_lines[g] for g in graph ]
 
-def parse_line(line : int, program : OrderedDict[int, str]):
-    result = program[line][LEADING_SPACES:]
+def parse_line(line : int, program : OrderedDict[int, str]) -> str:
+    result : str = program[line][LEADING_SPACES:]
     return result[:-1] if result and result[-1] == '\n' else result
 
-def parse_blank(line : int, line_mapping : dict[int, Type["Block"]]):
+def parse_blank(line : int, line_mapping : dict[int, Type["Block"]]) -> str:
     indent_level : int = line_mapping[line].indent_level
     return "{}{}".format(" " * (indent_level - LEADING_SPACES), ELLIPSE)
