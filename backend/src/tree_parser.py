@@ -6,7 +6,7 @@ from stack import Stack
 from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
-def parse(program : Callable):
+def parse(program : Callable) -> BodyBlock:
     code : dict[int, str] = helper.get_code_info(program)
     root, stack, prev_indent, line_no = init_state()
     for line_no, line_contents in code.items():
@@ -36,7 +36,7 @@ def parse(program : Callable):
     parse_last_line(last, stack)
     return root
 
-def init_state():
+def init_state() -> tuple[BodyBlock, Stack[BodyBlock], int, int]:
     root        : BodyBlock = None
     stack       : Stack[BodyBlock] = Stack()
     prev_indent : int = None
@@ -45,7 +45,7 @@ def init_state():
 
 def parse_first_line(
     line : str, line_no : int, indent_level : int, stack : Stack[BodyBlock]
-):
+) -> BodyBlock:
     """Parse the first line in the program.
     Return the root of the tree and a stack with it."""
     first_block : Type[Block] = parse_line(line, line_no, indent_level)
@@ -59,7 +59,7 @@ def parse_first_line(
     root.add_same_level_block(first_block)
     return root
 
-def parse_line(line : str, line_no : int, indent_level : int):
+def parse_line(line : str, line_no : int, indent_level : int) -> Type[Block]:
     if line.startswith("if"):
         return IfBlock(line_no, indent_level)
     if line.startswith("while"):
@@ -70,14 +70,14 @@ def parse_line(line : str, line_no : int, indent_level : int):
         return ElseBlock(line_no, indent_level)
     return CodeBlock(line_no, indent_level)
 
-def is_skipable(line : str):
+def is_skipable(line : str) -> bool:
     """check whether a line stripped of leading spaces is a comment or blank."""
     return line == "" or line.startswith("#")
 
 def parse_same_level_block(
     block : Type[Block], line_no : int, top : Type[BodyBlock],
     stack : Stack[BodyBlock]
-):
+) -> None:
     if isinstance(block, CodeBlock):
         return
 
@@ -92,12 +92,12 @@ def parse_same_level_block(
 
 def parse_indented_block(
     block : Type[Block], top : Type[BodyBlock], stack : Stack[BodyBlock]
-):
+) -> None:
     handle_stack_indentation_change(block, top, stack)
 
 def handle_stack_indentation_change(
     block : Type[Block], top : Type[BodyBlock], stack : Stack[BodyBlock]
-):
+) -> None:
     """Manage a new Block on the stack when indentation changes.
     Assume that if the Block introduces indentation it cannot be a branch
     (ie. not an Elif or an Else)."""
@@ -110,7 +110,7 @@ def handle_stack_indentation_change(
 def parse_unindented_block(
     block : Type[Block], line_no : int, indent_level : int,
     top : Type[BodyBlock], stack : Stack[BodyBlock],
-):
+) -> None:
     prev : int = line_no - 1
     top.end_code_block(prev)
     top = unwind_indentations(top, stack, indent_level, prev)
@@ -131,7 +131,7 @@ def parse_unindented_block(
 def unwind_indentations(
     top : Type[BodyBlock], stack : Stack[BodyBlock],
     indent_level : int, prev : int
-):
+) -> Type[BodyBlock]:
     """Pop off stack until a block with the same indentation level is found.
     Assume consistent indentation levels have been followed.
     In summary, ends all indents inside the current level.
@@ -141,14 +141,14 @@ def unwind_indentations(
         top = stack.pop_peek()
     return top
 
-def is_branch(block : Type[BodyBlock]):
+def is_branch(block : Type[BodyBlock]) -> bool:
     """Check whether a BodyBlock is a branch of a parent if."""
     return isinstance(block, (ElifBlock, ElseBlock))
 
 def add_branch(
     block : ElifBlock | ElseBlock, prev : int,
     top : Type[BodyBlock], stack : Stack[BodyBlock]
-):
+) -> None:
     """Add an elif or else to a parent if branch.
     The parent if will either be the first or second thing on the stack."""
     if isinstance(top, ElifBlock):
@@ -163,7 +163,7 @@ def add_branch(
 def end_conditional(
     top : IfBlock | ElifBlock | ElseBlock, top_is_branch : bool,
     prev : int, stack : Stack[BodyBlock]
-):
+) -> IfBlock | ElifBlock | ElseBlock:
     """End an entire parent if block stored near the top of the stack.
     Return the new root.
     """
@@ -181,10 +181,10 @@ def end_conditional(
     # there were reference issues when the top wasn't being returned
     return top
 
-def calculate_last_line(code : OrderedDict[int, str]):
+def calculate_last_line(code : OrderedDict[int, str]) -> int:
     return next(reversed(code))
 
-def parse_last_line(last : int, stack : Stack[BodyBlock]):
+def parse_last_line(last : int, stack : Stack[BodyBlock]) -> None:
     top : Type[BodyBlock] = stack.peek()
     top.end_code_block(last)
     while not stack.empty():
