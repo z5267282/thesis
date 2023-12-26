@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Any
+from typing import Any, Callable
 
 from counter import Counter
 from tree import WhileBlock
@@ -29,14 +29,14 @@ class Line:
         return ", ".join(str(line.line_no) for line in lines)
     
     def long_str(self) -> str:
-        delim = ",\n{}".format(" " * 8)
+        delim    : str = ",\n{}".format(" " * 8)
         counters : str = """
         {}
     """.format(
             delim.join(str(counter) for counter in self.counters)
         ) if self.counters else ""
 
-        dict_to_str = lambda dic: ", ".join(
+        dict_to_str : Callable = lambda dic: ", ".join(
             f"{key} : {value}" for key, value in dic.items()
         )
 
