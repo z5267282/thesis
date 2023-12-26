@@ -5,7 +5,9 @@ from typing import Type
 from line import Line
 from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
 
-def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
+def smart_trace(
+    line_mapping : dict[int, Type[Block]], lines : list[Line]
+) -> list[Line]:
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
     Decompose lines into regions of CodeBlocks, IfBlocks or WhileBlocks."""
@@ -40,7 +42,9 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
     
     return filtered
 
-def find_region(lines : list[Line], end : int, start : int):
+def find_region(
+    lines : list[Line], end : int, start : int
+) -> tuple[list[Line], int]:
     """Return a region and the next line in lines to go to"""
     region : list[Line] = []
     i      : int = start
@@ -50,7 +54,7 @@ def find_region(lines : list[Line], end : int, start : int):
 
     return region, i
 
-def trace_code_block(lines: list[Line]):
+def trace_code_block(lines: list[Line]) -> Line:
     """Return the end of a CodeBlock"""
     last : Line = lines[-1]
     return last
