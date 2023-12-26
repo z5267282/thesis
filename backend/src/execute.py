@@ -7,7 +7,7 @@ from state import State
 from types import FrameType
 from typing import Any, Callable
 
-def trace_program(program : Callable):
+def trace_program(program : Callable) -> tuple[list[Line], Line]:
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
@@ -17,7 +17,7 @@ def trace_program(program : Callable):
     printed : State[str] = State("", curr="")
     # this is meant to be updated when the last line is found
     last    : Line = Line(-1)
-    def wrapper(frame : FrameType, event : str, arg : Any):
+    def wrapper(frame : FrameType, event : str, arg : Any) -> Callable:
         trace_line(frame, event, arg, lines, output, buffer, printed, last)
         return wrapper
 
@@ -31,7 +31,7 @@ def trace_program(program : Callable):
 def trace_line(
     frame : FrameType, event : str, _ : Any, lines : list[Line],
     output : list[str], buffer : StringIO, printed : State, last : Line
-):
+) -> None:
     if event != "line" and event != "return":
         return
 
@@ -58,7 +58,7 @@ def trace_line(
             last.line_no = frame.f_lineno
             last.fix_lag(output, variables)
 
-def string_diff(prev : str, curr : str):
+def string_diff(prev : str, curr : str) -> str:
     """Given that prev is a prefix of curr, obtain the difference:
     curr - prev"""
     return curr[len(prev):]
