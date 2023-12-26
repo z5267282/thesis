@@ -119,7 +119,7 @@ class IfBlock(ConditionalBlock):
         self.else_ : None | ElseBlock = None
 
     def to_dict(self) -> dict[str, Any]:
-        parent = super().to_dict()
+        parent : dict[str, Any] = super().to_dict()
         parent[self.__class__.__name__]["elifs"] = [
             el.to_dict() for el in self.elifs
         ]

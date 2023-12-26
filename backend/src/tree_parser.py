@@ -49,7 +49,7 @@ def parse_first_line(
     """Parse the first line in the program.
     Return the root of the tree and a stack with it."""
     first_block : Type[Block] = parse_line(line, line_no, indent_level)
-    root = BodyBlock(line_no, indent_level)
+    root        : BodyBlock = BodyBlock(line_no, indent_level)
     stack.push(root)
     if isinstance(first_block, (IfBlock, WhileBlock)):
         stack.push(first_block)
