@@ -31,7 +31,9 @@ def analyse() -> tuple[Response, str | Literal[HTTPStatus.BAD_REQUEST]]:
     write_dataframes(as_dicts)
     return jsonify(as_dicts)
 
-def program_errors(raw_code : str) -> Union[str | Literal[HTTPStatus.BAD_REQUEST], None]:
+def program_errors(
+    raw_code : str
+) -> Union[str | Literal[HTTPStatus.BAD_REQUEST], None]:
     """Check the given raw code for any errors.
     Return None if there were no errors.
     Otherwise return a tuple of error desciprtion and status code."""
@@ -82,7 +84,9 @@ def sanity(raw_code : str) -> CompletedProcess:
         )
     return sanity 
 
-def gen_insane_response(insane : CompletedProcess) -> tuple[str, Literal[HTTPStatus.BAD_REQUEST]]:
+def gen_insane_response(
+    insane : CompletedProcess
+) -> tuple[str, Literal[HTTPStatus.BAD_REQUEST]]:
     desc : list[str] = [
         "Your program could not be run.",
         "There is likely a syntax error in the code",
