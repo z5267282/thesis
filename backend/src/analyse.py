@@ -3,24 +3,7 @@ from copy import copy, deepcopy
 from typing import Type
 
 from line import Line
-from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock, FunctionBlock
-
-def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Line]]):
-    """Run smart trace on all contiguous function sections"""
-    filtered : list[list[Line]] = []
-    for i, curr in enumerate(lines):
-        # remove the call to program()
-        # we don't do this in execute() in case it is needed later
-        if i == 0:
-            # do this rather than .pop() to preserve the original first line
-            curr = curr[1:]
-
-        last : Line = curr[-1]
-        region, return_ = curr, []
-        if last.event == "return":
-            region, return_ = curr[:-1], [last]
-        filtered.append(smart_trace(line_mapping, region) + return_)
-    return filtered
+from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
 
 def smart_trace(
     line_mapping : dict[int, Type[Block]], lines : list[Line]
@@ -133,6 +116,3 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
         paths.append(path)
     
     return paths
-
-def trace_function_call(lines : list[Line]):
-    return lines[0], lines[1:]

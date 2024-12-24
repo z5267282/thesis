@@ -8,23 +8,19 @@ from tree import Block, BodyBlock
 
 
 def collapse(
-    line_graph : list[Line], prev_context : list[Line],
-    program : OrderedDict[int, str], root : BodyBlock
-):
+    line_graph : list[Line], program : OrderedDict[int, str], root : BodyBlock
+) -> tuple[list[str], list[int | None], list[int]]:
     """Collapse a program by showing indentation levels which have been
     executed.
     Return the lines of code, line numbers and rest of path indices as 
-    per the data frame specification and a dictionary containing a mapping for where a raw line maps to in the filtered set"""
+    per the data frame specification."""
     show : OrderedDict[int, bool] = OrderedDict(
         (line, False) for line in range(root.start, root.end + 1)
     )
 
-    graph : list[int] = Line.to_ints(line_graph)
-    prev  : list[int] = Line.to_ints(prev_context)
+    graph : list[int] = [ line.line_no for line in line_graph ]
 
     root.show_lines(graph, show)
-    root.show_lines(prev, show)
-
     filtered : OrderedDict[int, bool] = uniq(show)
 
     for line in line_graph:
@@ -36,7 +32,7 @@ def collapse(
     }
 
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    code : list[str] = [
+    code         : list[str] = [
         parse_line(line, program) if shown \
         else parse_blank(line, line_mapping) \
         for line, shown in filtered.items()
@@ -45,7 +41,7 @@ def collapse(
         line if shown else None for line, shown in filtered.items()
     ]
 
-    return code, lines, [ indexed_lines[g] for g in graph ], indexed_lines
+    return code, lines, [ indexed_lines[g] for g in graph ]
 
 def parse_line(line : int, program : OrderedDict[int, str]) -> str:
     result : str = program[line][LEADING_SPACES:]

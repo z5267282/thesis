@@ -10,9 +10,7 @@ export const TRACE_GRAPH = {
   // from arrow tangent
   degree : Math.PI / 6,
   // of arrow head
-  length : 15,
-  // offset for function call arrows
-  offset : 7.5 
+  length : 15
 };
 
 export const EDITOR_TAB_SPACES = 4;
