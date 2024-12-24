@@ -1,12 +1,8 @@
-from collections import OrderedDict
-from copy import copy, deepcopy
+from copy import deepcopy
 from io import StringIO
 import sys
-from types import FunctionType
 
-from helper import get_code_info, get_stripped_line
 from line import Line
-from stack import Stack
 from state import State
 from types import FrameType
 from typing import Any, Callable
@@ -16,17 +12,13 @@ def trace_program(program : Callable) -> tuple[list[Line], Line]:
     Return a list of Line objects representing the program's raw execution
     path."""
     buffer  : StringIO = StringIO()
-    lines   : list[list[Line]] = []
-    curr    : list[Line] = []
-    # this should have been an argument but not good to change function parameters now
-    code    : OrderedDict[int, str] = get_code_info(program)
+    lines   : list[Line] = []
     output  : list[str] = []
     printed : State[str] = State("", curr="")
-    # singleton if a last line exists
-    last    : list[Line] = [None]
-
-    def wrapper(frame : FrameType, event : str, arg : Any):
-        trace_line(frame, event, arg, lines, curr, code, output, buffer, printed, last)
+    # this is meant to be updated when the last line is found
+    last    : Line = Line(-1)
+    def wrapper(frame : FrameType, event : str, arg : Any) -> Callable:
+        trace_line(frame, event, arg, lines, output, buffer, printed, last)
         return wrapper
 
     sys.stdout = buffer
@@ -34,100 +26,39 @@ def trace_program(program : Callable) -> tuple[list[Line], Line]:
     program()
     sys.settrace(None)
     sys.stdout = sys.__stdout__
-
-    fix_states(lines)
-    # the last line needs the output after the program ends
-    lines[-1][-1].output = [buffer.getvalue()]
-    return lines
+    return lines, last
 
 def trace_line(
-    frame : FrameType, event : str, _ : Any, lines : list[list[Line]],
-    curr : list[Line], code : OrderedDict[int, str],
-    output : list[str], buffer : StringIO, printed : State, last : list[Line]
-):
-    # when we call a function that indicates we should start a new subsection in tracing
-    match event:
-        case "line":
-            # ignore the execution of function definitions as statements
-            if get_stripped_line(code[frame.f_lineno]).startswith("def"):
-                return
-        case "call":
-            # we should ignore the first run line - this is the call to program()
-            if frame.f_lineno != 1:
-                add_func_subsection(lines, curr)
-            # need to do stuff for return, but it happens after the line has been registered
-        case "return":
-            pass
-        case _:
-            return
+    frame : FrameType, event : str, _ : Any, lines : list[Line],
+    output : list[str], buffer : StringIO, printed : State, last : Line
+) -> None:
+    if event != "line" and event != "return":
+        return
 
     # state related steps
-    raw_variables : dict[str, Any] = deepcopy(frame.f_locals)
-    variables     : dict[str, Any] = {
-        var : value for var, value in raw_variables.items() \
-            if not isinstance(value, FunctionType) 
-    }
-
+    variables : dict[str, Any] = deepcopy(frame.f_locals)
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
 
     if diff:
         output.append(diff)
-    
+
     # manage previous state
     # note a "previous" state needs to exist (ie. line > starting)
-    if last[0]:
-        last[0].output.extend(output)
-
-    line : Line = Line(frame.f_lineno, event, variables)
-    curr.append(line)
-    if event == "return":
-        add_func_subsection(lines, curr)
+    if lines:
+        lines[-1].fix_lag(output, variables)
     
-    last[0] = line
-    
-def add_func_subsection(lines : list[list[Line]], curr : list[Line]):
-    """Add a contiguous subsection of a execution within a function.
-    This could be:
-        - [call, ...]
-        - [..., return], [...]
-        - [...], [call, ...]
-    """
-    lines.append(copy(curr))
-    curr.clear()
+    match event:
+        case "line":
+            lines.append(
+                Line(frame.f_lineno, variables=variables)
+            )
+        case "return":
+            last.line_no = frame.f_lineno
+            last.fix_lag(output, variables)
 
 def string_diff(prev : str, curr : str) -> str:
     """Given that prev is a prefix of curr, obtain the difference:
     curr - prev"""
     return curr[len(prev):]
-
-def fix_states(lines : list[list[Line]]):
-    """Fix the program state recorded in each Line object.
-    sys.settrace runs when a line is entered, not left so state lags behind.
-    Account for this between function call regions as well."""
-    # the last run line in the current function region
-    # want to be able to modify by reference so use singleton lists
-    calls : Stack[list[Line]] = Stack()
-    for region in lines:
-        for curr in region:
-            match curr.event:
-                case "call":
-                    calls.push([])
-                case "return":
-                    calls.pop()
-                case _:
-                    fix_line(curr, calls)
-
-def fix_line(curr : Line, calls : Stack[list[Line]]):
-    """Give the state of the current line to the one before"""
-    # if there is something inside the singleton list, it is the last run line
-    top : list[Line] = calls.peek()
-    # we are on the line just after the call
-    # no state has been updated so we can't fix anything yet
-    if not top:
-        top.append(curr)
-        return
-
-    top[0].variables = curr.variables
-    top[0] = curr

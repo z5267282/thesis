@@ -1,9 +1,15 @@
 #!/bin/zsh
 
+# usage: cov [ -[n]o execute tests ]
+
+# tests not involving execute
 pytest \
-    tests/function_calls \
     --cov=src \
     --ignore=tests/execute \
     --cov-report=html \
     --cov-branch \
     --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage
+
+[ "$1" = '-o' ] && exit 0
+
+./test-execute

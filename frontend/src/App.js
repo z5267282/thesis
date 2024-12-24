@@ -49,7 +49,6 @@ export default function App() {
               index={index} total={frames.length}
               changeIndex={changeIndex} disablePrev={disablePrev} disableNext={disableNext}
               showTrace={showTrace}
-              call={dataFrame.call}
             />
             <span className={styles.outputs}>
               <EvalBox evallines={dataFrame.evalbox} />
@@ -84,14 +83,6 @@ function RestrictionsModal({open, closeModal}) {
         </li>
         <li>Programs must work and run in under 1 second</li>
         <li>Variables must be one of the following primitive datatypes: <code>str</code>, <code>int</code>, <code>bool</code></li>
-        <li>
-          Function calls are permitted with the following restrictions:
-          <ol type="i">
-            <li>No recursion</li>
-            <li>Functions cannot be called inside <code>while</code> loops</li>
-            <li>Functions cannot be called on the condition line of an <code>if</code>, <code>elif</code> or <code>while</code></li>
-          </ol>
-        </li>
       </ol>
     </DialogContent>
   </Dialog>

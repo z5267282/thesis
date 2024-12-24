@@ -29,10 +29,6 @@ class Stack(Generic[T]):
         Method according to the documentation here:
         https://docs.python.org/3/library/collections.html#collections.deque"""
         return self.items[-1]
-    
-    def peek_peek(self):
-        """Retrieve the second to the top stack item without popping any items"""
-        return self.items[-2]
 
     def pop(self) -> T:
         """Remove the top item and return it"""
