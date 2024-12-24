@@ -13,14 +13,34 @@ Programs are restricted to the following syntax features:
 3. Conditionals
 4. While loops
 
-# Environments
+# Usage
 
-Environment variable `REACT_APP_HOST` controls configuration settings about the application.
-It can have two possible values:
+## Remote
 
-| value    | implications                                                                                          |
-| -------- | ----------------------------------------------------------------------------------------------------- |
-| `LOCAL`  | The app is configured to run locally                                                                  |
-| `REMOTE` | The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/) |
+A remote deploy of the tool can be found [here](https://focus-tracker.netlify.app/).
 
-If the environment variable is not set, then `LOCAL` is used.
+## Local Installation
+
+It is expected that the following utilities are installed on your system
+
+```
+python3
+npm
+```
+
+. Simply run
+
+```sh
+./install
+```
+
+to install all necessary dependencies.
+
+For the front end and back end, navigate to the `frontend` and `backend` folders respectively in separate terminals, and run the following commands to start the tool
+
+| component | command     |
+| --------- | ----------- |
+| frontend  | `npm start` |
+| backend   | `start`     |
+
+.
