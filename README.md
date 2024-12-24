@@ -19,7 +19,7 @@ Programs are restricted to the following syntax features:
 
 A remote deploy of the tool can be found [here](https://focus-tracker.netlify.app/).
 
-## Local Installation
+## Local Set Up
 
 It is expected that the following utilities are installed on your system
 
@@ -31,7 +31,7 @@ npm
 . Simply run
 
 ```sh
-./install
+./setup
 ```
 
 to install all necessary dependencies.
