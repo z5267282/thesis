@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import copy, deepcopy
 
 from typing import Type
 
@@ -22,7 +22,9 @@ def smart_trace_all(line_mapping : dict[int, Type[Block]], lines : list[list[Lin
         filtered.append(smart_trace(line_mapping, region) + return_)
     return filtered
 
-def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
+def smart_trace(
+    line_mapping : dict[int, Type[Block]], lines : list[Line]
+) -> list[Line]:
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
     Decompose lines into regions of CodeBlocks, IfBlocks or WhileBlocks."""
@@ -33,34 +35,33 @@ def smart_trace(line_mapping : dict[int, Type[Block]], lines : list[Line]):
         line  : Line = lines[i]
         block : Type[Block] = line_mapping[line.line_no]
         region, offset = find_region(lines, block.end, i)
-        if isinstance(block, CodeBlock):
-            filtered.append(trace_code_block(region))
-        elif isinstance(block, IfBlock):
-            won, rest = trace_if(region, block)
-            if won is not None:
-                filtered.append(won)
-                filtered.extend(smart_trace(line_mapping, rest))
-        elif isinstance(block, WhileBlock):
-            top_level_unique : list[list[Line]] = trace_while(region, block)
-            seen             : list[list[Line]] = []
-            for top_level_path in top_level_unique:
-                rest = smart_trace(line_mapping, top_level_path[1:])
-                # use slice rather than index 0 to support list + operator
-                path = top_level_path[:1] + rest
-                if path not in seen:
-                    filtered.extend(path)
-                    seen.append(path)
-        elif isinstance(block, FunctionBlock): # pragma no branch
-            # this will only be on the call line
-            call, rest = trace_function_call(region)
-            filtered.append(call)
-            filtered.extend(smart_trace(line_mapping, rest))
+        match block:
+            case CodeBlock():
+                filtered.append(trace_code_block(region))
+            case IfBlock():
+                won, rest = trace_if(region, block)
+                if won is not None:
+                    filtered.append(won)
+                    filtered.extend(smart_trace(line_mapping, rest))
+            case WhileBlock(): # pragma no branch
+                top_level_paths : list[list[Line]] = trace_while(region, block)
+                seen            : list[list[Line]] = []
+                for top_level_path in top_level_paths:
+                    rest = smart_trace(line_mapping, top_level_path[1:])
+                    # use slice rather than index 0 to support list + operator
+                    path = top_level_path[:1] + rest
+                    # this relies on Line.__eq__ using the line number only
+                    if path not in seen:
+                        filtered.extend(path)
+                        seen.append(path)
 
         i = offset
     
     return filtered
 
-def find_region(lines : list[Line], end : int, start : int):
+def find_region(
+    lines : list[Line], end : int, start : int
+) -> tuple[list[Line], int]:
     """Return a region and the next line in lines to go to"""
     region : list[Line] = []
     i      : int = start
@@ -70,7 +71,7 @@ def find_region(lines : list[Line], end : int, start : int):
 
     return region, i
 
-def trace_code_block(lines: list[Line]):
+def trace_code_block(lines: list[Line]) -> Line:
     """Return the end of a CodeBlock"""
     last : Line = lines[-1]
     return last
@@ -104,9 +105,9 @@ def trace_if(
     return None, []
 
 def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
-    """Filter out a sequence of while iterations into paths.
-    Return the unique execution paths taken within the loop as a list of Lines.
-    All lines in the path will have a counters added to them."""
+    """Split a while loop region into separate iterations.
+    Attach an appropriate Counter object to each Line object with its
+    iteration information."""
     all_paths : list[list[Line]] = []
     curr      : list[Line] = []
     for line in lines:
@@ -114,7 +115,7 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
         # must make sure we're not on the first line of the whole while
         # this ensures the last check which fails the while is not run
         if line.line_no == while_.start and curr:
-            all_paths.append(deepcopy(curr))
+            all_paths.append(copy(curr))
             curr.clear()
 
         curr.append(line)
@@ -126,12 +127,10 @@ def trace_while(lines : list[Line], while_ : WhileBlock) -> list[list[Line]]:
     paths : list[list[Line]] = []
     n     : int = len(all_paths)
     for i, path in enumerate(all_paths, start=1):
-        # this relies on Line.__eq__ using the line number only
-        if path not in paths:
-            for line in path:
-                line.add_counter(i, n, while_)
+        for line in path:
+            line.add_counter(i, n, while_)
 
-            paths.append(path)
+        paths.append(path)
     
     return paths
 

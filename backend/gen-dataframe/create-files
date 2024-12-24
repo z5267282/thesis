@@ -1,8 +1,23 @@
 #!/bin/dash
 
-src='../demo'
-dst='../tests/execute/integration/demo'
+src='../test-questions-2'
+dst='../tests/execute/integration/ui_2'
 for t in $src/*.py
 do
-    
+    tname="test_$(basename "$t" | tr - _ | sed -E 's/\.py$//')"
+    target="$dst/$tname.py"
+
+    sed -E \
+        -e 's/^/    /' \
+        -e '1i\
+def program():' \
+    "$t" > "$target"
+    cat << EOF >> "$target"
+
+from dataframe import DataFrame
+from generate import generate_dataframes
+
+def $tname():
+    assert DataFrame.to_dicts(generate_dataframes(program)) == []
+EOF
 done

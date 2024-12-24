@@ -14,7 +14,7 @@ class Paths:
     to_python       : list[str] = ["gen-dataframe", "to-py"]
     as_python       : list[str] = ["gen-dataframe", "generated.py"]
 
-    def __getattribute__(self, path : str):
+    def __getattribute__(self, path : str) -> str:
         original  : list[str] = super().__getattribute__(path)
         host_path : list[str] = (
             ["focus-tracker"] if os.getenv("REACT_APP_HOST") == "REMOTE"

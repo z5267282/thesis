@@ -16,7 +16,7 @@ from state import State
 from tree import Block, BodyBlock
 from tree_parser import parse
 
-def generate_dataframes(program : Callable):
+def generate_dataframes(program : Callable) -> list[DataFrame]:
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
     all_lines       : list[list[Line]] = trace_program(program)
@@ -28,7 +28,6 @@ def generate_dataframes(program : Callable):
     line_mapping : dict[int, Type[Block]] = root.map_lines()
     filtered     : list[list[Line]] = smart_trace_all(line_mapping, all_lines)
     program_code : OrderedDict[int, str] = get_code_info(program)
-
     # we manually take out the pre dataframe (ie. the call to program())
     # so manually genertate it here
     frames = [ generate_pre_dataframe(program_code, root) ]
@@ -135,7 +134,15 @@ def generate_dataframe(
         curr.output, path, indexed[start], curr.counters, evalbox, call
     )
 
-def adjust_lines(lines):
+def generate_evalbox(line : str, variables : dict[str, Any]) -> str:
+    """Given a line with a conditional expression, expand it from a mapping
+    of variable values."""
+    raw_line        : str = get_stripped_line(line)
+    no_control_flow : str = re.sub(r"^[a-z]+\s+", "", raw_line)
+    expression      : str = re.sub(r":[^:]*$", "", no_control_flow)
+    return evaluate(expression, variables)
+
+def adjust_lines(lines) -> list[str]:
     """Adjust line numbers so they are displayed correctly.
     Collapsed lines should be represented by an empty string.
     Line numbers should start from 1."""

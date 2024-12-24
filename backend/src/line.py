@@ -15,30 +15,30 @@ class Line:
         self.counters  : list[Counter] = []
         self.event     : str = event
     
-    def __repr__(self): # pragma: no cover
+    def __repr__(self) -> str: # pragma: no cover
         """Return a simple representation to assist with debugging asserts."""
         return str(self.line_no)
     
     def __eq__(self, other : "Line"):
         return self.line_no == other.line_no and self.event == other.event
 
-    def __ne__(self, other : "Line"):
+    def __ne__(self, other : "Line") -> bool:
         return not self == other
     
     @staticmethod
-    def display_lines(lines : list["Line"]): # pragma: no cover
+    def display_lines(lines : list["Line"]) -> str: # pragma: no cover
         """A debugging method to format a list of lines for printing"""
         return ", ".join(str(line.line_no) for line in lines)
     
-    def long_str(self):
-        delim = ",\n{}".format(" " * 8)
+    def long_str(self) -> str:
+        delim    : str = ",\n{}".format(" " * 8)
         counters : str = """
         {}
     """.format(
             delim.join(str(counter) for counter in self.counters)
         ) if self.counters else ""
 
-        dict_to_str = lambda dic: ", ".join(
+        dict_to_str : Callable = lambda dic: ", ".join(
             f"{key} : {value}" for key, value in dic.items()
         )
 
@@ -51,11 +51,20 @@ class Line:
     def to_ints(lines : list["Line"]):
         """Extract the line numbers from a list of lines"""
         return [ line.line_no for line in lines ]
+
+    def fix_lag(self, output : list[str], variables : dict[str, Any]) -> None:
+        """Fix a line so that it has the right state.
+        This is based on the limitaton of sys.settrace which runs lines
+        as they are entered, not as they are left."""
+        self.output.extend(output)
+        self.variables.update(variables)
     
-    def add_counter(self, iteration : int, total : int, while_ : WhileBlock):
+    def add_counter(
+        self, iteration : int, total : int, while_ : WhileBlock
+    ) -> None:
         """Add a counter of an increased depth"""
         self.counters.append(Counter(iteration, total, while_))
     
-    def range_filter_counters(self, filtered : OrderedDict[int, bool]):
+    def range_filter_counters(self, filtered : OrderedDict[int, bool]) -> None:
         for counter in self.counters:
             counter.find_filtered_range(filtered, self.line_no)

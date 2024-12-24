@@ -4,36 +4,37 @@ from tree import WhileBlock
 
 class Counter:
     """A dataclass to store counter information"""
-    def __init__(self, iteration : int, total : int, while_ : WhileBlock):
+    def __init__(
+        self, iteration : int, total : int, while_ : WhileBlock
+    ) -> None:
         self.iteration : int = iteration
         self.total     : int = total
         self.while_    : WhileBlock = while_
         self.start     : int | None = None
         self.end       : int | None = None
     
-    def __str__(self):
+    def __str__(self) -> str:
         return f"({self.iteration}/{self.total}) : {self.while_}"
     
-    def __eq__(self, other : "Counter"):
+    def __eq__(self, other : "Counter") -> bool:
         return self.iteration == other.iteration and self.total == other.total
 
-    def __ne__(self, other : "Counter"):
+    def __ne__(self, other : "Counter") -> bool:
         return not self == other
 
     def find_filtered_range(
         self, filtered : OrderedDict[int, bool], curr_line : int
-    ):
+    ) -> None:
         """Set the start and ending ranges for a counter if it appears in a
         line filtering."""
-        keys = list(filtered)
-        index = keys.index(self.while_.start)
+        keys  : list[int] = list(filtered)
+        index : int = keys.index(self.while_.start)
         
         # we are current executing the while the counter is tracking
         # display statistics info
         if self.while_.start == curr_line:
             self.start = index
             self.end = index + 1
-        
 
         self.start = index
         # note the lines should be in non-decreasing order
@@ -49,12 +50,12 @@ class Counter:
         # possible that self.start is None, but not self.end
         # this will be considered invalid later
 
-    def has_valid_range(self):
+    def has_valid_range(self) -> bool:
         if self.start is None or self.end is None:
             return False
         return True
     
-    def to_dict(self):
+    def to_dict(self) -> dict[str, int]:
         return {
             "start"       : self.start,
             "end"         : self.end,

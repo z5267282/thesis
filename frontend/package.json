@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "node start.js",
+    "remote": "node start.js remote",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

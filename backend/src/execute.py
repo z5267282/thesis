@@ -11,7 +11,7 @@ from state import State
 from types import FrameType
 from typing import Any, Callable
 
-def trace_program(program : Callable):
+def trace_program(program : Callable) -> tuple[list[Line], Line]:
     """Get the execution path of a program with state information at each line.
     Return a list of Line objects representing the program's raw execution
     path."""
@@ -97,7 +97,7 @@ def add_func_subsection(lines : list[list[Line]], curr : list[Line]):
     lines.append(copy(curr))
     curr.clear()
 
-def string_diff(prev : str, curr : str):
+def string_diff(prev : str, curr : str) -> str:
     """Given that prev is a prefix of curr, obtain the difference:
     curr - prev"""
     return curr[len(prev):]

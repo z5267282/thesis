@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Type
+from typing import Callable, Type
 
 from line import Line
 from stack import Stack
@@ -7,7 +7,7 @@ from tree import Block, WhileBlock
 
 def generate_graphs(
     filtered : list[Line], line_mapping : dict[int, Type[Block]]
-):
+) -> list[list[Line]]:
     top_level : list[Line] = []
     whiles    : Stack[While] = Stack()
     return [
@@ -17,7 +17,7 @@ def generate_graphs(
     ]
 
 class While:
-    def __init__(self, node : WhileBlock, called : Line):
+    def __init__(self, node : WhileBlock, called : Line) -> None:
         self.node   : WhileBlock = node
         self.called : Line = called
         self.lines  : list[Line] = []
@@ -25,13 +25,13 @@ class While:
 def generate_ith_graph(
     line : Line, node : Type[Block],
     top_level : list[Line], whiles : Stack[While]
-):
+) -> list[Line]:
     """Generate the execution graph up to the ith line.
     Return a list of raw line numbers to show in the graph."""
-    result = lambda: generate_from_state(top_level, whiles)
+    result : Callable = lambda: generate_from_state(top_level, whiles)
 
     while whiles:
-        top : While = whiles.peek()
+        top  : While = whiles.peek()
         curr : WhileBlock = top.node
         # we have found the next iteration of the most indented while
         # update this on the stack
@@ -55,7 +55,9 @@ def generate_ith_graph(
         top_level.append(line)
     return result()
 
-def generate_from_state(top_level : list[Line], whiles : Stack[While]):
+def generate_from_state(
+    top_level : list[Line], whiles : Stack[While]
+) -> list[Line]:
     result : list[Line] = deepcopy(top_level)
     # stack supports linear iteration from bottom to top
     for w in whiles:

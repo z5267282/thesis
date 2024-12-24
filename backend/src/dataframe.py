@@ -14,7 +14,7 @@ class DataFrame:
     ):
         self.code  : list[str] = deepcopy(code)
         self.lines : list[str] = deepcopy(lines)
-        self.curr  : int = curr
+        self.curr  : int | None = curr
 
         # variables from the previous and current DataFrame
         self.variables : State[dict[str, Any]] = variables
@@ -43,7 +43,7 @@ class DataFrame:
             } for variable, value in sorted(self.variables.curr.items())
         ]
 
-        counters = [
+        counters : list[Counter] = [
             counter.to_dict() for counter in self.counters \
             if counter.has_valid_range()
         ]
@@ -86,7 +86,7 @@ class DataFrame:
         
         return self.path
     
-    def is_changed(self, variable : str):
+    def is_changed(self, variable : str) -> bool:
         """Check if a current variable has changed by the time the current line
         has run.
         The change could be from the previous DataFrame, or presently."""
@@ -96,7 +96,7 @@ class DataFrame:
         return self.variables.prev[variable] != self.variables.curr[variable]
     
     @staticmethod
-    def to_dicts(dataframes : list["DataFrame"]):
+    def to_dicts(dataframes : list["DataFrame"]) -> list[dict[str, Any]]:
         """Convert each DataFrame in a list to a dictionary and return the
         list."""
         return [ d.to_dict() for d in dataframes ] 

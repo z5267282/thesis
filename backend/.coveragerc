@@ -1,5 +1,6 @@
 [run]
 omit =
+    src/__init__.py
     src/main.py
     src/program.py 
     src/execute.py
