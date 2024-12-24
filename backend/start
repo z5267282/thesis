@@ -13,3 +13,6 @@ then
 else
     flask --app server run
 fi
+
+# the subshell this script creates will automatically deactivate the virtual
+# environment at the end
