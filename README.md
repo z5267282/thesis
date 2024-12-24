@@ -23,4 +23,4 @@ It can have two possible values:
 | `LOCAL`  | The app is configured to run locally                                                                  |
 | `REMOTE` | The app is configured to run on pythonanywhere at this [server](https://z5267282.pythonanywhere.com/) |
 
-If the environment variable is not set, then `REMOTE` is used.
+If the environment variable is not set, then `LOCAL` is used.
