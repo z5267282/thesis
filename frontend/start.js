@@ -6,7 +6,7 @@ if (process.argv.length >= 3 && process.argv[2] === 'remote') {
     local = false;
 }
 
-process.env.REACT_APP_HOST = local ? 'LOCAL' : 'REMOTE';
+process.env.REACT_APP_HOST = (local) ? 'LOCAL' : 'REMOTE';
 // ensure that the front end does not auto-open browser
 process.env.BROWSER = 'none';
 
