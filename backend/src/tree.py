@@ -13,6 +13,9 @@ class Block():
         return "{}(start={}, end={})".format(
             self.__class__.__name__, self.start, self.end
         )
+    
+    def __repr__(self):
+        return str(self)
 
     def to_dict(self) -> dict[str, int]:
         return {
@@ -182,3 +185,13 @@ class IfBlock(ConditionalBlock):
             and line_no <= self.else_.end
         )
         return self.else_ if bounded else None
+    
+class FunctionBlock(BodyBlock):
+    def __init__(self, start: int, indent_level : int, name : str):
+        super().__init__(start, indent_level)
+        self.name : str = name
+    
+    def show_lines(self, graph : list[int], show : OrderedDict[int, bool]):
+        show[self.start] = True
+        if self.part_of(graph):
+            super().show_lines(graph, show)

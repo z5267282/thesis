@@ -13,9 +13,16 @@ import WestIcon from '@mui/icons-material/West';
 const DEC = -1;
 const INC = 1;
 
+class Delta {
+    constructor(angle) {
+        this.dx = TRACE_GRAPH.length * Math.sin(angle);
+        this.dy = TRACE_GRAPH.length * Math.cos(angle);
+    }
+}
+
 export default function TraceBox({
   code, lines, path, counters, curr, index, total,
-  changeIndex, disablePrev, disableNext, showTrace
+  changeIndex, disablePrev, disableNext, showTrace, call
 }) { 
   useEffect(() => {
     const handleArrows = (event) => {
@@ -72,7 +79,7 @@ export default function TraceBox({
         :
           <TracedLinesBox
             code={code} lines={lines} curr={curr} path={path}
-            counters={counters}
+            counters={counters} call={call}
           />
       }
     </span>
@@ -102,7 +109,7 @@ function LoadingBox() {
 }
 
 function TracedLinesBox({
-  code, lines, curr, path, counters
+  code, lines, curr, path, counters, call
 }) {
   // this must be inline to import config value
   const lineHeightStyle = {
@@ -111,13 +118,26 @@ function TracedLinesBox({
     fontSize         : addPixels(LINE_HEIGHT * FONT_SCALING_FACTOR)
   };
 
-  return (
+  const currIsReturn = call !== null && call.return
+
+  return <>
+    {
+      (currIsReturn) &&
+        <div className={styles.returnBox}>return</div>
+    }
     <div className={`${styles.traceCode} ${styles.tracedLinesBox}`}>
+      {
+        (call !== null) &&
+          <FunctionArrow call={call}/>
+      }
       <div className={styles.tracedLines} style={lineHeightStyle}>
-        <Lines code={code} lines={lines} curr={curr} path={path} />
+        <Lines
+          code={code} lines={lines} curr={curr} path={path}
+          currIsReturn={currIsReturn} 
+        />
       </div>
       {
-        (path.rest.length !== 0) &&
+        (path !== null && path.rest.length !== 0) &&
           <Path path={path} />
       }
       {
@@ -125,17 +145,130 @@ function TracedLinesBox({
           <Counters counters={counters} />
       }
     </div>
-  );
+  </>;
+
+  function FunctionArrow({call}) {
+    const targetOnTop = call.target < call.entry;
+    const height = Math.abs(call.entry - call.target) * LINE_HEIGHT;
+
+    // return: arrow attached to from
+    if (call.return) {
+      return (<>
+        {
+          (targetOnTop) ?
+            <BottomArrow call={call} height={height} />
+          :
+            <TopArrow call={call} height={height} />
+        }
+      </>);
+    }
+
+    return (<>
+      {
+        (targetOnTop) ?
+          <TopArrow call={call} height={height} />
+        :
+          <BottomArrow call={call} height={height} />
+      }
+    </>);
+      
+    /**
+     * Make an arrowhead pointing to the top line in the function graph
+     */
+    function TopArrow({call, height}) {
+      const gradient = (-4 * TRACE_GRAPH.width) / (height);
+      const theta = Math.abs(Math.atan(gradient));
+
+      const top = new Delta(Math.PI - TRACE_GRAPH.degree - theta);
+      const bottom = new Delta(theta - TRACE_GRAPH.degree);
+
+      const path = [
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+
+        // top arrow head
+        `l ${-1 * top.dx} ${-1 * top.dy}`,
+        `m ${top.dx} ${top.dy}`,
+
+        // bottom arrow head
+        `l ${-1 * bottom.dx} ${bottom.dy}`,
+        `m ${bottom.dx} ${-1 * bottom.dy}`,
+
+        // parabola
+        `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`
+      ];
+
+      return (
+        <svg style={{width : TRACE_GRAPH.width * 2.5}}>
+          <path
+            d={path.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+        </svg>
+      );
+    }
+
+    /**
+     * Make an arrowhead pointing to the bottom line in the function graph
+     * 
+     * There is an anomoly when drawing the arrowheads after the parabola
+     * The arrow tips become missized even though the calculations remain correct
+     * 
+     * The fix to this is to draw the parabola and then draw the arrow head as a separate
+     * <path>
+     */
+    function BottomArrow({call, height}) {
+      const gradient = (4 * TRACE_GRAPH.width) / (height);
+      const theta = Math.atan(gradient);
+
+      const alpha = Math.PI - TRACE_GRAPH.degree - theta;
+      const bottom = new Delta(alpha);
+
+      const beta = theta - TRACE_GRAPH.degree;
+      const top = new Delta(beta);
+      
+      const parabola = [
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2)}`,
+
+        // parabola
+        `q ${-2 * TRACE_GRAPH.width} ${height / 2} 0 ${height}`,
+      ];
+
+      const arrowHead = [
+        `M ${TRACE_GRAPH.width + TRACE_GRAPH.offset} ${Math.min(call.entry, call.target) * LINE_HEIGHT + (LINE_HEIGHT / 2) + height}`,
+
+        // bottom
+        `l ${-1 * bottom.dx} ${bottom.dy}`,
+        `m ${bottom.dx} ${-1 * bottom.dy}`,
+
+        // top
+        `l ${-1 * top.dx} ${-1 * top.dy}`,
+        `m ${top.dx} ${top.dy}`
+      ];
+
+      return (
+        <svg style={{width : TRACE_GRAPH.width * 2.5}}>
+          <path
+            d={parabola.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+          <path
+            d={arrowHead.join(" ")} stroke="green" fill="transparent"
+            className={styles.thickPen}
+          />
+        </svg>
+      );
+    }
+  }
 
   function addPixels(dimension) {
     return `${dimension}px`;
   }
 
-  function Lines({code, lines, curr, path}) {
-    const dotted = new Set([path.start, ...path.rest]);
+  function Lines({code, lines, curr, path, currIsReturn}) {
+    const dotted = new Set((path === null) ? [] : [path.start, ...path.rest]);
     return code.map(
       (line, i) => {
-        const colour = colourLine(i, curr);
+        const colour = colourLine(i, curr, currIsReturn);
         return (
           <Fragment key={`line-${i}`}>
             <span className={`${styles.lineNumber} ${colour}`}>
@@ -162,8 +295,12 @@ function TracedLinesBox({
     * @param {*} index
     * @param {*} code 
     */
-    function colourLine(index, curr) {
-      return (curr !== null && index === curr) ? styles.highlight : "";
+    function colourLine(index, curr, currIsReturn) {
+      if (curr !== null && index === curr) {
+        return currIsReturn ? styles.highlightReturn : styles.highlight;
+      }
+
+      return "";
     }
   } 
 
@@ -188,13 +325,6 @@ function TracedLinesBox({
         const height = (coord - prev) * LINE_HEIGHT;
         const gradient = (4 * TRACE_GRAPH.width) / (height);
         const theta = Math.atan(gradient)
-
-        class Delta {
-            constructor(angle) {
-                this.dx = TRACE_GRAPH.length * Math.sin(angle);
-                this.dy = TRACE_GRAPH.length * Math.cos(angle);
-            }
-        }
 
         const upArrow = new Delta(theta - TRACE_GRAPH.degree);
         const downArrow = new Delta(Math.PI - TRACE_GRAPH.degree - theta);

@@ -1,24 +1,26 @@
 from collections import OrderedDict
-from typing import Any, Callable
+from enum import Enum
+from typing import Any
 
 from counter import Counter
 from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, variables : dict[str, Any]=None) -> None:
+    def __init__(self, line_no : int, event : str, variables : dict[str, Any]=None):
         self.line_no   : int = line_no
         self.output    : list[str] = []
-        self.variables : dict[str, Any] = {} if variables is None else variables
+        self.variables : dict[str, Any] = variables if variables is not None else {}
         # counters are stored from least indented to most indented
         self.counters  : list[Counter] = []
+        self.event     : str = event
     
     def __repr__(self) -> str: # pragma: no cover
         """Return a simple representation to assist with debugging asserts."""
         return str(self.line_no)
     
-    def __eq__(self, other : "Line") -> bool:
-        return self.line_no == other.line_no
+    def __eq__(self, other : "Line"):
+        return self.line_no == other.line_no and self.event == other.event
 
     def __ne__(self, other : "Line") -> bool:
         return not self == other
@@ -44,6 +46,11 @@ class Line:
     output : [{", ".join(str(o) for o in self.output)}]
     vars : {{{dict_to_str(self.variables)}}}
     counters : [{counters}]"""
+
+    @staticmethod
+    def to_ints(lines : list["Line"]):
+        """Extract the line numbers from a list of lines"""
+        return [ line.line_no for line in lines ]
 
     def fix_lag(self, output : list[str], variables : dict[str, Any]) -> None:
         """Fix a line so that it has the right state.
