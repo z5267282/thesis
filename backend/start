@@ -3,6 +3,7 @@
 # usage: start [ [-d]ebug ]
 
 # in debug mode the server restarts itself when local changes are made
+# this script does not need to be sourced even though the venv does
 
 . .venv/bin/activate
 
