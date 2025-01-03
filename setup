@@ -17,4 +17,3 @@ cd ..
 # FRONTEND SETUP
 cd frontend
 npm install
-
