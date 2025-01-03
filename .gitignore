@@ -15,4 +15,4 @@ backend/gen-dataframe/generated*
 .netlify
 
 # genbadge stuff
-reports
+# need to commit html report only
