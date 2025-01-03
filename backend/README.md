@@ -1,3 +1,5 @@
+[![Tests Status](./reports/coverage-badge.svg?dummy=8484744)](./reports/index.html)
+
 # Running
 
 The backend can be started via
