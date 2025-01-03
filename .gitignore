@@ -13,6 +13,3 @@ backend/gen-dataframe/generated*
 
 # Local Netlify folder
 .netlify
-
-# genbadge stuff
-# need to commit html report only
