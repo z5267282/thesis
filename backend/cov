@@ -6,11 +6,10 @@
 pytest \
     --cov=src \
     --ignore=tests/execute \
-    --cov-report=html:reports \
+    --cov-report=html \
     --cov-branch \
-    --junitxml=reports/junit.xml \
     --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage
-     
+
 [ "$1" = '-o' ] && exit 0
 
 ./test-execute
