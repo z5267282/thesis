@@ -6,6 +6,7 @@ from line import Line
 from state import State
 from types import FrameType
 from typing import Any, Callable
+from decimal import Decimal
 
 def trace_program(program : Callable) -> tuple[list[Line], Line]:
     """Get the execution path of a program with state information at each line.
