@@ -47,3 +47,4 @@ def restore_decimal_to_number(dataframe: DataFrame) -> None:
         restored_line = decimal_pattern.sub(lambda match: match.group(1), line)
         restored_code.append(restored_line)
     dataframe.code = restored_code
+    return
