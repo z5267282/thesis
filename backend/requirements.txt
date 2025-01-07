@@ -3,3 +3,7 @@ werkzeug==2.3.7
 flask_cors==4.0.0
 # for pythonanywhere
 python-dotenv==1.0.0
+# testing
+pytest==7.4.3
+pytest-cov==4.1.0
+

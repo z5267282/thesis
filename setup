@@ -5,7 +5,9 @@
 
 # BACKEND SETUP
 cd backend 
+[ -f src/program.py ] && rm src/program.py
 touch src/program.py
+[ -d .venv ] && rm -r .venv
 python3 -m venv .venv
 # source the activate script to enter the venv and install necessary packages
 # venv must be sourced as per the venv PyDoc guide: https://docs.python.org/3/library/venv.html#how-venvs-work
@@ -16,5 +18,6 @@ cd ..
 
 # FRONTEND SETUP
 cd frontend
+[ -d node_modules ] && rm -r node_modules
 npm install
 
