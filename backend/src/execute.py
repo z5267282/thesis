@@ -36,7 +36,9 @@ def trace_line(
         return
 
     # state related steps
-    variables : dict[str, Any] = deepcopy(frame.f_locals)
+    variables : dict[str, Any] = {
+        variable: deepcopy(value) for variable, value in frame.f_locals.items()
+    }
     printed.prev = printed.curr
     printed.curr = buffer.getvalue()
     diff : str = string_diff(printed.prev, printed.curr)
