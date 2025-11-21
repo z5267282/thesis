@@ -1,3 +1,5 @@
+# save this as badge.py in your repo, or inline in your workflow as a script step
+
 import sys
 
 percent = sys.argv[1]
