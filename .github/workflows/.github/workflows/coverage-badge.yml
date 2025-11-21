@@ -1,0 +1,56 @@
+name: Generate and Publish Coverage Badge
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - ".github/workflows/coverage-badge.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+
+jobs:
+  coverage-badge:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python version
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests with coverage
+        run: |
+          ./cov -o # run coverage without running execute tests
+
+      - name: Extract coverage percent
+        id: extract
+        run: |
+          python3 -c "import json; d=json.load(open('coverage.json')); print(d['totals']['percent_covered'])" > $GITHUB_OUTPUT
+
+      - name: Generate badge
+        run: python3 badge.py ${{ steps.extract.outputs.percent }}
+
+      - name: Copy badge to docs (Pages directory)
+        run: |
+          mkdir -p ../docs
+          cp coverage-badge.svg ../docs/coverage-badge.svg
+          cp -r htmlcov ../docs/htmlcov
+
+      - name: Commit and push badge to docs
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+          cd ..
+          git add docs/coverage-badge.svg
+          # Avoid failing if there's no change
+          git commit -m "Update coverage badge [skip ci]" || exit 0
+          git push

@@ -1,3 +1,5 @@
+![Coverage](https://z5267282.github.io/thesis/coverage-badge.svg)
+
 # Overview
 
 This tool intelligently traces a Python program by only showing selected lines of execution.
