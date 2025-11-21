@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # usage: cov [ -[n]o execute tests ]
 
