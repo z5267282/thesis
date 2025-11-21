@@ -4,6 +4,11 @@ This tool intelligently traces a Python program by only showing selected lines o
 We only show conditionals that evaluate to True.
 Within loops, we show the first path and any unique ones thereafter.
 
+## Coverage
+
+![Coverage badge](https://z5267282.github.io/thesis/coverage-badge.svg)
+[Coverage report](https://z5267282.github.io/thesis/htmlcov/index.html)
+
 # Restrictions
 
 Programs are restricted to the following syntax features:

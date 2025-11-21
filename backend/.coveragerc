@@ -5,3 +5,9 @@ omit =
     src/program.py 
     src/execute.py
     src/generate.py
+
+[html]
+directory = htmlcov
+
+[json]
+output = coverage.json
