@@ -7,7 +7,8 @@ Within loops, we show the first path and any unique ones thereafter.
 ## Coverage
 
 ![Coverage badge](https://z5267282.github.io/thesis/coverage-badge.svg)
-[Coverage report](https://z5267282.github.io/thesis/htmlcov/index.html)
+
+- [Coverage report](https://z5267282.github.io/thesis/htmlcov/index.html)
 
 # Restrictions
 
