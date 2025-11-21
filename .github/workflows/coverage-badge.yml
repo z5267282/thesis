@@ -1,12 +1,13 @@
 name: Generate and Publish Coverage Badge
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
     paths:
       - "backend/**"
       - ".github/workflows/coverage-badge.yml"
+  pull_request:
+    paths:
+      - "backend/**"
 
 jobs:
   coverage-badge:
@@ -37,7 +38,7 @@ jobs:
           printf 'percent=%.2f\n' $percent >> $GITHUB_OUTPUT
 
       - name: Generate badge
-        run: python3 gen_coverage_badge.py ${{ steps.extract.outputs.percent }}
+        run: python3 badge.py ${{ steps.extract.outputs.percent }}
 
       - name: Copy badge to docs (Pages directory)
         run: |
