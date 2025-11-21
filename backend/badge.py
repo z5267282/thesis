@@ -2,7 +2,7 @@ import sys
 
 percent = float(sys.argv[1])
 color = (
-    "brightgreen" if percent >= 90 else
+    "green" if percent >= 90 else
     "yellow" if percent >= 75 else
     "orange" if percent >= 50 else
     "red"
