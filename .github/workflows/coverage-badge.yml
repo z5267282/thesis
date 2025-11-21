@@ -34,7 +34,8 @@ jobs:
       - name: Extract coverage percent
         id: extract
         run: |
-          python3 -c "import json; d=json.load(open('coverage.json')); print(d['totals']['percent_covered'])" > $GITHUB_OUTPUT
+          percent="$(python3 -c "import json; d=json.load(open('coverage.json')); print(d['totals']['percent_covered'])")"
+          printf 'percent=%.2f\n' $percent >> $GITHUB_OUTPUT
 
       - name: Generate badge
         run: python3 badge.py ${{ steps.extract.outputs.percent }}
