@@ -3,9 +3,8 @@ name: Generate and Publish Coverage Badge
 on:
   pull_request:
     branches:
-        - main
+      - main
     paths:
-      - "backend/**"
       - "backend/**"
       - ".github/workflows/coverage-badge.yml"
       - README.md
@@ -43,7 +42,6 @@ jobs:
 
       - name: Copy badge to docs (Pages directory)
         run: |
-          mkdir -p ../docs
           cp coverage-badge.svg ../docs/coverage-badge.svg
           # htmlcov will have a .gitignore by default
           [ -f htmlcov/.gitignore ] && rm htmlcov/.gitignore
@@ -55,6 +53,6 @@ jobs:
           git config --global user.name "github-actions"
           cd ..
           git add docs/{coverage-badge.svg,htmlcov}
-          # Avoid failing if there's no change
-          git commit -m "Update coverage badge [skip ci] and report" || exit 0
+          # avoid failing if there's no change
+          git commit -m "update coverage badge [skip ci] and report" || exit 0
           git push

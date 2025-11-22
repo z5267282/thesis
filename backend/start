@@ -5,6 +5,9 @@
 # in debug mode the server restarts itself when local changes are made
 # this script does not need to be sourced even though the venv does
 
+# get flask port configuration
+. ./config.env
+
 . .venv/bin/activate
 
 if [ "$1" = '-d' ]
@@ -15,4 +18,3 @@ else
 fi
 
 deactivate
-
