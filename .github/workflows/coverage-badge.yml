@@ -55,4 +55,4 @@ jobs:
           git add docs/{coverage-badge.svg,htmlcov}
           # avoid failing if there's no change
           git commit -m "update coverage badge [skip ci] and report" || exit 0
-          git push origin HEAD:${{ github.head_ref || github.ref_name }}
+          git push
