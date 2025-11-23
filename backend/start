@@ -10,11 +10,21 @@
 
 . .venv/bin/activate
 
-if [ "$1" = '-d' ]
+if [ "$IN_DOCKER" = yes ]
 then
-    flask --app server run --debug
+    if [ "$1" = '-d' ]
+    then
+        flask --app server run -h 0.0.0.0 --debug
+    else
+        flask --app server run -h 0.0.0.0 
+    fi
 else
-    flask --app server run
+    if [ "$1" = '-d' ]
+    then
+        flask --app server run --debug
+    else
+        flask --app server run
+    fi
 fi
 
 deactivate
