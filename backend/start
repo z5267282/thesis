@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # usage: start [ [-d]ebug ]
 

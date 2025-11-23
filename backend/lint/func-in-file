@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # check which tests do not have their test function named after
 # their filename

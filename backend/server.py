@@ -57,7 +57,7 @@ signal(
 )
 {raw_code}"""
         temp_print(signal_wrapped, t)
-        commands  : list[str] = ["dash", PATHS.timeout, t.name, str(TIMEOUT)]
+        commands  : list[str] = ["sh", PATHS.timeout, t.name, str(TIMEOUT)]
         timeout   : CompletedProcess = run(commands)
         timed_out : bool = bool(timeout.returncode)
     return timed_out
@@ -77,7 +77,7 @@ def sanity(raw_code : str) -> CompletedProcess:
     Return a CompletedProcess storing the status of the sanity check."""
     with NamedTemporaryFile(mode="w") as t:
         temp_print(raw_code, t)
-        commands : list[str] = ["dash", PATHS.sanity, t.name]
+        commands : list[str] = ["sh", PATHS.sanity, t.name]
         sanity   : CompletedProcess = run(
             commands,
             capture_output=True, text=True
@@ -113,4 +113,4 @@ def write_dataframes(dataframe_dicts : list[dict]) -> None:
         with open(PATHS.generated_frame, "w") as f:
             dump(dataframe_dicts, f, indent=LEADING_SPACES)
         
-        run(["dash", PATHS.to_python])
+        run(["sh", PATHS.to_python])
