@@ -28,34 +28,12 @@ A remote deploy of the tool can be found [here](https://focus-tracker.netlify.ap
 ## Docker
 
 The front end and back end have been containerised as Docker images.  
-The app can be run in Docker with the following command.
+The tool can be run in Docker with the following command.
 
 ```sh
 docker compose up --build
 ```
 
-## Local Set Up
+## Local
 
-It is expected that the following utilities are installed on your system
-
-```
-python3
-npm
-```
-
-. Simply run
-
-```sh
-./setup
-```
-
-to install all necessary dependencies.
-
-For the front end and back end, navigate to the `frontend` and `backend` folders respectively in separate terminals, and run the following commands to start the tool
-
-| component | command     |
-| --------- | ----------- |
-| frontend  | `npm start` |
-| backend   | `start`     |
-
-.
+See the README file in the `backend` and `frontend` folders for manual installation.

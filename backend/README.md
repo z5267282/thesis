@@ -1,12 +1,11 @@
-# Running
+# Installation
 
-The backend can be started via
+With Python3.13 installed, run the following Shell script to install the necessary Python dependencies in a virtual environment, and start the Flask server
 
 ```sh
-start
+./setup
+./start
 ```
-
-. Note this starts a virtual environment.
 
 # Test Linting
 
