@@ -25,6 +25,15 @@ Programs are restricted to the following syntax features:
 
 A remote deploy of the tool can be found [here](https://focus-tracker.netlify.app/).
 
+## Docker
+
+The front end and back end have been containerised as Docker images.  
+The app can be run in Docker with the following command.
+
+```sh
+docker compose up --build
+```
+
 ## Local Set Up
 
 It is expected that the following utilities are installed on your system

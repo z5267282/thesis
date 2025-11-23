@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 # see if the program can be run
 # preserve stdout for original caller

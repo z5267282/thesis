@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 src='../test-questions-2'
 dst='../tests/execute/integration/ui_2'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # get the latest code from thesis source code and put in proper path
 # proper path corresponds to pythonanywhere configuration

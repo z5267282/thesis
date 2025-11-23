@@ -1,13 +1,16 @@
 name: Generate and Publish Coverage Badge
 
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - "backend/**"
+#       - ".github/workflows/coverage-badge.yml"
+#       - README.md
+
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "backend/**"
-      - ".github/workflows/coverage-badge.yml"
-      - README.md
+  workflow_dispatch:
 
 jobs:
   coverage-badge:

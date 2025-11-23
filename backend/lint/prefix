@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # find all common prefix names in test cases
 

@@ -17,7 +17,7 @@ export const EDITOR_TAB_SPACES = 4;
 
 export const COUNTER_COLOURS = ["#649FFF", "#317FFF"]
 
-export const LOCAL_BACKEND_PORT = 5000;
+export const LOCAL_BACKEND_PORT = 5005;
 
 export const SERVER =
   (process.env.REACT_APP_HOST === "REMOTE") ?

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 terminal=$(tput cols)
 alias banner='python3 -c "print(\"-\" * $terminal)"'
