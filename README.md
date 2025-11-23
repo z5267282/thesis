@@ -1,7 +1,7 @@
 # Overview
 
-This tool intelligently traces a Python program by only showing selected lines of execution.
-We only show conditionals that evaluate to True.
+This tool intelligently traces a Python program by only showing selected lines of execution.  
+We only show conditionals that evaluate to True.  
 Within loops, we show the first path and any unique ones thereafter.
 
 ## Coverage
