@@ -3,11 +3,17 @@
 
 # testing
 backend/.coverage
-backend/htmlcov
+coverage.json
+
+# virtual environment
 backend/.venv
+
+# placeholer program
 backend/src/program.py
+
 # executor in place of execute function
 backend/executor.py
+
 # generated dataframe files for testing
 backend/gen-dataframe/generated*
 
