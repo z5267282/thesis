@@ -7,7 +7,7 @@ omit =
     src/generate.py
 
 [html]
-directory = htmlcov
+directory = coverage/htmlcov
 
 [json]
-output = coverage.json
+output = coverage/coverage.json

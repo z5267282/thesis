@@ -7,7 +7,7 @@ pytest \
     --cov=src \
     --ignore=tests/execute \
     --cov-report=html \
-    --cov-report=json:coverage.json \
+    --cov-report=json \
     --cov-branch \
     --cov-config=.coveragerc # specify in here to remove src/execute.py from coverage
 
