@@ -36,4 +36,13 @@ docker compose up --build
 
 ## Local
 
-See the README file in the `backend` and `frontend` folders for manual installation.
+Run this Shell script to locally install the necessary dependencies.
+
+```sh
+./setup
+```
+
+Then run the following commands to start each service:
+
+1. back end - run `./start`;
+2. front end - run `npm run start`.
