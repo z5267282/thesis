@@ -16,14 +16,14 @@ def parse(program : Callable) -> BodyBlock:
     root, prev_indent = iterate_until_and_parse_first_line(code, stack)
 
     for line_no, line_contents in code:
-        line         : str = helper.get_stripped_line(line_contents)
-        indent_level : int = helper.num_leading_whitespace(line_contents)
+        line = helper.get_stripped_line(line_contents)
+        indent_level = helper.num_leading_whitespace(line_contents)
 
         if is_skipable(line):
             continue
 
-        top   : BodyBlock = stack.peek()
-        block : Block = parse_line(line, line_no, indent_level)
+        top = stack.peek()
+        block = parse_line(line, line_no, indent_level)
         if indent_level == prev_indent:
             parse_same_level_block(block, line_no, top, stack)
         elif indent_level > prev_indent:
@@ -95,7 +95,7 @@ def is_skipable(line : str) -> bool:
     return line == "" or line.startswith("#")
 
 def parse_same_level_block(
-    block : Block, line_no : int, top : BodyBlock,
+    block : CodeBlock | BodyBlock, line_no : int, top : BodyBlock,
     stack : Stack[BodyBlock]
 ) -> None:
     if isinstance(block, CodeBlock):
@@ -111,12 +111,12 @@ def parse_same_level_block(
     # impossible to get to this line
 
 def parse_indented_block(
-    block : Block, top : BodyBlock, stack : Stack[BodyBlock]
+    block : CodeBlock | BodyBlock, top : BodyBlock, stack : Stack[BodyBlock]
 ) -> None:
     handle_stack_indentation_change(block, top, stack)
 
 def handle_stack_indentation_change(
-    block : Block, top : BodyBlock, stack : Stack[BodyBlock]
+    block : CodeBlock | BodyBlock, top : BodyBlock, stack : Stack[BodyBlock]
 ) -> None:
     """Manage a new Block on the stack when indentation changes.
     Assume that if the Block introduces indentation it cannot be a branch
@@ -128,7 +128,7 @@ def handle_stack_indentation_change(
     top.add_same_level_block(block)
 
 def parse_unindented_block(
-    block : Block, line_no : int, indent_level : int,
+    block : CodeBlock | BodyBlock, line_no : int, indent_level : int,
     top : BodyBlock, stack : Stack[BodyBlock],
 ) -> None:
     prev : int = line_no - 1
