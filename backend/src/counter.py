@@ -16,10 +16,12 @@ class Counter:
     def __str__(self) -> str:
         return f"({self.iteration}/{self.total}) : {self.while_}"
     
-    def __eq__(self, other : "Counter") -> bool:
-        return self.iteration == other.iteration and self.total == other.total
+    def __eq__(self, other : object) -> bool:
+        if isinstance(other, Counter):
+            return self.iteration == other.iteration and self.total == other.total
+        return False
 
-    def __ne__(self, other : "Counter") -> bool:
+    def __ne__(self, other : object) -> bool:
         return not self == other
 
     def find_filtered_range(
@@ -55,7 +57,7 @@ class Counter:
             return False
         return True
     
-    def to_dict(self) -> dict[str, int]:
+    def to_dict(self) -> dict[str, int | None]:
         return {
             "start"       : self.start,
             "end"         : self.end,
