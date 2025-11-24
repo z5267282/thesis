@@ -1,0 +1,16 @@
+import json
+import os
+import sys
+
+with open(os.path.join("coverage", "coverage.json")) as f:
+    coverage = json.load(f)["totals"]["percent_covered"]
+
+print("------------------")
+print("CHECKING COVERAGE")
+print("------------------")
+print("")
+print(f"coverage is: {coverage:.2f}")
+print("")
+print("------------------")
+
+sys.exit(0 if abs(coverage - 100.0) < 0.001 else 1)

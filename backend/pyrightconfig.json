@@ -4,8 +4,8 @@
   ],
   "exclude" : [
     ".venv",
+    // we still want tests to have VSCode intellisense
     "test-*/**.py",
-    "tests"
   ],
   // needed to turn off problems in VSCode
   // https://github.com/microsoft/pylance-release/issues/2768

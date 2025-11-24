@@ -38,3 +38,12 @@ def test_ne_same_while_same_iter():
     c2 = Counter(4, 15, w)
 
     assert c1 != c2
+
+def test_different_type():
+    w = WhileBlock(1, 0)
+    w.end = 10
+
+    c1 = Counter(4, 15, w)
+    c2 = 42
+
+    assert c1 != c2
