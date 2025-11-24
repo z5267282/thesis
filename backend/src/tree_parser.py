@@ -56,15 +56,17 @@ def iterate_until_and_parse_first_line(
 
     # this is a sign we could not run anything in the program
     # i.e. it was all comments, or it was empty
-    raise NoCodeRunInProgramError()
+    # note that it is impossible to reach this - the backend will crash
+    # as a function written like this is incorrect Python synax
+    raise NoCodeRunInProgramError()  # pragma: no cover
 
 
-class NoCodeRunInProgramError(Exception):
+class NoCodeRunInProgramError(Exception):  # pragma: no cover
     def __init__(self):
         super().__init__()
 
     def __str__(self) -> str:
-        return f"there was no runnable code in the program"
+        return "there was no runnable code in the program"
 
 
 def parse_first_line(

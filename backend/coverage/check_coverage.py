@@ -1,9 +1,16 @@
+"""Check the current coverage percentage is 100%.
+Note that the cov script must have been run first."""
 import json
 import os
 import sys
 
-with open(os.path.join("coverage", "coverage.json")) as f:
-    coverage = json.load(f)["totals"]["percent_covered"]
+try:
+    with open(os.path.join("coverage", "coverage.json")) as f:
+        coverage = json.load(f)["totals"]["percent_covered"]
+except OSError:
+    print("Coverage has not been run yet.")
+    print("Run ./cov")
+    sys.exit(1)
 
 print("------------------")
 print("CHECKING COVERAGE")
