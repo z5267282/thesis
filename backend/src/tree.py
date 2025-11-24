@@ -2,88 +2,94 @@ from collections import OrderedDict
 import json
 from typing import Any
 
+
 class Block():
-    def __init__(self, start : int, indent_level : int) -> None:
+    def __init__(self, start: int, indent_level: int) -> None:
         self.start = start
-        # we can set this as a sentinel value since by the time the Block has been parsed, the end will have been properly set
+        # we can set this as a sentinel value since by the time the Block has
+        # been parsed, the end will have been properly set
         self.end = -1
         self.indent_level = indent_level
-    
+
     def __str__(self) -> str:
         """Simply print the block without recursive unpacking"""
         return "{}(start={}, end={})".format(
             self.__class__.__name__, self.start, self.end
         )
 
-    # this has to be any because it's impossible to type annotate the recursive sub-dictionaries of body blocks
+    # this has to be any because it's impossible to type annotate the
+    # recursive sub-dictionaries of body blocks
     def to_dict(self) -> dict[str, Any]:
         return {
-            self.__class__.__name__ : {
-                "start" : self.start,
-                "end"   : self.end
+            self.__class__.__name__: {
+                "start": self.start,
+                "end": self.end
             }
         }
-    
+
     def map_lines(self) -> dict[int, "Block"]:
         line_mapping = {}
         for i in range(self.start, self.end + 1):
             line_mapping[i] = self
         return line_mapping
-    
+
     def show_lines(
-        self, graph : list[int], show : OrderedDict[int, bool]
+        self, graph: list[int], show: OrderedDict[int, bool]
     ) -> None:
         for i in range(self.start, self.end + 1):
             show[i] = True
-    
+
     def is_conditional(self) -> bool:
         """Verify whether the current node is a conditional block.
         Conditional blocks have an expression associated with them"""
         return False
 
-    def pretty_print(self) -> None: # pragma: no cover
+    def pretty_print(self) -> None:  # pragma: no cover
         """A pretty printer for debugging"""
         print(json.dumps(self.to_dict(), indent=2))
+
 
 class CodeBlock(Block):
     pass
 
+
 class BodyBlock(Block):
     """For storing a succession of blocks on the same indetation level"""
-    def __init__(self, start: int, indent_level : int) -> None:
+
+    def __init__(self, start: int, indent_level: int) -> None:
         super().__init__(start, indent_level)
-        self.body       : list["BodyBlock | CodeBlock"] = []
+        self.body: list["BodyBlock | CodeBlock"] = []
         # for storing the most recent code block
-        self.code_block : CodeBlock | None = None
-    
+        self.code_block: CodeBlock | None = None
+
     def to_dict(self) -> dict[str, Any]:
         parent = super().to_dict()
         parent[self.__class__.__name__]["body"] = [
             b.to_dict() for b in self.body
         ]
         return parent
-    
+
     def map_lines(self) -> dict[int, Block]:
         parent = super().map_lines()
         for b in self.body:
             parent.update(b.map_lines())
         return parent
-    
+
     def show_lines(
-        self, graph : list[int], show : OrderedDict[int, bool]
+        self, graph: list[int], show: OrderedDict[int, bool]
     ) -> None:
         for b in self.body:
             b.show_lines(graph, show)
-    
-    def part_of(self, graph : list[int]) -> bool:
+
+    def part_of(self, graph: list[int]) -> bool:
         return self.start in graph and graph[-1] != self.start
 
     def add_same_level_block(
-        self, block : "BodyBlock | CodeBlock"
+        self, block: "BodyBlock | CodeBlock"
     ) -> None:
         self.body.append(block)
-    
-    def end_code_block(self, end : int) -> None:
+
+    def end_code_block(self, end: int) -> None:
         """End the code block if set"""
         if self.code_block is None:
             return
@@ -91,9 +97,11 @@ class BodyBlock(Block):
         self.code_block.end = end
         self.code_block = None
 
+
 class ConditionalBlock(BodyBlock):
     def is_conditional(self) -> bool:
         return True
+
 
 class WhileBlock(ConditionalBlock):
     def show_lines(
@@ -103,32 +111,36 @@ class WhileBlock(ConditionalBlock):
         if self.part_of(graph):
             super().show_lines(graph, show)
 
+
 class ElifBlock(ConditionalBlock):
     """Separate this so that the IfBlock tracks the entire branch structure"""
     pass
+
 
 class ElseBlock(ConditionalBlock):
     def is_conditional(self) -> bool:
         """An else block does not have an expression attached to it"""
         return False
 
+
 class IfBlock(ConditionalBlock):
     """The if block must lay out on the same nesting level:
     any elifs, and an else"""
-    def __init__(self, start: int, indent_level : int):
+
+    def __init__(self, start: int, indent_level: int):
         super().__init__(start, indent_level)
-        self.elifs : list[ElifBlock] = []
-        self.else_ : None | ElseBlock = None
+        self.elifs: list[ElifBlock] = []
+        self.else_: None | ElseBlock = None
 
     def to_dict(self) -> dict[str, Any]:
-        parent : dict[str, Any] = super().to_dict()
+        parent: dict[str, Any] = super().to_dict()
         parent[self.__class__.__name__]["elifs"] = [
             el.to_dict() for el in self.elifs
         ]
         parent[self.__class__.__name__]["else"] = \
             None if self.else_ is None else self.else_.to_dict()
         return parent
-    
+
     def map_lines(self) -> dict[int, Block]:
         parent = super().map_lines()
         for e in self.elifs:
@@ -136,14 +148,14 @@ class IfBlock(ConditionalBlock):
         if self.else_ is not None:
             parent.update(self.else_.map_lines())
         return parent
-    
+
     def show_lines(
         self, graph: list[int], show: OrderedDict[int, bool]
     ) -> None:
         # recursive order doesn't matter:
         # can find then recurse, or the other way around :)
         show[self.start] = True
-        if self.part_of(graph): 
+        if self.part_of(graph):
             super().show_lines(graph, show)
         for e in self.elifs:
             show[e.start] = True
@@ -153,33 +165,33 @@ class IfBlock(ConditionalBlock):
             show[self.else_.start] = True
             if self.else_.part_of(graph):
                 self.else_.show_lines(graph, show)
-    
-    def add_elif(self, elif_block : ElifBlock) -> None:
+
+    def add_elif(self, elif_block: ElifBlock) -> None:
         self.elifs.append(elif_block)
-    
-    def add_else(self, else_block : ElseBlock) -> None:
+
+    def add_else(self, else_block: ElseBlock) -> None:
         self.else_ = else_block
-    
+
     def find_branch(
-        self, line_no : int
+        self, line_no: int
     ) -> "IfBlock | ElifBlock | ElseBlock | None":
         """Find which branch starts at a given line number if any"""
         if line_no == self.start:
             return self
-        
+
         for e in self.elifs:
             if line_no == e.start:
                 return e
 
-        return self.within_else(line_no)    
-    
-    def within_else(self, line_no : int) -> ElseBlock | None:
+        return self.within_else(line_no)
+
+    def within_else(self, line_no: int) -> ElseBlock | None:
         """Determine whether a given line number is within an else block.
         Return the else block if within bounds, otherwise None."""
         if self.else_ is None:
             return None
-        
-        bounded : bool = (
+
+        bounded: bool = (
             line_no >= self.else_.start
             and line_no <= self.else_.end
         )

@@ -1,5 +1,6 @@
 import os
 
+
 class Paths:
     """A dataclass to store necessary paths.
     Note that these are relative from the backend folder."""
@@ -14,24 +15,29 @@ class Paths:
     # upload related
     @property
     def timeout(self) -> str:
-        return os.path.join(*(self.get_host_path() + ["src", "upload", "timeout"]))
+        return os.path.join(
+            *(self.get_host_path() + ["src", "upload", "timeout"]))
 
     @property
     def sanity(self) -> str:
-        return os.path.join(*(self.get_host_path() + ["src", "upload", "sanity-run"]))
+        return os.path.join(
+            *(self.get_host_path() + ["src", "upload", "sanity-run"]))
 
     # relating to generated dataframes for testing
     @property
     def generated_frame(self) -> str:
-        return os.path.join(*(self.get_host_path() + ["gen-dataframe", "generated.json"]))
+        return os.path.join(
+            *(self.get_host_path() + ["gen-dataframe", "generated.json"]))
 
     @property
     def to_python(self) -> str:
-        return os.path.join(*(self.get_host_path() + ["gen-dataframe", "to-py"]))
+        return os.path.join(
+            *(self.get_host_path() + ["gen-dataframe", "to-py"]))
 
     @property
     def as_python(self) -> str:
-        return os.path.join(*(self.get_host_path() + ["gen-dataframe", "generated.py"]))
+        return os.path.join(
+            *(self.get_host_path() + ["gen-dataframe", "generated.py"]))
 
     # helper to get the correct folder
     def get_host_path(self) -> list[str]:

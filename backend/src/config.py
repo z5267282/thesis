@@ -1,17 +1,17 @@
 from paths import Paths
 
 # how many seconds user programs are allowed to run for
-TIMEOUT : int = 1
+TIMEOUT: int = 1
 
 # how many lines after the actual start, before analysis begins
-OFFSET : int = 1
+OFFSET: int = 1
 
 # for collapsed lines
-ELLIPSE : str = "·" * 3
+ELLIPSE: str = "·" * 3
 
-LEADING_SPACES : int = 4
+LEADING_SPACES: int = 4
 
-PATHS : Paths = Paths()
+PATHS: Paths = Paths()
 
 # create testing DataFrames
-GENERATE_TEST : bool = True
+GENERATE_TEST: bool = True
