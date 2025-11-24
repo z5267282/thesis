@@ -1,12 +1,13 @@
 from collections import OrderedDict
 import json
-from typing import Any, Type
+from typing import Any
 
 class Block():
     def __init__(self, start : int, indent_level : int) -> None:
-        self.start        : int        = start
-        self.end          : int | None = None
-        self.indent_level : int        = indent_level
+        self.start = start
+        # we can set this as a sentinel value since by the time the Block has been parsed, the end will have been properly set
+        self.end = -1
+        self.indent_level = indent_level
     
     def __str__(self) -> str:
         """Simply print the block without recursive unpacking"""
@@ -14,7 +15,8 @@ class Block():
             self.__class__.__name__, self.start, self.end
         )
 
-    def to_dict(self) -> dict[str, dict[str, int | None]]:
+    # this has to be any because it's impossible to type annotate the recursive sub-dictionaries of body blocks
+    def to_dict(self) -> dict[str, Any]:
         return {
             self.__class__.__name__ : {
                 "start" : self.start,
@@ -22,8 +24,8 @@ class Block():
             }
         }
     
-    def map_lines(self) -> dict[int, Type["Block"]]:
-        line_mapping : dict[int, Type["Block"]] = {}
+    def map_lines(self) -> dict[int, "Block"]:
+        line_mapping = {}
         for i in range(self.start, self.end + 1):
             line_mapping[i] = self
         return line_mapping
@@ -61,8 +63,8 @@ class BodyBlock(Block):
         ]
         return parent
     
-    def map_lines(self) -> dict[int, Type[Block]]:
-        parent : dict[int, Type[Block]] = super().map_lines()
+    def map_lines(self) -> dict[int, Block]:
+        parent = super().map_lines()
         for b in self.body:
             parent.update(b.map_lines())
         return parent
@@ -127,8 +129,8 @@ class IfBlock(ConditionalBlock):
             None if self.else_ is None else self.else_.to_dict()
         return parent
     
-    def map_lines(self) -> dict[int, Type[Block]]:
-        parent : dict[int, Type[Block]] = super().map_lines()
+    def map_lines(self) -> dict[int, Block]:
+        parent = super().map_lines()
         for e in self.elifs:
             parent.update(e.map_lines())
         if self.else_ is not None:

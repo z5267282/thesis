@@ -1,12 +1,12 @@
 from copy import copy, deepcopy
 
-from typing import Type
+from typing import cast, Type
 
 from line import Line
 from tree import Block, CodeBlock, IfBlock, ElifBlock, ElseBlock, WhileBlock
 
 def smart_trace(
-    line_mapping : dict[int, Type[Block]], lines : list[Line]
+    line_mapping : dict[int, Block], lines : list[Line]
 ) -> list[Line]:
     """From a list of raw Lines of execution, generate an intelligent
     filtering.
@@ -16,7 +16,7 @@ def smart_trace(
     while i < len(lines):
         # we assume that i is the start of a region
         line  : Line = lines[i]
-        block : Type[Block] = line_mapping[line.line_no]
+        block = line_mapping[line.line_no]
         region, offset = find_region(lines, block.end, i)
         match block:
             case CodeBlock():
@@ -77,7 +77,8 @@ def trace_if(
             # elses do not have their lines executed;
             # instead make a copy of the last seen branch
             if isinstance(branch, ElseBlock):
-                else_line : Line = deepcopy(won)
+                # syntactically, we know that to reach an ElseBlock, we must have previously found a won Line
+                else_line : Line = deepcopy(cast(Line, won))
                 else_line.line_no = branch.start
                 return else_line, lines[i:]
 

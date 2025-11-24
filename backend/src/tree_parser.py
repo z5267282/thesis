@@ -6,7 +6,7 @@ from stack import Stack
 from tree import \
     Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
 
-from typing import Iterator
+from typing import cast, Iterator
 
 def parse(program : Callable) -> BodyBlock:
     raw_code = helper.get_code_info(program)
@@ -135,12 +135,13 @@ def parse_unindented_block(
     top.end_code_block(prev)
     top = unwind_indentations(top, stack, indent_level, prev)
 
-    if is_branch(block):
-        add_branch(block, prev, top, stack)
+    if isinstance(block, BodyBlock) and is_branch(block):
+        # we can cast because we know at runtime that the top must be an IfBlock if we receive one of its branches
+        add_branch(cast(ElifBlock | ElseBlock, block), prev, cast(IfBlock, top), stack)
     else:
         top_is_branch : bool = is_branch(top)
         if isinstance(top, IfBlock) or top_is_branch:
-            top = end_conditional(top, top_is_branch, prev, stack)
+            top = end_conditional(cast(IfBlock | ElifBlock | ElseBlock, top), top_is_branch, prev, stack)
         # this is the only other choice
         # we write the condition for clarity
         elif isinstance(top, WhileBlock): # pragma: no cover
@@ -167,14 +168,15 @@ def is_branch(block : BodyBlock) -> bool:
 
 def add_branch(
     block : ElifBlock | ElseBlock, prev : int,
-    top : BodyBlock, stack : Stack[BodyBlock]
+    top : IfBlock, stack : Stack[BodyBlock]
 ) -> None:
     """Add an elif or else to a parent if branch.
     The parent if will either be the first or second thing on the stack."""
     if isinstance(top, ElifBlock):
         top.end_code_block(prev)
         top.end = prev
-        top = stack.pop_peek()
+        # we can cast because we know at runtime that the top must be an IfBlock if we receive one of its branches
+        top = cast(IfBlock, stack.pop_peek())
     add_branch : Callable = \
         top.add_elif if isinstance(block, ElifBlock) else top.add_else
     add_branch(block)
@@ -193,11 +195,11 @@ def end_conditional(
     # in either case we need to end the last branch first
     top.end_code_block(prev)
     top.end = prev
-    top = stack.pop_peek()
+    top = cast(IfBlock | ElifBlock | ElseBlock, stack.pop_peek()) 
     # if the top was an elif or else, then the entire conditional must be ended
     if top_is_branch:
         top.end = prev
-        top = stack.pop_peek()
+        top = cast(IfBlock | ElifBlock | ElseBlock, stack.pop_peek()) 
     # there were reference issues when the top wasn't being returned
     return top
 
