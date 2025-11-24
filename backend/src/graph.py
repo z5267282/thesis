@@ -1,12 +1,12 @@
 from copy import deepcopy
-from typing import Callable, Type
+from typing import cast, Callable
 
 from line import Line
 from stack import Stack
 from tree import Block, WhileBlock
 
 def generate_graphs(
-    filtered : list[Line], line_mapping : dict[int, Type[Block]]
+    filtered : list[Line], line_mapping : dict[int, Block]
 ) -> list[list[Line]]:
     top_level : list[Line] = []
     whiles    : Stack[While] = Stack()
@@ -23,7 +23,7 @@ class While:
         self.lines  : list[Line] = []
 
 def generate_ith_graph(
-    line : Line, node : Type[Block],
+    line : Line, node : Block,
     top_level : list[Line], whiles : Stack[While]
 ) -> list[Line]:
     """Generate the execution graph up to the ith line.
@@ -31,13 +31,13 @@ def generate_ith_graph(
     result : Callable = lambda: generate_from_state(top_level, whiles)
 
     while whiles:
-        top  : While = whiles.peek()
-        curr : WhileBlock = top.node
+        top = whiles.peek()
+        curr = top.node
         # we have found the next iteration of the most indented while
         # update this on the stack
         if line.line_no == curr.start:
             whiles.pop()
-            whiles.push(While(node, line))
+            whiles.push(While(cast(WhileBlock, node), line))
             return result()
 
         if line.line_no <= curr.end:

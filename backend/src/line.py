@@ -6,7 +6,7 @@ from tree import WhileBlock
 
 class Line:
     """A dataclass to store line information"""
-    def __init__(self, line_no : int, variables : dict[str, Any]=None) -> None:
+    def __init__(self, line_no : int, variables : dict[str, Any] | None=None) -> None:
         self.line_no   : int = line_no
         self.output    : list[str] = []
         self.variables : dict[str, Any] = {} if variables is None else variables
@@ -17,10 +17,12 @@ class Line:
         """Return a simple representation to assist with debugging asserts."""
         return str(self.line_no)
     
-    def __eq__(self, other : "Line") -> bool:
-        return self.line_no == other.line_no
+    def __eq__(self, other : object) -> bool:
+        if isinstance(other, Line):
+            return self.line_no == other.line_no
+        return False
 
-    def __ne__(self, other : "Line") -> bool:
+    def __ne__(self, other : object) -> bool:
         return not self == other
     
     @staticmethod

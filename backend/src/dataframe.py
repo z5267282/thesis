@@ -31,7 +31,7 @@ class DataFrame:
             "rest"  : self.generate_rest()
         }
 
-        variables : list[dict] = [
+        variables = [
             {
                 "name"    : variable,
                 "value"   : str(value),
@@ -39,7 +39,7 @@ class DataFrame:
             } for variable, value in sorted(self.variables.curr.items())
         ]
 
-        counters : list[Counter] = [
+        counters = [
             counter.to_dict() for counter in self.counters \
             if counter.has_valid_range()
         ]

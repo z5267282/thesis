@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import re
-from typing import Any, Callable, Type
+from typing import Any, Callable
 
 from analyse import smart_trace
 from config import OFFSET
@@ -19,18 +19,18 @@ def generate_dataframes(program : Callable) -> list[DataFrame]:
     """Given a program, intelligently execute it and generate the necessary
     DataFrames to display execution"""
     all_lines, last = trace_program(program)
-    root         : BodyBlock = parse(program)
-    line_mapping : dict[int, Type[Block]] = root.map_lines()
-    filtered     : list[Line] = smart_trace(line_mapping, all_lines)
-    line_graphs  : list[list[Line]] = generate_graphs(filtered, line_mapping)
-    program_code : OrderedDict[int, str] = get_code_info(program)
+    root = parse(program)
+    line_mapping = root.map_lines()
+    filtered = smart_trace(line_mapping, all_lines)
+    line_graphs = generate_graphs(filtered, line_mapping)
+    program_code = get_code_info(program)
     return construct_dataframes(
         program_code, line_graphs, root, line_mapping, last
     )
 
 def construct_dataframes(
     program_code : OrderedDict[int, str], line_graphs : list[list[Line]],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]], last : Line
+    root : BodyBlock, line_mapping : dict[int, Block], last : Line
 ) -> list[DataFrame]:
     first_frame : DataFrame = generate_edge_dataframe(
         program_code, root, {}, []
@@ -65,7 +65,7 @@ def generate_edge_dataframe(
 
 def generate_dataframe(
     line_graph : list[Line], program_code : OrderedDict[int, str],
-    root : BodyBlock, line_mapping : dict[int, Type[Block]],
+    root : BodyBlock, line_mapping : dict[int, Block],
     prev_vars : dict[str, Any]
 ) -> DataFrame:
     code, lines, path = collapse(line_graph, program_code, root)
