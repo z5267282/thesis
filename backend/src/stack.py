@@ -1,11 +1,9 @@
-from typing import Generic, Iterator, Type, TypeVar
+from typing import Iterator
 
-T = TypeVar("T")
-
-class Stack(Generic[T]):
+class Stack[T]:
     """A LIFO data structure"""
     def __init__(self) -> None:
-        self.items : list[Type[T]] = []
+        self.items : list[T] = []
     
     def __str__(self) -> str:
         """Print items from top to bottom"""
@@ -39,5 +37,5 @@ class Stack(Generic[T]):
         self.pop()
         return self.peek()
     
-    def push(self, item : Type[T]) -> None:
+    def push(self, item : T) -> None:
         self.items.append(item)

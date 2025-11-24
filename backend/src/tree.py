@@ -1,12 +1,12 @@
 from collections import OrderedDict
 import json
-from typing import Any, Type, Union
+from typing import Any, Type
 
 class Block():
     def __init__(self, start : int, indent_level : int) -> None:
-        self.start        : int = start
-        self.end          : int = None
-        self.indent_level : int = indent_level
+        self.start        : int        = start
+        self.end          : int | None = None
+        self.indent_level : int        = indent_level
     
     def __str__(self) -> str:
         """Simply print the block without recursive unpacking"""
@@ -14,7 +14,7 @@ class Block():
             self.__class__.__name__, self.start, self.end
         )
 
-    def to_dict(self) -> dict[str, int]:
+    def to_dict(self) -> dict[str, dict[str, int | None]]:
         return {
             self.__class__.__name__ : {
                 "start" : self.start,
@@ -50,7 +50,7 @@ class BodyBlock(Block):
     """For storing a succession of blocks on the same indetation level"""
     def __init__(self, start: int, indent_level : int) -> None:
         super().__init__(start, indent_level)
-        self.body       : list[Type["BodyBlock"] | CodeBlock] = []
+        self.body       : list["BodyBlock | CodeBlock"] = []
         # for storing the most recent code block
         self.code_block : CodeBlock | None = None
     
@@ -77,7 +77,7 @@ class BodyBlock(Block):
         return self.start in graph and graph[-1] != self.start
 
     def add_same_level_block(
-        self, block : Type["BodyBlock"] | CodeBlock
+        self, block : "BodyBlock | CodeBlock"
     ) -> None:
         self.body.append(block)
     
@@ -113,7 +113,7 @@ class ElseBlock(ConditionalBlock):
 class IfBlock(ConditionalBlock):
     """The if block must lay out on the same nesting level:
     any elifs, and an else"""
-    def __init__(self, start: int, indent_level : int) -> bool:
+    def __init__(self, start: int, indent_level : int):
         super().__init__(start, indent_level)
         self.elifs : list[ElifBlock] = []
         self.else_ : None | ElseBlock = None
@@ -160,7 +160,7 @@ class IfBlock(ConditionalBlock):
     
     def find_branch(
         self, line_no : int
-    ) ->Union["IfBlock" , ElifBlock , ElseBlock]:
+    ) -> "IfBlock | ElifBlock | ElseBlock | None":
         """Find which branch starts at a given line number if any"""
         if line_no == self.start:
             return self
@@ -171,9 +171,9 @@ class IfBlock(ConditionalBlock):
 
         return self.within_else(line_no)    
     
-    def within_else(self, line_no : int) -> bool:
+    def within_else(self, line_no : int) -> ElseBlock | None:
         """Determine whether a given line number is within an else block.
-        Return the start of the else block if within bounds, otherwise None."""
+        Return the else block if within bounds, otherwise None."""
         if self.else_ is None:
             return None
         
