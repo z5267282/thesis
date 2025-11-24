@@ -4,7 +4,7 @@ import os
 from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
-from typing import Literal
+from typing import IO, Literal
 
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
@@ -62,7 +62,7 @@ signal(
         timed_out : bool = bool(timeout.returncode)
     return timed_out
 
-def temp_print(data : str, file : NamedTemporaryFile) -> None:
+def temp_print(data : str, file : IO[str]) -> None:
     print(data, file=file, end="", flush=True)
     file.seek(0)
 
