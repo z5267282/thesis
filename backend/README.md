@@ -15,3 +15,14 @@ With Python3.13 installed, run the following Shell script to install the necessa
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `func-in-file` | Check a test has a primary function named after its filename. Not applicable for files which test multiple functions from a module                |
 | `prefix`       | find all common prefixes in test names. Common prefixes are an indicator of an unnecessarily long filename (eg. the directory is in the filename) |
+
+## PEP 8
+
+Note this is different to code linting according to [PEP 8 guidelines](https://peps.python.org/pep-0008/).  
+To check for PEP 8 compliance the following command can be run.
+
+```sh
+./pep8-lint -c
+```
+
+To edit in-place, run the command without the `-c` flag.
