@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# usage: ./pep8-lint [ -[c]heck linting ]
+
+. .venv/bin/activate
+
+# use this method to avoid storing $? because this has led to problems in the past
+success=no
+
+if [ "$1" = '-c' ]
+then
+    autopep8 --diff -r src --aggressive && success=yes
+else
+    autopep8 -i -r src --aggressive && success=yes
+fi
+
+deactivate
+[ $success = yes ]

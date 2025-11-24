@@ -1,19 +1,38 @@
 import os
-
 from paths import Paths
 
-"""The Paths class may need additional attributes, so just test on one
-existing one rather than forcing all paths to be given to the constructor.
-This will lead to tightly coupled tests."""
-
 def test_local():
-    Paths.timeout = ["hello", "mate.py"]
     p = Paths()
     os.environ["REACT_APP_HOST"] = "LOCAL"
-    assert p.timeout == f"hello{os.path.sep}mate.py"
+    assert p.timeout == os.path.join("src", "upload", "timeout")
 
 def test_remote():
-    Paths.timeout = ["hello", "mate.py"]
     p = Paths()
     os.environ["REACT_APP_HOST"] = "REMOTE"
-    assert p.timeout == f"focus-tracker{os.path.sep}hello{os.path.sep}mate.py"
+    assert p.timeout == os.path.join(
+        "focus-tracker", "src", "upload", "timeout")
+
+def test_program():
+    p = Paths()
+    os.environ["REACT_APP_HOST"] = "LOCAL"
+    assert p.program == os.path.join("src", "program.py")
+
+def test_sanity():
+    p = Paths()
+    os.environ["REACT_APP_HOST"] = "LOCAL"
+    assert p.sanity == os.path.join("src", "upload", "sanity-run")
+
+def test_generated_frame():
+    p = Paths()
+    os.environ["REACT_APP_HOST"] = "LOCAL"
+    assert p.generated_frame == os.path.join("gen-dataframe", "generated.json")
+
+def test_to_python():
+    p = Paths()
+    os.environ["REACT_APP_HOST"] = "LOCAL"
+    assert p.to_python == os.path.join("gen-dataframe", "to-py")
+
+def test_as_python():
+    p = Paths()
+    os.environ["REACT_APP_HOST"] = "LOCAL"
+    assert p.as_python == os.path.join("gen-dataframe", "generated.py")

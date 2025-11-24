@@ -1,9 +1,20 @@
-flask==2.3.2
-werkzeug==2.3.7
-flask_cors==4.0.0
-# for pythonanywhere
-python-dotenv==1.0.0
-# testing
+autopep8==2.3.2
+blinker==1.9.0
+click==8.3.1
+coverage==7.12.0
+Flask==2.3.2
+Flask-Cors==4.0.0
+iniconfig==2.3.0
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+nodeenv==1.9.1
+packaging==25.0
+pluggy==1.6.0
+pycodestyle==2.14.0
+pyright==1.1.407
 pytest==7.4.3
 pytest-cov==4.1.0
-
+python-dotenv==1.0.0
+typing_extensions==4.15.0
+Werkzeug==2.3.7

@@ -4,7 +4,7 @@ import os
 from subprocess import CompletedProcess, run
 import sys
 from tempfile import NamedTemporaryFile 
-from typing import Literal, Union
+from typing import IO, Literal
 
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.put("/analyse")
-def analyse() -> tuple[Response, str | Literal[HTTPStatus.BAD_REQUEST]]:
+def analyse() -> Response | tuple[str, Literal[HTTPStatus.BAD_REQUEST]]:
     raw_code : str = request.get_json()
     errors   : tuple[str, int] | None = program_errors(raw_code)
     if errors is not None:
@@ -33,7 +33,7 @@ def analyse() -> tuple[Response, str | Literal[HTTPStatus.BAD_REQUEST]]:
 
 def program_errors(
     raw_code : str
-) -> Union[str | Literal[HTTPStatus.BAD_REQUEST], None]:
+) -> tuple[str, Literal[HTTPStatus.BAD_REQUEST]] | None:
     """Check the given raw code for any errors.
     Return None if there were no errors.
     Otherwise return a tuple of error desciprtion and status code."""
@@ -62,7 +62,7 @@ signal(
         timed_out : bool = bool(timeout.returncode)
     return timed_out
 
-def temp_print(data : str, file : NamedTemporaryFile) -> None:
+def temp_print(data : str, file : IO[str]) -> None:
     print(data, file=file, end="", flush=True)
     file.seek(0)
 
@@ -77,7 +77,7 @@ def sanity(raw_code : str) -> CompletedProcess:
     Return a CompletedProcess storing the status of the sanity check."""
     with NamedTemporaryFile(mode="w") as t:
         temp_print(raw_code, t)
-        commands : list[str] = ["sh", PATHS.sanity, t.name]
+        commands : list[str] = ["sh", str(PATHS.sanity), t.name]
         sanity   : CompletedProcess = run(
             commands,
             capture_output=True, text=True
