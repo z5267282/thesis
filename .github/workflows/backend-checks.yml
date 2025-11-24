@@ -1,4 +1,4 @@
-name: Backend Test Coverage
+name: Backend Pull Request Checks
 
 on:
   pull_request:
@@ -8,7 +8,8 @@ on:
       - "backend/**"
 
 jobs:
-  coverage-badge:
+  run-checks:
+    name: "Check test coverage is still 100% and no linting errors"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -22,13 +23,13 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Set up dependencies
+        run: ./setup
 
       - name: Run tests with coverage
         run: |
           ./cov -o # run coverage without running execute tests
-
-      - name: Check coverage
-        run: |
           python3 -c "import json; import sys; cov=json.load(open('coverage/coverage.json'))['totals']['percent_covered']; sys.exit(0 if abs(cov - 100.0) < 0.001 else 1)" || exit 1
+
+      - name: Check linting
+        run: ./pep8-lint -c

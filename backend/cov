@@ -2,6 +2,8 @@
 
 # usage: cov [ -[n]o execute tests ]
 
+. .venv/bin/activate
+
 # tests not involving execute
 pytest \
     --cov=src \
@@ -14,3 +16,5 @@ pytest \
 [ "$1" = '-o' ] && exit 0
 
 ./test-execute
+
+deactivate
