@@ -7,20 +7,25 @@ from line import Line
 from tree import Block, BodyBlock
 
 
-def collapse(line_graph: list[Line], program: OrderedDict[int, str],
-             root: BodyBlock) -> tuple[list[str], list[int | None], list[int]]:
+def collapse(
+    line_graph : list[Line], prev_context : list[Line],
+    program : OrderedDict[int, str], root : BodyBlock
+):
     """Collapse a program by showing indentation levels which have been
     executed.
-    Return the lines of code, line numbers and rest of path indices as
-    per the data frame specification."""
-    show: OrderedDict[int, bool] = OrderedDict(
+    Return the lines of code, line numbers and rest of path indices as 
+    per the data frame specification and a dictionary containing a mapping for where a raw line maps to in the filtered set"""
+    show : OrderedDict[int, bool] = OrderedDict(
         (line, False) for line in range(root.start, root.end + 1)
     )
 
-    graph: list[int] = [line.line_no for line in line_graph]
+    graph : list[int] = Line.to_ints(line_graph)
+    prev  : list[int] = Line.to_ints(prev_context)
 
     root.show_lines(graph, show)
-    filtered: OrderedDict[int, bool] = uniq(show)
+    root.show_lines(prev, show)
+
+    filtered : OrderedDict[int, bool] = uniq(show)
 
     for line in line_graph:
         line.range_filter_counters(filtered)
@@ -30,17 +35,17 @@ def collapse(line_graph: list[Line], program: OrderedDict[int, str],
         line: new for new, line in enumerate(filtered) if filtered[line]
     }
 
-    line_mapping = root.map_lines()
-    code = [
-        parse_line(line, program) if shown
-        else parse_blank(line, line_mapping)
+    line_mapping : dict[int, Type[Block]] = root.map_lines()
+    code : list[str] = [
+        parse_line(line, program) if shown \
+        else parse_blank(line, line_mapping) \
         for line, shown in filtered.items()
     ]
     lines: list[int | None] = [
         line if shown else None for line, shown in filtered.items()
     ]
 
-    return code, lines, [indexed_lines[g] for g in graph]
+    return code, lines, [ indexed_lines[g] for g in graph ], indexed_lines
 
 
 def parse_line(line: int, program: OrderedDict[int, str]) -> str:

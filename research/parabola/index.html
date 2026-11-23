@@ -3,54 +3,30 @@
     <head>
         <style>
             .pen {
-                stroke: black;
-                fill: transparent;
+                stroke-width: 2;
             }
         </style>
     </head>
     <body>
-        <svg id="graph"></svg>
-        <script>
-            const graph = document.getElementById("graph");
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.classList.add("pen");
+        <svg id="func" style="width : 100px; height : 500px; background-color : lightblue">
+            <!-- <path
+                d="M 50 25 l -14.875736360092228 1.92677651662824 m 14.875736360092228 -1.92677651662824 l -9.10650559086146 -11.919377329525606 m 9.10650559086146 11.919377329525606"
 
-            const L = 15;
+                class="pen" stroke="green" fill="transparent"
+            />  -->
 
-            class Delta {
-                constructor(angle) {
-                    this.dx = L * Math.sin(angle);
-                    this.dy = L * Math.cos(angle);
-                }
-            }
+            <path
+                d="M 37.5 112.5 q -60 25 0 50"
 
-            const TRACE_GRAPH_WIDTH = 30;
-            const LINE_HEIGHT = 25;
-            const D = Math.PI / 6;
+                class="pen" stroke="green" fill="transparent"
+            /> 
+            <path
+                d="M 37.5 162.5 l -14.875736360092228 1.92677651662824 m 14.875736360092228 -1.92677651662824 l -9.10650559086146 -11.919377329525606 m 9.10650559086146 11.919377329525606"
 
-            const h = 1;
-
-            const m = (4 * TRACE_GRAPH_WIDTH) / (h * LINE_HEIGHT);
-
-            const theta = Math.atan(m)
-
-            const upArrow = new Delta(theta - D);
-            const downArrow = new Delta(Math.PI - D - theta);
-
-            const coords = [
-                "M 0 0",
-                `q ${TRACE_GRAPH_WIDTH * 2} ${(h / 2) * LINE_HEIGHT} 0 ${h * LINE_HEIGHT}`,
-
-                // upArrow arrow
-                `l ${upArrow.dx} ${-1 * upArrow.dy}`,
-                `m ${-1 * upArrow.dx} ${upArrow.dy}`,
-
-                // downArrow arrow
-                `l ${downArrow.dx} ${downArrow.dy}`,
-                `m ${-1 * downArrow.dx} ${-1 * downArrow.dy}`
-            ]
-            path.setAttribute("d", coords.join(" "));
-            graph.appendChild(path);
-        </script>
+                class="pen" stroke="green" fill="transparent"
+            /> 
+        </svg>
+        <!-- <svg id="graph"></svg> -->
+        <script src="graphs.js" type="text/javascript"></script>
     </body>
 </html>

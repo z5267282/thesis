@@ -2,6 +2,7 @@
 
 # check which tests do not have their test function named after
 # their filename
+# files for which this behaviour can be ignored must be inside .funcignore
 
 check() {
     dir="$1"

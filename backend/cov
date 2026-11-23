@@ -6,6 +6,7 @@
 
 # tests not involving execute
 pytest \
+    tests/function_calls \
     --cov=src \
     --ignore=tests/execute \
     --cov-report=html \

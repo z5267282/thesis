@@ -1,10 +1,12 @@
 from collections import OrderedDict
+import re
 from typing import Callable, Type
 
 import helper
 from stack import Stack
 from tree import \
-    Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock
+    Block, CodeBlock, BodyBlock, IfBlock, ElseBlock, ElifBlock, WhileBlock, \
+    FunctionBlock
 
 from typing import cast, Iterator
 
@@ -77,7 +79,7 @@ def parse_first_line(
     first_block: Block = parse_line(line, line_no, indent_level)
     root: BodyBlock = BodyBlock(line_no, indent_level)
     stack.push(root)
-    if isinstance(first_block, (IfBlock, WhileBlock)):
+    if isinstance(first_block, (IfBlock, WhileBlock, FunctionBlock)):
         stack.push(first_block)
     elif isinstance(first_block, CodeBlock):  # pragma: no branch
         root.code_block = first_block
@@ -96,10 +98,14 @@ def parse_line(line: str, line_no: int,
         return ElifBlock(line_no, indent_level)
     if line.startswith("else"):
         return ElseBlock(line_no, indent_level)
+    if line.startswith("def"):
+        return FunctionBlock(line_no, indent_level, extract_function_name(line))
     return CodeBlock(line_no, indent_level)
 
+def extract_function_name(line : str):
+    return re.search(r"def\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\(", line).group(1)
 
-def is_skipable(line: str) -> bool:
+def is_skipable(line : str):
     """check whether a line stripped of leading spaces is a comment or blank."""
     return line == "" or line.startswith("#")
 
@@ -113,7 +119,9 @@ def parse_same_level_block(
 
     # this is the only other option
     # but for clarity we define the condition
-    if isinstance(block, (IfBlock, WhileBlock)):  # pragma: no branch
+    if isinstance(
+        block, (IfBlock, WhileBlock, FunctionBlock)
+    ): # pragma: no cover
         top.end_code_block(line_no - 1)
         top.add_same_level_block(block)
         stack.push(block)
@@ -167,7 +175,7 @@ def parse_unindented_block(
                 stack)
         # this is the only other choice
         # we write the condition for clarity
-        elif isinstance(top, WhileBlock):  # pragma: no cover
+        elif isinstance(top, (WhileBlock, FunctionBlock)): # pragma: no cover
             top.end = prev
             top = stack.pop_peek()
         handle_stack_indentation_change(block, top, stack)
