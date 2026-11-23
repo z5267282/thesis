@@ -64,9 +64,8 @@ def trace_line(
             return
 
     # state related steps
-    raw_variables : dict[str, Any] = deepcopy(frame.f_locals)
-    variables     : dict[str, Any] = {
-        var : value for var, value in raw_variables.items() \
+    variables: dict[str, Any] = {
+        var : deepcopy(value) for var, value in frame.f_locals.items() \
             if not isinstance(value, FunctionType) 
     }
 

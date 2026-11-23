@@ -44,7 +44,7 @@ def smart_trace(
                 if won is not None:
                     filtered.append(won)
                     filtered.extend(smart_trace(line_mapping, rest))
-            case WhileBlock():  # pragma no branch
+            case WhileBlock():
                 top_level_paths: list[list[Line]] = trace_while(region, block)
                 seen: list[list[Line]] = []
                 for top_level_path in top_level_paths:
@@ -55,6 +55,11 @@ def smart_trace(
                     if path not in seen:
                         filtered.extend(path)
                         seen.append(path)
+            case FunctionBlock(): # pragma no branch
+                # this will only be on the call line
+                call, rest = trace_function_call(region)
+                filtered.append(call)
+                filtered.extend(smart_trace(line_mapping, rest))
 
         i = offset
 
