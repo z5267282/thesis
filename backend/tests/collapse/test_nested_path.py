@@ -36,7 +36,7 @@ def test_nested_path():
         Line(19),
         Line(21)
     ]
-    code, lines, rest = collapse(graph, program_code, root)
+    code, lines, rest, _ = collapse(graph, [], program_code, root)
 
     assert code == [
         "i = 1",

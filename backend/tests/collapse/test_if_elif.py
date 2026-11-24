@@ -22,7 +22,7 @@ def test_if_elif():
     program_code = get_code_info(program)
 
     graph = [Line(8), Line(9), Line(11), Line(18)]
-    code, lines, rest = collapse(graph, program_code, root)
+    code, lines, rest, _ = collapse(graph, [], program_code, root)
 
     assert code == [
         "i = 0",

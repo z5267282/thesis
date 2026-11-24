@@ -29,7 +29,7 @@ def test_simple():
     program_code = get_code_info(program)
 
     graph = [Line(9)]
-    code, lines, rest = collapse(graph, program_code, root)
+    code, lines, rest, _ = collapse(graph, [], program_code, root)
 
     assert code == [
         "i = 1",

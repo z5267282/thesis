@@ -20,7 +20,7 @@ def test_to_dicts():
 
     curr = 2
     evalbox = []
-    code, lines, path = collapse([l4], program_code, root)
+    code, lines, path, _ = collapse([l4], [], program_code, root)
     frame = DataFrame(
         code, lines,
         curr, State(l4.variables, curr=l4.variables), l4.output,

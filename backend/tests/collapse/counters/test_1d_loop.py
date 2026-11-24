@@ -46,7 +46,7 @@ def test_1d_loop():
     # the graph corresponding to running the last body statement should be the
     # filtered graph, since we executed the entire program
     body_graph = filtered
-    collapse(body_graph, program_code, root)
+    collapse(body_graph, [], program_code, root)
     # counters now should have been updated
     _, condition, body = body_graph 
 

@@ -14,11 +14,11 @@ def test_first_frame():
     program_code = get_code_info(program)
 
     curr = None
-    evalbox = []
-    code, lines, path = collapse([], program_code, root)
+    code, lines, path, _ = collapse([], [], program_code, root)
     frame = DataFrame(
-        code, lines, curr, State({}, curr={}), [], path, [], evalbox
+        code, lines, curr, State({}, curr={}), [], path, None, [], [], {}
     )
+    print(path)
 
     assert frame.to_dict() == {
         "code"     : [
@@ -32,5 +32,6 @@ def test_first_frame():
         "out"      : [],
         "path"     : {"rest" : [], "start" : 0},
         "counters" : [],
-        "evalbox"  : evalbox
+        "evalbox"  : [] ,
+        "call"     : {}
     }

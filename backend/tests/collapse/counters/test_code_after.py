@@ -37,7 +37,7 @@ def test_code_after():
     program_code = get_code_info(program)
     # use the graph up to body of loop
     body_graph = filtered[:-1]
-    collapse(body_graph, program_code, root)
+    collapse(body_graph, [], program_code, root)
     # counters now should have been updated
     _, condition, body, after_loop = filtered 
 
