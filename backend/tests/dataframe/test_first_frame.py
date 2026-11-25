@@ -13,10 +13,9 @@ def test_first_frame():
     root = parse(program)
     program_code = get_code_info(program)
 
-    curr = None
     code, lines, path, _ = collapse([], [], program_code, root)
     frame = DataFrame(
-        code, lines, curr, State({}, curr={}), [], path, None, [], [], {}
+        code, lines, None, State({}, curr={}), [], path, None, [], [], {}
     )
     print(path)
 
@@ -27,7 +26,7 @@ def test_first_frame():
             "print(f\"{name} has {money} dollars\")"
         ],
         "lines"    : [2, 3, 4],
-        "curr"     : curr,
+        "curr"     : None,
         "vars"     : [],
         "out"      : [],
         # the first dataframe has no previously traced lines

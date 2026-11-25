@@ -24,7 +24,7 @@ def test_first_line():
     frame = DataFrame(
         code, lines,
         curr, State(variables, curr=variables),
-        output, path, counters, evalbox
+        output, path, 0, counters, evalbox, {}
     )
     assert frame.to_dict() == {
         "code"     : [
@@ -36,8 +36,8 @@ def test_first_line():
         "curr"     : curr,
         "vars"     : [{"name" : "i", "value" : "0", "changed" : False}],
         "out"      : output,
-        # this should now be changed to not include 0 as the start
-        "path"     : {"start" : 0, "rest" : path[1:]},
+        "path"     : {"start" : 0, "rest" : [1]},
         "counters" : counters,
-        "evalbox"  : evalbox
+        "evalbox"  : evalbox,
+        "call"     : {}
     }
