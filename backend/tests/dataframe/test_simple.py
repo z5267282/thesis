@@ -24,7 +24,7 @@ def test_simple():
     frame = DataFrame(
         code, lines,
         curr, State(l4.variables, curr=l4.variables), l4.output,
-        path, l4.counters, evalbox
+        path, 0, l4.counters, evalbox, {}
     )
 
     assert frame.to_dict() == {
@@ -48,7 +48,8 @@ def test_simple():
             }
         ],
         "out"      : l4.output,
-        "path"     : {"rest" : [2], "start" : 0},
+        "path"     : {"start" : 0, "rest" : [2]},
         "counters" : [],
-        "evalbox"  : evalbox
+        "evalbox"  : evalbox,
+        "call"     : {}
     }
