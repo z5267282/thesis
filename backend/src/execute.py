@@ -19,7 +19,6 @@ def trace_program(program: Callable) -> tuple[list[Line], Line]:
     buffer  : StringIO = StringIO()
     lines   : list[list[Line]] = []
     curr    : list[Line] = []
-    # this should have been an argument but not good to change function parameters now
     code    : OrderedDict[int, str] = get_code_info(program)
     output  : list[str] = []
     printed : State[str] = State("", curr="")
