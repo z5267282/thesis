@@ -12,10 +12,10 @@ from types import FrameType
 from typing import Any, Callable
 
 
-def trace_program(program: Callable) -> tuple[list[Line], Line]:
+def trace_program(program: Callable) -> list[list[Line]]:
     """Get the execution path of a program with state information at each line.
-    Return a list of Line objects representing the program's raw execution
-    path."""
+    Return a list of contexts. Each context represents code run within a 
+    function, represented as a list of Line objects."""
     buffer  : StringIO = StringIO()
     lines   : list[list[Line]] = []
     curr    : list[Line] = []
