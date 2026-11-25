@@ -30,7 +30,8 @@ def test_first_frame():
         "curr"     : curr,
         "vars"     : [],
         "out"      : [],
-        "path"     : {"rest" : [], "start" : 0},
+        # the first dataframe has no previously traced lines
+        "path"     : None,
         "counters" : [],
         "evalbox"  : [] ,
         "call"     : {}
