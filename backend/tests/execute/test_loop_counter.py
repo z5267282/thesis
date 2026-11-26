@@ -1,12 +1,3 @@
-from typing import Type
-
-from analyse import smart_trace
-from counter import Counter
-from execute import trace_program
-from line import Line
-from tree import Block, BodyBlock
-from tree_parser import parse
-
 def program():
     i = 1
     twos, sevens = 0, 0
@@ -21,26 +12,35 @@ def program():
     
     print(f"2s: {twos}, 7s: {sevens}")
 
+from typing import Type
+
+from analyse import smart_trace_all
+from counter import Counter
+from execute import trace_program
+from line import Line
+from tree import Block, BodyBlock
+from tree_parser import parse
+
 def test_loop_counter():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    lines, _ = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, lines)
+    lines = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, lines)
 
-    assert len(filtered) == 12
+    assert len(filtered) == 13
 
-    assert filtered[0].line_no == 12
-    assert filtered[1].line_no == 13
-    assert filtered[2].line_no == 20
-    assert filtered[3].line_no == 13
-    assert filtered[4].line_no == 14
-    assert filtered[5].line_no == 16
-    assert filtered[6].line_no == 20
-    assert filtered[7].line_no == 13
-    assert filtered[8].line_no == 17
-    assert filtered[9].line_no == 19
-    assert filtered[10].line_no == 20
-    assert filtered[11].line_no == 22
+    assert filtered[0].line_no == 3
+    assert filtered[1].line_no == 4
+    assert filtered[2].line_no == 11
+    assert filtered[3].line_no == 4
+    assert filtered[4].line_no == 5
+    assert filtered[5].line_no == 7
+    assert filtered[6].line_no == 11
+    assert filtered[7].line_no == 4
+    assert filtered[8].line_no == 8
+    assert filtered[9].line_no == 10
+    assert filtered[10].line_no == 11
+    assert filtered[11].line_no == 13
 
     # first line
     assert len(filtered[0].counters) == 0
@@ -100,3 +100,5 @@ def test_loop_counter():
 
     # end of program
     assert len(filtered[11].counters) == 0
+
+    assert filtered[12] == Line(13, event="return")
