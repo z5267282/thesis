@@ -19,7 +19,7 @@ class Line:
     
     def __repr__(self) -> str: # pragma: no cover
         """Return a simple representation to assist with debugging asserts."""
-        return str(self.line_no)
+        return f'{str(self.line_no)}:{self.event}'
     
     def __eq__(self, other: object) -> bool:
         return isinstance(other, Line) \
