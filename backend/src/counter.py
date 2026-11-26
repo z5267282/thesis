@@ -19,9 +19,9 @@ class Counter:
         return f"({self.iteration}/{self.total}) : {self.while_}"
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, Counter):
-            return self.iteration == other.iteration and self.total == other.total
-        return False
+        return isinstance(other, Counter) \
+            and self.iteration == other.iteration \
+            and self.total == other.total
 
     def __ne__(self, other: object) -> bool:
         return not self == other
