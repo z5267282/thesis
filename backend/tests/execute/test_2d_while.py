@@ -13,6 +13,7 @@ def program():
 from typing import Type
 
 from analyse import smart_trace_all
+from counter import Counter
 from execute import trace_program
 from line import Line
 from tree import Block, BodyBlock
@@ -25,32 +26,29 @@ def test_2d_while():
     filtered, = smart_trace_all(line_mapping, lines)
     
     assert len(filtered) == 7
+    top_level, \
+        outer_cond, outer_pre, \
+        inner_cond, inner_block, \
+        outer_post, outer_cond_end = filtered
 
-    assert filtered[0].line_no == 3
+    assert top_level == Line(3)
 
     # this is the only path through the program
-    assert filtered[1].line_no == 4
-    assert len(filtered[1].counters) == 1
-    assert filtered[1].counters[0].iteration == 1
-    assert filtered[1].counters[0].total == 3
+    assert outer_cond == Line(4)
+    assert outer_cond.counters == [Counter(1, 3, line_mapping[4])]
 
-    assert filtered[2].line_no == 5
-    assert len(filtered[2].counters)
-    assert filtered[2].counters[0].iteration == 1
-    assert filtered[2].counters[0].total == 3
+    assert outer_pre == Line(5)
+    assert outer_pre.counters == [Counter(1, 3, line_mapping[4])]
 
     # two counters for nested loop
-    assert filtered[3].line_no == 6
-    assert len(filtered[3].counters) == 2
-    assert filtered[3].counters[0].iteration == 1
-    assert filtered[3].counters[0].total == 3
+    assert inner_cond == Line(6) 
+    assert inner_cond.counters == [
+        Counter(1, 3, line_mapping[4]), Counter(1, 3, line_mapping[6])
+    ]
 
-    assert filtered[3].counters[1].iteration == 1
-    assert filtered[3].counters[1].total == 3
-
-    assert filtered[4].line_no == 8
-    assert filtered[5].line_no == 11
+    assert inner_block == Line(8)
+    assert outer_post == Line(11)
 
     # the outter while evaluates to false and that's the last line run in 
     # the program, hence a return is hit
-    assert filtered[6] == Line(4, event="return")
+    assert outer_cond_end == Line(4, event="return")
