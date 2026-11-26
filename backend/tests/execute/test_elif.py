@@ -1,11 +1,3 @@
-from typing import Type
-
-from analyse import smart_trace
-from execute import trace_program
-from line import Line
-from tree import Block, BodyBlock
-from tree_parser import parse
-
 def program():
     i = 15
     if i % 2 == 0:
@@ -14,14 +6,21 @@ def program():
         print("woot a five")
         print(":)")
 
+from typing import Type
+
+from analyse import smart_trace_all
+from execute import trace_program
+from line import Line
+from tree import Block, BodyBlock
+from tree_parser import parse
+
 def test_elif():
-    root : BodyBlock = parse(program)
-    line_mapping : dict[int, Type[Block]] = root.map_lines()
-    lines, _ = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, lines)
+    root = parse(program)
+    line_mapping = root.map_lines()
+    lines = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, lines)
 
-    assert len(filtered) == 3
-
-    assert filtered[0].line_no == 10
-    assert filtered[1].line_no == 13
-    assert filtered[2].line_no == 15
+    assert filtered == [
+        Line(2), Line(5), Line(7),
+        Line(7, event="return")
+    ]
