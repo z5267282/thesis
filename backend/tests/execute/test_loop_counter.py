@@ -22,13 +22,12 @@ from tree import Block, BodyBlock
 from tree_parser import parse
 
 def test_loop_counter():
-    root : BodyBlock = parse(program)
-    line_mapping : dict[int, Type[Block]] = root.map_lines()
+    root = parse(program)
+    line_mapping = root.map_lines()
     lines = trace_program(program)
     filtered, = smart_trace_all(line_mapping, lines)
 
     assert len(filtered) == 13
-
     assert filtered == [
         # top level
         Line(3),
@@ -41,7 +40,6 @@ def test_loop_counter():
         # end of program
         Line(13), Line(13, event="return")
     ]
-
     assert [ f.counters for f in filtered ] == [
         # top level
         [],
