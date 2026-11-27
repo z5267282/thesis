@@ -29,76 +29,28 @@ def test_loop_counter():
 
     assert len(filtered) == 13
 
-    assert filtered[0].line_no == 3
-    assert filtered[1].line_no == 4
-    assert filtered[2].line_no == 11
-    assert filtered[3].line_no == 4
-    assert filtered[4].line_no == 5
-    assert filtered[5].line_no == 7
-    assert filtered[6].line_no == 11
-    assert filtered[7].line_no == 4
-    assert filtered[8].line_no == 8
-    assert filtered[9].line_no == 10
-    assert filtered[10].line_no == 11
-    assert filtered[11].line_no == 13
+    assert filtered == [
+        # top level
+        Line(3),
+        # first path: skip to end
+        Line(4), Line(11),
+        # if branch
+        Line(4), Line(5), Line(7), Line(11),
+        # elif branch
+        Line(4), Line(8), Line(10), Line(11),
+        # end of program
+        Line(13), Line(13, event="return")
+    ]
 
-    # first line
-    assert len(filtered[0].counters) == 0
-
-    # first path: skip to end
-    assert len(filtered[1].counters) == 1
-    counter : Counter = filtered[1].counters[0]
-    assert counter.iteration == 1
-    assert counter.total == 7
-
-    assert len(filtered[2].counters) == 1
-    counter = filtered[2].counters[0]
-    assert counter.iteration == 1
-    assert counter.total == 7
-
-    # if branch
-    assert len(filtered[3].counters) == 1
-    counter = filtered[3].counters[0]
-    assert counter.iteration == 2
-    assert counter.total == 7
-
-    assert len(filtered[4].counters) == 1
-    counter = filtered[4].counters[0]
-    assert counter.iteration == 2
-    assert counter.total == 7
-
-    assert len(filtered[5].counters) == 1
-    counter = filtered[5].counters[0]
-    assert counter.iteration == 2
-    assert counter.total == 7
-
-    assert len(filtered[6].counters) == 1
-    counter = filtered[6].counters[0]
-    assert counter.iteration == 2
-    assert counter.total == 7
-
-    # elif branch
-    assert len(filtered[7].counters) == 1
-    counter = filtered[7].counters[0]
-    assert counter.iteration == 7
-    assert counter.total == 7
-
-    assert len(filtered[8].counters) == 1
-    counter = filtered[8].counters[0]
-    assert counter.iteration == 7
-    assert counter.total == 7
-
-    assert len(filtered[9].counters) == 1
-    counter = filtered[9].counters[0]
-    assert counter.iteration == 7
-    assert counter.total == 7
-
-    assert len(filtered[10].counters) == 1
-    counter = filtered[10].counters[0]
-    assert counter.iteration == 7
-    assert counter.total == 7
-
-    # end of program
-    assert len(filtered[11].counters) == 0
-
-    assert filtered[12] == Line(13, event="return")
+    assert [ f.counters for f in filtered ] == [
+        # top level
+        [],
+        # first path: skip to end
+        [Counter(1, 7, line_mapping[4])], [Counter(1, 7, line_mapping[4])],
+        # if branch
+        [Counter(2, 7, line_mapping[4])], [Counter(2, 7, line_mapping[4])], [Counter(2, 7, line_mapping[4])], [Counter(2, 7, line_mapping[4])],
+        # elif branch
+        [Counter(7, 7, line_mapping[4])], [Counter(7, 7, line_mapping[4])], [Counter(7, 7, line_mapping[4])], [Counter(7, 7, line_mapping[4])],
+        # end of program
+        [], []
+    ]

@@ -18,6 +18,9 @@ class Counter:
     def __str__(self) -> str:
         return f"({self.iteration}/{self.total}) : {self.while_}"
 
+    def __repr__(self) -> str:
+        return f"iter={self.iteration},total={self.total}"
+
     def __eq__(self, other: object) -> bool:
         return isinstance(other, Counter) \
             and self.iteration == other.iteration \
