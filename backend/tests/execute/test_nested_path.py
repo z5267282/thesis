@@ -1,12 +1,3 @@
-from typing import Type
-
-from analyse import smart_trace
-from counter import Counter
-from execute import trace_program
-from line import Line
-from tree import Block, BodyBlock
-from tree_parser import parse
-
 def program():
     i = 0
     while i < 10:
@@ -21,45 +12,49 @@ def program():
         
         i += 1
 
+from typing import Type
+
+from analyse import smart_trace_all
+from counter import Counter
+from execute import trace_program
+from line import Line
+from tree import Block, BodyBlock
+from tree_parser import parse
+
 def test_nested_path():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    lines, _ = trace_program(program)
-
-    filtered : list[Line] = smart_trace(line_mapping, lines)
-
-    # check length first
-    first = [Line(11)]
-    no_branch = [Line(12), Line(22)]
-    first_branch = [Line(12), Line(13), Line(14), Line(22)]
-    second_branch = [
-        Line(12), Line(15), Line(17),
-        # while loop
-        Line(18), Line(20),
-        # incrementation
-        Line(22)
+    lines = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, lines)
+    assert filtered == [
+        Line(2),
+        # no branch taken
+        Line(3), Line(13),
+        # if branch
+        Line(3), Line(4), Line(5), Line(13),
+        # elif taken
+        Line(3), Line(6), Line(8),
+            # inner while
+            Line(9), Line(11),
+        # end of elif
+        Line(13),
+        Line(3, event="return")
     ]
-    assert filtered == first + no_branch + first_branch + second_branch
 
-    # now check counters
-    first_iter_outer = [Counter(1, 10, None)]
-    assert filtered[1].counters == first_iter_outer
-    assert filtered[2].counters == first_iter_outer
+    outer_while = line_mapping[3]
+    inner_while = line_mapping[9]
 
-    fourth_iter_outer = [Counter(4, 10, None)]
-    assert filtered[3].counters == fourth_iter_outer
-    assert filtered[4].counters == fourth_iter_outer
-    assert filtered[5].counters == fourth_iter_outer
-    assert filtered[6].counters == fourth_iter_outer
-
-    ninth_iter_outer = [Counter(9, 10, None)]
-    assert filtered[7].counters == ninth_iter_outer
-    assert filtered[8].counters == ninth_iter_outer
-    assert filtered[9].counters == ninth_iter_outer
-
-    first_iter_inner = [Counter(1, 4, None)]
-    inner_exp = ninth_iter_outer + first_iter_inner
-    assert filtered[10].counters == inner_exp
-    assert filtered[11].counters == inner_exp
-
-    assert filtered[12].counters == ninth_iter_outer
+    assert [ f.counters for f in filtered ] == [
+        [],
+        # no branch taken
+        [Counter(1, 10, outer_while)], [Counter(1, 10, outer_while)],
+        # if branch
+        [Counter(4, 10, outer_while)], [Counter(4, 10, outer_while)], [Counter(4, 10, outer_while)], [Counter(4, 10, outer_while)],
+        # elif taken
+        [Counter(9, 10, outer_while)], [Counter(9, 10, outer_while)], [Counter(9, 10, outer_while)],
+            # inner while
+            [Counter(9, 10, inner_while), Counter(1, 4, inner_while)], [Counter(9, 10, inner_while), Counter(1, 4, inner_while)],
+        # end of elif
+        [Counter(9, 10, outer_while)],
+        []
+    ]
