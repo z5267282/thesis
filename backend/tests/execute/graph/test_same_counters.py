@@ -20,7 +20,7 @@ def program():
 
 from typing import Type
 
-from analyse import smart_trace
+from analyse import smart_trace_all
 from graph import generate_graphs
 from line import Line
 from execute import trace_program
@@ -30,8 +30,8 @@ from tree_parser import parse
 def test_same_counters():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines, _ = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, all_lines)
+    all_lines = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, all_lines)
 
     assert filtered == [
         Line(3),
@@ -46,7 +46,7 @@ def test_same_counters():
         Line(4), Line(8), Line(10), Line(12), Line(13),
         Line(15), Line(17),
 
-        Line(19)
+        Line(19), Line(19, event="return")
     ]
 
     iter1, iter2 = filtered[1], filtered[6]
@@ -104,7 +104,8 @@ def test_same_counters():
             Line(3), Line(4), Line(8), Line(10), Line(12),
             Line(17)
         ],
-        [Line(3), Line(19)]
+        [Line(3), Line(19)],
+        [Line(3), Line(19), Line(19, event="return")]
     ]
 
     graph1, graph2 = line_graphs[1], line_graphs[6]
