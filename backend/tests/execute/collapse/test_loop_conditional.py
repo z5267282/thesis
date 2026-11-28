@@ -21,7 +21,7 @@ def program():
 from collections import OrderedDict
 from typing import Type
 
-from analyse import smart_trace
+from analyse import smart_trace_all
 from collapse import collapse
 from graph import generate_graphs
 from helper import get_code_info
@@ -33,8 +33,8 @@ from tree_parser import parse
 def test_on_while_line():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines, _ = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, all_lines)
+    all_lines = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
 
@@ -44,7 +44,7 @@ def test_on_while_line():
     ]
 
     _, graph = line_graphs[:2]
-    _, lines, _ = collapse(graph, program_code, root)
+    _, lines, _, _ = collapse(graph, [], program_code, root)
     _, curr = graph
     assert len(curr.counters) == 1
     counter, = curr.counters
@@ -57,8 +57,8 @@ def test_on_while_line():
 def test_inside_while():
     root : BodyBlock = parse(program)
     line_mapping : dict[int, Type[Block]] = root.map_lines()
-    all_lines, _ = trace_program(program)
-    filtered : list[Line] = smart_trace(line_mapping, all_lines)
+    all_lines  = trace_program(program)
+    filtered, = smart_trace_all(line_mapping, all_lines)
     line_graphs : list[list[Line]] = generate_graphs(filtered, line_mapping)
     program_code : OrderedDict[int, str] = get_code_info(program)
 
@@ -69,7 +69,7 @@ def test_inside_while():
     ]
 
     _, _, graph = line_graphs[:3]
-    _, lines, _ = collapse(graph, program_code, root)
+    _, lines, _, _ = collapse(graph, [], program_code, root)
 
     assert lines == [
         2,
